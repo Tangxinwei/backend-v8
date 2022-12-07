@@ -1,7 +1,7 @@
 set VERSION=%1
 
 echo =============before npm install
-npm install .
+call npm install .
 echo ============after npm install
 
 cd %HOMEPATH%
