@@ -28,6 +28,9 @@ call gclient sync
 @REM call git apply --cached --reject %GITHUB_WORKSPACE%\patches\builtins-puerts.patches
 @REM call git checkout -- .
 
+echo ====== [Patching V8 no_cache]===========
+node %~dp0\node-script\do-gitpatch.js -p %~dp0\patches\export_no_cache.patch
+
 echo =====[ Make dynamic_crt ]=====
 node %~dp0\node-script\rep.js  build\config\win\BUILD.gn
 

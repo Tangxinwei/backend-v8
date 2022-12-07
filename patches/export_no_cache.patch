@@ -1,0 +1,81 @@
+From 4b0de3a59b691bc59e986f6ef9e9fcea4c8172f3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?xinweitang=28=E5=94=90=E6=98=95=E7=82=9C=29?=
+ <xinweitang@tencent.com>
+Date: Wed, 7 Dec 2022 20:06:46 +0800
+Subject: [PATCH] export no_cache
+
+---
+ include/v8.h   | 6 ++++--
+ src/api/api.cc | 8 ++++----
+ 2 files changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/include/v8.h b/include/v8.h
+index 18d72f1630..62e68dccc7 100644
+--- a/include/v8.h
++++ b/include/v8.h
+@@ -6417,6 +6417,8 @@ class CFunction;
+  * include/v8-fast-api-calls.h. Please note that this feature is still
+  * experimental.
+  */
++#define PUERTS_ENABLE_FUNCTIONTEMPLATE_NOCACHE 1
++
+ class V8_EXPORT FunctionTemplate : public Template {
+  public:
+   /** Creates a function template.*/
+@@ -6426,7 +6428,7 @@ class V8_EXPORT FunctionTemplate : public Template {
+       Local<Signature> signature = Local<Signature>(), int length = 0,
+       ConstructorBehavior behavior = ConstructorBehavior::kAllow,
+       SideEffectType side_effect_type = SideEffectType::kHasSideEffect,
+-      const CFunction* c_function = nullptr);
++      const CFunction* c_function = nullptr, bool no_cache = false);
+ 
+   /**
+    * Creates a function template backed/cached by a private property.
+@@ -6435,7 +6437,7 @@ class V8_EXPORT FunctionTemplate : public Template {
+       Isolate* isolate, FunctionCallback callback,
+       Local<Private> cache_property, Local<Value> data = Local<Value>(),
+       Local<Signature> signature = Local<Signature>(), int length = 0,
+-      SideEffectType side_effect_type = SideEffectType::kHasSideEffect);
++      SideEffectType side_effect_type = SideEffectType::kHasSideEffect, bool no_cache = false);
+ 
+   /** Returns the unique function instance in the current execution context.*/
+   V8_WARN_UNUSED_RESULT MaybeLocal<Function> GetFunction(
+diff --git a/src/api/api.cc b/src/api/api.cc
+index 93780bceec..c81b2d822a 100644
+--- a/src/api/api.cc
++++ b/src/api/api.cc
+@@ -1416,14 +1416,14 @@ static Local<FunctionTemplate> FunctionTemplateNew(
+ Local<FunctionTemplate> FunctionTemplate::New(
+     Isolate* isolate, FunctionCallback callback, v8::Local<Value> data,
+     v8::Local<Signature> signature, int length, ConstructorBehavior behavior,
+-    SideEffectType side_effect_type, const CFunction* c_function) {
++    SideEffectType side_effect_type, const CFunction* c_function, bool no_cache) {
+   i::Isolate* i_isolate = reinterpret_cast<i::Isolate*>(isolate);
+   // Changes to the environment cannot be captured in the snapshot. Expect no
+   // function templates when the isolate is created for serialization.
+   LOG_API(i_isolate, FunctionTemplate, New);
+   ENTER_V8_NO_SCRIPT_NO_EXCEPTION(i_isolate);
+   auto templ =
+-      FunctionTemplateNew(i_isolate, callback, data, signature, length, false,
++      FunctionTemplateNew(i_isolate, callback, data, signature, length, no_cache,
+                           Local<Private>(), side_effect_type, c_function);
+   if (behavior == ConstructorBehavior::kThrow) templ->RemovePrototype();
+   return templ;
+@@ -1432,12 +1432,12 @@ Local<FunctionTemplate> FunctionTemplate::New(
+ Local<FunctionTemplate> FunctionTemplate::NewWithCache(
+     Isolate* isolate, FunctionCallback callback, Local<Private> cache_property,
+     Local<Value> data, Local<Signature> signature, int length,
+-    SideEffectType side_effect_type) {
++    SideEffectType side_effect_type, bool no_cache) {
+   i::Isolate* i_isolate = reinterpret_cast<i::Isolate*>(isolate);
+   LOG_API(i_isolate, FunctionTemplate, NewWithCache);
+   ENTER_V8_NO_SCRIPT_NO_EXCEPTION(i_isolate);
+   return FunctionTemplateNew(i_isolate, callback, data, signature, length,
+-                             false, cache_property, side_effect_type);
++                             no_cache, cache_property, side_effect_type);
+ }
+ 
+ Local<Signature> Signature::New(Isolate* isolate,
+-- 
+2.38.1.windows.1
+

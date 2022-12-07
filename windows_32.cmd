@@ -31,6 +31,9 @@ call gclient sync
 @REM issue #4
 node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\intrin.patch
 
+echo ====== [Patching V8 no_cache]===========
+node %~dp0\node-script\do-gitpatch.js -p %~dp0\patches\export_no_cache.patch
+
 echo =====[ add ArrayBuffer_New_Without_Stl ]=====
 node %~dp0\node-script\add_arraybuffer_new_without_stl.js .
 
