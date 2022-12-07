@@ -1,6 +1,8 @@
 set VERSION=%1
 
+echo =============before npm install
 npm install .
+echo ============after npm install
 
 cd %HOMEPATH%
 echo =====[ Getting Depot Tools ]=====
