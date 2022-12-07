@@ -1,6 +1,8 @@
 VERSION=$1
 [ -z "$GITHUB_WORKSPACE" ] && GITHUB_WORKSPACE="$( cd "$( dirname "$0" )"/.. && pwd )"
 
+npm install .
+
 sudo apt-get install -y \
     pkg-config \
     git \
