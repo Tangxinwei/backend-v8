@@ -25,12 +25,14 @@ gclient sync
 # git apply --cached $GITHUB_WORKSPACE/patches/builtins-puerts.patches
 # git checkout -- .
 
-echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
-node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
+
 echo "=====[ add jitless_optimization_v ]====="
 echo ${GITHUB_WORKSPACE}/node-script/do-gitpatch.js
 node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/jitless_optimization_v$VERSION.patch
 git diff src/execution/runtime-profiler.cc
+
+echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
+node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
 echo "=====[ Building V8 ]====="
 python ./tools/dev/v8gen.py arm64.release -vv -- '
