@@ -1,4 +1,4 @@
-name: build v8 8.4
+name: build v8 8.4_ios
 
 on: 
   workflow_dispatch:
