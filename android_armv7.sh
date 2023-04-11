@@ -66,6 +66,7 @@ strip_debug_info = false
 symbol_level=1
 use_custom_libcxx=false
 use_custom_libcxx_for_host=true
+v8_enable_pointer_compression=true
 '
 ninja -C out.gn/arm.release -t clean
 ninja -C out.gn/arm.release wee8
