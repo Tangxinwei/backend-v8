@@ -35,7 +35,7 @@ echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
 node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
 echo "=====[ Building V8 ]====="
-python ./tools/dev/v8gen.py arm64.release -vv -- '
+python ./tools/dev/v8gen.py arm64.debug -vv -- '
 v8_use_external_startup_data = true
 v8_use_snapshot = true
 v8_enable_i18n_support = false
@@ -49,13 +49,13 @@ libcxx_abi_unstable = false
 strip_debug_info=false
 symbol_level=2
 '
-ninja -C out.gn/arm64.release -t clean
-ninja -C out.gn/arm64.release wee8
-strip -S out.gn/arm64.release/obj/libwee8.a
+ninja -C out.gn/arm64.debug -t clean
+ninja -C out.gn/arm64.debug wee8
+strip -S out.gn/arm64.debug/obj/libwee8.a
 
-node $GITHUB_WORKSPACE/node-script/genBlobHeader.js "ios arm64" out.gn/arm64.release/snapshot_blob.bin
+node $GITHUB_WORKSPACE/node-script/genBlobHeader.js "ios arm64" out.gn/arm64.debug/snapshot_blob.bin
 
 mkdir -p output/v8/Lib/iOS/arm64
-cp out.gn/arm64.release/obj/libwee8.a output/v8/Lib/iOS/arm64/
+cp out.gn/arm64.debug/obj/libwee8.a output/v8/Lib/iOS/arm64/
 mkdir -p output/v8/Inc/Blob/iOS/arm64
 cp SnapshotBlob.h output/v8/Inc/Blob/iOS/arm64/
