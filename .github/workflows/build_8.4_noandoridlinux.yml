@@ -1,4 +1,4 @@
-name: build v8 8.4_noandroid
+name: build v8 8.4_noandroidlinux
 
 on: 
   workflow_dispatch:
