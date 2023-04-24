@@ -39,7 +39,7 @@ is_component_build = true
 strip_debug_info = true
 symbol_level=0
 libcxx_abi_unstable = false
-v8_enable_pointer_compression=false
+v8_enable_pointer_compression=true
 '
 ninja -C out.gn/x64.release -t clean
 ninja -C out.gn/x64.release v8
