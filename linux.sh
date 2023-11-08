@@ -27,7 +27,7 @@ gclient sync
 # git checkout -- .
 
 if [[ $VERSION == 11* ]]; then
-    git apply $GITHUB_WORKSPACE/patches/export_contextual.patch
+    node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/export_contextual.patch
 fi
 
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
