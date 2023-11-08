@@ -1,0 +1,22 @@
+diff --git a/gni/v8.gni b/gni/v8.gni
+index e2505eea24e..f0cd1ed1f43 100644
+--- a/gni/v8.gni
++++ b/gni/v8.gni
+@@ -179,7 +179,7 @@ if (v8_enable_builtins_optimization == "") {
+ if (v8_enable_webassembly == "") {
+   # iOS (non-simulator) does not have executable pages for 3rd party
+   # applications yet so disable webassembly.
+-  v8_enable_webassembly = !v8_enable_lite_mode && !target_is_ios_device
++  v8_enable_webassembly = !v8_enable_lite_mode
+ }
+ assert(!(v8_enable_webassembly && v8_enable_lite_mode),
+        "Webassembly is not available in lite mode.")
+@@ -188,7 +188,7 @@ assert(!(v8_enable_webassembly && v8_enable_lite_mode),
+ if (v8_enable_turbofan == "") {
+   # iOS (non-simulator) does not have executable pages for 3rd party
+   # applications yet so disable turbofan.
+-  v8_enable_turbofan = !v8_enable_lite_mode && !target_is_ios_device
++  v8_enable_turbofan = !v8_enable_lite_mode
+ }
+ assert(v8_enable_turbofan || !v8_enable_webassembly,
+        "Webassembly is not available when Turbofan is disabled.")

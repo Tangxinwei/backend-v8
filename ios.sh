@@ -26,6 +26,7 @@ gclient sync
 # git checkout -- .
 
 if [[ $VERSION == 11* ]]; then
+    node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/ios_webassebly_set.patch
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/export_contextual.patch
 fi
 
