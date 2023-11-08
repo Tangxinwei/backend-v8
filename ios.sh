@@ -39,7 +39,6 @@ ios_enable_code_signing = false
 target_os = "ios"
 target_cpu = "arm64"
 v8_enable_pointer_compression = true
-libcxx_abi_unstable = false
 '
 ninja -C out.gn/arm64.release -t clean
 ninja -C out.gn/arm64.release wee8
