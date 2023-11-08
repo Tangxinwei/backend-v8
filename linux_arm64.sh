@@ -26,17 +26,19 @@ gclient sync
 # git apply --cached $GITHUB_WORKSPACE/patches/builtins-puerts.patches
 # git checkout -- .
 
-if [ $VERSION == 11* ]; then
+case "$VERSION" in
+11*)
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/export_contextual.patch
-fi
+    ;;
+esac
 
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
 node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
-python build/linux/sysroot_scripts/install-sysroot.py --arch=arm64
+python3 build/linux/sysroot_scripts/install-sysroot.py --arch=arm64
 
 echo "=====[ Building V8 ]====="
-python ./tools/dev/v8gen.py arm64.release -vv -- '
+python3 ./tools/dev/v8gen.py arm64.release -vv -- '
 is_debug = false
 target_cpu = "arm64"
 v8_target_cpu = "arm64"
