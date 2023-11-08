@@ -33,6 +33,10 @@ call gclient sync
 @REM call git apply --cached --reject %GITHUB_WORKSPACE%\patches\builtins-puerts.patches
 @REM call git checkout -- .
 
+if "%VERSION:~0,2%"=="11" (
+    call git apply %GITHUB_WORKSPACE%\patches\export_contextual.patch
+)
+
 echo =====[ Make dynamic_crt ]=====
 node %~dp0\node-script\rep.js  build\config\win\BUILD.gn
 

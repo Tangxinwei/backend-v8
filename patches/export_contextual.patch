@@ -1,0 +1,204 @@
+diff --git a/src/base/contextual.h b/src/base/contextual.h
+index 3b81c50d115..ee91cc9f820 100644
+--- a/src/base/contextual.h
++++ b/src/base/contextual.h
+@@ -69,13 +69,14 @@ class V8_EXPORT_PRIVATE ContextualVariable {
+   static bool HasScope() { return Top() != nullptr; }
+ 
+  private:
+-  inline static thread_local Scope* top_ = nullptr;
+-
+-#if defined(USING_V8_SHARED)
++  
++#if defined(USING_V8_SHARED) || defined(BUILDING_V8_SHARED)
+   // Hide the access to `top_` from other DLLs/libraries, since access to
+   // thread_local variables from other DLLs/libraries does not work correctly.
+   static Scope*& Top() { return ExportedTop(); }
++  inline static Scope* top_ = nullptr;
+ #else
++  inline static thread_local Scope* top_ = nullptr;
+   static Scope*& Top() { return top_; }
+ #endif
+   // Same as `Top()`, but non-inline and exported to DLLs/libraries.
+@@ -84,6 +85,13 @@ class V8_EXPORT_PRIVATE ContextualVariable {
+   static Scope*& ExportedTop();
+ };
+ 
++#if defined(USING_V8_SHARED) || defined(BUILDING_V8_SHARED)
++#define THREADLOCAL_IN_SHARED \
++      static thread_local Scope* top_ = nullptr;
++#else
++#define THREADLOCAL_IN_SHARED
++#endif
++
+ // Usage: DECLARE_CONTEXTUAL_VARIABLE(VarName, VarType)
+ #define DECLARE_CONTEXTUAL_VARIABLE(VarName, ...) \
+   struct VarName : ::v8::base::ContextualVariable<VarName, __VA_ARGS__> {}
+@@ -96,6 +104,7 @@ class V8_EXPORT_PRIVATE ContextualVariable {
+   template <>                                                          \
+   V8_EXPORT_PRIVATE typename VarName::Scope*&                          \
+   ContextualVariable<VarName, typename VarName::VarT>::ExportedTop() { \
++    THREADLOCAL_IN_SHARED                                               \
+     return top_;                                                       \
+   }                                                                    \
+   }
+diff --git a/src/compiler/turboshaft/phase.cc b/src/compiler/turboshaft/phase.cc
+index 399d227bcb6..ac3d6c76830 100644
+--- a/src/compiler/turboshaft/phase.cc
++++ b/src/compiler/turboshaft/phase.cc
+@@ -10,6 +10,8 @@
+ #include "src/compiler/turboshaft/graph-visualizer.h"
+ #include "src/diagnostics/code-tracer.h"
+ 
++EXPORT_CONTEXTUAL_VARIABLE(v8::internal::compiler::turboshaft::PipelineData)
++
+ namespace v8::internal::compiler::turboshaft {
+ 
+ void PrintTurboshaftGraph(Zone* temp_zone, CodeTracer* code_tracer,
+diff --git a/src/compiler/turboshaft/typed-optimizations-phase.cc b/src/compiler/turboshaft/typed-optimizations-phase.cc
+index 9245c070596..f717c23e741 100644
+--- a/src/compiler/turboshaft/typed-optimizations-phase.cc
++++ b/src/compiler/turboshaft/typed-optimizations-phase.cc
+@@ -8,6 +8,9 @@
+ #include "src/compiler/turboshaft/type-inference-reducer.h"
+ #include "src/compiler/turboshaft/typed-optimizations-reducer.h"
+ 
++EXPORT_CONTEXTUAL_VARIABLE(v8::internal::compiler::turboshaft::Tracing)
++EXPORT_CONTEXTUAL_VARIABLE(v8::internal::compiler::turboshaft::TypeInferenceReducerArgs)
++
+ namespace v8::internal::compiler::turboshaft {
+ 
+ void TypedOptimizationsPhase::Run(Zone* temp_zone) {
+diff --git a/src/maglev/maglev-assembler-inl.h b/src/maglev/maglev-assembler-inl.h
+index 836c1dcee9c..90354f7db09 100644
+--- a/src/maglev/maglev-assembler-inl.h
++++ b/src/maglev/maglev-assembler-inl.h
+@@ -460,11 +460,11 @@ void CheckArgs(Args&&... args) {}
+ 
+ #endif  // DEBUG
+ 
+-template <typename Descriptor, typename... Args>
++template <typename Descriptor1, typename... Args>
+ void PushArgumentsForBuiltin(MaglevAssembler* masm, std::tuple<Args...> args) {
+   std::apply(
+       [&](auto&&... stack_args) {
+-        if (Descriptor::kStackArgumentOrder == StackArgumentOrder::kDefault) {
++        if (Descriptor1::kStackArgumentOrder == StackArgumentOrder::kDefault) {
+           masm->Push(std::forward<decltype(stack_args)>(stack_args)...);
+         } else {
+           masm->PushReverse(std::forward<decltype(stack_args)>(stack_args)...);
+@@ -473,7 +473,7 @@ void PushArgumentsForBuiltin(MaglevAssembler* masm, std::tuple<Args...> args) {
+       args);
+ }
+ 
+-template <typename Descriptor>
++template <typename Descriptor1>
+ void PushArgumentsForBuiltin(MaglevAssembler* masm, std::tuple<> empty_args) {}
+ 
+ template <Builtin kBuiltin, typename... Args>
+diff --git a/src/torque/declarable.cc b/src/torque/declarable.cc
+index faf0bf268fe..5a043006b33 100644
+--- a/src/torque/declarable.cc
++++ b/src/torque/declarable.cc
+@@ -12,6 +12,8 @@
+ #include "src/torque/type-inference.h"
+ #include "src/torque/type-visitor.h"
+ 
++EXPORT_CONTEXTUAL_VARIABLE(v8::internal::torque::CurrentScope)
++
+ namespace v8 {
+ namespace internal {
+ namespace torque {
+diff --git a/src/torque/global-context.cc b/src/torque/global-context.cc
+index e7910c80f95..35f037cec96 100644
+--- a/src/torque/global-context.cc
++++ b/src/torque/global-context.cc
+@@ -4,6 +4,9 @@
+ 
+ #include "src/torque/global-context.h"
+ 
++EXPORT_CONTEXTUAL_VARIABLE(v8::internal::torque::GlobalContext)
++EXPORT_CONTEXTUAL_VARIABLE(v8::internal::torque::TargetArchitecture)
++
+ namespace v8 {
+ namespace internal {
+ namespace torque {
+diff --git a/src/torque/implementation-visitor.cc b/src/torque/implementation-visitor.cc
+index 033b0da30e7..02fcaad8c4a 100644
+--- a/src/torque/implementation-visitor.cc
++++ b/src/torque/implementation-visitor.cc
+@@ -27,6 +27,12 @@
+ #include "src/torque/types.h"
+ #include "src/torque/utils.h"
+ 
++EXPORT_CONTEXTUAL_VARIABLE(v8::internal::torque::ImplementationVisitor::LabelBindingsManager)
++EXPORT_CONTEXTUAL_VARIABLE(v8::internal::torque::ImplementationVisitor::CurrentFileStreams)
++EXPORT_CONTEXTUAL_VARIABLE(v8::internal::torque::ImplementationVisitor::CurrentReturnValue)
++EXPORT_CONTEXTUAL_VARIABLE(v8::internal::torque::ImplementationVisitor::ValueBindingsManager)
++EXPORT_CONTEXTUAL_VARIABLE(v8::internal::torque::ImplementationVisitor::CurrentCallable)
++
+ namespace v8 {
+ namespace internal {
+ namespace torque {
+diff --git a/src/torque/kythe-data.cc b/src/torque/kythe-data.cc
+index afdc1ab24dd..a27c0825453 100644
+--- a/src/torque/kythe-data.cc
++++ b/src/torque/kythe-data.cc
+@@ -4,6 +4,8 @@
+ 
+ #include "src/torque/kythe-data.h"
+ 
++EXPORT_CONTEXTUAL_VARIABLE(v8::internal::torque::KytheData)
++
+ namespace v8 {
+ namespace internal {
+ namespace torque {
+diff --git a/src/torque/source-positions.cc b/src/torque/source-positions.cc
+index 4c94093e528..b6400d1418f 100644
+--- a/src/torque/source-positions.cc
++++ b/src/torque/source-positions.cc
+@@ -6,9 +6,10 @@
+ 
+ #include <fstream>
+ #include "src/torque/utils.h"
+-
++                                                                
+ EXPORT_CONTEXTUAL_VARIABLE(v8::internal::torque::CurrentSourceFile)
+ EXPORT_CONTEXTUAL_VARIABLE(v8::internal::torque::SourceFileMap)
++EXPORT_CONTEXTUAL_VARIABLE(v8::internal::torque::CurrentSourcePosition)
+ 
+ namespace v8 {
+ namespace internal {
+diff --git a/src/torque/torque-parser.cc b/src/torque/torque-parser.cc
+index a5491a8cc25..50b5fd787d2 100644
+--- a/src/torque/torque-parser.cc
++++ b/src/torque/torque-parser.cc
+@@ -17,6 +17,8 @@
+ #include "src/torque/earley-parser.h"
+ #include "src/torque/utils.h"
+ 
++EXPORT_CONTEXTUAL_VARIABLE(v8::internal::torque::CurrentAst)
++
+ namespace v8 {
+ namespace internal {
+ namespace torque {
+@@ -2881,3 +2883,5 @@ void ParseTorque(const std::string& input) {
+ }  // namespace torque
+ }  // namespace internal
+ }  // namespace v8
++
++EXPORT_CONTEXTUAL_VARIABLE(v8::internal::torque::BuildFlags)
+\ No newline at end of file
+diff --git a/src/torque/type-oracle.cc b/src/torque/type-oracle.cc
+index 7cd9dd2a527..f15bca88ce1 100644
+--- a/src/torque/type-oracle.cc
++++ b/src/torque/type-oracle.cc
+@@ -7,6 +7,8 @@
+ #include "src/torque/type-visitor.h"
+ #include "src/torque/types.h"
+ 
++EXPORT_CONTEXTUAL_VARIABLE(v8::internal::torque::TypeOracle)
++
+ namespace v8 {
+ namespace internal {
+ namespace torque {

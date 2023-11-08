@@ -33,6 +33,10 @@ call gclient sync
 @REM call git apply --cached --reject %GITHUB_WORKSPACE%\patches\builtins-puerts.patches
 @REM call git checkout -- .
 
+if "%VERSION:~0,2%"=="11" (
+    call git apply %GITHUB_WORKSPACE%\patches\export_contextual.patch
+)
+
 @REM issue #4
 node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\intrin.patch
 

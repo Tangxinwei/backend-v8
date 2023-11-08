@@ -25,6 +25,10 @@ gclient sync
 # git apply --cached $GITHUB_WORKSPACE/patches/builtins-puerts.patches
 # git checkout -- .
 
+if [[ $VERSION == 11* ]]; then
+    git apply $GITHUB_WORKSPACE/patches/export_contextual.patch
+fi
+
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
 node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
