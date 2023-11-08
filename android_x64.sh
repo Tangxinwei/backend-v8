@@ -29,7 +29,7 @@ echo "=====[ Fetching V8 ]====="
 fetch v8
 echo "target_os = ['android']" >> .gclient
 cd ~/v8/v8
-./build/install-build-deps-android.sh
+./build/install-build-deps.sh
 git checkout refs/tags/$VERSION
 
 echo "=====[ fix DEPS ]===="
