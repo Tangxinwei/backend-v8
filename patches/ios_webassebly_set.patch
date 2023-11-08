@@ -1,3 +1,16 @@
+diff --git a/BUILD.gn b/BUILD.gn
+index 025203d66c7..a890b2a7aae 100644
+--- a/BUILD.gn
++++ b/BUILD.gn
+@@ -399,7 +399,7 @@ declare_args() {
+   # optimizations.
+   # iOS (non-simulator) does not have executable pages for 3rd party
+   # applications yet so disable jit.
+-  v8_jitless = v8_enable_lite_mode || target_is_ios_device
++  v8_jitless = v8_enable_lite_mode
+ 
+   # Enable Maglev's graph printer.
+   # Sets -DV8_ENABLE_MAGLEV_GRAPH_PRINTER.
 diff --git a/gni/v8.gni b/gni/v8.gni
 index e2505eea24e..f0cd1ed1f43 100644
 --- a/gni/v8.gni
