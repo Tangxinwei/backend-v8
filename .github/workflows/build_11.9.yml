@@ -18,13 +18,13 @@ jobs:
     name: Android (arm64-v8a)
     runs-on: ubuntu-20.04
     steps:
-    - name: use python3.9
+    - name: use python3.8
       run: |
-        sudo apt-get install python3.9
+        sudo apt-get install python3.8
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
-        export PATH=/usr/bin/python3.9:$PATH
+        export PATH=/usr/bin/python3.8:$PATH
         cd $GITHUB_WORKSPACE
         npm i
         sh ./android_armv8.sh ${{env.VERSION}}
@@ -38,13 +38,13 @@ jobs:
     name: Android (armeabi-v7a)
     runs-on: ubuntu-20.04
     steps:
-    - name: use python3.9
+    - name: use python3.8
       run: |
-        sudo apt-get install python3.9
+        sudo apt-get install python3.8
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
-        export PATH=/usr/bin/python3.9:$PATH
+        export PATH=/usr/bin/python3.8:$PATH
         cd $GITHUB_WORKSPACE
         npm i
         sh ./android_armv7.sh ${{env.VERSION}}
@@ -58,13 +58,13 @@ jobs:
     name: Android (x86_64)
     runs-on: ubuntu-20.04
     steps:
-    - name: use python3.9
+    - name: use python3.8
       run: |
-        sudo apt-get install python3.9
+        sudo apt-get install python3.8
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
-        export PATH=/usr/bin/python3.9:$PATH
+        export PATH=/usr/bin/python3.8:$PATH
         cd $GITHUB_WORKSPACE
         npm i
         sh ./android_x64.sh ${{env.VERSION}}
@@ -78,13 +78,13 @@ jobs:
     name: Linux
     runs-on: ubuntu-20.04
     steps:
-    - name: use python3.9
+    - name: use python3.8
       run: |
-        sudo apt-get install python3.9
+        sudo apt-get install python3.8
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
-        export PATH=/usr/bin/python3.9:$PATH
+        export PATH=/usr/bin/python3.8:$PATH
         cd $GITHUB_WORKSPACE
         npm i
         sh ./linux.sh ${{env.VERSION}}
@@ -98,13 +98,13 @@ jobs:
     name: Linux_arm64
     runs-on: ubuntu-20.04
     steps:
-    - name: use python3.9
+    - name: use python3.8
       run: |
-        sudo apt-get install python3.9
+        sudo apt-get install python3.8
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
-        export PATH=/usr/bin/python3.9:$PATH
+        export PATH=/usr/bin/python3.8:$PATH
         cd $GITHUB_WORKSPACE
         sh ./linux_arm64.sh ${{env.VERSION}}
         mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_11.9
