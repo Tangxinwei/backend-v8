@@ -45,6 +45,7 @@ is_component_build = true
 strip_debug_info = true
 symbol_level=0
 v8_enable_pointer_compression=true
+v8_enable_sandbox=false
 '
 ninja -C out.gn/arm64.release -t clean
 ninja -C out.gn/arm64.release v8
