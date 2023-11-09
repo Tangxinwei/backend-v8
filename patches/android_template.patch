@@ -1,0 +1,13 @@
+diff --git a/src/compiler/turboshaft/wasm-gc-type-reducer.cc b/src/compiler/turboshaft/wasm-gc-type-reducer.cc
+index 809a70198df..8d45b217214 100644
+--- a/src/compiler/turboshaft/wasm-gc-type-reducer.cc
++++ b/src/compiler/turboshaft/wasm-gc-type-reducer.cc
+@@ -114,7 +114,7 @@ void WasmGCTypeAnalyzer::CreateMergeSnapshot(const Block& block) {
+   base::SmallVector<Snapshot, 8> snapshots;
+   NeighboringPredecessorIterable iterable = block.PredecessorsIterable();
+   std::transform(iterable.begin(), iterable.end(),
+-                 std::back_insert_iterator(snapshots), [this](Block* pred) {
++                 std::back_insert_iterator<base::SmallVector<Snapshot, 8> >(snapshots), [this](Block* pred) {
+                    return block_to_snapshot_[pred->index()].value();
+                  });
+   types_table_.StartNewSnapshot(
