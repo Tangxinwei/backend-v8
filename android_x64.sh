@@ -37,6 +37,8 @@ node -e "const fs = require('fs'); fs.writeFileSync('./DEPS', fs.readFileSync('.
 
 gclient sync
 
+echo "=====[ install-build-deps-android ]====="
+./build/install-build-deps-android.sh
 
 # echo "=====[ Patching V8 ]====="
 # git apply --cached $GITHUB_WORKSPACE/patches/builtins-puerts.patches
@@ -45,6 +47,7 @@ gclient sync
 case "$VERSION" in
 11*)
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/export_contextual.patch
+    node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/android_template.patch
     ;;
 esac
 
@@ -70,7 +73,7 @@ v8_enable_pointer_compression=true
 '
 ninja -C out.gn/x64.release -t clean
 ninja -C out.gn/x64.release wee8
-third_party/android_ndk/toolchains/x86_64-4.9/prebuilt/linux-x86_64/x86_64-linux-android/bin/strip -g -S -d --strip-debug --verbose out.gn/x64.release/obj/libwee8.a
+$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip -g -S -d --strip-debug out.gn/arm64.release/obj/libwee8.a
 
 mkdir -p output/v8/Lib/Android/x64
 cp out.gn/x64.release/obj/libwee8.a output/v8/Lib/Android/x64/

@@ -29,14 +29,15 @@ echo "=====[ Fetching V8 ]====="
 fetch v8
 echo "target_os = ['android']" >> .gclient
 cd ~/v8/v8
-./build/install-build-deps.sh
+
 git checkout refs/tags/$VERSION
 
 echo "=====[ fix DEPS ]===="
 node -e "const fs = require('fs'); fs.writeFileSync('./DEPS', fs.readFileSync('./DEPS', 'utf-8').replace(\"Var('chromium_url') + '/external/github.com/kennethreitz/requests.git'\", \"'https://github.com/kennethreitz/requests'\"));"
 
 gclient sync
-
+echo "=====[ install-build-deps-android ]====="
+./build/install-build-deps-android.sh
 
 # echo "=====[ Patching V8 ]====="
 # git apply --cached $GITHUB_WORKSPACE/patches/builtins-puerts.patches
@@ -45,6 +46,7 @@ gclient sync
 case "$VERSION" in
 11*)
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/export_contextual.patch
+    node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/android_template.patch
     ;;
 esac
 
@@ -70,7 +72,7 @@ v8_enable_pointer_compression=true
 '
 ninja -C out.gn/arm64.release -t clean
 ninja -C out.gn/arm64.release wee8
-third_party/android_ndk/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64/aarch64-linux-android/bin/strip -g -S -d --strip-debug --verbose out.gn/arm64.release/obj/libwee8.a
+$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip -g -S -d --strip-debug out.gn/arm64.release/obj/libwee8.a
 
 mkdir -p output/v8/Lib/Android/arm64-v8a
 cp out.gn/arm64.release/obj/libwee8.a output/v8/Lib/Android/arm64-v8a/
