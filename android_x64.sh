@@ -73,7 +73,7 @@ v8_enable_pointer_compression=true
 '
 ninja -C out.gn/x64.release -t clean
 ninja -C out.gn/x64.release wee8
-$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip -g -S -d --strip-debug out.gn/arm64.release/obj/libwee8.a
+$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip -g -S -d --strip-debug out.gn/x64.release/obj/libwee8.a
 
 mkdir -p output/v8/Lib/Android/x64
 cp out.gn/x64.release/obj/libwee8.a output/v8/Lib/Android/x64/
