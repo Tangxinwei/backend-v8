@@ -42,6 +42,7 @@ v8_use_external_startup_data = false
 is_component_build = true
 strip_debug_info = true
 symbol_level=0
+v8_enable_sandbox=false
 v8_enable_pointer_compression=true
 '
 ninja -C out.gn/x64.release -t clean

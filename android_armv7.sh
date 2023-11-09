@@ -79,6 +79,7 @@ symbol_level=0
 use_custom_libcxx=false
 use_custom_libcxx_for_host=true
 v8_enable_pointer_compression=false
+v8_enable_sandbox=false
 '
 ninja -C out.gn/arm.release -t clean
 ninja -C out.gn/arm.release wee8
