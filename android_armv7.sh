@@ -83,7 +83,7 @@ v8_enable_sandbox=false
 '
 ninja -C out.gn/arm.release -t clean
 ninja -C out.gn/arm.release wee8
-$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip -g -S -d --strip-debug out.gn/arm.release/obj/libwee8.a
+rem $ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip -g -S -d --strip-debug out.gn/arm.release/obj/libwee8.a
 
 mkdir -p output/v8/Lib/Android/armeabi-v7a
 cp out.gn/arm.release/obj/libwee8.a output/v8/Lib/Android/armeabi-v7a/

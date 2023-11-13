@@ -65,8 +65,8 @@ use_goma = false
 v8_use_snapshot = true
 v8_use_external_startup_data = false
 v8_static_library = true
-strip_debug_info = false
-symbol_level=1
+strip_debug_info = true
+symbol_level=0
 use_custom_libcxx=false
 use_custom_libcxx_for_host=true
 v8_enable_pointer_compression=true
@@ -74,7 +74,7 @@ v8_enable_sandbox=false
 '
 ninja -C out.gn/x64.release -t clean
 ninja -C out.gn/x64.release wee8
-$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip -g -S -d --strip-debug out.gn/x64.release/obj/libwee8.a
+rem $ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip -g -S -d --strip-debug out.gn/x64.release/obj/libwee8.a
 
 mkdir -p output/v8/Lib/Android/x64
 cp out.gn/x64.release/obj/libwee8.a output/v8/Lib/Android/x64/
