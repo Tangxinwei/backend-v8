@@ -56,6 +56,8 @@ case "$VERSION" in
 11*)
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/export_contextual.patch
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/android_template.patch
+    echo "===============[replalce stack protector]"
+    node $GITHUB_WORKSPACE/node-script/replace_stackprotector.js ./build/config/compiler/BUILD.gn
     ;;
 esac
 
@@ -77,7 +79,7 @@ v8_static_library = true
 strip_absolute_paths_from_debug_symbols = false
 strip_debug_info = true
 symbol_level=0
-use_custom_libcxx=true
+use_custom_libcxx=false
 use_custom_libcxx_for_host=true
 v8_enable_pointer_compression=false
 v8_enable_sandbox=false
