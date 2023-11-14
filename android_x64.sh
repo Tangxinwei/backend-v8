@@ -48,8 +48,6 @@ case "$VERSION" in
 11*)
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/export_contextual.patch
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/android_template.patch
-    echo "===============[replalce stack protector]"
-    node $GITHUB_WORKSPACE/node-script/replace_stackprotector.js ./build/config/compiler/BUILD.gn
     ;;
 esac
 
@@ -58,6 +56,7 @@ node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
 echo "=====[ Building V8 ]====="
 python3 ./tools/dev/v8gen.py x64.release -vv -- '
+is_clang = true
 target_os = "android"
 target_cpu = "x64"
 is_debug = false
