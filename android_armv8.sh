@@ -73,7 +73,7 @@ v8_enable_pointer_compression=true
 v8_enable_sandbox=false
 '
 ninja -C out.gn/arm64.release -t clean
-ninja -C out.gn/arm64.release wee8
+ninja -C out.gn/arm64.release -v wee8
 rem $ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip -g -S -d --strip-debug out.gn/arm64.release/obj/libwee8.a
 
 mkdir -p output/v8/Lib/Android/arm64-v8a
