@@ -56,6 +56,8 @@ case "$VERSION" in
 11*)
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/export_contextual.patch
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/android_template.patch
+    echo "===============[replalce stack protector]"
+    node $GITHUB_WORKSPACE/node-script/replace_stackprotector.js ./build/config/compiler/BUILD.gn
     ;;
 esac
 
