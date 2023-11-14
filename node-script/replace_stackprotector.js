@@ -3,9 +3,9 @@ const fs = require('fs');
 var lines = fs.readFileSync(process.argv[2], 'utf-8').split(/[\n\r]/);
 
 for(var i = 0; i < lines.length; i++) {
-    if(lines[i].indexOf("stack-protector")>=0){
-        lines[i] = ""
-    }
+    lines[i] = lines[i].replace("-fstack-protector", "-fno-stack-protector");
 }
-        
+
+console.log(`write to file ${process.argv[2]}`)
+console.log(lines.join('\n'))
 fs.writeFileSync(process.argv[2], lines.join('\n'));
