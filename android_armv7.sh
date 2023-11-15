@@ -56,6 +56,8 @@ case "$VERSION" in
 11*)
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/export_contextual.patch
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/android_template.patch
+    echo "===============[replalce stack protector]"
+    node $GITHUB_WORKSPACE/node-script/replace_stackprotector.js ./build/config/compiler/BUILD.gn
     ;;
 esac
 
@@ -64,6 +66,7 @@ node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
 echo "=====[ Building V8 ]====="
 python3 ./tools/dev/v8gen.py arm.release -vv -- '
+is_clang = true
 target_os = "android"
 target_cpu = "arm"
 is_debug = false
@@ -83,7 +86,7 @@ v8_enable_sandbox=false
 '
 ninja -C out.gn/arm.release -t clean
 ninja -C out.gn/arm.release wee8
-$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip -g -S -d --strip-debug out.gn/arm.release/obj/libwee8.a
+# $ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip -g -S -d --strip-debug out.gn/arm.release/obj/libwee8.a
 
 mkdir -p output/v8/Lib/Android/armeabi-v7a
 cp out.gn/arm.release/obj/libwee8.a output/v8/Lib/Android/armeabi-v7a/

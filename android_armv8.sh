@@ -47,6 +47,8 @@ case "$VERSION" in
 11*)
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/export_contextual.patch
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/android_template.patch
+    echo "===============[replalce stack protector]"
+    node $GITHUB_WORKSPACE/node-script/replace_stackprotector.js ./build/config/compiler/BUILD.gn
     ;;
 esac
 
@@ -55,6 +57,7 @@ node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
 echo "=====[ Building V8 ]====="
 python3 ./tools/dev/v8gen.py arm64.release -vv -- '
+is_clang = true
 target_os = "android"
 target_cpu = "arm64"
 is_debug = false
@@ -64,8 +67,8 @@ use_goma = false
 v8_use_snapshot = true
 v8_use_external_startup_data = false
 v8_static_library = true
-strip_debug_info = false
-symbol_level=1
+strip_debug_info = true
+symbol_level=0
 use_custom_libcxx=false
 use_custom_libcxx_for_host=true
 v8_enable_pointer_compression=true
@@ -73,7 +76,7 @@ v8_enable_sandbox=false
 '
 ninja -C out.gn/arm64.release -t clean
 ninja -C out.gn/arm64.release wee8
-$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip -g -S -d --strip-debug out.gn/arm64.release/obj/libwee8.a
+# $ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip -g -S -d --strip-debug out.gn/arm64.release/obj/libwee8.a
 
 mkdir -p output/v8/Lib/Android/arm64-v8a
 cp out.gn/arm64.release/obj/libwee8.a output/v8/Lib/Android/arm64-v8a/
