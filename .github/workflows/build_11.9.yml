@@ -33,51 +33,11 @@ jobs:
       with:
         name: v8_bin
         path: ~/v8/v8/output/**/*
-
-  build_android_arm_v7:
-    name: Android (armeabi-v7a)
-    runs-on: ubuntu-20.04
-    steps:
-    - name: use python3.8
-      run: |
-        sudo apt-get install python3.8
-    - uses: actions/checkout@v2
-    - name: Run build script
-      run: |
-        export PATH=/usr/bin/python3.8:$PATH
-        cd $GITHUB_WORKSPACE
-        npm i
-        sh ./android_armv7.sh ${{env.VERSION}}
-        mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_11.9
-    - uses: actions/upload-artifact@v2
-      with:
-        name: v8_bin
-        path: ~/v8/v8/output/**/*
-        
-  build_android_x86_64:
-    name: Android (x86_64)
-    runs-on: ubuntu-20.04
-    steps:
-    - name: use python3.8
-      run: |
-        sudo apt-get install python3.8
-    - uses: actions/checkout@v2
-    - name: Run build script
-      run: |
-        export PATH=/usr/bin/python3.8:$PATH
-        cd $GITHUB_WORKSPACE
-        npm i
-        sh ./android_x64.sh ${{env.VERSION}}
-        mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_11.9
-    - uses: actions/upload-artifact@v2
-      with:
-        name: v8_bin
-        path: ~/v8/v8/output/**/*
         
         
   publish:
     runs-on: ubuntu-20.04
-    needs: [build_android_arm_v8,build_android_arm_v7,build_android_x86_64]
+    needs: [build_android_arm_v8]
     steps:
       - uses: actions/download-artifact@v1
         with:
