@@ -79,5 +79,5 @@ ninja -C out.gn/arm64.release wee8
 rem $ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip -g -S -d --strip-debug out.gn/arm64.release/obj/libwee8.a
 
 mkdir -p output/v8/Lib/Android/arm64-v8a
-cp out.gn/arm64.release/obj output/v8/Lib/Android/arm64-v8a/
+cp -r out.gn/arm64.release/ output/v8/Lib/Android/arm64-v8a/
 mkdir -p output/v8/Inc/Blob/Android/arm64
