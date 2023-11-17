@@ -32,6 +32,7 @@ case "$VERSION" in
     node $GITHUB_WORKSPACE/node-script/add_usecxx17.js ./build/config/compiler/BUILD.gn
     node $GITHUB_WORKSPACE/node-script/changeclang_version.js ./build/toolchain/toolchain.gni
     mv $GITHUB_WORKSPACE/node-script/update.py ./tools/clang/scripts/update.py
+    mv $GITHUB_WORKSPACE/node-script/deps_revisions.gni ./buildtools/deps_revisions.gni
     ;;
 esac
 
