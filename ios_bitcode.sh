@@ -1,6 +1,9 @@
 VERSION=$1
 [ -z "$GITHUB_WORKSPACE" ] && GITHUB_WORKSPACE="$( cd "$( dirname "$0" )"/.. && pwd )"
 
+sudo xcode-select -s /Applications/Xcode_12.4.app
+xcode-select -p
+
 cd ~
 echo "=====[ Getting Depot Tools ]====="	
 git clone -q https://chromium.googlesource.com/chromium/tools/depot_tools.git
@@ -37,6 +40,7 @@ node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
 echo "=====[ Building V8 ]====="
 python ./tools/dev/v8gen.py arm64.release -vv -- '
+ios_deployment_target = 14.4
 v8_use_external_startup_data = false
 v8_use_snapshot = true
 v8_enable_i18n_support = false
