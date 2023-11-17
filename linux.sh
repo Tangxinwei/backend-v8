@@ -30,6 +30,7 @@ case "$VERSION" in
 11*)
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/export_contextual.patch
     node $GITHUB_WORKSPACE/node-script/add_usecxx17.js ./build/config/compiler/BUILD.gn
+    node $GITHUB_WORKSPACE/node-script/changeclang_version.js ./build/toolchain/toolchain.gni
     mv $GITHUB_WORKSPACE/node-script/update.py ./tools/clang/scripts/update.py
     ;;
 esac
@@ -53,7 +54,6 @@ libcxx_abi_unstable = false
 v8_enable_pointer_compression=true
 v8_enable_sandbox=false
 use_cxx17=true
-clang_version="11"
 '
 
 ninja -C out.gn/x64.release -t clean
