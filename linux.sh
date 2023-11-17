@@ -29,6 +29,7 @@ gclient sync
 case "$VERSION" in
 11*)
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/export_contextual.patch
+    node $GITHUB_WORKSPACE/node-script/add_usecxx17.js ./build/config/compiler/BUILD.gn
     ;;
 esac
 
