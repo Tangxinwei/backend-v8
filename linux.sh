@@ -40,7 +40,7 @@ echo "=====[ clang version ]====="
 clang --version
 
 echo "=====[ Building V8 ]====="
-python3 ./tools/dev/v8gen.py x64.release -vv -- '
+python2 ./tools/dev/v8gen.py x64.release -vv -- '
 is_debug = false
 v8_enable_i18n_support= false
 v8_use_snapshot = true
