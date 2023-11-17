@@ -35,6 +35,9 @@ esac
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
 node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
+echo "=====[ clang version ]====="
+clang --version
+
 echo "=====[ Building V8 ]====="
 python3 ./tools/dev/v8gen.py x64.release -vv -- '
 is_debug = false
@@ -53,6 +56,6 @@ ninja -C out.gn/x64.release -t clean
 ninja -C out.gn/x64.release wee8
 
 mkdir -p output/v8/Lib/Linux
-cp out.gn/x64.release/obj/libwee8.a output/v8/Lib/Linux/
+cp -r out.gn/x64.release/ output/v8/Lib/Linux/
 mkdir -p output/v8/Inc/Blob/Linux
 
