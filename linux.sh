@@ -53,6 +53,7 @@ libcxx_abi_unstable = false
 v8_enable_pointer_compression=true
 v8_enable_sandbox=false
 use_cxx17=true
+clang_version="11"
 '
 
 ninja -C out.gn/x64.release -t clean
