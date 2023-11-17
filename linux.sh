@@ -30,6 +30,7 @@ case "$VERSION" in
 11*)
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/export_contextual.patch
     node $GITHUB_WORKSPACE/node-script/add_usecxx17.js ./build/config/compiler/BUILD.gn
+    mv $GITHUB_WORKSPACE/node-script/update.py ./tools/clang/scripts/update.py
     ;;
 esac
 
@@ -40,7 +41,7 @@ echo "=====[ clang version ]====="
 clang --version
 
 echo "=====[ Building V8 ]====="
-python2 ./tools/dev/v8gen.py x64.release -vv -- '
+python3 ./tools/dev/v8gen.py x64.release -vv -- '
 is_debug = false
 v8_enable_i18n_support= false
 v8_use_snapshot = true
