@@ -39,7 +39,7 @@ node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
 echo "=====[ Building V8 ]====="
 python ./tools/dev/v8gen.py x64.release -vv -- '
-ios_deployment_target = 14.4
+ios_deployment_target = "14.4"
 v8_use_external_startup_data = false
 v8_use_snapshot = true
 v8_enable_i18n_support = false
