@@ -20,6 +20,13 @@ fetch v8
 echo "target_os = ['linux']" >> .gclient
 cd ~/v8/v8
 git checkout refs/tags/$VERSION
+
+case "$VERSION" in
+11*)
+    node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/libcxxversion.patch
+    ;;
+esac
+
 gclient sync
 
 # echo "=====[ Patching V8 ]====="
@@ -38,9 +45,6 @@ esac
 
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
 node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
-
-echo "=====[ clang version ]====="
-clang --version
 
 echo "=====[ Building V8 ]====="
 python3 ./tools/dev/v8gen.py x64.release -vv -- '
