@@ -96,11 +96,11 @@ else
     v8_use_snapshot = true
     v8_use_external_startup_data = false
     v8_static_library = true
-    strip_debug_info = false
-    symbol_level=1
+    strip_debug_info = true
+    symbol_level=0
     use_custom_libcxx=false
     use_custom_libcxx_for_host=true
-    v8_enable_pointer_compression=false
+    v8_enable_pointer_compression=true
     '
 fi
 ninja -C out.gn/x64.release -t clean
