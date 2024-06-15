@@ -1,5 +1,10 @@
 set VERSION=%1
 
+if not exist %HOMEPATH% (
+    set HOMEPATH=%HOME%
+    echo set home path to %HOME%
+)
+
 cd %HOMEPATH%
 echo =====[ Getting Depot Tools ]=====
 powershell -command "Invoke-WebRequest https://storage.googleapis.com/chrome-infra/depot_tools.zip -O depot_tools.zip"
@@ -39,6 +44,9 @@ if "%VERSION%"=="9.4.146.24" (
     node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\jinja_v9.4.146.24.patch
     cd ..\..
 )
+
+echo =====[ Fix toolchain]====
+node %~dp0\node-script\fix_win_toolchain.js build\toolchain\win\setup_toolchain.py
 
 echo =====[ Make dynamic_crt ]=====
 node %~dp0\node-script\rep.js  build\config\win\BUILD.gn

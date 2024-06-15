@@ -1,5 +1,10 @@
 set VERSION=%1
 
+if not exist %HOMEPATH% (
+    set HOMEPATH=%HOME%
+    echo set home path to %HOME%
+)
+
 cd %HOMEPATH%
 echo =====[ Getting Depot Tools ]=====
 powershell -command "Invoke-WebRequest https://storage.googleapis.com/chrome-infra/depot_tools.zip -O depot_tools.zip"
@@ -44,6 +49,9 @@ if "%VERSION%"=="9.4.146.24" (
 @REM node %GITHUB_WORKSPACE%\CRLF2LF.js %GITHUB_WORKSPACE%\patches\builtins-puerts.patches
 @REM call git apply --cached --reject %GITHUB_WORKSPACE%\patches\builtins-puerts.patches
 @REM call git checkout -- .
+
+echo =====[ Fix toolchain]====
+node %~dp0\node-script\fix_win_toolchain.js build\toolchain\win\setup_toolchain.py
 
 echo =====[ Make dynamic_crt ]=====
 node %~dp0\node-script\rep.js  build\config\win\BUILD.gn
