@@ -6,11 +6,12 @@ for(var i = 0; i < lines.length; i++) {
     out.push(lines[i])
     if(lines[i] == '    for line in link.stdout:')
     {
-        out.push('      line = line.decode('utf-8')')
+        console.log('fix_win_tool_wrapper ffffffffffffffffff')
+        out.push("      line = line.decode('utf-8')")
     }else if(lines[i] == '    for line in out.splitlines():'){
-        out.push('      line = line.decode('utf-8')')
+        out.push("      line = line.decode('utf-8')")
+        console.log('fix_win_tool_wrapper ggggggggggggggggggggg')
     }
-    lines[i] = lines[i].replace("lib = map(os.path.relpath, lib)", "lib = list(map(os.path.relpath, lib))")
 }
         
 fs.writeFileSync(process.argv[2], out.join('\n'));
