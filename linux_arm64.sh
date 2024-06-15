@@ -4,7 +4,7 @@ VERSION=$1
 ISDEVELOP=$2
 [ -z "$GITHUB_WORKSPACE" ] && GITHUB_WORKSPACE="$( cd "$( dirname "$0" )"/.. && pwd )"
 
-if [ "$VERSION" == "10.6.194" ]; then 
+if [ "$VERSION" = "10.6.194" ]; then 
     sudo apt-get install -y \
         pkg-config \
         git \
@@ -40,7 +40,7 @@ if [ "$VERSION" != "10.6.194" ]; then
     cd ..
 fi
 export DEPOT_TOOLS_UPDATE=0
-if [ "$VERSION" == "10.6.194" ]; then 
+if [ "$VERSION" = "10.6.194" ]; then 
     export PATH=$(pwd)/depot_tools:$PATH
 else
     export PATH=$(pwd)/depot_tools:$(pwd)/depot_tools/.cipd_bin/2.7/bin:$PATH
@@ -62,7 +62,7 @@ gclient sync
 # git apply --cached $GITHUB_WORKSPACE/patches/builtins-puerts.patches
 # git checkout -- .
 
-if [ "$ISDEVELOP"=="1" ]; then
+if [ "$ISDEVELOP"="1" ]; then
     echo ================IsDevelop
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/custom_trace_8.4.patch
 fi
@@ -74,7 +74,7 @@ python build/linux/sysroot_scripts/install-sysroot.py --arch=arm64
 
 echo "=====[ Building V8 ]====="
 
-if [ "$VERSION" == "10.6.194" ]; then 
+if [ "$VERSION" = "10.6.194" ]; then 
     python ./tools/dev/v8gen.py arm64.release -vv -- '
     is_debug = false
     target_cpu = "arm64"

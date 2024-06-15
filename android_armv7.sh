@@ -4,7 +4,7 @@ VERSION=$1
 ISDEVELOP=$2
 [ -z "$GITHUB_WORKSPACE" ] && GITHUB_WORKSPACE="$( cd "$( dirname "$0" )"/.. && pwd )"
 
-if [ "$VERSION" == "10.6.194" ]; then 
+if [ "$VERSION" = "10.6.194" ]; then 
     sudo apt-get install -y \
         pkg-config \
         git \
@@ -69,7 +69,7 @@ gclient sync
 # echo "=====[ Patching V8 ]====="
 # git apply --cached $GITHUB_WORKSPACE/patches/builtins-puerts.patches
 # git checkout -- .
-if [ "$ISDEVELOP"=="1" ]; then
+if [ "$ISDEVELOP"="1" ]; then
     echo ================IsDevelop
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/custom_trace_8.4.patch
 fi

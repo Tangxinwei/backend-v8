@@ -4,7 +4,7 @@ VERSION=$1
 ISDEVELOP=$2
 [ -z "$GITHUB_WORKSPACE" ] && GITHUB_WORKSPACE="$( cd "$( dirname "$0" )"/.. && pwd )"
 
-if [ "$VERSION" == "10.6.194" ]; then 
+if [ "$VERSION" = "10.6.194" ]; then 
     sudo apt-get install -y \
         pkg-config \
         git \
