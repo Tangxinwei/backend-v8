@@ -1,6 +1,7 @@
 #!/bin/bash
 
 VERSION=$1
+ISDEVELOP=$2
 [ -z "$GITHUB_WORKSPACE" ] && GITHUB_WORKSPACE="$( cd "$( dirname "$0" )"/.. && pwd )"
 
 if [ "$VERSION" == "10.6.194" ]; then 
@@ -60,6 +61,10 @@ gclient sync
 # echo "=====[ Patching V8 ]====="
 # git apply --cached $GITHUB_WORKSPACE/patches/builtins-puerts.patches
 # git checkout -- .
+if [ "$ISDEVELOP"=="1" ]; then
+    echo ================IsDevelop
+    node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/custom_trace_8.4.patch
+fi
 
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
 node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .

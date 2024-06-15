@@ -1,4 +1,5 @@
 set VERSION=%1
+set ISDEVELOP=%2
 
 if not exist %HOMEPATH% (
     set HOMEPATH=%HOME%
@@ -43,6 +44,11 @@ if "%VERSION%"=="9.4.146.24" (
     cd third_party\jinja2
     node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\jinja_v9.4.146.24.patch
     cd ..\..
+)
+
+if "%ISDEVELOP%"=="1" (
+    echo ================IsDevelop
+    node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\custom_trace_8.4.patch
 )
 
 echo =====[ Fix toolchain]====

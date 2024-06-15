@@ -6,6 +6,9 @@ on:
       tag_date:
         description: 'tag date'     
         required: true
+      is_develop:
+        description: 'is build for development'
+        required: true
 
 #https://docs.google.com/document/d/1oFPHyNb_eXg6NzrE6xJDNPdJrHMZvx0LqsD6wpbd9vY/edit#heading=h.4tfb7x3beh2l
 #libwee8按设计只支持wasm，不支持js，但8.4.371.19版本尚未移除js功能，还能用，如果升级v8版本要注意
@@ -22,7 +25,7 @@ jobs:
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
-        sh ./android_armv8.sh ${{env.VERSION}}
+        sh ./android_armv8.sh ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
         name: v8_bin
@@ -36,7 +39,7 @@ jobs:
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
-        sh ./android_armv7.sh ${{env.VERSION}}
+        sh ./android_armv7.sh ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
         name: v8_bin
@@ -50,7 +53,7 @@ jobs:
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
-        sh ./android_x64.sh ${{env.VERSION}}
+        sh ./android_x64.sh ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
         name: v8_bin
@@ -64,7 +67,7 @@ jobs:
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
-        sh ./linux.sh ${{env.VERSION}}
+        sh ./linux.sh ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
         name: v8_bin
@@ -78,7 +81,7 @@ jobs:
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
-        sh ./linux_arm64.sh ${{env.VERSION}}
+        sh ./linux_arm64.sh ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
         name: v8_bin
@@ -93,7 +96,7 @@ jobs:
       shell: cmd
       run: |
         cd %GITHUB_WORKSPACE%
-        call .\windows_64.cmd ${{env.VERSION}}
+        call .\windows_64.cmd ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
         name: v8_bin
@@ -113,7 +116,7 @@ jobs:
       shell: cmd
       run: |
         cd %GITHUB_WORKSPACE%
-        call .\windows_64MD.cmd ${{env.VERSION}}
+        call .\windows_64MD.cmd ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
         name: v8_bin
@@ -128,7 +131,7 @@ jobs:
       shell: cmd
       run: |
         cd %GITHUB_WORKSPACE%
-        call .\windows_64MD_DLL.cmd ${{env.VERSION}}
+        call .\windows_64MD_DLL.cmd ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
         name: v8_bin
@@ -143,7 +146,7 @@ jobs:
       shell: cmd
       run: |
         cd %GITHUB_WORKSPACE%
-        call .\windows_32.cmd ${{env.VERSION}}
+        call .\windows_32.cmd ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
         name: v8_bin
@@ -168,7 +171,7 @@ jobs:
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
-        sh ./macos.sh ${{env.VERSION}}
+        sh ./macos.sh ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
         name: v8_bin
@@ -194,7 +197,7 @@ jobs:
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
-        sh ./macos_DLL.sh ${{env.VERSION}}
+        sh ./macos_DLL.sh ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
         name: v8_bin
@@ -220,7 +223,7 @@ jobs:
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
-        sh ./ios.sh ${{env.VERSION}}
+        sh ./ios.sh ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
         name: v8_bin
