@@ -25,6 +25,7 @@ jobs:
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
+        npm init
         sh ./android_armv8.sh ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
@@ -39,6 +40,7 @@ jobs:
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
+        npm init
         sh ./android_armv7.sh ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
@@ -53,6 +55,7 @@ jobs:
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
+        npm init
         sh ./android_x64.sh ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
@@ -67,6 +70,7 @@ jobs:
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
+        npm init
         sh ./linux.sh ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
@@ -81,6 +85,7 @@ jobs:
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
+        npm init
         sh ./linux_arm64.sh ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
@@ -96,6 +101,7 @@ jobs:
       shell: cmd
       run: |
         cd %GITHUB_WORKSPACE%
+        npm init
         call .\windows_64.cmd ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
@@ -116,6 +122,7 @@ jobs:
       shell: cmd
       run: |
         cd %GITHUB_WORKSPACE%
+        npm init
         call .\windows_64MD.cmd ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
@@ -131,6 +138,7 @@ jobs:
       shell: cmd
       run: |
         cd %GITHUB_WORKSPACE%
+        npm init
         call .\windows_64MD_DLL.cmd ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
@@ -146,6 +154,7 @@ jobs:
       shell: cmd
       run: |
         cd %GITHUB_WORKSPACE%
+        npm init
         call .\windows_32.cmd ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
@@ -171,6 +180,7 @@ jobs:
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
+        npm init
         sh ./macos.sh ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
@@ -197,6 +207,7 @@ jobs:
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
+        npm init
         sh ./macos_DLL.sh ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
@@ -223,6 +234,7 @@ jobs:
     - name: Run build script
       run: |
         cd $GITHUB_WORKSPACE
+        npm init
         sh ./ios.sh ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
