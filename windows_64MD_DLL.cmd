@@ -1,6 +1,6 @@
 set VERSION=%1
 set ISDEVELOP=%2
-
+npm install .
 if not exist %HOMEPATH% (
     set HOMEPATH=%HOME%
     echo set home path to %HOME%

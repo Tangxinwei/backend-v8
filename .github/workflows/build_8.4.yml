@@ -101,7 +101,6 @@ jobs:
       shell: cmd
       run: |
         cd %GITHUB_WORKSPACE%
-        npm install .
         call .\windows_64.cmd ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
@@ -122,7 +121,6 @@ jobs:
       shell: cmd
       run: |
         cd %GITHUB_WORKSPACE%
-        npm install .
         call .\windows_64MD.cmd ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
@@ -138,7 +136,6 @@ jobs:
       shell: cmd
       run: |
         cd %GITHUB_WORKSPACE%
-        npm install .
         call .\windows_64MD_DLL.cmd ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
@@ -154,7 +151,6 @@ jobs:
       shell: cmd
       run: |
         cd %GITHUB_WORKSPACE%
-        npm install .
         call .\windows_32.cmd ${{env.VERSION}} ${{github.event.inputs.is_develop}}
     - uses: actions/upload-artifact@v2
       with:
