@@ -153,6 +153,15 @@ jobs:
     name: macOS
     runs-on: macos-11
     steps:
+    - name: Download and install Python 2.7.18
+      run: |
+        curl -O https://www.python.org/ftp/python/2.7.18/python-2.7.18-macosx10.9.pkg
+        sudo installer -pkg python-2.7.18-macosx10.9.pkg -target /
+
+    - name: Install pip for Python 2
+      run: |
+        source $GITHUB_ENV
+        curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python2
     - uses: actions/checkout@v2
     - name: Use Xcode 11.7 to use SDK 10.15
       run: sudo xcode-select -switch "/Applications/Xcode_11.7.app"
@@ -169,6 +178,16 @@ jobs:
     name: macOS-DLL
     runs-on: macos-11
     steps:
+    - name: Download and install Python 2.7.18
+      run: |
+        curl -O https://www.python.org/ftp/python/2.7.18/python-2.7.18-macosx10.9.pkg
+        sudo installer -pkg python-2.7.18-macosx10.9.pkg -target /
+
+    - name: Install pip for Python 2
+      run: |
+        source $GITHUB_ENV
+        curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python2
+
     - uses: actions/checkout@v2
     - name: Use Xcode 11.7 to use SDK 10.15
       run: sudo xcode-select -switch "/Applications/Xcode_11.7.app"
@@ -185,6 +204,16 @@ jobs:
     name: iOS
     runs-on: macos-11
     steps:
+    - name: Download and install Python 2.7.18
+      run: |
+        curl -O https://www.python.org/ftp/python/2.7.18/python-2.7.18-macosx10.9.pkg
+        sudo installer -pkg python-2.7.18-macosx10.9.pkg -target /
+
+    - name: Install pip for Python 2
+      run: |
+        source $GITHUB_ENV
+        curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python2
+        
     - uses: actions/checkout@v2
     - name: Use Xcode 11.7 to use SDK 10.15
       run: sudo xcode-select -switch "/Applications/Xcode_11.7.app"

@@ -45,7 +45,7 @@ if [ "$VERSION" == "10.6.194" ]; then
     use_custom_libcxx=false
     '
 else
-    python ./tools/dev/v8gen.py arm64.release -vv -- '
+    python2 ./tools/dev/v8gen.py arm64.release -vv -- '
     v8_use_external_startup_data = false
     v8_use_snapshot = true
     v8_enable_i18n_support = false
