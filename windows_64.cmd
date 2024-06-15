@@ -52,6 +52,8 @@ if "%VERSION%"=="9.4.146.24" (
 
 echo =====[ Fix toolchain]====
 node %~dp0\node-script\fix_win_toolchain.js build\toolchain\win\setup_toolchain.py
+echo =====[ Fix toolwrapper]====
+node %~dp0\node-script\fix_win_tool_wrapper.js build\toolchain\win\tool_wrapper.py
 
 echo =====[ add ArrayBuffer_New_Without_Stl ]=====
 node %~dp0\node-script\add_arraybuffer_new_without_stl.js .

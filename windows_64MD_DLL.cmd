@@ -47,6 +47,8 @@ if "%VERSION%"=="9.4.146.24" (
 
 echo =====[ Fix toolchain]====
 node %~dp0\node-script\fix_win_toolchain.js build\toolchain\win\setup_toolchain.py
+echo =====[ Fix toolwrapper]====
+node %~dp0\node-script\fix_win_tool_wrapper.js build\toolchain\win\tool_wrapper.py
 
 echo =====[ Make dynamic_crt ]=====
 node %~dp0\node-script\rep.js  build\config\win\BUILD.gn
