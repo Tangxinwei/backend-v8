@@ -62,7 +62,7 @@ gclient sync
 # git apply --cached $GITHUB_WORKSPACE/patches/builtins-puerts.patches
 # git checkout -- .
 
-if [ "$ISDEVELOP"="1" ]; then
+if [ "$ISDEVELOP" = "1" ]; then
     echo ================IsDevelop
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/custom_trace_8.4.patch
 fi
