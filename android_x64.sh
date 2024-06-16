@@ -64,7 +64,7 @@ gclient sync
 # git apply --cached $GITHUB_WORKSPACE/patches/builtins-puerts.patches
 # git checkout -- .
 
-if [ "$ISDEVELOP"=="1" ]; then
+if [ "$ISDEVELOP"="1" ]; then
     echo ================IsDevelop
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/custom_trace_8.4.patch
 fi
@@ -73,7 +73,7 @@ echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
 node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
 echo "=====[ Building V8 ]====="
-if [ "$VERSION" == "10.6.194" ]; then 
+if [ "$VERSION" = "10.6.194" ]; then 
     python ./tools/dev/v8gen.py x64.release -vv -- '
     target_os = "android"
     target_cpu = "x64"
