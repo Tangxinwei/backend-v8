@@ -47,7 +47,7 @@ index 8e69fe55205..ac32fe31be0 100644
 +
  }  // namespace v8
 diff --git a/src/tracing/trace-event.h b/src/tracing/trace-event.h
-index 816e79c5232..193cf4c3425 100644
+index 816e79c5232..b402061b03c 100644
 --- a/src/tracing/trace-event.h
 +++ b/src/tracing/trace-event.h
 @@ -16,6 +16,7 @@
@@ -62,7 +62,7 @@ index 816e79c5232..193cf4c3425 100644
  #define INTERNAL_TRACE_EVENT_ADD_SCOPED(category_group, name, ...)           \
    INTERNAL_TRACE_EVENT_GET_CATEGORY_INFO(category_group);                    \
    v8::internal::tracing::ScopedTracer INTERNAL_TRACE_EVENT_UID(tracer);      \
-+  v8::internal::tracing::UEStatsScopedTracer INTERNAL_TRACE_EVENT_UID(uetracer);   \
++  v8::internal::tracing::UEStatsScopedTracer INTERNAL_TRACE_EVENT_UID(uetracer)(name);   \
    if (INTERNAL_TRACE_EVENT_CATEGORY_GROUP_ENABLED_FOR_RECORDING_MODE()) {    \
      uint64_t h = v8::internal::tracing::AddTraceEvent(                       \
          TRACE_EVENT_PHASE_COMPLETE,                                          \
@@ -70,7 +70,7 @@ index 816e79c5232..193cf4c3425 100644
                                                    bind_id, flow_flags, ...) \
    INTERNAL_TRACE_EVENT_GET_CATEGORY_INFO(category_group);                   \
    v8::internal::tracing::ScopedTracer INTERNAL_TRACE_EVENT_UID(tracer);     \
-+  v8::internal::tracing::UEStatsScopedTracer INTERNAL_TRACE_EVENT_UID(uetracer);   \
++  v8::internal::tracing::UEStatsScopedTracer INTERNAL_TRACE_EVENT_UID(uetracer)(name);   \
    if (INTERNAL_TRACE_EVENT_CATEGORY_GROUP_ENABLED_FOR_RECORDING_MODE()) {   \
      unsigned int trace_event_flags = flow_flags;                            \
      v8::internal::tracing::TraceID trace_event_bind_id(bind_id,             \
@@ -78,7 +78,7 @@ index 816e79c5232..193cf4c3425 100644
    INTERNAL_TRACE_EVENT_GET_CATEGORY_INFO(category_group);                      \
    v8::internal::tracing::CallStatsScopedTracer INTERNAL_TRACE_EVENT_UID(       \
        tracer);                                                                 \
-+  v8::internal::tracing::UEStatsScopedTracer INTERNAL_TRACE_EVENT_UID(uetracer);   \
++  v8::internal::tracing::UEStatsScopedTracer INTERNAL_TRACE_EVENT_UID(uetracer)(name);   \
    if (INTERNAL_TRACE_EVENT_CATEGORY_GROUP_ENABLED_FOR_RECORDING_MODE()) {      \
      INTERNAL_TRACE_EVENT_UID(tracer)                                           \
          .Initialize(isolate, INTERNAL_TRACE_EVENT_UID(category_group_enabled), \
