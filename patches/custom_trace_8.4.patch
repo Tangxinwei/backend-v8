@@ -47,7 +47,7 @@ index 8e69fe55205..ac32fe31be0 100644
 +
  }  // namespace v8
 diff --git a/src/tracing/trace-event.h b/src/tracing/trace-event.h
-index 816e79c5232..6df28d95e06 100644
+index 816e79c5232..193cf4c3425 100644
 --- a/src/tracing/trace-event.h
 +++ b/src/tracing/trace-event.h
 @@ -16,6 +16,7 @@
@@ -104,7 +104,7 @@ index 816e79c5232..6df28d95e06 100644
 +  ~UEStatsScopedTracer(){
 +    if(_InternalV8CustomUETraceEnd) _InternalV8CustomUETraceEnd(nullptr);
 +  }
-+}
++};
 +
  }  // namespace tracing
  }  // namespace internal
