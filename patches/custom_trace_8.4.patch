@@ -1,8 +1,8 @@
 diff --git a/include/v8.h b/include/v8.h
-index 18d72f1630c..8be766b3545 100644
+index 18d72f1630c..705b1a2ed89 100644
 --- a/include/v8.h
 +++ b/include/v8.h
-@@ -12040,4 +12040,13 @@ size_t SnapshotCreator::AddData(Local<T> object) {
+@@ -12040,4 +12040,14 @@ size_t SnapshotCreator::AddData(Local<T> object) {
  
  }  // namespace v8
  
@@ -10,37 +10,52 @@ index 18d72f1630c..8be766b3545 100644
 +namespace v8
 +{
 +// do not new two ArrayBuffer with the same data and length
-+typedef void (*V8CustomUETraceFunction)(const char*, bool);
-+V8_EXPORT void SetUETraceFunction(V8CustomUETraceFunction Func);
++typedef void (*V8CustomUETraceFunction)(const char*);
++V8_EXPORT void SetUETraceBeginFunction(V8CustomUETraceFunction Func);
++V8_EXPORT void SetUETraceEndFunction(V8CustomUETraceFunction Func);
 +}
 +
 +
  #endif  // INCLUDE_V8_H_
 diff --git a/src/tracing/trace-event.cc b/src/tracing/trace-event.cc
-index 8e69fe55205..d026fc67572 100644
+index 8e69fe55205..baf667decf9 100644
 --- a/src/tracing/trace-event.cc
 +++ b/src/tracing/trace-event.cc
-@@ -14,7 +14,7 @@
+@@ -14,7 +14,8 @@
  namespace v8 {
  namespace internal {
  namespace tracing {
 -
-+V8CustomUETraceFunction _InternalV8CustomUETrace = nullptr;
++V8CustomUETraceFunction _InternalV8CustomUETraceBegin = nullptr;
++V8CustomUETraceFunction _InternalV8CustomUETraceEnd = nullptr;
  #if !defined(V8_USE_PERFETTO)
  v8::TracingController* TraceEventHelper::GetTracingController() {
    return v8::internal::V8::GetCurrentPlatform()->GetTracingController();
-@@ -51,6 +51,9 @@ void CallStatsScopedTracer::Initialize(v8::internal::Isolate* isolate,
+@@ -51,9 +52,22 @@ void CallStatsScopedTracer::Initialize(v8::internal::Isolate* isolate,
        TRACE_EVENT_PHASE_BEGIN, category_group_enabled, name,
        v8::internal::tracing::kGlobalScope, v8::internal::tracing::kNoId,
        TRACE_EVENT_FLAG_NONE, v8::internal::tracing::kNoId);
-+  if(_InternalV8CustomUETrace){
-+    _InternalV8CustomUETrace(name, true);
++  if(_InternalV8CustomUETraceBegin){
++    _InternalV8CustomUETraceBegin(name);
 +  }
  }
  #endif  // !defined(V8_USE_PERFETTO)
  
+ }  // namespace tracing
+ }  // namespace internal
++
++  void SetUETraceBeginFunction(V8CustomUETraceFunction Func)
++  {
++    internal::tracing::_InternalV8CustomUETraceBegin = Func;
++  }
++  void SetUETraceEndFunction(V8CustomUETraceFunction Func)
++  {
++    internal::tracing::_InternalV8CustomUETraceEnd = Func
++  }
++
+ }  // namespace v8
 diff --git a/src/tracing/trace-event.h b/src/tracing/trace-event.h
-index 816e79c5232..1f9e9b14b16 100644
+index 816e79c5232..4c956a57287 100644
 --- a/src/tracing/trace-event.h
 +++ b/src/tracing/trace-event.h
 @@ -16,6 +16,7 @@
@@ -51,41 +66,42 @@ index 816e79c5232..1f9e9b14b16 100644
  #include "src/base/atomicops.h"
  #include "src/base/macros.h"
  
-@@ -291,7 +292,7 @@ namespace internal {
+@@ -291,7 +292,8 @@ namespace internal {
  class Isolate;
  
  namespace tracing {
 -
-+extern V8CustomUETraceFunction _InternalV8CustomUETrace;
++extern V8CustomUETraceFunction _InternalV8CustomUETraceBegin;
++extern V8CustomUETraceFunction _InternalV8CustomUETraceEnd;
  // Specify these values when the corresponding argument of AddTraceEvent
  // is not used.
  const int kZeroNumArgs = 0;
-@@ -554,6 +555,9 @@ class ScopedTracer {
+@@ -554,6 +556,9 @@ class ScopedTracer {
    ScopedTracer() : p_data_(nullptr) {}
  
    ~ScopedTracer() {
-+    if(_InternalV8CustomUETrace && p_data_){
-+      _InternalV8CustomUETrace(data_.name, false);
++    if(_InternalV8CustomUETraceEnd && p_data_){
++      _InternalV8CustomUETraceEnd(data_.name);
 +    }
      if (p_data_ && base::Relaxed_Load(reinterpret_cast<const base::Atomic8*>(
                         data_.category_group_enabled))) {
        TRACE_EVENT_API_UPDATE_TRACE_EVENT_DURATION(
-@@ -567,6 +571,9 @@ class ScopedTracer {
+@@ -567,6 +572,9 @@ class ScopedTracer {
      data_.name = name;
      data_.event_handle = event_handle;
      p_data_ = &data_;
-+    if(_InternalV8CustomUETrace){
-+      _InternalV8CustomUETrace(name, true);
++    if(_InternalV8CustomUETraceBegin){
++      _InternalV8CustomUETraceBegin(name);
 +    }
    }
  
   private:
-@@ -589,6 +596,9 @@ class CallStatsScopedTracer {
+@@ -589,6 +597,9 @@ class CallStatsScopedTracer {
   public:
    CallStatsScopedTracer() : p_data_(nullptr) {}
    ~CallStatsScopedTracer() {
-+    if(_InternalV8CustomUETrace && p_data_){
-+      _InternalV8CustomUETrace(data_.name, false);
++    if(_InternalV8CustomUETraceEnd && p_data_){
++      _InternalV8CustomUETraceEnd(data_.name);
 +    }
      if (V8_UNLIKELY(p_data_ && *data_.category_group_enabled)) {
        AddEndTraceEvent();
