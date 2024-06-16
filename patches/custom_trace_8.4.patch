@@ -18,7 +18,7 @@ index 18d72f1630c..705b1a2ed89 100644
 +
  #endif  // INCLUDE_V8_H_
 diff --git a/src/tracing/trace-event.cc b/src/tracing/trace-event.cc
-index 8e69fe55205..bb0b09974e9 100644
+index 8e69fe55205..ac32fe31be0 100644
 --- a/src/tracing/trace-event.cc
 +++ b/src/tracing/trace-event.cc
 @@ -14,7 +14,8 @@
@@ -31,15 +31,7 @@ index 8e69fe55205..bb0b09974e9 100644
  #if !defined(V8_USE_PERFETTO)
  v8::TracingController* TraceEventHelper::GetTracingController() {
    return v8::internal::V8::GetCurrentPlatform()->GetTracingController();
-@@ -51,9 +52,22 @@ void CallStatsScopedTracer::Initialize(v8::internal::Isolate* isolate,
-       TRACE_EVENT_PHASE_BEGIN, category_group_enabled, name,
-       v8::internal::tracing::kGlobalScope, v8::internal::tracing::kNoId,
-       TRACE_EVENT_FLAG_NONE, v8::internal::tracing::kNoId);
-+  if(_InternalV8CustomUETraceBegin){
-+    _InternalV8CustomUETraceBegin(name);
-+  }
- }
- #endif  // !defined(V8_USE_PERFETTO)
+@@ -56,4 +57,14 @@ void CallStatsScopedTracer::Initialize(v8::internal::Isolate* isolate,
  
  }  // namespace tracing
  }  // namespace internal
@@ -55,7 +47,7 @@ index 8e69fe55205..bb0b09974e9 100644
 +
  }  // namespace v8
 diff --git a/src/tracing/trace-event.h b/src/tracing/trace-event.h
-index 816e79c5232..4c956a57287 100644
+index 816e79c5232..6df28d95e06 100644
 --- a/src/tracing/trace-event.h
 +++ b/src/tracing/trace-event.h
 @@ -16,6 +16,7 @@
@@ -66,7 +58,31 @@ index 816e79c5232..4c956a57287 100644
  #include "src/base/atomicops.h"
  #include "src/base/macros.h"
  
-@@ -291,7 +292,8 @@ namespace internal {
+@@ -188,6 +189,7 @@ enum CategoryGroupEnabledFlags {
+ #define INTERNAL_TRACE_EVENT_ADD_SCOPED(category_group, name, ...)           \
+   INTERNAL_TRACE_EVENT_GET_CATEGORY_INFO(category_group);                    \
+   v8::internal::tracing::ScopedTracer INTERNAL_TRACE_EVENT_UID(tracer);      \
++  v8::internal::tracing::UEStatsScopedTracer INTERNAL_TRACE_EVENT_UID(uetracer);   \
+   if (INTERNAL_TRACE_EVENT_CATEGORY_GROUP_ENABLED_FOR_RECORDING_MODE()) {    \
+     uint64_t h = v8::internal::tracing::AddTraceEvent(                       \
+         TRACE_EVENT_PHASE_COMPLETE,                                          \
+@@ -203,6 +205,7 @@ enum CategoryGroupEnabledFlags {
+                                                   bind_id, flow_flags, ...) \
+   INTERNAL_TRACE_EVENT_GET_CATEGORY_INFO(category_group);                   \
+   v8::internal::tracing::ScopedTracer INTERNAL_TRACE_EVENT_UID(tracer);     \
++  v8::internal::tracing::UEStatsScopedTracer INTERNAL_TRACE_EVENT_UID(uetracer);   \
+   if (INTERNAL_TRACE_EVENT_CATEGORY_GROUP_ENABLED_FOR_RECORDING_MODE()) {   \
+     unsigned int trace_event_flags = flow_flags;                            \
+     v8::internal::tracing::TraceID trace_event_bind_id(bind_id,             \
+@@ -279,6 +282,7 @@ enum CategoryGroupEnabledFlags {
+   INTERNAL_TRACE_EVENT_GET_CATEGORY_INFO(category_group);                      \
+   v8::internal::tracing::CallStatsScopedTracer INTERNAL_TRACE_EVENT_UID(       \
+       tracer);                                                                 \
++  v8::internal::tracing::UEStatsScopedTracer INTERNAL_TRACE_EVENT_UID(uetracer);   \
+   if (INTERNAL_TRACE_EVENT_CATEGORY_GROUP_ENABLED_FOR_RECORDING_MODE()) {      \
+     INTERNAL_TRACE_EVENT_UID(tracer)                                           \
+         .Initialize(isolate, INTERNAL_TRACE_EVENT_UID(category_group_enabled), \
+@@ -291,7 +295,8 @@ namespace internal {
  class Isolate;
  
  namespace tracing {
@@ -76,33 +92,20 @@ index 816e79c5232..4c956a57287 100644
  // Specify these values when the corresponding argument of AddTraceEvent
  // is not used.
  const int kZeroNumArgs = 0;
-@@ -554,6 +556,9 @@ class ScopedTracer {
-   ScopedTracer() : p_data_(nullptr) {}
+@@ -609,6 +614,16 @@ class CallStatsScopedTracer {
+   Data data_;
+ };
  
-   ~ScopedTracer() {
-+    if(_InternalV8CustomUETraceEnd && p_data_){
-+      _InternalV8CustomUETraceEnd(data_.name);
-+    }
-     if (p_data_ && base::Relaxed_Load(reinterpret_cast<const base::Atomic8*>(
-                        data_.category_group_enabled))) {
-       TRACE_EVENT_API_UPDATE_TRACE_EVENT_DURATION(
-@@ -567,6 +572,9 @@ class ScopedTracer {
-     data_.name = name;
-     data_.event_handle = event_handle;
-     p_data_ = &data_;
-+    if(_InternalV8CustomUETraceBegin){
-+      _InternalV8CustomUETraceBegin(name);
-+    }
-   }
- 
-  private:
-@@ -589,6 +597,9 @@ class CallStatsScopedTracer {
-  public:
-   CallStatsScopedTracer() : p_data_(nullptr) {}
-   ~CallStatsScopedTracer() {
-+    if(_InternalV8CustomUETraceEnd && p_data_){
-+      _InternalV8CustomUETraceEnd(data_.name);
-+    }
-     if (V8_UNLIKELY(p_data_ && *data_.category_group_enabled)) {
-       AddEndTraceEvent();
-     }
++class UEStatsScopedTracer{
++public:
++  UEStatsScopedTracer(const char* name){
++    if(_InternalV8CustomUETraceBegin) _InternalV8CustomUETraceBegin(name);
++  }
++  ~UEStatsScopedTracer(){
++    if(_InternalV8CustomUETraceEnd) _InternalV8CustomUETraceEnd(nullptr);
++  }
++}
++
+ }  // namespace tracing
+ }  // namespace internal
+ }  // namespace v8
