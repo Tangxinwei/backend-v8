@@ -18,7 +18,7 @@ index 18d72f1630c..705b1a2ed89 100644
 +
  #endif  // INCLUDE_V8_H_
 diff --git a/src/tracing/trace-event.cc b/src/tracing/trace-event.cc
-index 8e69fe55205..baf667decf9 100644
+index 8e69fe55205..bb0b09974e9 100644
 --- a/src/tracing/trace-event.cc
 +++ b/src/tracing/trace-event.cc
 @@ -14,7 +14,8 @@
@@ -50,7 +50,7 @@ index 8e69fe55205..baf667decf9 100644
 +  }
 +  void SetUETraceEndFunction(V8CustomUETraceFunction Func)
 +  {
-+    internal::tracing::_InternalV8CustomUETraceEnd = Func
++    internal::tracing::_InternalV8CustomUETraceEnd = Func;
 +  }
 +
  }  // namespace v8
