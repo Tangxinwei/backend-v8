@@ -1,0 +1,26 @@
+diff --git a/src/heap/scavenger.cc b/src/heap/scavenger.cc
+index d0d0a30fb13..7d14c1e83c4 100644
+--- a/src/heap/scavenger.cc
++++ b/src/heap/scavenger.cc
+@@ -252,7 +252,7 @@ void ScavengerCollector::CollectGarbage() {
+   Scavenger* scavengers[kMaxScavengerTasks];
+   const bool is_logging = isolate_->LogObjectRelocation();
+   const int num_scavenge_tasks = NumberOfScavengeTasks();
+-  OneshotBarrier barrier(base::TimeDelta::FromMilliseconds(kMaxWaitTimeMs));
++  OneshotBarrier barrier(base::TimeDelta::FromMicroseconds(kMaxWaitTimeMs));
+   Worklist<MemoryChunk*, 64> empty_chunks;
+   Scavenger::CopiedList copied_list(num_scavenge_tasks);
+   Scavenger::PromotionList promotion_list(num_scavenge_tasks);
+diff --git a/src/heap/scavenger.h b/src/heap/scavenger.h
+index d96219fd513..c044e002efc 100644
+--- a/src/heap/scavenger.h
++++ b/src/heap/scavenger.h
+@@ -36,7 +36,7 @@ using EphemeronTableList =
+ class ScavengerCollector {
+  public:
+   static const int kMaxScavengerTasks = 8;
+-  static const int kMaxWaitTimeMs = 2;
++  static const int kMaxWaitTimeMs = 100;
+ 
+   explicit ScavengerCollector(Heap* heap);
+ 

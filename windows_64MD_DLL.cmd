@@ -51,6 +51,9 @@ if "%ISDEVELOP%"=="1" (
     node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\custom_trace_8.4.patch
 )
 
+echo =====[gc_optimize]
+node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\gc_opt.patch
+
 echo =====[ Fix toolchain]====
 node %~dp0\node-script\fix_win_toolchain.js build\toolchain\win\setup_toolchain.py
 echo =====[ Fix toolwrapper]====
