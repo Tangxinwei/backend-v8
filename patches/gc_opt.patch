@@ -12,7 +12,7 @@ index d0d0a30fb13..7d14c1e83c4 100644
    Scavenger::CopiedList copied_list(num_scavenge_tasks);
    Scavenger::PromotionList promotion_list(num_scavenge_tasks);
 diff --git a/src/heap/scavenger.h b/src/heap/scavenger.h
-index d96219fd513..c044e002efc 100644
+index d96219fd513..81abba5ee85 100644
 --- a/src/heap/scavenger.h
 +++ b/src/heap/scavenger.h
 @@ -36,7 +36,7 @@ using EphemeronTableList =
@@ -24,3 +24,12 @@ index d96219fd513..c044e002efc 100644
  
    explicit ScavengerCollector(Heap* heap);
  
+@@ -147,7 +147,7 @@ class Scavenger {
+  private:
+   // Number of objects to process before interrupting for potentially waking
+   // up other tasks.
+-  static const int kInterruptThreshold = 128;
++  static const int kInterruptThreshold = 32;
+   static const int kInitialLocalPretenuringFeedbackCapacity = 256;
+ 
+   inline Heap* heap() { return heap_; }
