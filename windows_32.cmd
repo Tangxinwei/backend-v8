@@ -28,10 +28,14 @@ echo =====[ Fetching V8 ]=====
 call fetch v8
 cd v8
 call git checkout refs/tags/%VERSION%
-cd test\test262\data
-call git config --system core.longpaths true
-call git restore *
-cd ..\..\..\
+if exist "test\test262\data" (
+    cd test\test262\data
+    call git config --system core.longpaths true
+    call git restore *
+    cd ..\..\..\
+) else (
+    call git config --system core.longpaths true
+)
 call gclient sync
 
 if "%VERSION%"=="10.6.194" (
