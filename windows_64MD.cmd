@@ -51,6 +51,9 @@ if "%ISDEVELOP%"=="1" (
     node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\custom_trace_8.4.patch
 )
 
+echo =====[fix_gc_crash]
+node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\fix_gc_crash.patch
+
 @REM echo =====[ Patching V8 ]=====
 @REM node %GITHUB_WORKSPACE%\CRLF2LF.js %GITHUB_WORKSPACE%\patches\builtins-puerts.patches
 @REM call git apply --cached --reject %GITHUB_WORKSPACE%\patches\builtins-puerts.patches

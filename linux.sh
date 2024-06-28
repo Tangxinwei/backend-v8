@@ -66,6 +66,9 @@ if [ "$ISDEVELOP" = "1" ]; then
     node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/custom_trace_8.4.patch
 fi
 
+echo ================fix_gc_crash
+node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/fix_gc_crash.patch
+
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
 node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
