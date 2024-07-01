@@ -1,5 +1,5 @@
 diff --git a/src/api/api.h b/src/api/api.h
-index ad879657c99..b9263ac2469 100644
+index ad879657c99..547a33d1cd4 100644
 --- a/src/api/api.h
 +++ b/src/api/api.h
 @@ -505,7 +505,7 @@ void HandleScopeImplementer::EnterMicrotaskContext(Context context) {
@@ -7,7 +7,7 @@ index ad879657c99..b9263ac2469 100644
    internal::Address* block =
        (spare_ != nullptr) ? spare_
 -                          : NewArray<internal::Address>(kHandleBlockSize);
-+                          : NewArray<internal::Address>(kHandleBlockSize, 0);
++                          : NewArray<internal::Address>(kHandleBlockSize + 1);
    spare_ = nullptr;
    return block;
  }
