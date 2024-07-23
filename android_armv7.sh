@@ -71,6 +71,7 @@ gclient sync
 
 if [ "$VERSION" == "11.8.172" ]; then 
   node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/remove_uchar_include_v11.8.172.patch
+  node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('fortify_level = \"2\"', 'fortify_level = \"0\"'));"
 fi
 
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
