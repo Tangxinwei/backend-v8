@@ -14,7 +14,8 @@ if [ "$VERSION" == "10.6.194" -o "$VERSION" == "11.8.172" ]; then
         python3 \
         ninja-build \
         xz-utils \
-        zip
+        zip \
+        cmake
         
     pip install virtualenv
 else
@@ -31,6 +32,32 @@ else
 fi
 
 cd ~
+
+if [ "$VERSION" == "11.8.172" ]; then 
+    echo "============ intall clang-17"
+    sudo apt update
+    sudo apt install -y wget gnupg lsb-release software-properties-common
+    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+    sudo add-apt-repository "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-17 main"
+    sudo apt update
+    sudo apt install -y clang-17 libc++-17-dev libc++abi-17-dev lld gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+    ln -s /usr/lib/llvm-17 ~/customclang
+    sudo cp -r /usr/include/aarch64-linux-gnu /usr/aarch64-linux-gnu/include
+    sudo cp -r /lib/aarch64-linux-gnu /usr/aarch64-linux-gnu/lib
+    sudo cp -r /usr/lib/aarch64-linux-gnu /usr/aarch64-linux-gnu/usr/lib
+fi
+
+if [ "$VERSION" == "10.6.194" ]; then 
+    echo "============ intall clang-16"
+    sudo apt update
+    sudo apt install -y wget gnupg lsb-release software-properties-common
+    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+    sudo add-apt-repository "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-16 main"
+    sudo apt update
+    sudo apt install -y clang-16 libc++-16-dev libc++abi-16-dev lld gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+    ln -s /usr/lib/llvm-16 ~/customclang
+fi
+
 echo "=====[ Getting Depot Tools ]====="	
 git clone -q https://chromium.googlesource.com/chromium/tools/depot_tools.git
 if [ "$VERSION" != "10.6.194" -a "$VERSION" != "11.8.172" ]; then 
@@ -63,6 +90,8 @@ gclient sync
 
 if [ "$VERSION" == "11.8.172" ]; then 
   node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/remove_uchar_include_v11.8.172.patch
+  node $GITHUB_WORKSPACE/node-script/use_libcxx.js .
+  export LD_LIBRARY_PATH=/usr/aarch64-linux-gnu/lib:/usr/aarch64-linux-gnu/usr/lib:$LD_LIBRARY_PATH
 fi
 
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
@@ -75,7 +104,7 @@ python build/linux/sysroot_scripts/install-sysroot.py --arch=arm64
 echo "=====[ Building V8 ]====="
 
 if [ "$VERSION" == "10.6.194" -o "$VERSION" == "11.8.172" ]; then 
-    gn gen out.gn/arm64.release --args="is_debug=false target_cpu=\"arm64\" v8_target_cpu=\"arm64\" v8_enable_i18n_support=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true strip_debug_info=true symbol_level=0 libcxx_abi_unstable=false v8_enable_pointer_compression=true v8_enable_sandbox=false use_custom_libcxx=false is_clang=true"
+    gn gen out.gn/arm64.release --args="is_debug=false target_cpu=\"arm64\" v8_target_cpu=\"arm64\" v8_enable_i18n_support=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true strip_debug_info=true symbol_level=0 libcxx_abi_unstable=false v8_enable_pointer_compression=true v8_enable_sandbox=false use_custom_libcxx=false is_clang=true clang_use_chrome_plugins=false sysroot=\"/usr/aarch64-linux-gnu\" use_glib=false clang_base_path=\"$HOME/customclang\""
 else
     gn gen out.gn/arm64.release --args="is_debug=false target_cpu=\"arm64\" v8_target_cpu=\"arm64\" v8_enable_i18n_support=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true strip_debug_info=true symbol_level=0 libcxx_abi_unstable=false v8_enable_pointer_compression=true"
 fi
