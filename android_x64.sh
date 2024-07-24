@@ -75,9 +75,9 @@ node $GITHUB_WORKSPACE/node-script/patchs.js . $VERSION
 
 echo "=====[ Building V8 ]====="
 if [ "$VERSION" == "10.6.194" -o "$VERSION" == "11.8.172" ]; then 
-    gn gen out.gn/x64.release --args="target_os=\"android\" target_cpu=\"x64\" is_debug=false v8_enable_i18n_support=false v8_target_cpu=\"x64\" use_goma=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true strip_debug_info=false symbol_level=1 use_custom_libcxx=false use_custom_libcxx_for_host=true v8_enable_pointer_compression=true v8_enable_sandbox=false"
+    gn gen out.gn/x64.release --args="target_os=\"android\" target_cpu=\"x64\" is_debug=false v8_enable_i18n_support=false v8_target_cpu=\"x64\" use_goma=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true strip_debug_info=true symbol_level=0 use_custom_libcxx=false use_custom_libcxx_for_host=true v8_enable_pointer_compression=true v8_enable_sandbox=false"
 else
-    gn gen out.gn/x64.release --args="target_os=\"android\" target_cpu=\"x64\" is_debug=false v8_enable_i18n_support=false v8_target_cpu=\"x64\" use_goma=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true strip_debug_info=false symbol_level=1 use_custom_libcxx=false use_custom_libcxx_for_host=true v8_enable_pointer_compression=true"
+    gn gen out.gn/x64.release --args="target_os=\"android\" target_cpu=\"x64\" is_debug=false v8_enable_i18n_support=false v8_target_cpu=\"x64\" use_goma=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true strip_debug_info=true symbol_level=0 use_custom_libcxx=false use_custom_libcxx_for_host=true v8_enable_pointer_compression=true"
 fi
 ninja -C out.gn/x64.release -t clean
 ninja -v -C out.gn/x64.release wee8
