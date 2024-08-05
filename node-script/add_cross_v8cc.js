@@ -11,7 +11,7 @@ function addV8CC() {
     let context = fs.readFileSync(filepath, 'utf-8');
     
     let v8cc_target = `
-v8_executable("v8cc_${target_cpu}") {
+v8_executable("v8cc") {
   visibility = [ ":*" ]  # Only targets in this file can depend on this.
 
   sources = [

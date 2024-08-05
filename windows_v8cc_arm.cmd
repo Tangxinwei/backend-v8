@@ -74,7 +74,7 @@ if "%VERSION%"=="9.4.146.24" (
     call gn gen out.gn\x86.release -args="target_os=""win"" target_cpu=""x86"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false v8_static_library=true is_clang=false strip_debug_info=true symbol_level=0 v8_enable_pointer_compression=false"
 )
 
-call ninja -v -C out.gn\x86.release v8cc_arm
+call ninja -v -C out.gn\x86.release v8cc
 
 md output\v8\Bin\Win\arm
-copy /Y out.gn\x86.release\v8cc_arm.exe output\v8\Bin\Win\arm\
+copy /Y out.gn\x86.release\v8cc.exe output\v8\Bin\Win\arm\
