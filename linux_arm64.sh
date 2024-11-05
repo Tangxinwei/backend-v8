@@ -40,11 +40,8 @@ if [ "$VERSION" == "11.8.172" ]; then
     wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
     sudo add-apt-repository "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-17 main"
     sudo apt update
-    sudo apt install -y clang-17 libc++-17-dev libc++abi-17-dev lld gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+    sudo apt install -y clang-17 libc++-17-dev libc++abi-17-dev lld
     ln -s /usr/lib/llvm-17 ~/customclang
-    sudo cp -r /usr/include/aarch64-linux-gnu /usr/aarch64-linux-gnu/include
-    sudo cp -r /lib/aarch64-linux-gnu /usr/aarch64-linux-gnu/lib
-    sudo cp -r /usr/lib/aarch64-linux-gnu /usr/aarch64-linux-gnu/usr/lib
 fi
 
 if [ "$VERSION" == "10.6.194" ]; then 
@@ -54,7 +51,7 @@ if [ "$VERSION" == "10.6.194" ]; then
     wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
     sudo add-apt-repository "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-16 main"
     sudo apt update
-    sudo apt install -y clang-16 libc++-16-dev libc++abi-16-dev lld gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+    sudo apt install -y clang-16 libc++-16-dev libc++abi-16-dev lld
     ln -s /usr/lib/llvm-16 ~/customclang
 fi
 
@@ -91,7 +88,7 @@ gclient sync
 if [ "$VERSION" == "11.8.172" ]; then 
   node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/remove_uchar_include_v11.8.172.patch
   node $GITHUB_WORKSPACE/node-script/use_libcxx.js .
-  export LD_LIBRARY_PATH=/usr/aarch64-linux-gnu/lib:/usr/aarch64-linux-gnu/usr/lib:$LD_LIBRARY_PATH
+  export LD_LIBRARY_PATH=$HOME/customclang/lib:$LD_LIBRARY_PATH
 fi
 
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
