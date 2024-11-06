@@ -1,17 +1,13 @@
 diff --git a/src/flags/flags.cc b/src/flags/flags.cc
-index f43715ac32e..bd0fcde903d 100644
+index f43715ac32e..c7271a11383 100644
 --- a/src/flags/flags.cc
 +++ b/src/flags/flags.cc
-@@ -545,10 +545,10 @@ uint32_t ComputeFlagListHash() {
+@@ -545,7 +545,7 @@ uint32_t ComputeFlagListHash() {
      if (flag.PointsTo(&v8_flags.predictable)) continue;
      modified_args_as_string << flag;
    }
 -  std::string args(modified_args_as_string.str());
-+  const char* v = modified_args_as_string.str();
++  static std::string args(modified_args_as_string.str());
    // Generate a hash that is not 0.
    uint32_t hash = static_cast<uint32_t>(base::hash_range(
--                      args.c_str(), args.c_str() + args.length())) |
-+                      v, v + strlen(v))) |
-                   1;
-   DCHECK_NE(hash, 0);
-   return hash;
+                       args.c_str(), args.c_str() + args.length())) |
