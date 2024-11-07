@@ -1,27 +1,23 @@
 diff --git a/src/flags/flags.cc b/src/flags/flags.cc
-index f43715ac32e..d732b76bb20 100644
+index f43715ac32e..6449b2a9780 100644
 --- a/src/flags/flags.cc
 +++ b/src/flags/flags.cc
-@@ -529,7 +529,7 @@ std::ostream& operator<<(std::ostream& os, const Flag& flag) {
- 
+@@ -530,7 +530,7 @@ std::ostream& operator<<(std::ostream& os, const Flag& flag) {
  static std::atomic<uint32_t> flag_hash{0};
  static std::atomic<bool> flags_frozen{false};
--
-+static std::string* cached_args = nullptr;
- uint32_t ComputeFlagListHash() {
+ 
+-uint32_t ComputeFlagListHash() {
++__attribute__((no_sanitize_address)) uint32_t ComputeFlagListHash() {
    std::ostringstream modified_args_as_string;
    if (COMPRESS_POINTERS_BOOL) modified_args_as_string << "ptr-compr";
-@@ -545,10 +545,11 @@ uint32_t ComputeFlagListHash() {
+   if (DEBUG_BOOL) modified_args_as_string << "debug";
+@@ -545,7 +545,9 @@ uint32_t ComputeFlagListHash() {
      if (flag.PointsTo(&v8_flags.predictable)) continue;
      modified_args_as_string << flag;
    }
--  std::string args(modified_args_as_string.str());
-+  if(!cached_args) cached_args = new std::string(modified_args_as_string.str());
++  
+   std::string args(modified_args_as_string.str());
 +  
    // Generate a hash that is not 0.
    uint32_t hash = static_cast<uint32_t>(base::hash_range(
--                      args.c_str(), args.c_str() + args.length())) |
-+                      cached_args->c_str(), cached_args->c_str() + cached_args->length())) |
-                   1;
-   DCHECK_NE(hash, 0);
-   return hash;
+                       args.c_str(), args.c_str() + args.length())) |
