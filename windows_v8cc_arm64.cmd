@@ -44,6 +44,18 @@ if "%VERSION%"=="11.8.172" (
     node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\win_dll_v11.8.172.patch"
 )
 
+if "%VERSION%"=="11.8.172.18" (
+    echo =====[ patch 10.6.194 ]=====
+    node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\remove_uchar_include_v11.8.172.patch
+    node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\win_dll_v11.8.172.patch"
+)
+
+if "%VERSION%"=="11.8.172.18-pgo" (
+    echo =====[ patch 10.6.194 ]=====
+    node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\remove_uchar_include_v11.8.172.patch
+    node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\win_dll_v11.8.172.patch"
+)
+
 if "%VERSION%"=="9.4.146.24" (
     echo =====[ patch jinja for python3.10+ ]=====
     cd third_party\jinja2
