@@ -61,5 +61,4 @@ function addV8CC() {
 (function() {
     addV8CC();
     justReplace(path.join(v8_path, 'src/api/api.h'), 'NewArray<internal::Address>(kHandleBlockSize)', 'NewArray<internal::Address>(kHandleBlockSize + 1)');
-    justReplace(path.join(v8_path, 'src/profiler/sampling-heap-profiler.cc'), 'return {size, static_cast<unsigned int>(count * scale + 0.5)}', 'return {size, rate_ == 1 ? count : static_cast<unsigned int>(count * scale + 0.5)}');
 })();
