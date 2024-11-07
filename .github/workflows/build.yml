@@ -203,23 +203,6 @@ jobs:
       with:
         name: v8_bin_linux
         path: ~/v8/v8/output/**/*
-        
-  build_linux_arm64:
-    if: github.event.inputs.build_linux == 'true'
-    name: Linux_arm64
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: actions/checkout@v2
-    - name: Run build script
-      run: |
-        cd $GITHUB_WORKSPACE
-        npm i
-        bash ./linux_arm64.sh ${{github.event.inputs.v8_revision}}
-        mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_${{github.event.inputs.v8_revision}}
-    - uses: actions/upload-artifact@v4
-      with:
-        name: v8_bin_linux_arm64
-        path: ~/v8/v8/output/**/*
 
   build_windows:
     if: github.event.inputs.build_windows == 'true'
@@ -480,7 +463,7 @@ jobs:
   publish_with_ohos:
     if: github.event.inputs.do_publish == 'true' && github.event.inputs.build_ohos == 'true'
     runs-on: ubuntu-20.04
-    needs: [build_android_arm_v8,build_android_arm_v7,build_android_x86_64,build_linux,build_linux_arm64,build_windows,build_windows_32,build_windows_md,build_macos_arm64,build_macos_arm64_dll,build_ios_simulator,build_macos,build_ios,build_windows_md_dll,build_macos_dll,build_ohos_arm_v8,build_ohos_arm_v7,build_ohos_x86_64,build_windows_v8cc_arm,build_windows_v8cc_arm64]
+    needs: [build_android_arm_v8,build_android_arm_v7,build_android_x86_64,build_linux,build_windows,build_windows_32,build_windows_md,build_macos_arm64,build_macos_arm64_dll,build_ios_simulator,build_macos,build_ios,build_windows_md_dll,build_macos_dll,build_ohos_arm_v8,build_ohos_arm_v7,build_ohos_x86_64,build_windows_v8cc_arm,build_windows_v8cc_arm64]
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -516,7 +499,7 @@ jobs:
   publish_without_ohos:
     if: github.event.inputs.do_publish == 'true' && github.event.inputs.build_ohos == 'false'
     runs-on: ubuntu-20.04
-    needs: [build_android_arm_v8,build_android_arm_v7,build_android_x86_64,build_linux,build_linux_arm64,build_windows,build_windows_32,build_windows_md,build_macos_arm64,build_macos_arm64_dll,build_ios_simulator,build_macos,build_ios,build_windows_md_dll,build_macos_dll,build_windows_v8cc_arm,build_windows_v8cc_arm64]
+    needs: [build_android_arm_v8,build_android_arm_v7,build_android_x86_64,build_linux,build_windows,build_windows_32,build_windows_md,build_macos_arm64,build_macos_arm64_dll,build_ios_simulator,build_macos,build_ios,build_windows_md_dll,build_macos_dll,build_windows_v8cc_arm,build_windows_v8cc_arm64]
     steps:
       - uses: actions/download-artifact@v4
         with:
