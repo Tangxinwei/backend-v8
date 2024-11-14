@@ -61,7 +61,7 @@ function addV8CC() {
 
 (function() {
     addV8CC();
-    justReplace(path.join(v8_path, 'build/config/android/config.gni'), 'default_android_ndk_version = "r25c1"', 'default_android_ndk_version = "r23"')
+    justReplace(path.join(v8_path, 'build/config/android/config.gni'), 'default_android_ndk_version = "r25c"', 'default_android_ndk_version = "r23"')
     justReplace(path.join(v8_path, 'build/config/android/config.gni'), 'default_android_ndk_major_version = 25', 'default_android_ndk_major_version = 23')
     if (!wrap_new) {
         justReplace(path.join(v8_path, 'src/api/api.h'), 'NewArray<internal::Address>(kHandleBlockSize)', 'NewArray<internal::Address>(kHandleBlockSize + 1)');
