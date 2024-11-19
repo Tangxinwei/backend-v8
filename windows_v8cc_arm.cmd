@@ -37,21 +37,21 @@ if "%VERSION%"=="11.8.172" (
     echo =====[ patch 10.6.194 ]=====
     node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\remove_uchar_include_v11.8.172.patch
     node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\win_dll_v11.8.172.patch"
-    @REM node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('use_ghash = true', 'use_ghash = true\n  use_cxx17 = true'));"
+    node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('use_ghash = true', 'use_ghash = true\n  use_cxx17 = true'));"
 )
 
 if "%VERSION%"=="11.8.172.18" (
     echo =====[ patch 10.6.194 ]=====
     node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\remove_uchar_include_v11.8.172.patch
     node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\win_dll_v11.8.172.patch"
-     @REM  node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('use_ghash = true', 'use_ghash = true\n  use_cxx17 = true'));"
+    node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('use_ghash = true', 'use_ghash = true\n  use_cxx17 = true'));"
 )
 
 if "%VERSION%"=="11.8.172.18-pgo" (
     echo =====[ patch 10.6.194 ]=====
     node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\remove_uchar_include_v11.8.172.patch
     node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\win_dll_v11.8.172.patch"
-     @REM  node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('use_ghash = true', 'use_ghash = true\n  use_cxx17 = true'));"
+    node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('use_ghash = true', 'use_ghash = true\n  use_cxx17 = true'));"
 )
 
 if "%VERSION%"=="9.4.146.24" (
