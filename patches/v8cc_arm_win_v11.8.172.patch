@@ -1,7 +1,16 @@
 diff --git a/src/codegen/arm/register-arm.h b/src/codegen/arm/register-arm.h
-index 15bc1e88f05..c271d9309a6 100644
+index 15bc1e88f05..ea795e1a753 100644
 --- a/src/codegen/arm/register-arm.h
 +++ b/src/codegen/arm/register-arm.h
+@@ -63,7 +63,7 @@ enum RegisterCode {
+ };
+ 
+ class Register : public RegisterBase<Register, kRegAfterLast> {
+-  friend class RegisterBase;
++  friend class RegisterBase<Register, kRegAfterLast>;
+ 
+   explicit constexpr Register(int code) : RegisterBase(code) {}
+ };
 @@ -136,7 +136,7 @@ class SwVfpRegister : public RegisterBase<SwVfpRegister, kSwVfpAfterLast> {
    }
  
@@ -47,16 +56,3 @@ index 15bc1e88f05..c271d9309a6 100644
    explicit constexpr CRegister(int code) : RegisterBase(code) {}
  };
  
-diff --git a/src/execution/arm/simulator-arm.cc b/src/execution/arm/simulator-arm.cc
-index 4a3bdc8b9cc..c0329af1ea0 100644
---- a/src/execution/arm/simulator-arm.cc
-+++ b/src/execution/arm/simulator-arm.cc
-@@ -1140,7 +1140,7 @@ uintptr_t Simulator::StackLimit(uintptr_t c_limit) const {
-   // The simulator uses a separate JS stack. If we have exhausted the C stack,
-   // we also drop down the JS limit to reflect the exhaustion on the JS stack.
-   if (base::Stack::GetCurrentStackPosition() < c_limit) {
--    return reinterpret_cast<uintptr_t>(get_sp());
-+    return get_sp();
-   }
- 
-   // Otherwise the limit is the JS stack. Leave a safety margin to prevent
