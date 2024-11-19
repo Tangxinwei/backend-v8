@@ -89,6 +89,7 @@ if [ "$VERSION" == "11.8.172" ] || [ "$VERSION" == "11.8.172.18" ] || [ "$VERSIO
   node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/remove_uchar_include_v11.8.172.patch
   node $GITHUB_WORKSPACE/node-script/use_libcxx.js .
   export LD_LIBRARY_PATH=$HOME/customclang/lib:$LD_LIBRARY_PATH
+  node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('use_ghash = true', 'use_ghash = true\n  use_cxx17 = true'));"
 fi
 
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
