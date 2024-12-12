@@ -358,6 +358,7 @@ jobs:
         brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
         brew install python@3.9
         pip install virtualenv
+        pip install --upgrade setuptools
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
@@ -381,6 +382,7 @@ jobs:
         brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
         brew install python@3.9
         pip install virtualenv
+        pip install --upgrade setuptools
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
@@ -404,6 +406,7 @@ jobs:
         brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
         brew install python@3.9
         pip install virtualenv
+        pip install --upgrade setuptools
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
@@ -427,6 +430,7 @@ jobs:
         brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
         brew install python@3.9
         pip install virtualenv
+        pip install --upgrade setuptools
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
@@ -450,6 +454,7 @@ jobs:
         brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
         brew install python@3.9
         pip install virtualenv
+        pip install --upgrade setuptools
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
@@ -473,6 +478,7 @@ jobs:
         brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
         brew install python@3.9
         pip install virtualenv
+        pip install --upgrade setuptools
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
