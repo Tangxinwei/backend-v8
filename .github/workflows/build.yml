@@ -353,16 +353,19 @@ jobs:
     name: macOS
     runs-on: macos-14
     steps:
-    - name: use python3.9
-      run: |
-        brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
-        brew install python@3.9
-        pip install virtualenv
-        pip install --upgrade setuptools
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
-        export PATH=/usr/local/opt/python@3.9/libexec/bin:$PATH
+        brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
+        curl -O https://repo.anaconda.com/archive/Anaconda3-2024.10-1-MacOSX-arm64.sh
+        chmod +x Anaconda3-2024.10-1-MacOSX-arm64.sh
+        ./Anaconda3-2024.10-1-MacOSX-arm64.sh -b -p ./anaconda3
+        ./anaconda3/bin/conda init
+        source ~/.bash_profile
+        conda create -n myenv python=3.9.20 -y
+        conda activate myenv
+        pip3 install virtualenv
+        pip3 install --upgrade setuptools
         cd $GITHUB_WORKSPACE
         npm i
         bash ./macos.sh ${{github.event.inputs.v8_revision}}
@@ -377,16 +380,19 @@ jobs:
     name: macOS with apple m1
     runs-on: macos-14
     steps:
-    - name: use python3.9
-      run: |
-        brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
-        brew install python@3.9
-        pip install virtualenv
-        pip install --upgrade setuptools
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
-        export PATH=/usr/local/opt/python@3.9/libexec/bin:$PATH
+        brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
+        curl -O https://repo.anaconda.com/archive/Anaconda3-2024.10-1-MacOSX-arm64.sh
+        chmod +x Anaconda3-2024.10-1-MacOSX-arm64.sh
+        ./Anaconda3-2024.10-1-MacOSX-arm64.sh -b -p ./anaconda3
+        ./anaconda3/bin/conda init
+        source ~/.bash_profile
+        conda create -n myenv python=3.9.20 -y
+        conda activate myenv
+        pip3 install virtualenv
+        pip3 install --upgrade setuptools
         cd $GITHUB_WORKSPACE
         npm i
         bash ./macos_arm64.sh ${{github.event.inputs.v8_revision}}
@@ -401,16 +407,19 @@ jobs:
     name: macOS-DLL
     runs-on: macos-14
     steps:
-    - name: use python3.9
-      run: |
-        brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
-        brew install python@3.9
-        pip install virtualenv
-        pip install --upgrade setuptools
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
-        export PATH=/usr/local/opt/python@3.9/libexec/bin:$PATH
+        brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
+        curl -O https://repo.anaconda.com/archive/Anaconda3-2024.10-1-MacOSX-arm64.sh
+        chmod +x Anaconda3-2024.10-1-MacOSX-arm64.sh
+        ./Anaconda3-2024.10-1-MacOSX-arm64.sh -b -p ./anaconda3
+        ./anaconda3/bin/conda init
+        source ~/.bash_profile
+        conda create -n myenv python=3.9.20 -y
+        conda activate myenv
+        pip3 install virtualenv
+        pip3 install --upgrade setuptools
         cd $GITHUB_WORKSPACE
         npm i
         bash ./macos_DLL.sh ${{github.event.inputs.v8_revision}}
@@ -425,16 +434,19 @@ jobs:
     name: macOS-DLL with apple m1
     runs-on: macos-14
     steps:
-    - name: use python3.9
-      run: |
-        brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
-        brew install python@3.9
-        pip install virtualenv
-        pip install --upgrade setuptools
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
-        export PATH=/usr/local/opt/python@3.9/libexec/bin:$PATH
+        brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
+        curl -O https://repo.anaconda.com/archive/Anaconda3-2024.10-1-MacOSX-arm64.sh
+        chmod +x Anaconda3-2024.10-1-MacOSX-arm64.sh
+        ./Anaconda3-2024.10-1-MacOSX-arm64.sh -b -p ./anaconda3
+        ./anaconda3/bin/conda init
+        source ~/.bash_profile
+        conda create -n myenv python=3.9.20 -y
+        conda activate myenv
+        pip3 install virtualenv
+        pip3 install --upgrade setuptools
         cd $GITHUB_WORKSPACE
         npm i
         bash ./macos_arm64_DLL.sh ${{github.event.inputs.v8_revision}}
@@ -449,16 +461,19 @@ jobs:
     name: iOS
     runs-on: macos-14
     steps:
-    - name: use python3.9
-      run: |
-        brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
-        brew install python@3.9
-        pip install virtualenv
-        pip install --upgrade setuptools
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
-        export PATH=/usr/local/opt/python@3.9/libexec/bin:$PATH
+        brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
+        curl -O https://repo.anaconda.com/archive/Anaconda3-2024.10-1-MacOSX-arm64.sh
+        chmod +x Anaconda3-2024.10-1-MacOSX-arm64.sh
+        ./Anaconda3-2024.10-1-MacOSX-arm64.sh -b -p ./anaconda3
+        ./anaconda3/bin/conda init
+        source ~/.bash_profile
+        conda create -n myenv python=3.9.20 -y
+        conda activate myenv
+        pip3 install virtualenv
+        pip3 install --upgrade setuptools
         cd $GITHUB_WORKSPACE
         npm i
         bash ./ios.sh ${{github.event.inputs.v8_revision}}
@@ -473,16 +488,19 @@ jobs:
     name: iOS simulator
     runs-on: macos-14
     steps:
-    - name: use python3.9
-      run: |
-        brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
-        brew install python@3.9
-        pip install virtualenv
-        pip install --upgrade setuptools
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
-        export PATH=/usr/local/opt/python@3.9/libexec/bin:$PATH
+        brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
+        curl -O https://repo.anaconda.com/archive/Anaconda3-2024.10-1-MacOSX-arm64.sh
+        chmod +x Anaconda3-2024.10-1-MacOSX-arm64.sh
+        ./Anaconda3-2024.10-1-MacOSX-arm64.sh -b -p ./anaconda3
+        ./anaconda3/bin/conda init
+        source ~/.bash_profile
+        conda create -n myenv python=3.9.20 -y
+        conda activate myenv
+        pip3 install virtualenv
+        pip3 install --upgrade setuptools
         cd $GITHUB_WORKSPACE
         npm i
         bash ./ios_simulator.sh ${{github.event.inputs.v8_revision}}
