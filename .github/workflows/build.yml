@@ -355,9 +355,8 @@ jobs:
     steps:
     - name: use python3.9
       run: |
+        brew list --formula | grep 'python@3' | xargs brew uninstall
         brew install python@3.9
-        brew unlink python
-        brew link --overwrite python@3.9
         pip install virtualenv
     - uses: actions/checkout@v2
     - name: Run build script
@@ -379,9 +378,8 @@ jobs:
     steps:
     - name: use python3.9
       run: |
+        brew list --formula | grep 'python@3' | xargs brew uninstall
         brew install python@3.9
-        brew unlink python
-        brew link --overwrite python@3.9
         pip install virtualenv
     - uses: actions/checkout@v2
     - name: Run build script
@@ -403,9 +401,8 @@ jobs:
     steps:
     - name: use python3.9
       run: |
+        brew list --formula | grep 'python@3' | xargs brew uninstall
         brew install python@3.9
-        brew unlink python
-        brew link --overwrite python@3.9
         pip install virtualenv
     - uses: actions/checkout@v2
     - name: Run build script
@@ -427,9 +424,8 @@ jobs:
     steps:
     - name: use python3.9
       run: |
+        brew list --formula | grep 'python@3' | xargs brew uninstall
         brew install python@3.9
-        brew unlink python
-        brew link --overwrite python@3.9
         pip install virtualenv
     - uses: actions/checkout@v2
     - name: Run build script
@@ -451,9 +447,8 @@ jobs:
     steps:
     - name: use python3.9
       run: |
+        brew list --formula | grep 'python@3' | xargs brew uninstall
         brew install python@3.9
-        brew unlink python
-        brew link --overwrite python@3.9
         pip install virtualenv
     - uses: actions/checkout@v2
     - name: Run build script
@@ -475,10 +470,9 @@ jobs:
     steps:
     - name: use python3.9
       run: |
+        brew list --formula | grep 'python@3' | xargs brew uninstall
         brew install python@3.9
-        brew unlink python
-        brew link --overwrite python@3.9
-        pip install virtualenv
+        pip install virtualenvv
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
