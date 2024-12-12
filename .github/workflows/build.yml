@@ -455,6 +455,7 @@ jobs:
         brew install python@3.9
         pip install virtualenv
         pip install --upgrade setuptools
+        python -c "import pipes"
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
