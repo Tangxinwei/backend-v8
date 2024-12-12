@@ -472,7 +472,7 @@ jobs:
       run: |
         brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
         brew install python@3.9
-        pip install virtualenvv
+        pip install virtualenv
     - uses: actions/checkout@v2
     - name: Run build script
       run: |
