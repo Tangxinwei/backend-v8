@@ -447,12 +447,13 @@ jobs:
   build_ios:
     if: github.event.inputs.build_ios == 'true'
     name: iOS
-    runs-on: macos-13
+    runs-on: macos-14
     steps:
     - name: use python3.9
       run: |
         brew list --formula | grep 'python@3' | xargs brew uninstall --ignore-dependencies
-        brew install python@3.9
+        curl -O https://www.python.org/ftp/python/3.9.12/python-3.9.12-macos11.pkg
+        sudo installer -pkg python-3.9.12-macos11.pkg -target /
         pip install virtualenv
         pip install --upgrade setuptools
         python -c "import pipes"
