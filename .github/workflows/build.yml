@@ -356,6 +356,8 @@ jobs:
     - name: use python3.9
       run: |
         brew install python@3.9
+        brew unlink python
+        brew link --overwrite python@3.9
         pip install virtualenv
     - uses: actions/checkout@v2
     - name: Run build script
@@ -378,6 +380,8 @@ jobs:
     - name: use python3.9
       run: |
         brew install python@3.9
+        brew unlink python
+        brew link --overwrite python@3.9
         pip install virtualenv
     - uses: actions/checkout@v2
     - name: Run build script
@@ -400,6 +404,8 @@ jobs:
     - name: use python3.9
       run: |
         brew install python@3.9
+        brew unlink python
+        brew link --overwrite python@3.9
         pip install virtualenv
     - uses: actions/checkout@v2
     - name: Run build script
@@ -422,6 +428,8 @@ jobs:
     - name: use python3.9
       run: |
         brew install python@3.9
+        brew unlink python
+        brew link --overwrite python@3.9
         pip install virtualenv
     - uses: actions/checkout@v2
     - name: Run build script
@@ -444,6 +452,8 @@ jobs:
     - name: use python3.9
       run: |
         brew install python@3.9
+        brew unlink python
+        brew link --overwrite python@3.9
         pip install virtualenv
     - uses: actions/checkout@v2
     - name: Run build script
@@ -466,6 +476,8 @@ jobs:
     - name: use python3.9
       run: |
         brew install python@3.9
+        brew unlink python
+        brew link --overwrite python@3.9
         pip install virtualenv
     - uses: actions/checkout@v2
     - name: Run build script
