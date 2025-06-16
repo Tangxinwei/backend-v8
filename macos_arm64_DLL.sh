@@ -1,4 +1,7 @@
 VERSION=$1
+ENABLE_FP=$2
+FULL_SYMBOLE=$3
+
 [ -z "$GITHUB_WORKSPACE" ] && GITHUB_WORKSPACE="$( cd "$( dirname "$0" )"/.. && pwd )"
 
 cd ~
@@ -36,8 +39,15 @@ node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
 node $GITHUB_WORKSPACE/node-script/patchs.js . $VERSION
 
+GN_ARGS="is_debug=false target_cpu=\"arm64\" v8_target_cpu=\"arm64\" v8_enable_i18n_support=false v8_use_snapshot=true v8_use_external_startup_data=false is_component_build=true libcxx_abi_unstable=false v8_enable_pointer_compression=true v8_enable_sandbox=false use_custom_libcxx=false v8_enable_maglev=false"
+if [ "$FULL_SYMBOLE" == "true" ]; then
+  GN_ARGS=$GN_ARGS" strip_debug_info=false symbol_level=2"
+else
+  GN_ARGS=$GN_ARGS" strip_debug_info=true symbol_level=0"
+fi
 echo "=====[ Building V8 ]====="
-gn gen out.gn/arm64.release --args="is_debug=false target_cpu=\"arm64\" v8_target_cpu=\"arm64\" v8_enable_i18n_support=false v8_use_snapshot=true v8_use_external_startup_data=false is_component_build=true strip_debug_info=true symbol_level=0 libcxx_abi_unstable=false v8_enable_pointer_compression=true v8_enable_sandbox=false use_custom_libcxx=false v8_enable_maglev=false"
+echo $GN_ARGS
+gn gen out.gn/arm64.release --args="$GN_ARGS"
 
 ninja -C out.gn/arm64.release -t clean
 ninja -v -C out.gn/arm64.release v8

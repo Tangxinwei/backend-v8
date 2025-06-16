@@ -17,6 +17,16 @@ on:
         - "11.8.172.18-pgo"
         default: '9.4.146.24'
         required: true
+      enable_fp:
+        description: 'weather to enable frame pointer'
+        type: boolean
+        default: false
+        required: true
+      full_symbol:
+        description: 'weather to have full symbol'
+        type: boolean
+        default: false
+        required: true
       build_android:
         description: 'Build for Android platform'
         type: boolean
@@ -65,7 +75,7 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE
         npm i
-        bash ./android_armv8.sh ${{github.event.inputs.v8_revision}}
+        bash ./android_armv8.sh ${{github.event.inputs.v8_revision}} ${{github.event.inputs.enable_fp}} ${{github.event.inputs.full_symbol}}
         mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_${{github.event.inputs.v8_revision}}
     - uses: actions/upload-artifact@v4
       with:
@@ -82,7 +92,7 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE
         npm i
-        bash ./android_armv7.sh ${{github.event.inputs.v8_revision}}
+        bash ./android_armv7.sh ${{github.event.inputs.v8_revision}} ${{github.event.inputs.enable_fp}} ${{github.event.inputs.full_symbol}}
         mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_${{github.event.inputs.v8_revision}}
     - uses: actions/upload-artifact@v4
       with:
@@ -99,7 +109,7 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE
         npm i
-        bash ./android_x64.sh ${{github.event.inputs.v8_revision}}
+        bash ./android_x64.sh ${{github.event.inputs.v8_revision}} ${{github.event.inputs.enable_fp}} ${{github.event.inputs.full_symbol}}
         mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_${{github.event.inputs.v8_revision}}
     - uses: actions/upload-artifact@v4
       with:
@@ -197,7 +207,7 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE
         npm i
-        bash ./linux.sh ${{github.event.inputs.v8_revision}}
+        bash ./linux.sh ${{github.event.inputs.v8_revision}} ${{github.event.inputs.enable_fp}} ${{github.event.inputs.full_symbol}}
         mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_${{github.event.inputs.v8_revision}}
     - uses: actions/upload-artifact@v4
       with:
@@ -215,7 +225,7 @@ jobs:
       run: |
         cd %GITHUB_WORKSPACE%
         call npm i
-        call .\windows_64.cmd ${{github.event.inputs.v8_revision}}
+        call .\windows_64.cmd ${{github.event.inputs.v8_revision}} ${{github.event.inputs.enable_fp}} ${{github.event.inputs.full_symbol}}
     - name: Rename
       shell: bash
       run: |
@@ -236,7 +246,7 @@ jobs:
       run: |
         cd %GITHUB_WORKSPACE%
         call npm i
-        call .\windows_64MD.cmd ${{github.event.inputs.v8_revision}}
+        call .\windows_64MD.cmd ${{github.event.inputs.v8_revision}} ${{github.event.inputs.enable_fp}} ${{github.event.inputs.full_symbol}}
     - name: Rename
       shell: bash
       run: |
@@ -257,7 +267,7 @@ jobs:
       run: |
         cd %GITHUB_WORKSPACE%
         call npm i
-        call .\windows_64MD_DLL_94.cmd ${{github.event.inputs.v8_revision}}
+        call .\windows_64MD_DLL_94.cmd ${{github.event.inputs.v8_revision}} ${{github.event.inputs.enable_fp}} ${{github.event.inputs.full_symbol}}
     - name: Rename
       shell: bash
       run: |
@@ -278,7 +288,7 @@ jobs:
       run: |
         cd %GITHUB_WORKSPACE%
         call npm i
-        call .\windows_32.cmd ${{github.event.inputs.v8_revision}}
+        call .\windows_32.cmd ${{github.event.inputs.v8_revision}} ${{github.event.inputs.enable_fp}} ${{github.event.inputs.full_symbol}}
     - name: Rename
       shell: bash
       run: |
@@ -368,7 +378,7 @@ jobs:
         pip3 install --upgrade setuptools
         cd $GITHUB_WORKSPACE
         npm i
-        bash ./macos.sh ${{github.event.inputs.v8_revision}}
+        bash ./macos.sh ${{github.event.inputs.v8_revision}} ${{github.event.inputs.enable_fp}} ${{github.event.inputs.full_symbol}}
         mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_${{github.event.inputs.v8_revision}}
     - uses: actions/upload-artifact@v4
       with:
@@ -395,7 +405,7 @@ jobs:
         pip3 install --upgrade setuptools
         cd $GITHUB_WORKSPACE
         npm i
-        bash ./macos_arm64.sh ${{github.event.inputs.v8_revision}}
+        bash ./macos_arm64.sh ${{github.event.inputs.v8_revision}} ${{github.event.inputs.enable_fp}} ${{github.event.inputs.full_symbol}}
         mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_${{github.event.inputs.v8_revision}}
     - uses: actions/upload-artifact@v4
       with:
@@ -422,7 +432,7 @@ jobs:
         pip3 install --upgrade setuptools
         cd $GITHUB_WORKSPACE
         npm i
-        bash ./macos_DLL.sh ${{github.event.inputs.v8_revision}}
+        bash ./macos_DLL.sh ${{github.event.inputs.v8_revision}} ${{github.event.inputs.enable_fp}} ${{github.event.inputs.full_symbol}}
         mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_${{github.event.inputs.v8_revision}}
     - uses: actions/upload-artifact@v4
       with:
@@ -449,7 +459,7 @@ jobs:
         pip3 install --upgrade setuptools
         cd $GITHUB_WORKSPACE
         npm i
-        bash ./macos_arm64_DLL.sh ${{github.event.inputs.v8_revision}}
+        bash ./macos_arm64_DLL.sh ${{github.event.inputs.v8_revision}} ${{github.event.inputs.enable_fp}} ${{github.event.inputs.full_symbol}}
         mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_${{github.event.inputs.v8_revision}}
     - uses: actions/upload-artifact@v4
       with:
@@ -476,7 +486,7 @@ jobs:
         pip3 install --upgrade setuptools
         cd $GITHUB_WORKSPACE
         npm i
-        bash ./ios.sh ${{github.event.inputs.v8_revision}}
+        bash ./ios.sh ${{github.event.inputs.v8_revision}} ${{github.event.inputs.enable_fp}} ${{github.event.inputs.full_symbol}}
         mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_${{github.event.inputs.v8_revision}}
     - uses: actions/upload-artifact@v4
       with:
@@ -503,7 +513,7 @@ jobs:
         pip3 install --upgrade setuptools
         cd $GITHUB_WORKSPACE
         npm i
-        bash ./ios_simulator.sh ${{github.event.inputs.v8_revision}}
+        bash ./ios_simulator.sh ${{github.event.inputs.v8_revision}} ${{github.event.inputs.enable_fp}} ${{github.event.inputs.full_symbol}}
         mv ~/v8/v8/output/v8 ~/v8/v8/output/v8_${{github.event.inputs.v8_revision}}
     - uses: actions/upload-artifact@v4
       with:

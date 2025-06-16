@@ -1,4 +1,6 @@
 set VERSION=%1
+set ENABLE_FP=%2
+set FULL_SYMBOLE=%3
 
 cd /d %USERPROFILE%
 echo =====[ Getting Depot Tools ]=====
@@ -71,8 +73,17 @@ node %~dp0\node-script\add_arraybuffer_new_without_stl.js .
 
 node %~dp0\node-script\patchs.js . %VERSION%
 
+
+set GN_ARGS=target_os=""win"" target_cpu=""x86"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false v8_static_library=true is_clang=false v8_enable_pointer_compression=false v8_enable_sandbox=false v8_enable_maglev=false
+
+if "%FULL_SYMBOLE%"=="true" (
+    set GN_ARGS=%GN_ARGS% strip_debug_info=false symbol_level=2
+) else if "%FULL_SYMBOLE%"=="false" (
+    set GN_ARGS=%GN_ARGS% strip_debug_info=true symbol_level=0
+)
 echo =====[ Building V8 ]=====
-call gn gen out.gn\x86.release -args="target_os=""win"" target_cpu=""x86"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false v8_static_library=true is_clang=false strip_debug_info=true symbol_level=0 v8_enable_pointer_compression=false v8_enable_sandbox=false v8_enable_maglev=false"
+echo %FULL_SYMBOLE%
+call gn gen out.gn\x86.release -args="%GN_ARGS%"
 
 
 call ninja -C out.gn\x86.release -t clean

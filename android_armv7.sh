@@ -1,6 +1,9 @@
 #!/bin/bash
 
 VERSION=$1
+ENABLE_FP=$2
+FULL_SYMBOLE=$3
+
 [ -z "$GITHUB_WORKSPACE" ] && GITHUB_WORKSPACE="$( cd "$( dirname "$0" )"/.. && pwd )"
 
 if [ "$VERSION" == "10.6.194" ] || [ "$VERSION" == "11.8.172" ] || [ "$VERSION" == "11.8.172.18" ] || [ "$VERSION" == "11.8.172.18-pgo" ]; then 
@@ -79,8 +82,15 @@ node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
 node $GITHUB_WORKSPACE/node-script/patchs.js . $VERSION
 
+GN_ARGS="target_os=\"android\" target_cpu=\"arm\" is_debug=false v8_enable_i18n_support=false v8_target_cpu=\"arm\" use_goma=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true strip_absolute_paths_from_debug_symbols=false use_custom_libcxx=false use_custom_libcxx_for_host=true v8_enable_sandbox=false v8_enable_maglev=false"
+if [ "$FULL_SYMBOLE" == "true" ]; then
+  GN_ARGS=$GN_ARGS" strip_debug_info=false symbol_level=2"
+else
+  GN_ARGS=$GN_ARGS" strip_debug_info=true symbol_level=0"
+fi
 echo "=====[ Building V8 ]====="
-gn gen out.gn/arm.release --args="target_os=\"android\" target_cpu=\"arm\" is_debug=false v8_enable_i18n_support=false v8_target_cpu=\"arm\" use_goma=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true strip_absolute_paths_from_debug_symbols=false strip_debug_info=true symbol_level=0 use_custom_libcxx=false use_custom_libcxx_for_host=true v8_enable_sandbox=false v8_enable_maglev=false"
+echo $GN_ARGS
+gn gen out.gn/arm.release --args="$GN_ARGS"
 
 ninja -C out.gn/arm.release -t clean
 ninja -v -C out.gn/arm.release wee8
