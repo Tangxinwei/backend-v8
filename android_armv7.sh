@@ -82,6 +82,10 @@ node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
 node $GITHUB_WORKSPACE/node-script/patchs.js . $VERSION
 
+if [ "ENABLE_FP" == "true" ]; then
+  node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/compiler.gni', fs.readFileSync('./build/config/compiler/compiler.gni', 'utf-8').replace('can_unwind_with_frame_pointers = enable_frame_pointers', 'enable_frame_pointers = true\n can_unwind_with_frame_pointers = enable_frame_pointers'));"
+fi
+
 GN_ARGS="target_os=\"android\" target_cpu=\"arm\" is_debug=false v8_enable_i18n_support=false v8_target_cpu=\"arm\" use_goma=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true strip_absolute_paths_from_debug_symbols=false use_custom_libcxx=false use_custom_libcxx_for_host=true v8_enable_sandbox=false v8_enable_maglev=false"
 if [ "$FULL_SYMBOLE" == "true" ]; then
   GN_ARGS=$GN_ARGS" strip_debug_info=false symbol_level=2"
