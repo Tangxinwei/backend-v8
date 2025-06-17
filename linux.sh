@@ -60,11 +60,10 @@ fi
 
 echo "=====[ Getting Depot Tools ]====="	
 git clone -q https://chromium.googlesource.com/chromium/tools/depot_tools.git
-if [ "$VERSION" != "10.6.194" ] && [ "$VERSION" != "11.8.172" ] && [ "$VERSION" != "11.8.172.18" ] && [ "$VERSION" != "11.8.172.18-pgo" ]; then
-    cd depot_tools
-    git reset --hard 8d16d4a
-    cd ..
-fi
+cd depot_tools
+git reset --hard 8d16d4a
+cd ..
+
 export DEPOT_TOOLS_UPDATE=0
 if [ "$VERSION" == "10.6.194" ] || [ "$VERSION" == "11.8.172" ] || [ "$VERSION" == "11.8.172.18" ] || [ "$VERSION" == "11.8.172.18-pgo" ]; then 
     export PATH=$(pwd)/depot_tools:$PATH
