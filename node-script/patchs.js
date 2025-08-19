@@ -6,7 +6,7 @@ const v8_version = process.argv[3];
 
 function justReplace(path, from, to) {
     console.log(`patch ${path} ...`);
-    const context = fs.readFileSync(path, 'utf-8').replace(from, to);
+    const context = fs.readFileSync(path, 'utf-8').replaceAll(from, to);
     fs.writeFileSync(path, context);
 }
 
@@ -61,4 +61,5 @@ function addV8CC() {
 (function() {
     addV8CC();
     justReplace(path.join(v8_path, 'src/api/api.h'), 'NewArray<internal::Address>(kHandleBlockSize)', 'NewArray<internal::Address>(kHandleBlockSize + 1)');
+    justReplace(path.join(v8_path, 'src/parsing/parser.cc'), 'CHECK(stack_overflow());', '//CHECK(stack_overflow());');
 })();
