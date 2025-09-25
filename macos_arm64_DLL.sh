@@ -44,7 +44,7 @@ if [ "ENABLE_FP" == "true" ]; then
   node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/compiler.gni', fs.readFileSync('./build/config/compiler/compiler.gni', 'utf-8').replace('can_unwind_with_frame_pointers = enable_frame_pointers', 'enable_frame_pointers = true\n can_unwind_with_frame_pointers = enable_frame_pointers'));"
 fi
 
-git -A
+git add -A
 git commit -m 'test'
 
 GN_ARGS="is_debug=false target_cpu=\"arm64\" v8_target_cpu=\"arm64\" v8_enable_i18n_support=false v8_use_snapshot=true v8_use_external_startup_data=false is_component_build=true libcxx_abi_unstable=false v8_enable_sandbox=false use_custom_libcxx=false v8_enable_maglev=false"
