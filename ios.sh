@@ -1,6 +1,7 @@
 VERSION=$1
 ENABLE_FP=$2
 FULL_SYMBOLE=$3
+USE_POINTERCOMPRESS=true
 
 [ -z "$GITHUB_WORKSPACE" ] && GITHUB_WORKSPACE="$( cd "$( dirname "$0" )"/.. && pwd )"
 
@@ -46,11 +47,17 @@ fi
 git -A
 git commit -m 'test'
 
-GN_ARGS="v8_use_external_startup_data=false v8_use_snapshot=true v8_enable_i18n_support=false is_debug=false v8_static_library=true ios_enable_code_signing= false target_os=\"ios\" target_cpu=\"arm64\" v8_enable_pointer_compression=true libcxx_abi_unstable=false v8_enable_sandbox=false use_custom_libcxx=false v8_enable_webassembly=false v8_enable_maglev=false"
+GN_ARGS="v8_use_external_startup_data=false v8_use_snapshot=true v8_enable_i18n_support=false is_debug=false v8_static_library=true ios_enable_code_signing= false target_os=\"ios\" target_cpu=\"arm64\" libcxx_abi_unstable=false v8_enable_sandbox=false use_custom_libcxx=false v8_enable_webassembly=false v8_enable_maglev=false"
 if [ "$FULL_SYMBOLE" == "true" ]; then
   GN_ARGS=$GN_ARGS" strip_debug_info=false symbol_level=2"
 else
   GN_ARGS=$GN_ARGS" strip_debug_info=true symbol_level=0"
+fi
+
+if [ "$USE_POINTERCOMPRESS" == "true" ]; then
+  GN_ARGS=$GN_ARGS" v8_enable_pointer_compression=true"
+else
+  GN_ARGS=$GN_ARGS" v8_enable_pointer_compression=false"
 fi
 
 echo "=====[ Building V8 ]====="

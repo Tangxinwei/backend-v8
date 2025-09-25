@@ -1,6 +1,7 @@
 set VERSION=%1
 set ENABLE_FP=%2
 set FULL_SYMBOLE=%3
+set USE_POINTERCOMPRESS=true
 
 cd /d %USERPROFILE%
 echo =====[ Getting Depot Tools ]=====
@@ -92,6 +93,12 @@ if "%FULL_SYMBOLE%"=="true" (
     set GN_ARGS=%GN_ARGS% strip_debug_info=false symbol_level=2
 ) else if "%FULL_SYMBOLE%"=="false" (
     set GN_ARGS=%GN_ARGS% strip_debug_info=true symbol_level=0
+)
+
+if "%USE_POINTERCOMPRESS%"=="true" (
+    set GN_ARGS=%GN_ARGS% v8_enable_pointer_compression=true
+) else if "%USE_POINTERCOMPRESS%"=="false" (
+    set GN_ARGS=%GN_ARGS% v8_enable_pointer_compression=false
 )
 
 echo =====[ Building V8 ]=====

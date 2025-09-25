@@ -1,6 +1,7 @@
 set VERSION=%1
 set ENABLE_FP=%2
 set FULL_SYMBOLE=%3
+set USE_POINTERCOMPRESS=true
 
 cd /d %USERPROFILE%
 echo =====[ Getting Depot Tools ]=====
@@ -80,12 +81,19 @@ if "%ENABLE_FP%"=="true" (
 git -A
 git commit -m 'test'
 
-set GN_ARGS=target_os=""win"" target_cpu=""x64"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false v8_static_library=true is_clang=false v8_enable_pointer_compression=true v8_enable_sandbox=false v8_enable_maglev=false
+set GN_ARGS=target_os=""win"" target_cpu=""x64"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false v8_static_library=true is_clang=false v8_enable_sandbox=false v8_enable_maglev=false
 if "%FULL_SYMBOLE%"=="true" (
     set GN_ARGS=%GN_ARGS% strip_debug_info=false symbol_level=2
 ) else if "%FULL_SYMBOLE%"=="false" (
     set GN_ARGS=%GN_ARGS% strip_debug_info=true symbol_level=0
 )
+
+if "%USE_POINTERCOMPRESS%"=="true" (
+    set GN_ARGS=%GN_ARGS% v8_enable_pointer_compression=true
+) else if "%USE_POINTERCOMPRESS%"=="false" (
+    set GN_ARGS=%GN_ARGS% v8_enable_pointer_compression=false
+)
+
 echo =====[ Building V8 ]=====
 echo %GN_ARGS%
 call gn gen out.gn\x64.release -args="%GN_ARGS%"
