@@ -1,7 +1,7 @@
 set VERSION=%1
 set ENABLE_FP=%2
 set FULL_SYMBOLE=%3
-set USE_POINTERCOMPRESS=true
+set USE_POINTERCOMPRESS=false
 
 cd /d %USERPROFILE%
 echo =====[ Getting Depot Tools ]=====

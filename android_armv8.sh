@@ -3,7 +3,7 @@
 VERSION=$1
 ENABLE_FP=$2
 FULL_SYMBOLE=$3
-USE_POINTERCOMPRESS=true
+USE_POINTERCOMPRESS=false
 
 [ -z "$GITHUB_WORKSPACE" ] && GITHUB_WORKSPACE="$( cd "$( dirname "$0" )"/.. && pwd )"
 

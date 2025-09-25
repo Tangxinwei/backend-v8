@@ -1,5 +1,5 @@
 set VERSION=%1
-set USE_POINTERCOMPRESS=true
+set USE_POINTERCOMPRESS=false
 
 cd /d %USERPROFILE%
 echo =====[ Getting Depot Tools ]=====
