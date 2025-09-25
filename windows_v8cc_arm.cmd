@@ -82,6 +82,9 @@ if "%VERSION%"=="11.8.172.18-pgo" (
 )
 node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\v8cc_arm_win_v%vcc_version%.patch
 
+git -A
+git commit -m 'test'
+
 node %~dp0\node-script\add_cross_v8cc.js . %VERSION% arm
 
 echo =====[ Building V8 ]=====
