@@ -80,10 +80,10 @@ if "%ENABLE_FP%"=="true" (
 
 node %~dp0\node-script\patchs.js . %VERSION%
 
-git -A
+git add -A
 git commit -m 'test'
 git apply --cached --reject %GITHUB_WORKSPACE%\patches\use_mmap.patch
-git -A
+git add -A
 git commit -m 'use_mmap'
 
 set GN_ARGS=target_os=""win"" target_cpu=""x64"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false v8_static_library=true is_clang=false v8_enable_pointer_compression=false v8_enable_sandbox=false v8_enable_maglev=false
