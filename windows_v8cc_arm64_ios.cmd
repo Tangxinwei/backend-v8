@@ -69,6 +69,12 @@ if "%VERSION%"=="9.4.146.24" (
 echo =====[ add ArrayBuffer_New_Without_Stl ]=====
 node %~dp0\node-script\add_arraybuffer_new_without_stl.js .
 
+git -A
+git commit -m 'test'
+git apply --cached --reject %GITHUB_WORKSPACE%\patches\use_mmap.patch
+git -A
+git commit -m 'use_mmap'
+
 node %~dp0\node-script\add_cross_v8cc.js . %VERSION% arm64
 
 echo =====[ Building V8 ]=====

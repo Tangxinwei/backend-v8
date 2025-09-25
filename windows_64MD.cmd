@@ -74,11 +74,17 @@ node %~dp0\node-script\rep.js  build\config\win\BUILD.gn
 echo =====[ add ArrayBuffer_New_Without_Stl ]=====
 node %~dp0\node-script\add_arraybuffer_new_without_stl.js .
 
-node %~dp0\node-script\patchs.js . %VERSION%
-
 if "%ENABLE_FP%"=="true" (
     node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/compiler.gni', fs.readFileSync('./build/config/compiler/compiler.gni', 'utf-8').replace('can_unwind_with_frame_pointers = enable_frame_pointers', 'enable_frame_pointers = true\n can_unwind_with_frame_pointers = enable_frame_pointers'));"
 )
+
+node %~dp0\node-script\patchs.js . %VERSION%
+
+git -A
+git commit -m 'test'
+git apply --cached --reject %GITHUB_WORKSPACE%\patches\use_mmap.patch
+git -A
+git commit -m 'use_mmap'
 
 set GN_ARGS=target_os=""win"" target_cpu=""x64"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false v8_static_library=true is_clang=false v8_enable_pointer_compression=false v8_enable_sandbox=false v8_enable_maglev=false
 if "%FULL_SYMBOLE%"=="true" (

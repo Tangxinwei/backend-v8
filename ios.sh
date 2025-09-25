@@ -43,6 +43,13 @@ if [ "$ENABLE_FP" == "true" ]; then
   node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/compiler.gni', fs.readFileSync('./build/config/compiler/compiler.gni', 'utf-8').replace('can_unwind_with_frame_pointers = enable_frame_pointers', 'enable_frame_pointers = true\n can_unwind_with_frame_pointers = enable_frame_pointers'));"
 fi
 
+git -A
+git commit -m 'test'
+echo "==========================use_mmap"
+git apply --cached --reject $GITHUB_WORKSPACE/patches/use_mmap.patch
+git -A
+git commit -m 'use_mmap'
+
 GN_ARGS="v8_use_external_startup_data=false v8_use_snapshot=true v8_enable_i18n_support=false is_debug=false v8_static_library=true ios_enable_code_signing= false target_os=\"ios\" target_cpu=\"arm64\" v8_enable_pointer_compression=false libcxx_abi_unstable=false v8_enable_sandbox=false use_custom_libcxx=false v8_enable_webassembly=false v8_enable_maglev=false"
 if [ "$FULL_SYMBOLE" == "true" ]; then
   GN_ARGS=$GN_ARGS" strip_debug_info=false symbol_level=2"
