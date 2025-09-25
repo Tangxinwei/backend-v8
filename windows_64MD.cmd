@@ -82,9 +82,7 @@ node %~dp0\node-script\patchs.js . %VERSION%
 
 git add -A
 git commit -m 'test'
-git apply --cached --reject %GITHUB_WORKSPACE%\patches\use_mmap.patch
-git add -A
-git commit -m 'use_mmap'
+node node-script\do-gitpatch-commit.js -p patches\use_mmap.patch
 
 set GN_ARGS=target_os=""win"" target_cpu=""x64"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false v8_static_library=true is_clang=false v8_enable_pointer_compression=false v8_enable_sandbox=false v8_enable_maglev=false
 if "%FULL_SYMBOLE%"=="true" (

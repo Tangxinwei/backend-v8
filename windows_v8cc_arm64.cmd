@@ -71,9 +71,7 @@ node %~dp0\node-script\add_arraybuffer_new_without_stl.js .
 
 git add -A
 git commit -m 'test'
-git apply --cached --reject %GITHUB_WORKSPACE%\patches\use_mmap.patch
-git add -A
-git commit -m 'use_mmap'
+node node-script\do-gitpatch-commit.js -p patches\use_mmap.patch
 
 node %~dp0\node-script\add_cross_v8cc.js . %VERSION% arm64
 
