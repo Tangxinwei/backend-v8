@@ -1,37 +1,44 @@
-From 938374a44980f4b84bfde8acfa0196edf745b3d6 Mon Sep 17 00:00:00 2001
+From 7995a05406fff4c738f008ffc64e838e072772b8 Mon Sep 17 00:00:00 2001
 From: tangxinwei <txw19881222@126.com>
-Date: Thu, 25 Sep 2025 14:55:09 +0800
-Subject: [PATCH] 'mmap'
+Date: Fri, 26 Sep 2025 17:29:16 +0800
+Subject: [PATCH] fix
 
 ---
- include/v8-isolate.h         |   5 +-
+ include/v8-isolate.h         |  13 ++++-
  src/api/api.cc               |   2 +
- src/base/page-allocator.cc   |   8 +++
- src/base/page-allocator.h    | 109 +++++++++++++++++++++++++++++++++++
+ src/base/page-allocator.cc   |  26 +++++++++
+ src/base/page-allocator.h    | 100 +++++++++++++++++++++++++++++++++++
  src/base/platform/platform.h |   2 +
  src/heap/heap.h              |  11 ++++
  src/heap/memory-allocator.cc |  29 ++++++++--
- src/heap/memory-allocator.h  |   6 +-
- src/utils/allocation.cc      |   9 ++-
- src/utils/allocation.h       |   3 +
- 10 files changed, 176 insertions(+), 8 deletions(-)
+ src/heap/memory-allocator.h  |   6 ++-
+ src/utils/allocation.cc      |   9 +++-
+ src/utils/allocation.h       |   3 ++
+ 10 files changed, 193 insertions(+), 8 deletions(-)
 
 diff --git a/include/v8-isolate.h b/include/v8-isolate.h
-index f6b64db360b..22188dc21fc 100644
+index f6b64db360b..5f31fe15e62 100644
 --- a/include/v8-isolate.h
 +++ b/include/v8-isolate.h
-@@ -198,8 +198,9 @@ enum class MemoryPressureLevel { kNone, kModerate, kCritical };
-  * Indicator for the stack state.
+@@ -199,7 +199,16 @@ enum class MemoryPressureLevel { kNone, kModerate, kCritical };
   */
  using StackState = cppgc::EmbedderStackState;
-+class FileMmapAllocator;
  
 -/**
++//@billbbzhang, Define A FileMMap Allocator which will be defined in the
++// CreateParams
++class V8_EXPORT FileMmapAllocator {
++ public:
++  virtual ~FileMmapAllocator() {}
++  virtual void* Allocate(size_t size, size_t alignment) = 0;
++  virtual bool Free(void* address, size_t length) = 0;
++  virtual bool IsInVmRegion(void* address) = 0;
++};
 +    /**
   * Isolate represents an isolated instance of the V8 engine.  V8 isolates have
   * completely separate states.  Objects from one isolate must not be used in
   * other isolates.  The embedder can create multiple isolates and use them in
-@@ -294,6 +295,8 @@ class V8_EXPORT Isolate {
+@@ -294,6 +303,8 @@ class V8_EXPORT Isolate {
       */
      FatalErrorCallback fatal_error_callback = nullptr;
      OOMErrorCallback oom_error_callback = nullptr;
@@ -54,10 +61,19 @@ index ecf4fbfdf8c..827d05e71a3 100644
      uintptr_t limit =
          reinterpret_cast<uintptr_t>(params.constraints.stack_limit());
 diff --git a/src/base/page-allocator.cc b/src/base/page-allocator.cc
-index 7303c5ed589..c2d51a9ba3c 100644
+index 7303c5ed589..b893c7a5fb2 100644
 --- a/src/base/page-allocator.cc
 +++ b/src/base/page-allocator.cc
-@@ -30,6 +30,14 @@ STATIC_ASSERT_ENUM(PageAllocator::kNoAccessWillJitLater,
+@@ -6,6 +6,8 @@
+ 
+ #include "src/base/platform/platform.h"
+ 
++#include "v8-isolate.h"
++
+ #if V8_OS_DARWIN
+ #include <sys/mman.h>  // For MAP_JIT.
+ #endif
+@@ -30,6 +32,30 @@ STATIC_ASSERT_ENUM(PageAllocator::kNoAccessWillJitLater,
  
  #undef STATIC_ASSERT_ENUM
  
@@ -69,26 +85,37 @@ index 7303c5ed589..c2d51a9ba3c 100644
 +{
 +}
 +
++  /**
++ * Allocates memory in range with the given alignment and permission.
++ */
++void* FileMmapPageAllocator::AllocatePages(void* address, size_t length,
++                                           size_t alignment,
++                    Permission permissions) {
++  return file_mmap_allocator_->Allocate(length, alignment);
++}
++
++/**
++ * Frees memory in a range that was allocated by a call to AllocatePages.
++ */
++bool FileMmapPageAllocator::FreePages(void* address, size_t length)  {
++  return file_mmap_allocator_->Free(address, length);
++}
++
  PageAllocator::PageAllocator()
      : allocate_page_size_(base::OS::AllocatePageSize()),
        commit_page_size_(base::OS::CommitPageSize()) {}
 diff --git a/src/base/page-allocator.h b/src/base/page-allocator.h
-index 8d43376f91d..5e6314f28c5 100644
+index 8d43376f91d..79612c12ff1 100644
 --- a/src/base/page-allocator.h
 +++ b/src/base/page-allocator.h
-@@ -12,10 +12,22 @@
+@@ -12,10 +12,17 @@
  #include "src/base/compiler-specific.h"
  
  namespace v8 {
 +
 +//@billbbzhang, Define A FileMMap Allocator which will be defined in the CreateParams
-+class V8_EXPORT FileMmapAllocator {
-+ public:
-+  virtual ~FileMmapAllocator() {}
-+  virtual void* Allocate(size_t size, size_t alignment) = 0;
-+  virtual bool Free(void* address, size_t length) = 0;
-+  virtual bool IsInVmRegion(void* address) = 0;
-+};
++class FileMmapAllocator;
++
 +
  namespace base {
  
@@ -99,7 +126,7 @@ index 8d43376f91d..5e6314f28c5 100644
  class V8_BASE_EXPORT PageAllocator
      : public NON_EXPORTED_BASE(::v8::PageAllocator) {
   public:
-@@ -61,6 +73,103 @@ class V8_BASE_EXPORT PageAllocator
+@@ -61,6 +68,99 @@ class V8_BASE_EXPORT PageAllocator
    const size_t commit_page_size_;
  };
  
@@ -135,16 +162,12 @@ index 8d43376f91d..5e6314f28c5 100644
 +   * Allocates memory in range with the given alignment and permission.
 +   */
 +  void* AllocatePages(void* address, size_t length, size_t alignment,
-+                      Permission permissions) override {
-+    return file_mmap_allocator_->Allocate(length, alignment);
-+  }
++                      Permission permissions) override;
 +
 +  /**
 +   * Frees memory in a range that was allocated by a call to AllocatePages.
 +   */
-+  bool FreePages(void* address, size_t length) override {
-+    return file_mmap_allocator_->Free(address, length);
-+  }
++  bool FreePages(void* address, size_t length) override;
 +
 +  /**
 +   * Releases memory in a range that was allocated by a call to AllocatePages.
