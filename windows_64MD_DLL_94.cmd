@@ -85,7 +85,7 @@ if "%ENABLE_FP%"=="true" (
 )
 
 git add -A
-git commit -m 'test'
+git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 
 set GN_ARGS=target_os=""win"" target_cpu=""x64"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false is_clang=false v8_enable_pointer_compression=true is_component_build=true v8_enable_sandbox=false v8_enable_maglev=false
 
