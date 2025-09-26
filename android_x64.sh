@@ -83,7 +83,7 @@ fi
 git add  -A
 git commit -m 'test'
 echo "==========================use_mmap"
-node node-script/do-gitpatch-commit.js -p patches/use_mmap.patch
+node $GITHUB_WORKSPACE/node-script/do-gitpatch-commit.js -p $GITHUB_WORKSPACE/patches/use_mmap.patch
 
 GN_ARGS="target_os=\"android\" target_cpu=\"x64\" is_debug=false v8_enable_i18n_support=false v8_target_cpu=\"x64\" use_goma=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true use_custom_libcxx=false use_custom_libcxx_for_host=true v8_enable_pointer_compression=false v8_enable_sandbox=false v8_enable_maglev=false"
 if [ "$FULL_SYMBOLE" == "true" ]; then
