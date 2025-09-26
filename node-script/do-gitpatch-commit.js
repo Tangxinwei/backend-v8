@@ -29,6 +29,6 @@ fs.writeFileSync(patchfile, fs.readFileSync(patchfile, {encoding: 'utf-8'}).toSt
 (async function () {
     await sxExecAsync(`git apply --cached --reject ${patchfile}`);
     await sxExecAsync('git add -A')
-    await sxExecAsync('git commit -m ' + program.opts().p)
+    await sxExecAsync('git -c user.name="s" -c user.email="s@s.com" commit -m ' + program.opts().p)
 })()
 // exec('git add .')

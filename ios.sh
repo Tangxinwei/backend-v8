@@ -44,7 +44,7 @@ if [ "$ENABLE_FP" == "true" ]; then
 fi
 
 git add -A
-git commit -m 'test'
+git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 echo "==========================use_mmap"
 node $GITHUB_WORKSPACE/node-script/do-gitpatch-commit.js -p $GITHUB_WORKSPACE/patches/use_mmap.patch
 

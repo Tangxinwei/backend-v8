@@ -70,7 +70,7 @@ echo =====[ add ArrayBuffer_New_Without_Stl ]=====
 node %~dp0\node-script\add_arraybuffer_new_without_stl.js .
 
 call git add -A
-call git commit -m 'test'
+call git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 call node %GITHUB_WORKSPACE%\node-script\do-gitpatch-commit.js -p %GITHUB_WORKSPACE%\patches\use_mmap.patch
 
 node %~dp0\node-script\add_cross_v8cc.js . %VERSION% arm64
