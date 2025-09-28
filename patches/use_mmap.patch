@@ -1,7 +1,7 @@
-From 1ce8a2887a40f63f3f93509bddb66ea2f641fd97 Mon Sep 17 00:00:00 2001
+From 943885282578ce40757015367a9c690fad83200b Mon Sep 17 00:00:00 2001
 From: tangxinwei <txw19881222@126.com>
-Date: Sat, 27 Sep 2025 01:12:58 +0800
-Subject: [PATCH] fff
+Date: Sun, 28 Sep 2025 11:21:32 +0800
+Subject: [PATCH] fixssss
 
 ---
  include/v8-isolate.h         |  13 ++++-
@@ -105,7 +105,7 @@ index 7303c5ed589..b893c7a5fb2 100644
      : allocate_page_size_(base::OS::AllocatePageSize()),
        commit_page_size_(base::OS::CommitPageSize()) {}
 diff --git a/src/base/page-allocator.h b/src/base/page-allocator.h
-index 8d43376f91d..79612c12ff1 100644
+index 8d43376f91d..5d92c9f7d14 100644
 --- a/src/base/page-allocator.h
 +++ b/src/base/page-allocator.h
 @@ -12,10 +12,17 @@
@@ -215,11 +215,11 @@ index 8d43376f91d..79612c12ff1 100644
 +    return true;
 +  }
 +
-+ protected:
-+  // FileMMapAllocator Support, must not be null.
-+  FileMmapAllocator* file_mmap_allocator_;  
++ protected:  
 +  const size_t allocate_page_size_;
 +  const size_t commit_page_size_;
++  // FileMMapAllocator Support, must not be null.
++  FileMmapAllocator* file_mmap_allocator_;
 +};
 +
 +
