@@ -110,7 +110,7 @@ git apply --cached --reject $GITHUB_WORKSPACE/patches/use_mmap.patch
 git add -A
 git -c user.name="s" -c user.email="s@s.com" commit -m 'use_mmap'
 
-GN_ARGS="is_debug=false v8_enable_i18n_support=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true libcxx_abi_unstable=false v8_enable_pointer_compression=false v8_enable_sandbox=false use_custom_libcxx=false is_clang=true clang_use_chrome_plugins=false use_sysroot=false use_glib=false clang_base_path=\"$HOME/customclang\" v8_enable_maglev=false"
+GN_ARGS="is_debug=false v8_enable_i18n_support=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true libcxx_abi_unstable=false v8_enable_pointer_compression=false v8_enable_sandbox=false use_custom_libcxx=false is_clang=true clang_use_chrome_plugins=false use_sysroot=false use_glib=false clang_base_path=\"$HOME/customclang\" v8_enable_maglev=false v8_enable_shared_ro_heap=false"
 if [ "$FULL_SYMBOLE" == "true" ]; then
   GN_ARGS=$GN_ARGS" strip_debug_info=false symbol_level=2"
 else

@@ -50,7 +50,7 @@ git apply --cached --reject $GITHUB_WORKSPACE/patches/use_mmap.patch
 git add -A
 git -c user.name="s" -c user.email="s@s.com" commit -m 'use_mmap'
 
-GN_ARGS="is_debug=false target_cpu=\"x64\" v8_target_cpu=\"x64\" v8_enable_i18n_support=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true libcxx_abi_unstable=false v8_enable_pointer_compression=false v8_enable_sandbox=false use_custom_libcxx=false v8_enable_maglev=false"
+GN_ARGS="is_debug=false target_cpu=\"x64\" v8_target_cpu=\"x64\" v8_enable_i18n_support=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true libcxx_abi_unstable=false v8_enable_pointer_compression=false v8_enable_sandbox=false use_custom_libcxx=false v8_enable_maglev=false v8_enable_shared_ro_heap=false"
 if [ "$FULL_SYMBOLE" == "true" ]; then
   GN_ARGS=$GN_ARGS" strip_debug_info=false symbol_level=2"
 else

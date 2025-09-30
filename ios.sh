@@ -48,7 +48,7 @@ git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 echo "==========================use_mmap"
 node $GITHUB_WORKSPACE/node-script/do-gitpatch-commit.js -p $GITHUB_WORKSPACE/patches/use_mmap.patch
 
-GN_ARGS="v8_use_external_startup_data=false v8_use_snapshot=true v8_enable_i18n_support=false is_debug=false v8_static_library=true ios_enable_code_signing= false target_os=\"ios\" target_cpu=\"arm64\" v8_enable_pointer_compression=false libcxx_abi_unstable=false v8_enable_sandbox=false use_custom_libcxx=false v8_enable_webassembly=false v8_enable_maglev=false"
+GN_ARGS="v8_use_external_startup_data=false v8_use_snapshot=true v8_enable_i18n_support=false is_debug=false v8_static_library=true ios_enable_code_signing= false target_os=\"ios\" target_cpu=\"arm64\" v8_enable_pointer_compression=false libcxx_abi_unstable=false v8_enable_sandbox=false use_custom_libcxx=false v8_enable_webassembly=false v8_enable_maglev=false v8_enable_shared_ro_heap=false"
 if [ "$FULL_SYMBOLE" == "true" ]; then
   GN_ARGS=$GN_ARGS" strip_debug_info=false symbol_level=2"
 else

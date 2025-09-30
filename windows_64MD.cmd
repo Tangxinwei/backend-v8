@@ -84,7 +84,7 @@ call git add -A
 call git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 call node %GITHUB_WORKSPACE%\node-script\do-gitpatch-commit.js -p %GITHUB_WORKSPACE%\patches\use_mmap.patch
 
-set GN_ARGS=target_os=""win"" target_cpu=""x64"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false v8_static_library=true is_clang=false v8_enable_pointer_compression=false v8_enable_sandbox=false v8_enable_maglev=false
+set GN_ARGS=target_os=""win"" target_cpu=""x64"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false v8_static_library=true is_clang=false v8_enable_pointer_compression=false v8_enable_sandbox=false v8_enable_maglev=false v8_enable_shared_ro_heap=false
 if "%FULL_SYMBOLE%"=="true" (
     set GN_ARGS=%GN_ARGS% strip_debug_info=false symbol_level=2
 ) else if "%FULL_SYMBOLE%"=="false" (

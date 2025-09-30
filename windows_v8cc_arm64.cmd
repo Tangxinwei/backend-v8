@@ -76,7 +76,7 @@ call node %GITHUB_WORKSPACE%\node-script\do-gitpatch-commit.js -p %GITHUB_WORKSP
 node %~dp0\node-script\add_cross_v8cc.js . %VERSION% arm64
 
 echo =====[ Building V8 ]=====
-call gn gen out.gn\x64.release -args="target_os=""win"" target_cpu=""x64"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false v8_static_library=true is_clang=false strip_debug_info=true symbol_level=0 v8_enable_pointer_compression=false v8_enable_sandbox=false v8_enable_maglev=false"
+call gn gen out.gn\x64.release -args="target_os=""win"" target_cpu=""x64"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false v8_static_library=true is_clang=false strip_debug_info=true symbol_level=0 v8_enable_pointer_compression=false v8_enable_sandbox=false v8_enable_maglev=false v8_enable_shared_ro_heap=false"
 
 
 call ninja -v -C out.gn\x64.release v8cc
