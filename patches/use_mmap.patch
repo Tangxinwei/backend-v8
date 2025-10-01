@@ -1,21 +1,22 @@
-From 8f8165959909b43f52f1893deef7ea8a3aa634cc Mon Sep 17 00:00:00 2001
+From c6ddadb65cf3c8599b9057dce09d815d20226163 Mon Sep 17 00:00:00 2001
 From: tangxinwei <txw19881222@126.com>
-Date: Tue, 30 Sep 2025 20:19:33 +0800
-Subject: [PATCH] EGRRH
+Date: Wed, 1 Oct 2025 11:49:19 +0800
+Subject: [PATCH] grehtrh
 
 ---
  include/v8-isolate.h         |  16 ++++-
  src/api/api.cc               |   4 ++
- src/base/page-allocator.cc   |  33 ++++++++++
- src/base/page-allocator.h    | 102 ++++++++++++++++++++++++++++++
+ src/base/page-allocator.cc   |  33 +++++++++++
+ src/base/page-allocator.h    | 102 +++++++++++++++++++++++++++++++
  src/base/platform/platform.h |   2 +
+ src/execution/execution.cc   |   3 +-
  src/heap/heap.h              |  28 +++++++++
- src/heap/memory-allocator.cc | 117 ++++++++++++++++++++++++++++++++---
- src/heap/memory-allocator.h  |  27 +++-----
+ src/heap/memory-allocator.cc | 112 ++++++++++++++++++++++++++++++++---
+ src/heap/memory-allocator.h  |  27 +++------
  src/heap/read-only-spaces.cc |   8 ++-
  src/utils/allocation.cc      |  21 +++++--
  src/utils/allocation.h       |   7 ++-
- 11 files changed, 326 insertions(+), 39 deletions(-)
+ 12 files changed, 324 insertions(+), 39 deletions(-)
 
 diff --git a/include/v8-isolate.h b/include/v8-isolate.h
 index f6b64db360b..6eee46c1b97 100644
@@ -261,6 +262,24 @@ index 4ced4fdeddc..1b34902aa69 100644
    friend class v8::base::VirtualAddressSpace;
    friend class v8::base::VirtualAddressSubspace;
    FRIEND_TEST(OS, RemapPages);
+diff --git a/src/execution/execution.cc b/src/execution/execution.cc
+index 93077c26d66..efc3fa808ca 100644
+--- a/src/execution/execution.cc
++++ b/src/execution/execution.cc
+@@ -16,7 +16,7 @@
+ #include "src/wasm/code-space-access.h"
+ #include "src/wasm/wasm-engine.h"
+ #endif  // V8_ENABLE_WEBASSEMBLY
+-
++//#pragma optimize("", off)
+ namespace v8 {
+ namespace internal {
+ 
+@@ -670,3 +670,4 @@ void Execution::CallWasm(Isolate* isolate, Handle<Code> wrapper_code,
+ 
+ }  // namespace internal
+ }  // namespace v8
++//#pragma optimize("", on)
 diff --git a/src/heap/heap.h b/src/heap/heap.h
 index 7da06e6048e..7d89d73bd39 100644
 --- a/src/heap/heap.h
@@ -308,7 +327,7 @@ index 7da06e6048e..7d89d73bd39 100644
    friend class ActivateMemoryReducerTask;
    friend class AlwaysAllocateScope;
 diff --git a/src/heap/memory-allocator.cc b/src/heap/memory-allocator.cc
-index e2da11ccac9..fb23f236c43 100644
+index e2da11ccac9..804bb058d19 100644
 --- a/src/heap/memory-allocator.cc
 +++ b/src/heap/memory-allocator.cc
 @@ -21,6 +21,8 @@
@@ -458,19 +477,7 @@ index e2da11ccac9..fb23f236c43 100644
  }
  
  Page* MemoryAllocator::AllocatePage(MemoryAllocator::AllocationMode alloc_mode,
-@@ -656,9 +730,10 @@ LargePage* MemoryAllocator::AllocateLargePage(LargeObjectSpace* space,
-   return page;
- }
- 
-+
- base::Optional<MemoryAllocator::MemoryChunkAllocationResult>
- MemoryAllocator::AllocateUninitializedPageFromPool(Space* space) {
--  void* chunk = unmapper()->TryGetPooledMemoryChunkSafe();
-+  MemoryChunk* chunk = unmapper()->TryGetPooledMemoryChunkSafe();
-   if (chunk == nullptr) return {};
-   const int size = MemoryChunk::kPageSize;
-   const Address start = reinterpret_cast<Address>(chunk);
-@@ -668,7 +743,24 @@ MemoryAllocator::AllocateUninitializedPageFromPool(Space* space) {
+@@ -668,7 +742,24 @@ MemoryAllocator::AllocateUninitializedPageFromPool(Space* space) {
    const Address area_end = start + size;
    // Pooled pages are always regular data pages.
    DCHECK_NE(CODE_SPACE, space->identity());
@@ -492,20 +499,11 @@ index e2da11ccac9..fb23f236c43 100644
 +  if (allocator == nullptr) {
 +    allocator = data_page_allocator();
 +  }
-+  VirtualMemory reservation(allocator, start, size);  //
++  VirtualMemory reservation(allocator, start, size); 
    if (!CommitMemory(&reservation, NOT_EXECUTABLE)) return {};
    if (heap::ShouldZapGarbage()) {
      heap::ZapBlock(start, size, kZapValue);
-@@ -680,6 +772,8 @@ MemoryAllocator::AllocateUninitializedPageFromPool(Space* space) {
-   };
- }
- 
-+
-+
- void MemoryAllocator::InitializeOncePerProcess() {
-   commit_page_size_ = v8_flags.v8_os_page_size > 0
-                           ? v8_flags.v8_os_page_size * KB
-@@ -870,3 +964,6 @@ void MemoryAllocator::RecordLargePageDestroyed(const LargePage& page) {
+@@ -870,3 +961,6 @@ void MemoryAllocator::RecordLargePageDestroyed(const LargePage& page) {
  
  }  // namespace internal
  }  // namespace v8
@@ -592,7 +590,7 @@ index 5526988963a..d24199671ab 100644
  }
  
 diff --git a/src/utils/allocation.cc b/src/utils/allocation.cc
-index dc8a3696fa4..d584f64ced1 100644
+index dc8a3696fa4..4ab14be36d5 100644
 --- a/src/utils/allocation.cc
 +++ b/src/utils/allocation.cc
 @@ -178,21 +178,25 @@ void* AllocatePages(v8::PageAllocator* page_allocator, void* hint, size_t size,
@@ -605,7 +603,8 @@ index dc8a3696fa4..d584f64ced1 100644
    DCHECK_NOT_NULL(page_allocator);
    DCHECK(IsAligned(size, page_allocator->AllocatePageSize()));
    if (!page_allocator->FreePages(address, size)) {
-     V8::FatalProcessOutOfMemory(nullptr, "FreePages");
+-    V8::FatalProcessOutOfMemory(nullptr, "FreePages");
++    //V8::FatalProcessOutOfMemory(nullptr, "FreePages");
 +    return false;
    }
 +  return true;
@@ -640,15 +639,6 @@ index dc8a3696fa4..d584f64ced1 100644
    DCHECK_NOT_NULL(page_allocator);
    DCHECK(IsAligned(size, page_allocator_->CommitPageSize()));
    size_t page_size = page_allocator_->AllocatePageSize();
-@@ -233,7 +242,7 @@ VirtualMemory::~VirtualMemory() {
- }
- 
- void VirtualMemory::Reset() {
--  page_allocator_ = nullptr;
-+  //page_allocator_ = nullptr;
-   region_ = base::AddressRegion();
- }
- 
 diff --git a/src/utils/allocation.h b/src/utils/allocation.h
 index 6e523325304..356f4a1b8a7 100644
 --- a/src/utils/allocation.h
