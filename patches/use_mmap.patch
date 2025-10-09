@@ -1,23 +1,37 @@
-From c6ddadb65cf3c8599b9057dce09d815d20226163 Mon Sep 17 00:00:00 2001
+From 1ed2d9e8eac32304feafec1d71444373babaab76 Mon Sep 17 00:00:00 2001
 From: tangxinwei <txw19881222@126.com>
-Date: Wed, 1 Oct 2025 11:49:19 +0800
-Subject: [PATCH] grehtrh
+Date: Thu, 9 Oct 2025 15:23:59 +0800
+Subject: [PATCH] testt
 
 ---
- include/v8-isolate.h         |  16 ++++-
+ BUILD.gn                     |   2 +-
+ include/v8-isolate.h         |  16 +++++-
  src/api/api.cc               |   4 ++
- src/base/page-allocator.cc   |  33 +++++++++++
- src/base/page-allocator.h    | 102 +++++++++++++++++++++++++++++++
+ src/base/page-allocator.cc   |  33 ++++++++++++
+ src/base/page-allocator.h    | 100 +++++++++++++++++++++++++++++++++++
  src/base/platform/platform.h |   2 +
- src/execution/execution.cc   |   3 +-
- src/heap/heap.h              |  28 +++++++++
- src/heap/memory-allocator.cc | 112 ++++++++++++++++++++++++++++++++---
- src/heap/memory-allocator.h  |  27 +++------
+ src/heap/heap.h              |  28 ++++++++++
+ src/heap/memory-allocator.cc |  87 ++++++++++++++++++++++++++----
+ src/heap/memory-allocator.h  |  10 +++-
  src/heap/read-only-spaces.cc |   8 ++-
- src/utils/allocation.cc      |  21 +++++--
+ src/objects/string-table.cc  |  68 ++++++++++++++++++------
+ src/utils/allocation.cc      |  21 +++++---
  src/utils/allocation.h       |   7 ++-
- 12 files changed, 324 insertions(+), 39 deletions(-)
+ 13 files changed, 346 insertions(+), 40 deletions(-)
 
+diff --git a/BUILD.gn b/BUILD.gn
+index 3662ae17d5c..7c1fd9c4a26 100644
+--- a/BUILD.gn
++++ b/BUILD.gn
+@@ -263,7 +263,7 @@ declare_args() {
+ 
+   # Enable sharing read-only space across isolates.
+   # Sets -DV8_SHARED_RO_HEAP.
+-  v8_enable_shared_ro_heap = ""
++  v8_enable_shared_ro_heap = false
+ 
+   # Enable lazy source positions by default.
+   v8_enable_lazy_source_positions = true
 diff --git a/include/v8-isolate.h b/include/v8-isolate.h
 index f6b64db360b..6eee46c1b97 100644
 --- a/include/v8-isolate.h
@@ -119,10 +133,10 @@ index 7303c5ed589..6b6bebe0277 100644
      : allocate_page_size_(base::OS::AllocatePageSize()),
        commit_page_size_(base::OS::CommitPageSize()) {}
 diff --git a/src/base/page-allocator.h b/src/base/page-allocator.h
-index 8d43376f91d..7ab0b881f9a 100644
+index 8d43376f91d..b9331476291 100644
 --- a/src/base/page-allocator.h
 +++ b/src/base/page-allocator.h
-@@ -12,10 +12,17 @@
+@@ -12,6 +12,11 @@
  #include "src/base/compiler-specific.h"
  
  namespace v8 {
@@ -134,13 +148,7 @@ index 8d43376f91d..7ab0b881f9a 100644
  namespace base {
  
  class SharedMemory;
- 
-+
-+
- class V8_BASE_EXPORT PageAllocator
-     : public NON_EXPORTED_BASE(::v8::PageAllocator) {
-  public:
-@@ -61,6 +68,101 @@ class V8_BASE_EXPORT PageAllocator
+@@ -61,6 +66,101 @@ class V8_BASE_EXPORT PageAllocator
    const size_t commit_page_size_;
  };
  
@@ -262,24 +270,6 @@ index 4ced4fdeddc..1b34902aa69 100644
    friend class v8::base::VirtualAddressSpace;
    friend class v8::base::VirtualAddressSubspace;
    FRIEND_TEST(OS, RemapPages);
-diff --git a/src/execution/execution.cc b/src/execution/execution.cc
-index 93077c26d66..efc3fa808ca 100644
---- a/src/execution/execution.cc
-+++ b/src/execution/execution.cc
-@@ -16,7 +16,7 @@
- #include "src/wasm/code-space-access.h"
- #include "src/wasm/wasm-engine.h"
- #endif  // V8_ENABLE_WEBASSEMBLY
--
-+//#pragma optimize("", off)
- namespace v8 {
- namespace internal {
- 
-@@ -670,3 +670,4 @@ void Execution::CallWasm(Isolate* isolate, Handle<Code> wrapper_code,
- 
- }  // namespace internal
- }  // namespace v8
-+//#pragma optimize("", on)
 diff --git a/src/heap/heap.h b/src/heap/heap.h
 index 7da06e6048e..7d89d73bd39 100644
 --- a/src/heap/heap.h
@@ -327,19 +317,10 @@ index 7da06e6048e..7d89d73bd39 100644
    friend class ActivateMemoryReducerTask;
    friend class AlwaysAllocateScope;
 diff --git a/src/heap/memory-allocator.cc b/src/heap/memory-allocator.cc
-index e2da11ccac9..804bb058d19 100644
+index e2da11ccac9..5f3f5b101f7 100644
 --- a/src/heap/memory-allocator.cc
 +++ b/src/heap/memory-allocator.cc
-@@ -21,6 +21,8 @@
- #include "src/logging/log.h"
- #include "src/utils/allocation.h"
- 
-+//#pragma optimize("", off)
-+
- namespace v8 {
- namespace internal {
- 
-@@ -40,6 +42,21 @@ MemoryAllocator::MemoryAllocator(Isolate* isolate,
+@@ -40,6 +40,21 @@ MemoryAllocator::MemoryAllocator(Isolate* isolate,
        capacity_(RoundUp(capacity, Page::kPageSize)),
        unmapper_(isolate->heap(), this) {
    DCHECK_NOT_NULL(code_page_allocator);
@@ -361,7 +342,7 @@ index e2da11ccac9..804bb058d19 100644
  }
  
  void MemoryAllocator::TearDown() {
-@@ -57,6 +74,18 @@ void MemoryAllocator::TearDown() {
+@@ -57,6 +72,18 @@ void MemoryAllocator::TearDown() {
  
    code_page_allocator_ = nullptr;
    data_page_allocator_ = nullptr;
@@ -380,31 +361,7 @@ index e2da11ccac9..804bb058d19 100644
  }
  
  class MemoryAllocator::Unmapper::UnmapFreeMemoryJob : public JobTask {
-@@ -109,6 +138,23 @@ class MemoryAllocator::Unmapper::UnmapFreeMemoryJob : public JobTask {
-   const uint64_t trace_id_;
- };
- 
-+MemoryChunk* MemoryAllocator::Unmapper::TryGetPooledMemoryChunkSafe() {
-+  // Procedure:
-+  // (1) Try to get a chunk that was declared as pooled and already has
-+  // been uncommitted.
-+  // (2) Try to steal any memory chunk of kPageSize that would've been
-+  // uncommitted.
-+  MemoryChunk* chunk = GetMemoryChunkSafe(ChunkQueueType::kPooled);
-+  if (chunk == nullptr) {
-+    chunk = GetMemoryChunkSafe(ChunkQueueType::kRegular);
-+    if (chunk != nullptr) {
-+      // For stolen chunks we need to manually free any allocated memory.
-+      chunk->ReleaseAllAllocatedMemory();
-+    }
-+  }
-+  return chunk;
-+}
-+
- void MemoryAllocator::Unmapper::FreeQueuedChunks() {
-   if (NumberOfChunks() == 0) return;
- 
-@@ -249,19 +295,41 @@ bool MemoryAllocator::UncommitMemory(VirtualMemory* reservation) {
+@@ -249,19 +276,41 @@ bool MemoryAllocator::UncommitMemory(VirtualMemory* reservation) {
    return true;
  }
  
@@ -451,7 +408,7 @@ index e2da11ccac9..804bb058d19 100644
    if (!reservation.IsReserved()) return HandleAllocationFailure(executable);
  
    // We cannot use the last chunk in the address space because we would
-@@ -378,7 +446,7 @@ MemoryAllocator::AllocateUninitializedChunkAt(BaseSpace* space,
+@@ -378,7 +427,7 @@ MemoryAllocator::AllocateUninitializedChunkAt(BaseSpace* space,
  
    Address base = AllocateAlignedMemory(
        chunk_size, area_size, MemoryChunk::kAlignment, space->identity(),
@@ -460,7 +417,7 @@ index e2da11ccac9..804bb058d19 100644
    if (base == kNullAddress) return {};
  
    size_ += reservation.size();
-@@ -579,8 +647,14 @@ void MemoryAllocator::Free(MemoryAllocator::FreeMode mode, MemoryChunk* chunk) {
+@@ -579,8 +628,14 @@ void MemoryAllocator::Free(MemoryAllocator::FreeMode mode, MemoryChunk* chunk) {
  void MemoryAllocator::FreePooledChunk(MemoryChunk* chunk) {
    // Pooled pages cannot be touched anymore as their memory is uncommitted.
    // Pooled pages are not-executable.
@@ -477,16 +434,13 @@ index e2da11ccac9..804bb058d19 100644
  }
  
  Page* MemoryAllocator::AllocatePage(MemoryAllocator::AllocationMode alloc_mode,
-@@ -668,7 +742,24 @@ MemoryAllocator::AllocateUninitializedPageFromPool(Space* space) {
+@@ -668,7 +723,21 @@ MemoryAllocator::AllocateUninitializedPageFromPool(Space* space) {
    const Address area_end = start + size;
    // Pooled pages are always regular data pages.
    DCHECK_NE(CODE_SPACE, space->identity());
 -  VirtualMemory reservation(data_page_allocator(), start, size);
 +  //@billbbzhang, maybe another pageAllocator -- data_page_file_mmap_allocator_
-+
-+  //VirtualMemory * vm = chunk->reserved_memory();
-+
-+  v8::PageAllocator* allocator = nullptr;  // vm->page_allocator();
++  v8::PageAllocator* allocator = nullptr;  
 +  
 +  if (data_page_file_mmap_allocator_) {
 +    v8::base::FileMmapPageAllocator* fileMmapAllocator =
@@ -503,42 +457,11 @@ index e2da11ccac9..804bb058d19 100644
    if (!CommitMemory(&reservation, NOT_EXECUTABLE)) return {};
    if (heap::ShouldZapGarbage()) {
      heap::ZapBlock(start, size, kZapValue);
-@@ -870,3 +961,6 @@ void MemoryAllocator::RecordLargePageDestroyed(const LargePage& page) {
- 
- }  // namespace internal
- }  // namespace v8
-+
-+//#pragma optimize("", on)
-+
 diff --git a/src/heap/memory-allocator.h b/src/heap/memory-allocator.h
-index 266836c3de1..d702ed9d033 100644
+index 266836c3de1..345906d4307 100644
 --- a/src/heap/memory-allocator.h
 +++ b/src/heap/memory-allocator.h
-@@ -63,22 +63,7 @@ class MemoryAllocator {
-       }
-     }
- 
--    MemoryChunk* TryGetPooledMemoryChunkSafe() {
--      // Procedure:
--      // (1) Try to get a chunk that was declared as pooled and already has
--      // been uncommitted.
--      // (2) Try to steal any memory chunk of kPageSize that would've been
--      // uncommitted.
--      MemoryChunk* chunk = GetMemoryChunkSafe(ChunkQueueType::kPooled);
--      if (chunk == nullptr) {
--        chunk = GetMemoryChunkSafe(ChunkQueueType::kRegular);
--        if (chunk != nullptr) {
--          // For stolen chunks we need to manually free any allocated memory.
--          chunk->ReleaseAllAllocatedMemory();
--        }
--      }
--      return chunk;
--    }
-+    MemoryChunk* TryGetPooledMemoryChunkSafe();
- 
-     V8_EXPORT_PRIVATE void FreeQueuedChunks();
-     void CancelAndWaitForPendingTasks();
-@@ -326,7 +311,7 @@ class MemoryAllocator {
+@@ -326,7 +326,7 @@ class MemoryAllocator {
    Address AllocateAlignedMemory(size_t chunk_size, size_t area_size,
                                  size_t alignment, AllocationSpace space,
                                  Executability executable, void* hint,
@@ -547,7 +470,7 @@ index 266836c3de1..d702ed9d033 100644
  
    // Commit memory region owned by given reservation object.  Returns true if
    // it succeeded and false otherwise.
-@@ -343,7 +328,7 @@ class MemoryAllocator {
+@@ -343,7 +343,7 @@ class MemoryAllocator {
    bool UncommitMemory(VirtualMemory* reservation);
  
    // Frees the given memory region.
@@ -556,7 +479,7 @@ index 266836c3de1..d702ed9d033 100644
                          size_t size);
  
    // PreFreeMemory logically frees the object, i.e., it unregisters the
-@@ -446,6 +431,12 @@ class MemoryAllocator {
+@@ -446,6 +446,12 @@ class MemoryAllocator {
    // displacement can be used for call and jump instructions).
    v8::PageAllocator* code_page_allocator_;
  
@@ -589,6 +512,152 @@ index 5526988963a..d24199671ab 100644
    }
  }
  
+diff --git a/src/objects/string-table.cc b/src/objects/string-table.cc
+index 83dc059d992..57e5a31b237 100644
+--- a/src/objects/string-table.cc
++++ b/src/objects/string-table.cc
+@@ -90,8 +90,9 @@ bool KeyIsMatch(IsolateT* isolate, StringTableKey* key, String string) {
+ // respectively.
+ class StringTable::Data {
+  public:
+-  static std::unique_ptr<Data> New(int capacity);
+-  static std::unique_ptr<Data> Resize(PtrComprCageBase cage_base,
++  static std::unique_ptr<Data> New(int capacity, FileMmapAllocator* filemmapAllocator);
++  static std::unique_ptr<Data> Resize(FileMmapAllocator* filemmapAllocator,
++                                      PtrComprCageBase cage_base,
+                                       std::unique_ptr<Data> data, int capacity);
+ 
+   OffHeapObjectSlot slot(InternalIndex index) const {
+@@ -127,7 +128,7 @@ class StringTable::Data {
+     number_of_deleted_elements_ += count;
+   }
+ 
+-  void* operator new(size_t size, int capacity);
++  void* operator new(size_t size, int capacity, FileMmapAllocator* filemmapAllocator);
+   void* operator new(size_t size) = delete;
+   void operator delete(void* description);
+ 
+@@ -162,7 +163,7 @@ class StringTable::Data {
+   size_t GetCurrentMemoryUsage() const;
+ 
+  private:
+-  explicit Data(int capacity);
++  explicit Data(int capacity, FileMmapAllocator* filemmapAllocator);
+ 
+   // Returns probe entry.
+   inline static InternalIndex FirstProbe(uint32_t hash, uint32_t size) {
+@@ -176,13 +177,14 @@ class StringTable::Data {
+ 
+  private:
+   std::unique_ptr<Data> previous_data_;
++  FileMmapAllocator* filemmapAllocator_;
+   int number_of_elements_;
+   int number_of_deleted_elements_;
+-  const int capacity_;
++  const int capacity_; 
+   Tagged_t elements_[1];
+ };
+ 
+-void* StringTable::Data::operator new(size_t size, int capacity) {
++void* StringTable::Data::operator new(size_t size, int capacity, FileMmapAllocator* filemmapAllocator) {
+   // Make sure the size given is the size of the Data structure.
+   DCHECK_EQ(size, sizeof(StringTable::Data));
+   // Make sure that the elements_ array is at the end of Data, with no padding,
+@@ -197,11 +199,30 @@ void* StringTable::Data::operator new(size_t size, int capacity) {
+ 
+   // Subtract 1 from capacity, as the member elements_ already supplies the
+   // storage for the first element.
+-  return AlignedAllocWithRetry(size + (capacity - 1) * sizeof(Tagged_t),
+-                               alignof(StringTable::Data));
++  size_t memSize = size + (capacity - 1) * sizeof(Tagged_t);
++  if (filemmapAllocator) {
++    void * p = filemmapAllocator->Allocate(memSize);
++    if (p) {
++      return p;
++    }
++  }
++  return AlignedAllocWithRetry(memSize, alignof(StringTable::Data));
+ }
+ 
+-void StringTable::Data::operator delete(void* table) { AlignedFree(table); }
++
++
++void StringTable::Data::operator delete(void* table) {
++  StringTable::Data* data = reinterpret_cast<StringTable::Data*>(table);
++  if (data != nullptr) {
++    FileMmapAllocator* filemmapAllocator = data->filemmapAllocator_;
++    size_t memSize =
++        sizeof(StringTable::Data) + (data->capacity_ - 1) * sizeof(Tagged_t);
++    if (filemmapAllocator && filemmapAllocator->Free(table, memSize)) {
++      return;
++    }
++  }
++  AlignedFree(table);
++}
+ 
+ size_t StringTable::Data::GetCurrentMemoryUsage() const {
+   size_t usage = sizeof(*this) + (capacity_ - 1) * sizeof(Tagged_t);
+@@ -211,22 +232,30 @@ size_t StringTable::Data::GetCurrentMemoryUsage() const {
+   return usage;
+ }
+ 
+-StringTable::Data::Data(int capacity)
++StringTable::Data::Data(int capacity, FileMmapAllocator* filemmapAllocator)
+     : previous_data_(nullptr),
++      filemmapAllocator_(filemmapAllocator),
+       number_of_elements_(0),
+       number_of_deleted_elements_(0),
+-      capacity_(capacity) {
++      capacity_(capacity)
++ {
+   OffHeapObjectSlot first_slot = slot(InternalIndex(0));
+   MemsetTagged(first_slot, empty_element(), capacity);
+ }
+ 
+-std::unique_ptr<StringTable::Data> StringTable::Data::New(int capacity) {
+-  return std::unique_ptr<Data>(new (capacity) Data(capacity));
++std::unique_ptr<StringTable::Data> StringTable::Data::New(
++    int capacity, FileMmapAllocator* filemmapAllocator) {
++  return std::unique_ptr<Data>(new (capacity, filemmapAllocator)
++                                   Data(capacity, filemmapAllocator));
+ }
+ 
++//@billbbzhang, try allocate the memory from DataPageFileMmap (to reduce the footprint)
+ std::unique_ptr<StringTable::Data> StringTable::Data::Resize(
++    FileMmapAllocator* filemmapAllocator,
+     PtrComprCageBase cage_base, std::unique_ptr<Data> data, int capacity) {
+-  std::unique_ptr<Data> new_data(new (capacity) Data(capacity));
++
++  std::unique_ptr<Data> new_data(new (capacity, filemmapAllocator)
++                                     Data(capacity, filemmapAllocator));
+ 
+   DCHECK_LT(data->number_of_elements(), new_data->capacity());
+   DCHECK(StringTableHasSufficientCapacityToAdd(
+@@ -327,7 +356,10 @@ void StringTable::Data::Print(PtrComprCageBase cage_base) const {
+ }
+ 
+ StringTable::StringTable(Isolate* isolate)
+-    : data_(Data::New(kStringTableMinCapacity).release()), isolate_(isolate) {}
++    : data_(Data::New(kStringTableMinCapacity,
++                      isolate->heap()->GetDataPageFileMmap())
++                .release()),
++      isolate_(isolate) {}
+ 
+ StringTable::~StringTable() { delete data_; }
+ 
+@@ -686,8 +718,10 @@ StringTable::Data* StringTable::EnsureCapacity(PtrComprCageBase cage_base,
+   }
+ 
+   if (new_capacity != -1) {
+-    std::unique_ptr<Data> new_data =
+-        Data::Resize(cage_base, std::unique_ptr<Data>(data), new_capacity);
++    //@billbbzhang, try allocate the memory from DataPageFileMmap (to reduce the footprint)
++    FileMmapAllocator* filemmapAllocator = isolate_->heap()->GetDataPageFileMmap();
++    std::unique_ptr<Data> new_data = Data::Resize(
++        filemmapAllocator, cage_base, std::unique_ptr<Data>(data), new_capacity);
+     // `new_data` is the new owner of `data`.
+     DCHECK_EQ(new_data->PreviousData(), data);
+     // Release-store the new data pointer as `data_`, so that it can be
 diff --git a/src/utils/allocation.cc b/src/utils/allocation.cc
 index dc8a3696fa4..4ab14be36d5 100644
 --- a/src/utils/allocation.cc
