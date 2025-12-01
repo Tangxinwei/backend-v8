@@ -35,7 +35,7 @@ if "%ENABLE_FP%"=="true" (
     node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/compiler.gni', fs.readFileSync('./build/config/compiler/compiler.gni', 'utf-8').replace('can_unwind_with_frame_pointers = enable_frame_pointers', 'enable_frame_pointers = true\n can_unwind_with_frame_pointers = enable_frame_pointers'));"
 )
 
-git add -A
+call git add -A
 call git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 
 set GN_ARGS=target_os=""win"" target_cpu=""x64"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false v8_static_library=true is_clang=true use_custom_libcxx=true v8_enable_sandbox=false 

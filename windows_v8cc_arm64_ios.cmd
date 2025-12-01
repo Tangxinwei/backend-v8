@@ -30,7 +30,7 @@ call gclient sync
 echo =====[ add ArrayBuffer_New_Without_Stl ]=====
 node %GITHUB_WORKSPACE%\node-script\add_arraybuffer_new_without_stl.js .
 
-git add -A
+call git add -A
 call git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 
 node %GITHUB_WORKSPACE%\node-script\add_cross_v8cc.js . %VERSION% arm64
