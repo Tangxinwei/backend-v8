@@ -32,7 +32,7 @@ node %GITHUB_WORKSPACE%\node-script\add_arraybuffer_new_without_stl.js .
 
 
 git add -A
-git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
+call git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 
 node %GITHUB_WORKSPACE%\node-script\add_cross_v8cc.js . %VERSION% arm
 

@@ -39,7 +39,7 @@ if "%ENABLE_FP%"=="true" (
 )
 
 git add -A
-git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
+call git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 
 set GN_ARGS=target_os=""win"" target_cpu=""x64"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false is_clang=true is_component_build=true v8_enable_sandbox=false use_custom_libcxx=true
 
