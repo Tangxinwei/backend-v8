@@ -10,9 +10,9 @@ ENABLE_MAGLEV=$6
 cd ~
 echo "=====[ Getting Depot Tools ]====="	
 git clone -q https://chromium.googlesource.com/chromium/tools/depot_tools.git
-export DEPOT_TOOLS_UPDATE=0
 export PATH=$(pwd)/depot_tools:$PATH
 gclient
+export DEPOT_TOOLS_UPDATE=0
 
 
 mkdir v8
