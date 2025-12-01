@@ -3,12 +3,13 @@
 VERSION=$1
 ENABLE_FP=$2
 FULL_SYMBOLE=$3
-USE_POINTERCOMPRESS=true
+USE_POINTERCOMPRESS=$4
+USE_MMAP=$5
+ENABLE_MAGLEV=$6
 
 [ -z "$GITHUB_WORKSPACE" ] && GITHUB_WORKSPACE="$( cd "$( dirname "$0" )"/.. && pwd )"
 
-if [ "$VERSION" == "10.6.194" ] || [ "$VERSION" == "11.8.172" ] || [ "$VERSION" == "11.8.172.18" ] || [ "$VERSION" == "11.8.172.18-pgo" ]; then 
-    sudo apt-get install -y \
+sudo apt-get install -y \
         pkg-config \
         git \
         subversion \
@@ -20,27 +21,14 @@ if [ "$VERSION" == "10.6.194" ] || [ "$VERSION" == "11.8.172" ] || [ "$VERSION" 
         xz-utils \
         zip
         
-    pip install virtualenv
-else
-    sudo apt-get install -y \
-        pkg-config \
-        git \
-        subversion \
-        curl \
-        wget \
-        build-essential \
-        python \
-        xz-utils \
-        zip
-fi
+pip install virtualenv
+
 
 cd ~
 echo "=====[ Getting Depot Tools ]====="	
 git clone -q https://chromium.googlesource.com/chromium/tools/depot_tools.git
 
-cd depot_tools
-git reset --hard 8d16d4a
-cd ..
+
 
 export DEPOT_TOOLS_UPDATE=0
 export PATH=$(pwd)/depot_tools:$PATH
@@ -62,25 +50,19 @@ node -e "const fs = require('fs'); fs.writeFileSync('./DEPS', fs.readFileSync('.
 
 gclient sync
 
-if [ "$VERSION" == "11.8.172" ] || [ "$VERSION" == "11.8.172.18" ] || [ "$VERSION" == "11.8.172.18-pgo" ]; then 
-    cd third_party/android_toolchain
-    wget https://dl.google.com/android/repository/android-ndk-r25b-linux.zip
-    unzip android-ndk-r25b-linux.zip -d .
-    cd ~/v8/v8
-    node -e "const fs = require('fs'); fs.writeFileSync('./build/config/android/config.gni', fs.readFileSync('./build/config/android/config.gni', 'utf-8').replace('//third_party/android_toolchain/ndk', '//third_party/android_toolchain/android-ndk-r25b'));"
-    node -e "const fs = require('fs'); fs.writeFileSync('./build/config/android/config.gni', fs.readFileSync('./build/config/android/config.gni', 'utf-8').replace('r25c', 'r25b'));"
-    node -e "const fs = require('fs'); fs.writeFileSync('./build/config/android/config.gni', fs.readFileSync('./build/config/android/config.gni', 'utf-8').replace('default_android_ndk_major_version = 25', 'default_android_ndk_major_version = 25'));"
-    node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('use_ghash = true', 'use_ghash = true\n  use_cxx17 = true'));"
-fi
 
-# echo "=====[ Patching V8 ]====="
-# git apply --cached $GITHUB_WORKSPACE/patches/builtins-puerts.patches
-# git checkout -- .
+echo "set ndk"
+cd third_party/android_toolchain
+wget https://dl.google.com/android/repository/android-ndk-r25b-linux.zip
+unzip android-ndk-r25b-linux.zip -d .
+cd ~/v8/v8
+node -e "const fs = require('fs'); fs.writeFileSync('./build/config/android/config.gni', fs.readFileSync('./build/config/android/config.gni', 'utf-8').replace('//third_party/android_toolchain/ndk', '//third_party/android_toolchain/android-ndk-r25b'));"
+node -e "const fs = require('fs'); fs.writeFileSync('./build/config/android/config.gni', fs.readFileSync('./build/config/android/config.gni', 'utf-8').replace('r25c', 'r25b'));"
+node -e "const fs = require('fs'); fs.writeFileSync('./build/config/android/config.gni', fs.readFileSync('./build/config/android/config.gni', 'utf-8').replace('default_android_ndk_major_version = 25', 'default_android_ndk_major_version = 25'));"
 
-if [ "$VERSION" == "11.8.172" ] || [ "$VERSION" == "11.8.172.18" ] || [ "$VERSION" == "11.8.172.18-pgo" ]; then
-  node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/remove_uchar_include_v11.8.172.patch
-  node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('fortify_level = \"2\"', 'fortify_level = \"0\"'));"
-fi
+
+node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('fortify_level = \"2\"', 'fortify_level = \"0\"'));"
+
 
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
 node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
@@ -94,7 +76,8 @@ fi
 git add -A
 git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 
-GN_ARGS="target_os=\"android\" target_cpu=\"arm64\" is_debug=false v8_enable_i18n_support=false v8_target_cpu=\"arm64\" use_goma=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true use_custom_libcxx=false use_custom_libcxx_for_host=true v8_enable_sandbox=false v8_enable_maglev=false"
+GN_ARGS="target_os=\"android\" target_cpu=\"arm64\" is_debug=false v8_enable_i18n_support=false v8_target_cpu=\"arm64\" use_goma=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true use_custom_libcxx=false use_custom_libcxx_for_host=true v8_enable_maglev=false"
+
 if [ "$FULL_SYMBOLE" == "true" ]; then
   GN_ARGS=$GN_ARGS" strip_debug_info=false symbol_level=2"
 else
@@ -105,6 +88,12 @@ if [ "$USE_POINTERCOMPRESS" == "true" ]; then
   GN_ARGS=$GN_ARGS" v8_enable_pointer_compression=true"
 else
   GN_ARGS=$GN_ARGS" v8_enable_pointer_compression=false"
+fi
+
+if [ "$ENABLE_MAGLEV" == "true" ]; then
+  GN_ARGS=$GN_ARGS" v8_enable_maglev=true"
+else
+  GN_ARGS=$GN_ARGS" v8_enable_maglev=false"
 fi
 
 echo "=====[ Building V8 ]=====" 

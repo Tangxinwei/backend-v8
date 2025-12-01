@@ -3,12 +3,14 @@
 VERSION=$1
 ENABLE_FP=$2
 FULL_SYMBOLE=$3
-USE_POINTERCOMPRESS=true
+USE_POINTERCOMPRESS=$4
+USE_MMAP=$5
+ENABLE_MAGLEV=$6
 
 [ -z "$GITHUB_WORKSPACE" ] && GITHUB_WORKSPACE="$( cd "$( dirname "$0" )"/.. && pwd )"
 
-if [ "$VERSION" == "10.6.194" ] || [ "$VERSION" == "11.8.172" ] || [ "$VERSION" == "11.8.172.18" ] || [ "$VERSION" == "11.8.172.18-pgo" ]; then 
-    sudo apt-get install -y \
+
+sudo apt-get install -y \
         pkg-config \
         git \
         subversion \
@@ -21,56 +23,16 @@ if [ "$VERSION" == "10.6.194" ] || [ "$VERSION" == "11.8.172" ] || [ "$VERSION" 
         zip \
         cmake
         
-    pip install virtualenv
-else
-    sudo apt-get install -y \
-        pkg-config \
-        git \
-        subversion \
-        curl \
-        wget \
-        build-essential \
-        python \
-        xz-utils \
-        zip
-fi
+pip install virtualenv
 
 cd ~
-
-if [ "$VERSION" == "11.8.172" ] || [ "$VERSION" == "11.8.172.18" ] || [ "$VERSION" == "11.8.172.18-pgo" ]; then 
-    echo "============ intall clang-17"
-    sudo apt update
-    sudo apt install -y wget gnupg lsb-release software-properties-common
-    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-    sudo add-apt-repository "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-17 main"
-    sudo apt update
-    sudo apt install -y clang-17 libc++-17-dev libc++abi-17-dev lld
-    ln -s /usr/lib/llvm-17 ~/customclang
-fi
-
-if [ "$VERSION" == "10.6.194" ]; then 
-    echo "============ intall clang-16"
-    sudo apt update
-    sudo apt install -y wget gnupg lsb-release software-properties-common
-    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-    sudo add-apt-repository "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-16 main"
-    sudo apt update
-    sudo apt install -y clang-16 libc++-16-dev libc++abi-16-dev lld
-    ln -s /usr/lib/llvm-16 ~/customclang
-fi
-
 echo "=====[ Getting Depot Tools ]====="	
 git clone -q https://chromium.googlesource.com/chromium/tools/depot_tools.git
-cd depot_tools
-git reset --hard 8d16d4a
-cd ..
+
 
 export DEPOT_TOOLS_UPDATE=0
-if [ "$VERSION" == "10.6.194" ] || [ "$VERSION" == "11.8.172" ] || [ "$VERSION" == "11.8.172.18" ] || [ "$VERSION" == "11.8.172.18-pgo" ]; then 
-    export PATH=$(pwd)/depot_tools:$PATH
-else
-    export PATH=$(pwd)/depot_tools:$(pwd)/depot_tools/.cipd_bin/2.7/bin:$PATH
-fi
+export PATH=$(pwd)/depot_tools:$PATH
+
 gclient
 
 
@@ -88,12 +50,6 @@ gclient sync
 # git apply --cached $GITHUB_WORKSPACE/patches/builtins-puerts.patches
 # git checkout -- .
 
-if [ "$VERSION" == "11.8.172" ] || [ "$VERSION" == "11.8.172.18" ] || [ "$VERSION" == "11.8.172.18-pgo" ]; then 
-  node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/remove_uchar_include_v11.8.172.patch
-  node $GITHUB_WORKSPACE/node-script/use_libcxx.js .
-  export LD_LIBRARY_PATH=$HOME/customclang/lib:$LD_LIBRARY_PATH
-  node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('use_ghash = true', 'use_ghash = true\n  use_cxx17 = true'));"
-fi
 
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
 node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
@@ -107,7 +63,8 @@ fi
 git add -A
 git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 
-GN_ARGS="is_debug=false v8_enable_i18n_support=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true libcxx_abi_unstable=false v8_enable_sandbox=false use_custom_libcxx=false is_clang=true clang_use_chrome_plugins=false use_sysroot=false use_glib=false clang_base_path=\"$HOME/customclang\" v8_enable_maglev=false"
+GN_ARGS="is_debug=false v8_enable_i18n_support=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true libcxx_abi_unstable=false v8_enable_sandbox=false use_custom_libcxx=false is_clang=true clang_use_chrome_plugins=false"
+
 if [ "$FULL_SYMBOLE" == "true" ]; then
   GN_ARGS=$GN_ARGS" strip_debug_info=false symbol_level=2"
 else
@@ -118,6 +75,12 @@ if [ "$USE_POINTERCOMPRESS" == "true" ]; then
   GN_ARGS=$GN_ARGS" v8_enable_pointer_compression=true"
 else
   GN_ARGS=$GN_ARGS" v8_enable_pointer_compression=false"
+fi
+
+if [ "$ENABLE_MAGLEV" == "true" ]; then
+  GN_ARGS=$GN_ARGS" v8_enable_maglev=true"
+else
+  GN_ARGS=$GN_ARGS" v8_enable_maglev=false"
 fi
 
 echo "=====[ Building V8 ]====="

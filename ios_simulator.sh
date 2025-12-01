@@ -1,16 +1,15 @@
 VERSION=$1
 ENABLE_FP=$2
 FULL_SYMBOLE=$3
-USE_POINTERCOMPRESS=true
+USE_POINTERCOMPRESS=$4
+USE_MMAP=$5
+ENABLE_MAGLEV=$6
 
 [ -z "$GITHUB_WORKSPACE" ] && GITHUB_WORKSPACE="$( cd "$( dirname "$0" )"/.. && pwd )"
 
 cd ~
 echo "=====[ Getting Depot Tools ]====="	
 git clone -q https://chromium.googlesource.com/chromium/tools/depot_tools.git
-cd depot_tools
-git reset --hard 8d16d4a
-cd ..
 export DEPOT_TOOLS_UPDATE=0
 export PATH=$(pwd)/depot_tools:$PATH
 gclient
@@ -27,14 +26,6 @@ git checkout refs/tags/$VERSION
 gclient sync
 
 
-# echo "=====[ Patching V8 ]====="
-# git apply --cached $GITHUB_WORKSPACE/patches/builtins-puerts.patches
-# git checkout -- .
-
-if [ "$VERSION" == "11.8.172" ] || [ "$VERSION" == "11.8.172.18" ] || [ "$VERSION" == "11.8.172.18-pgo" ]; then
-  node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/remove_uchar_include_v11.8.172.patch
-fi
-
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
 node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
@@ -47,7 +38,8 @@ fi
 git add -A
 git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 
-GN_ARGS="v8_use_external_startup_data=false v8_use_snapshot=true v8_enable_i18n_support=false is_debug=false v8_static_library=true ios_enable_code_signing=false target_os=\"ios\" target_cpu=\"x64\" libcxx_abi_unstable=false v8_enable_sandbox=false use_custom_libcxx=false v8_enable_maglev=false"
+GN_ARGS="v8_use_external_startup_data=false v8_use_snapshot=true v8_enable_i18n_support=false is_debug=false v8_static_library=true ios_enable_code_signing=false target_os=\"ios\" target_cpu=\"x64\" libcxx_abi_unstable=false v8_enable_sandbox=false use_custom_libcxx=false"
+
 if [ "$FULL_SYMBOLE" == "true" ]; then
   GN_ARGS=$GN_ARGS" strip_debug_info=false symbol_level=2"
 else
@@ -58,6 +50,12 @@ if [ "$USE_POINTERCOMPRESS" == "true" ]; then
   GN_ARGS=$GN_ARGS" v8_enable_pointer_compression=true"
 else
   GN_ARGS=$GN_ARGS" v8_enable_pointer_compression=false"
+fi
+
+if [ "$ENABLE_MAGLEV" == "true" ]; then
+  GN_ARGS=$GN_ARGS" v8_enable_maglev=true"
+else
+  GN_ARGS=$GN_ARGS" v8_enable_maglev=false"
 fi
 
 echo "=====[ Building V8 ]====="
