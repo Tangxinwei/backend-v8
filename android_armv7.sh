@@ -59,7 +59,7 @@ gclient sync
 node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('fortify_level = \"2\"', 'fortify_level = \"0\"'));"
 
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
-node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js . false
+node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
 node $GITHUB_WORKSPACE/node-script/patchs.js . $VERSION
 

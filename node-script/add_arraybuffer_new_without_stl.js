@@ -24,9 +24,10 @@ V8_EXPORT void* ArrayBuffer_Get_Data(Local<ArrayBuffer> array_buffer);
 
 `;
 
-if(process.argv[3] == 'true'){
+
     v8_h_insert_code = v8_h_insert_code + `
 #define PUERTS_V8_USE_CUSTOM_CXX 1
+#if PUERTS_V8_USE_CUSTOM_CXX
 #include "v8-inspector.h"
 #include "libplatform/libplatform.h"
 namespace v8
@@ -47,8 +48,9 @@ V8_EXPORT void PuertsReleasePlatform(int Index);
 V8_EXPORT int Wrapper_Inspector_Create(Isolate*, v8_inspector::V8InspectorClient*);
 V8_EXPORT void PuertsReleaseInspector(int Index);
 }
+#endif
     `
-}
+
 
 
 fs.writeFileSync(v8_h_path, v8_h_context.slice(0, v8_h_insert_pos) + v8_h_insert_code + v8_h_context.slice(v8_h_insert_pos));
@@ -105,9 +107,9 @@ V8_EXPORT void* ArrayBuffer_Get_Data(Local<ArrayBuffer> array_buffer)
 }
 `
 
-if(process.argv[3] == 'true')
-{
-    api_cc_insert_code = api_cc_insert_code + `
+
+api_cc_insert_code = api_cc_insert_code + `
+#if  PUERTS_V8_USE_CUSTOM_CXX
 namespace v8
 {
 static std::vector<std::shared_ptr<BackingStore> >* _cached_backing_store = nullptr;
@@ -214,7 +216,7 @@ V8_EXPORT void PuertsReleaseInspector(int Index)
 }
 
 }
+#endif
     `
-}
 
 fs.writeFileSync(api_cc_path, fs.readFileSync(api_cc_path, 'utf-8') + api_cc_insert_code);

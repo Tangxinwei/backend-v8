@@ -27,7 +27,7 @@ call gclient sync
 
 
 echo =====[ add ArrayBuffer_New_Without_Stl ]=====
-node %~dp0\node-script\add_arraybuffer_new_without_stl.js . true
+node %~dp0\node-script\add_arraybuffer_new_without_stl.js .
 
 node %~dp0\node-script\patchs.js . %VERSION%
 

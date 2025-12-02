@@ -1,7 +1,7 @@
 set VERSION=%1
 set ENABLE_FP=%2
 set FULL_SYMBOLE=%3
-set USE_POINTERCOMPRESS=%4
+set USE_POINTERCOMPRESS=false
 set USE_MMAP=%5
 set ENABLE_MAGLEV=%6
 
@@ -45,7 +45,7 @@ if "%FULL_SYMBOLE%"=="true" (
 )
 
 if "%USE_POINTERCOMPRESS%"=="true" (
-    set GN_ARGS=%GN_ARGS% v8_enable_pointer_compression=true
+    set GN_ARGS=%GN_ARGS% v8_enable_pointer_compression=false
 ) else if "%USE_POINTERCOMPRESS%"=="false" (
     set GN_ARGS=%GN_ARGS% v8_enable_pointer_compression=false
 )

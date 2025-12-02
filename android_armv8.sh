@@ -64,7 +64,7 @@ node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUI
 
 
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
-node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js . false
+node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
 node $GITHUB_WORKSPACE/node-script/patchs.js . $VERSION
 
