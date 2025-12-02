@@ -56,7 +56,7 @@ wget https://dl.google.com/android/repository/android-ndk-r25b-linux.zip
 unzip android-ndk-r25b-linux.zip -d .
 cd ~/v8/v8
 node -e "const fs = require('fs'); fs.writeFileSync('./build/config/android/config.gni', fs.readFileSync('./build/config/android/config.gni', 'utf-8').replace('//third_party/android_toolchain/ndk', '//third_party/android_toolchain/android-ndk-r25b'));"
-node -e "const fs = require('fs'); fs.writeFileSync('./build/config/android/config.gni', fs.readFileSync('./build/config/android/config.gni', 'utf-8').replace('r25c', 'r25b'));"
+node -e "const fs = require('fs'); fs.writeFileSync('./build/config/android/config.gni', fs.readFileSync('./build/config/android/config.gni', 'utf-8').replace('r27', 'r25b'));"
 node -e "const fs = require('fs'); fs.writeFileSync('./build/config/android/config.gni', fs.readFileSync('./build/config/android/config.gni', 'utf-8').replace('default_android_ndk_major_version = 25', 'default_android_ndk_major_version = 25'));"
 
 
@@ -64,7 +64,7 @@ node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUI
 
 
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
-node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
+node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js . false
 
 node $GITHUB_WORKSPACE/node-script/patchs.js . $VERSION
 

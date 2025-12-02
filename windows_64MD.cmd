@@ -26,14 +26,10 @@ cd v8
 call git checkout refs/tags/%VERSION%
 call gclient sync
 
-
-echo =====[ Make dynamic_crt ]=====
-node %~dp0\node-script\rep.js  build\config\win\BUILD.gn
-
 echo =====[ add ArrayBuffer_New_Without_Stl ]=====
-node %~dp0\node-script\add_arraybuffer_new_without_stl.js .
+node %GITHUB_WORKSPACE%\node-script\add_arraybuffer_new_without_stl.js . true
 
-node %~dp0\node-script\patchs.js . %VERSION%
+node %GITHUB_WORKSPACE%\node-script\patchs.js . %VERSION%
 
 if "%ENABLE_FP%"=="true" (
     node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/compiler.gni', fs.readFileSync('./build/config/compiler/compiler.gni', 'utf-8').replace('can_unwind_with_frame_pointers = enable_frame_pointers', 'enable_frame_pointers = true\n can_unwind_with_frame_pointers = enable_frame_pointers'));"

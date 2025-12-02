@@ -28,7 +28,7 @@ call gclient sync
 
 
 echo =====[ add ArrayBuffer_New_Without_Stl ]=====
-node %GITHUB_WORKSPACE%\node-script\add_arraybuffer_new_without_stl.js .
+node %GITHUB_WORKSPACE%\node-script\add_arraybuffer_new_without_stl.js . true
 
 call git add -A
 call git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
@@ -62,5 +62,5 @@ call gn gen out.gn\x64.release -args="%GN_ARGS%"
 
 call ninja -v -C out.gn\x64.release v8cc
 
-md output\v8\Bin\Win\arm64
-copy /Y out.gn\x64.release\v8cc.exe output\v8\Bin\Win\arm64\
+md output\v8\Bin\Win\arm64ios
+copy /Y out.gn\x64.release\v8cc.exe output\v8\Bin\Win\arm64ios\

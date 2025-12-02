@@ -25,12 +25,9 @@ cd v8
 call git checkout refs/tags/%VERSION%
 call gclient sync
 
-echo =====[ Make dynamic_crt ]=====
-node %GITHUB_WORKSPACE%\node-script\rep.js  build\config\win\BUILD.gn
-
 
 echo =====[ add ArrayBuffer_New_Without_Stl ]=====
-node %GITHUB_WORKSPACE%\node-script\add_arraybuffer_new_without_stl.js .
+node %GITHUB_WORKSPACE%\node-script\add_arraybuffer_new_without_stl.js . true
 
 node %GITHUB_WORKSPACE%\node-script\patchs.js . %VERSION%
 
