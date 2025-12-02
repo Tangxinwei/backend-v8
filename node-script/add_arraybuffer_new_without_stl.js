@@ -26,7 +26,11 @@ V8_EXPORT void* ArrayBuffer_Get_Data(Local<ArrayBuffer> array_buffer);
 
 
     v8_h_insert_code = v8_h_insert_code + `
+#if defined(V8_OS_WIN) && V8_OS_WIN
 #define PUERTS_V8_USE_CUSTOM_CXX 1
+#else
+#define PUERTS_V8_USE_CUSTOM_CXX 0
+#endif
 #if PUERTS_V8_USE_CUSTOM_CXX
 #include "v8-inspector.h"
 #include "libplatform/libplatform.h"
