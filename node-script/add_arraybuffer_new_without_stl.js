@@ -38,6 +38,7 @@ namespace v8
 {
 V8_EXPORT int ArrayBuffer_KeepBackingStore(Local<ArrayBuffer> array_buffer);
 V8_EXPORT int ArrayBuffer_KeepBackingStore(Local<SharedArrayBuffer> array_buffer);
+V8_EXPORT v8::BackingStore* PuertsGetBackingStore(int Index);
 V8_EXPORT void PuertsReleaseBackingStore(int Index);
 
 namespace platform {
@@ -46,10 +47,12 @@ V8_EXPORT int Wrapper_NewDefaultPlatform(int thread_pool_size = 0,
     InProcessStackDumping in_process_stack_dumping =
         InProcessStackDumping::kDisabled,
     PriorityMode priority_mode = PriorityMode::kDontApply);
+V8_EXPORT v8::Platform* PuertsGetPlatform(int Index);
 V8_EXPORT void PuertsReleasePlatform(int Index);
 }
 
 V8_EXPORT int Wrapper_Inspector_Create(Isolate*, v8_inspector::V8InspectorClient*);
+V8_EXPORT v8::v8_inspector::V8Inspector* PuertsGetInspector(int index);
 V8_EXPORT void PuertsReleaseInspector(int Index);
 }
 #endif
@@ -156,6 +159,11 @@ V8_EXPORT int ArrayBuffer_KeepBackingStore(Local<SharedArrayBuffer> array_buffer
   return (int)_cached_backing_store->size() - 1;
 }
 
+V8_EXPORT v8::BackingStore* PuertsGetBackingStore(int Index)
+{
+  return (*_cached_backing_store)[Index].get();
+}
+
 V8_EXPORT void PuertsReleaseBackingStore(int Index)
 {
   (*_cached_backing_store)[Index].reset();
@@ -182,6 +190,11 @@ V8_EXPORT int Wrapper_NewDefaultPlatform(int thread_pool_size, IdleTaskSupport i
   }
   _cached_platform->push_back(std::move(p));
   return (int)_cached_platform->size() - 1;
+}
+
+V8_EXPORT v8::Platform* PuertsGetPlatform(int Index)
+{
+  return (*_cached_platform)[Index].get();
 }
 
 V8_EXPORT void PuertsReleasePlatform(int Index)
@@ -211,6 +224,11 @@ V8_EXPORT int Wrapper_Inspector_Create(Isolate* Isolate, v8_inspector::V8Inspect
   }
   _cached_inspector->push_back(std::move(s));
   return (int)_cached_inspector->size() - 1;
+}
+
+V8_EXPORT v8::v8_inspector::V8Inspector* PuertsGetInspector(int index)
+{
+  return (*_cached_inspector)[Index].get();
 }
 
 V8_EXPORT void PuertsReleaseInspector(int Index)
