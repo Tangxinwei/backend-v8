@@ -54,6 +54,11 @@ V8_EXPORT void PuertsReleasePlatform(int Index);
 V8_EXPORT int Wrapper_Inspector_Create(Isolate*, v8_inspector::V8InspectorClient*);
 V8_EXPORT v8_inspector::V8Inspector* PuertsGetInspector(int Index);
 V8_EXPORT void PuertsReleaseInspector(int Index);
+
+V8_EXPORT int Wrapper_Inspector_Connect(v8_inspector::V8Inspector* inspector, int contextGroupId, v8_inspector::V8Inspector::Channel channel, \
+                        v8_inspector::StringView str_view, v8_inspector::V8Inspector::ClientTrustLevel client_trust_level, v8_inspector::V8Inspector::SessionPauseState session_pause_state);
+V8_EXPORT v8_inspector::V8InspectorSession* PuertsGetV8InspectorSession(int Index);
+V8_EXPORT void PuertsReleaseInspectorSession(int Index);
 }
 #endif
     `
@@ -235,6 +240,39 @@ V8_EXPORT void PuertsReleaseInspector(int Index)
 {
   (*_cached_inspector)[Index].reset();
   free_cached_inspector->push_back(Index);
+}
+
+static std::vector<std::unique_ptr<v8_inspector::V8InspectorSession> >* _cached_inspector_session = nullptr;
+static std::vector<int>* free_cached_inspector_session = nullptr;
+V8_EXPORT int Wrapper_Inspector_Connect(v8_inspector::V8Inspector* inspector, int contextGroupId, v8_inspector::V8Inspector::Channel channel, \
+                        v8_inspector::StringView str_view, v8_inspector::V8Inspector::ClientTrustLevel client_trust_level, v8_inspector::V8Inspector::SessionPauseState session_pause_state)
+{
+  if(!_cached_inspector_session)
+  {
+    _cached_inspector_session = new std::vector<std::unique_ptr<v8_inspector::V8InspectorSession> >();
+    free_cached_inspector_session = new std::vector<int>();
+  }
+  std::unique_ptr<v8_inspector::V8InspectorSession> s = inspector->connect(contextGroupId, channel, str_view, client_trust_level, session_pause_state);
+  if(free_cached_inspector_session->size())
+  {
+    int ret = free_cached_inspector_session->back();
+    free_cached_inspector_session->pop_back();
+    (*_cached_inspector_session)[ret] = std::move(s);
+    return ret;
+  }
+  _cached_inspector_session->push_back(std::move(s));
+  return (int)_cached_inspector_session->size() - 1;
+}
+
+V8_EXPORT v8_inspector::V8InspectorSession* PuertsGetV8InspectorSession(int Index)
+{
+  return (*_cached_inspector_session)[Index].get();
+}
+
+V8_EXPORT void PuertsReleaseInspectorSession(int Index)
+{
+  (*_cached_inspector_session)[Index].reset();
+  free_cached_inspector_session->push_back(Index);
 }
 
 }
