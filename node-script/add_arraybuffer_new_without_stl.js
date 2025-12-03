@@ -52,7 +52,7 @@ V8_EXPORT void PuertsReleasePlatform(int Index);
 }
 
 V8_EXPORT int Wrapper_Inspector_Create(Isolate*, v8_inspector::V8InspectorClient*);
-V8_EXPORT v8_inspector::V8Inspector* PuertsGetInspector(int index);
+V8_EXPORT v8_inspector::V8Inspector* PuertsGetInspector(int Index);
 V8_EXPORT void PuertsReleaseInspector(int Index);
 }
 #endif
@@ -226,7 +226,7 @@ V8_EXPORT int Wrapper_Inspector_Create(Isolate* Isolate, v8_inspector::V8Inspect
   return (int)_cached_inspector->size() - 1;
 }
 
-V8_EXPORT v8_inspector::V8Inspector* PuertsGetInspector(int index)
+V8_EXPORT v8_inspector::V8Inspector* PuertsGetInspector(int Index)
 {
   return (*_cached_inspector)[Index].get();
 }
