@@ -55,7 +55,7 @@ V8_EXPORT int Wrapper_Inspector_Create(Isolate*, v8_inspector::V8InspectorClient
 V8_EXPORT v8_inspector::V8Inspector* PuertsGetInspector(int Index);
 V8_EXPORT void PuertsReleaseInspector(int Index);
 
-V8_EXPORT int Wrapper_Inspector_Connect(v8_inspector::V8Inspector* inspector, int contextGroupId, v8_inspector::V8Inspector::Channel channel, \
+V8_EXPORT int Wrapper_Inspector_Connect(v8_inspector::V8Inspector* inspector, int contextGroupId, v8_inspector::V8Inspector::Channel* channel, \
                         v8_inspector::StringView str_view, v8_inspector::V8Inspector::ClientTrustLevel client_trust_level, v8_inspector::V8Inspector::SessionPauseState session_pause_state);
 V8_EXPORT v8_inspector::V8InspectorSession* PuertsGetV8InspectorSession(int Index);
 V8_EXPORT void PuertsReleaseInspectorSession(int Index);
@@ -244,7 +244,7 @@ V8_EXPORT void PuertsReleaseInspector(int Index)
 
 static std::vector<std::unique_ptr<v8_inspector::V8InspectorSession> >* _cached_inspector_session = nullptr;
 static std::vector<int>* free_cached_inspector_session = nullptr;
-V8_EXPORT int Wrapper_Inspector_Connect(v8_inspector::V8Inspector* inspector, int contextGroupId, v8_inspector::V8Inspector::Channel channel, \
+V8_EXPORT int Wrapper_Inspector_Connect(v8_inspector::V8Inspector* inspector, int contextGroupId, v8_inspector::V8Inspector::Channel* channel, \
                         v8_inspector::StringView str_view, v8_inspector::V8Inspector::ClientTrustLevel client_trust_level, v8_inspector::V8Inspector::SessionPauseState session_pause_state)
 {
   if(!_cached_inspector_session)
