@@ -50,14 +50,14 @@ node -e "const fs = require('fs'); fs.writeFileSync('./DEPS', fs.readFileSync('.
 gclient sync
 
 
-echo "set ndk"
-cd third_party/android_toolchain
-wget https://dl.google.com/android/repository/android-ndk-r25b-linux.zip
-unzip android-ndk-r25b-linux.zip -d .
-cd ~/v8/v8
-node -e "const fs = require('fs'); fs.writeFileSync('./build/config/android/config.gni', fs.readFileSync('./build/config/android/config.gni', 'utf-8').replace('//third_party/android_toolchain/ndk', '//third_party/android_toolchain/android-ndk-r25b'));"
-node -e "const fs = require('fs'); fs.writeFileSync('./build/config/android/config.gni', fs.readFileSync('./build/config/android/config.gni', 'utf-8').replace('r27', 'r25b'));"
-node -e "const fs = require('fs'); fs.writeFileSync('./build/config/android/config.gni', fs.readFileSync('./build/config/android/config.gni', 'utf-8').replace('default_android_ndk_major_version = 25', 'default_android_ndk_major_version = 25'));"
+#echo "set ndk"
+#cd third_party/android_toolchain
+#wget https://dl.google.com/android/repository/android-ndk-r25b-linux.zip
+#unzip android-ndk-r25b-linux.zip -d .
+#cd ~/v8/v8
+#node -e "const fs = require('fs'); fs.writeFileSync('./build/config/android/config.gni', fs.readFileSync('./build/config/android/config.gni', 'utf-8').replace('//third_party/android_toolchain/ndk', '//third_party/android_toolchain/android-ndk-r25b'));"
+#node -e "const fs = require('fs'); fs.writeFileSync('./build/config/android/config.gni', fs.readFileSync('./build/config/android/config.gni', 'utf-8').replace('r27', 'r25b'));"
+#node -e "const fs = require('fs'); fs.writeFileSync('./build/config/android/config.gni', fs.readFileSync('./build/config/android/config.gni', 'utf-8').replace('default_android_ndk_major_version = 25', 'default_android_ndk_major_version = 25'));"
 
 
 node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('fortify_level = \"2\"', 'fortify_level = \"0\"'));"
