@@ -37,7 +37,7 @@ call git add -A
 call git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 
 if "%USE_MMAP%"=="true" (
-    node node-script/do-gitpatch-commit.js -p patches/use_mmap.patch
+    node %GITHUB_WORKSPACE%\node-script\do-gitpatch-commit.js -p %GITHUB_WORKSPACE%\patches\use_mmap.patch
 )
 
 node %GITHUB_WORKSPACE%\node-script\add_cross_v8cc.js . %VERSION% arm
