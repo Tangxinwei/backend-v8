@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 let v8_h_path = process.argv[2] + '/include/v8.h';
+
 let v8_h_context = fs.readFileSync(v8_h_path, 'utf-8');
 
 let v8_h_insert_pos = v8_h_context.lastIndexOf('#endif');
@@ -29,7 +30,7 @@ fs.writeFileSync(v8_h_path, v8_h_context.slice(0, v8_h_insert_pos) + v8_h_insert
 let api_cc_path = process.argv[2] + '/src/api/api.cc';
 
 let api_cc_insert_code = `
-#include "include/v8-version.h"
+#include "include/v8.h"
 namespace v8
 {
 V8_EXPORT Local<ArrayBuffer> ArrayBuffer_New_Without_Stl(Isolate* isolate, 
@@ -73,6 +74,7 @@ V8_EXPORT void* ArrayBuffer_Get_Data(Local<ArrayBuffer> array_buffer)
 {
     return array_buffer->GetBackingStore()->Data();
 }
+
 }
 `
 

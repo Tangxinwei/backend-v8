@@ -1,7 +1,9 @@
 set VERSION=%1
 set ENABLE_FP=%2
 set FULL_SYMBOLE=%3
-set USE_POINTERCOMPRESS=true
+set USE_POINTERCOMPRESS=%4
+set USE_MMAP=%5
+set ENABLE_MAGLEV=%6
 
 cd /d %USERPROFILE%
 echo =====[ Getting Depot Tools ]=====
@@ -12,11 +14,7 @@ set GYP_MSVS_VERSION=2019
 set DEPOT_TOOLS_WIN_TOOLCHAIN=0
 call gclient
 
-cd depot_tools
-call git reset --hard 8d16d4a
-cd ..
 set DEPOT_TOOLS_UPDATE=0
-
 
 mkdir v8
 cd v8
@@ -25,69 +23,26 @@ echo =====[ Fetching V8 ]=====
 call fetch v8
 cd v8
 call git checkout refs/tags/%VERSION%
-@REM cd test\test262\data
-call git config --system core.longpaths true
-@REM call git restore *
-@REM cd ..\..\..\
 call gclient sync
 
-@REM echo =====[ Patching V8 ]=====
-@REM node %GITHUB_WORKSPACE%\CRLF2LF.js %GITHUB_WORKSPACE%\patches\builtins-puerts.patches
-@REM call git apply --cached --reject %GITHUB_WORKSPACE%\patches\builtins-puerts.patches
-@REM call git checkout -- .
-
-if "%VERSION%"=="10.6.194" (
-    echo =====[ patch 10.6.194 ]=====
-    node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\win_msvc_v10.6.194.patch
-)
-
-if "%VERSION%"=="11.8.172" (
-    echo =====[ patch 10.6.194 ]=====
-    node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\remove_uchar_include_v11.8.172.patch
-    node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\win_dll_v11.8.172.patch"
-    node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('use_ghash = true', 'use_ghash = true\n  use_cxx17 = true'));"
-)
-
-if "%VERSION%"=="11.8.172.18" (
-    echo =====[ patch 10.6.194 ]=====
-    node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\remove_uchar_include_v11.8.172.patch
-    node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\win_dll_v11.8.172.patch"
-    node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('use_ghash = true', 'use_ghash = true\n  use_cxx17 = true'));"
-)
-
-if "%VERSION%"=="11.8.172.18-pgo" (
-    echo =====[ patch 10.6.194 ]=====
-    node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\remove_uchar_include_v11.8.172.patch
-    node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\win_dll_v11.8.172.patch"
-    node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('use_ghash = true', 'use_ghash = true\n  use_cxx17 = true'));"
-)
-
-if "%VERSION%"=="9.4.146.24" (
-    echo =====[ patch jinja for python3.10+ ]=====
-    cd third_party\jinja2
-    node %~dp0\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\jinja_v9.4.146.24.patch
-    cd ..\..
-)
-
-echo =====[ Make dynamic_crt ]=====
-node %~dp0\node-script\rep.js  build\config\win\BUILD.gn
-
-echo =====[ commenting out Zc_inline  ]=====
-node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/BUILD.gn', fs.readFileSync('./build/config/compiler/BUILD.gn', 'utf-8').replace('\"/Zc:inline\"', '#\"/Zc:inline\"'));
 
 echo =====[ add ArrayBuffer_New_Without_Stl ]=====
-node %~dp0\node-script\add_arraybuffer_new_without_stl.js .
+node %GITHUB_WORKSPACE%\node-script\add_arraybuffer_new_without_stl.js .
 
-node %~dp0\node-script\patchs.js . %VERSION%
+node %GITHUB_WORKSPACE%\node-script\patchs.js . %VERSION%
 
 if "%ENABLE_FP%"=="true" (
     node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/compiler.gni', fs.readFileSync('./build/config/compiler/compiler.gni', 'utf-8').replace('can_unwind_with_frame_pointers = enable_frame_pointers', 'enable_frame_pointers = true\n can_unwind_with_frame_pointers = enable_frame_pointers'));"
 )
 
-git add -A
-git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
+call git add -A
+call git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 
-set GN_ARGS=target_os=""win"" target_cpu=""x64"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false is_clang=false v8_enable_pointer_compression=true is_component_build=true v8_enable_sandbox=false v8_enable_maglev=false
+if "%USE_MMAP%"=="true" (
+    node node-script/do-gitpatch-commit.js -p patches/use_mmap.patch
+)
+
+set GN_ARGS=target_os=""win"" target_cpu=""x64"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false is_clang=true is_component_build=true v8_enable_sandbox=false use_custom_libcxx=true
 
 if "%FULL_SYMBOLE%"=="true" (
     set GN_ARGS=%GN_ARGS% strip_debug_info=false symbol_level=2
@@ -99,6 +54,12 @@ if "%USE_POINTERCOMPRESS%"=="true" (
     set GN_ARGS=%GN_ARGS% v8_enable_pointer_compression=true
 ) else if "%USE_POINTERCOMPRESS%"=="false" (
     set GN_ARGS=%GN_ARGS% v8_enable_pointer_compression=false
+)
+
+if "%ENABLE_MAGLEV%"=="true" (
+    set GN_ARGS=%GN_ARGS% v8_enable_maglev=true
+) else if "%ENABLE_MAGLEV%"=="false" (
+    set GN_ARGS=%GN_ARGS% v8_enable_maglev=false
 )
 
 echo =====[ Building V8 ]=====
@@ -118,10 +79,14 @@ copy /Y out.gn\x64.release\v8_libplatform.dll output\v8\Lib\Win64DLL\
 copy /Y out.gn\x64.release\v8.dll.pdb output\v8\Lib\Win64DLL\
 copy /Y out.gn\x64.release\v8_libbase.dll.pdb output\v8\Lib\Win64DLL\
 copy /Y out.gn\x64.release\v8_libplatform.dll.pdb output\v8\Lib\Win64DLL\
-if "%VERSION:~0,4%"=="11.8" (
-  copy /Y out.gn\x64.release\third_party_zlib.dll output\v8\Lib\Win64DLL\
-  copy /Y out.gn\x64.release\third_party_zlib.dll.pdb output\v8\Lib\Win64DLL\
-) else (
-  copy /Y out.gn\x64.release\zlib.dll output\v8\Lib\Win64DLL\
-  copy /Y out.gn\x64.release\zlib.dll.pdb output\v8\Lib\Win64DLL\
-)
+
+copy /Y out.gn\x64.release\third_party_zlib.dll output\v8\Lib\Win64DLL\
+copy /Y out.gn\x64.release\third_party_zlib.dll.pdb output\v8\Lib\Win64DLL\
+
+copy /Y out.gn\x64.release\libc++.dll output\v8\Lib\Win64DLL\
+copy /Y out.gn\x64.release\libc++.dll.pdb output\v8\Lib\Win64DLL\
+copy /Y out.gn\x64.release\libc++.dll.lib output\v8\Lib\Win64DLL\
+
+copy /Y out.gn\x64.release\third_party_abseil-cpp_absl.dll output\v8\Lib\Win64DLL\
+copy /Y out.gn\x64.release\third_party_abseil-cpp_absl.dll.pdb output\v8\Lib\Win64DLL\
+copy /Y out.gn\x64.release\third_party_abseil-cpp_absl.dll.lib output\v8\Lib\Win64DLL\
