@@ -1,0 +1,745 @@
+From 1ed2d9e8eac32304feafec1d71444373babaab76 Mon Sep 17 00:00:00 2001
+From: tangxinwei <txw19881222@126.com>
+Date: Thu, 9 Oct 2025 15:23:59 +0800
+Subject: [PATCH] testt
+
+---
+ BUILD.gn                     |   2 +-
+ include/v8-isolate.h         |  16 +++++-
+ src/api/api.cc               |   4 ++
+ src/base/page-allocator.cc   |  33 ++++++++++++
+ src/base/page-allocator.h    | 100 +++++++++++++++++++++++++++++++++++
+ src/base/platform/platform.h |   2 +
+ src/heap/heap.h              |  28 ++++++++++
+ src/heap/memory-allocator.cc |  87 ++++++++++++++++++++++++++----
+ src/heap/memory-allocator.h  |  10 +++-
+ src/heap/read-only-spaces.cc |   8 ++-
+ src/objects/string-table.cc  |  68 ++++++++++++++++++------
+ src/utils/allocation.cc      |  21 +++++---
+ src/utils/allocation.h       |   7 ++-
+ 13 files changed, 346 insertions(+), 40 deletions(-)
+
+diff --git a/BUILD.gn b/BUILD.gn
+index 3662ae17d5c..7c1fd9c4a26 100644
+--- a/BUILD.gn
++++ b/BUILD.gn
+@@ -263,7 +263,7 @@ declare_args() {
+ 
+   # Enable sharing read-only space across isolates.
+   # Sets -DV8_SHARED_RO_HEAP.
+-  v8_enable_shared_ro_heap = ""
++  v8_enable_shared_ro_heap = false
+ 
+   # Enable lazy source positions by default.
+   v8_enable_lazy_source_positions = true
+diff --git a/include/v8-isolate.h b/include/v8-isolate.h
+index f6b64db360b..6eee46c1b97 100644
+--- a/include/v8-isolate.h
++++ b/include/v8-isolate.h
+@@ -199,7 +199,17 @@ enum class MemoryPressureLevel { kNone, kModerate, kCritical };
+  */
+ using StackState = cppgc::EmbedderStackState;
+ 
+-/**
++//@billbbzhang, Define A FileMMap Allocator which will be defined in the
++// CreateParams
++class V8_EXPORT FileMmapAllocator {
++ public:
++  virtual ~FileMmapAllocator() {}
++  virtual void SetAlignment(size_t alignment) = 0;
++  virtual void* Allocate(size_t size) = 0;
++  virtual bool Free(void* address, size_t length) = 0;
++  virtual bool IsInVmRegion(void* address) = 0;
++};
++    /**
+  * Isolate represents an isolated instance of the V8 engine.  V8 isolates have
+  * completely separate states.  Objects from one isolate must not be used in
+  * other isolates.  The embedder can create multiple isolates and use them in
+@@ -294,6 +304,10 @@ class V8_EXPORT Isolate {
+      */
+     FatalErrorCallback fatal_error_callback = nullptr;
+     OOMErrorCallback oom_error_callback = nullptr;
++    //@billbbzhang, Add a fileMMapAllocator to reduce the footprint memory for iOS device
++    v8::FileMmapAllocator* large_obj_file_mmap = nullptr;
++    v8::FileMmapAllocator* code_page_file_mmap = nullptr;
++    v8::FileMmapAllocator* data_page_file_mmap = nullptr;
+   };
+ 
+   /**
+diff --git a/src/api/api.cc b/src/api/api.cc
+index ecf4fbfdf8c..361baf18f5e 100644
+--- a/src/api/api.cc
++++ b/src/api/api.cc
+@@ -9353,6 +9353,10 @@ void Isolate::Initialize(Isolate* v8_isolate,
+   i_isolate->set_allow_atomics_wait(params.allow_atomics_wait);
+ 
+   i_isolate->heap()->ConfigureHeap(params.constraints);
++  //@billbbzhang, Set the fileMmapAllocator
++  i_isolate->heap()->SetLargeObjFileMmap(params.large_obj_file_mmap);
++  i_isolate->heap()->SetCodePageFileMmap(params.code_page_file_mmap);
++  i_isolate->heap()->SetDataPageFileMmap(params.data_page_file_mmap);
+   if (params.constraints.stack_limit() != nullptr) {
+     uintptr_t limit =
+         reinterpret_cast<uintptr_t>(params.constraints.stack_limit());
+diff --git a/src/base/page-allocator.cc b/src/base/page-allocator.cc
+index 7303c5ed589..6b6bebe0277 100644
+--- a/src/base/page-allocator.cc
++++ b/src/base/page-allocator.cc
+@@ -6,6 +6,8 @@
+ 
+ #include "src/base/platform/platform.h"
+ 
++#include "v8-isolate.h"
++
+ #if V8_OS_DARWIN
+ #include <sys/mman.h>  // For MAP_JIT.
+ #endif
+@@ -30,6 +32,37 @@ STATIC_ASSERT_ENUM(PageAllocator::kNoAccessWillJitLater,
+ 
+ #undef STATIC_ASSERT_ENUM
+ 
++FileMmapPageAllocator::FileMmapPageAllocator(
++    FileMmapAllocator* fileMmapAllocator, size_t alignment)
++    : file_mmap_allocator_(fileMmapAllocator)
++    , allocate_page_size_(base::OS::AllocatePageSize())
++    , commit_page_size_(base::OS::CommitPageSize())
++      
++{
++  file_mmap_allocator_->SetAlignment(alignment);
++}
++
++  /**
++ * Allocates memory in range with the given alignment and permission.
++ */
++void* FileMmapPageAllocator::AllocatePages(void* address, size_t length,
++                                           size_t alignment,
++                    Permission permissions) {
++  return file_mmap_allocator_->Allocate(length);
++}
++
++/**
++ * Frees memory in a range that was allocated by a call to AllocatePages.
++ */
++bool FileMmapPageAllocator::FreePages(void* address, size_t length)  {
++  return file_mmap_allocator_->Free(address, length);
++}
++
++
++bool FileMmapPageAllocator::IsInVmRegion(void* address) const {
++  return file_mmap_allocator_->IsInVmRegion(address);
++}
++
+ PageAllocator::PageAllocator()
+     : allocate_page_size_(base::OS::AllocatePageSize()),
+       commit_page_size_(base::OS::CommitPageSize()) {}
+diff --git a/src/base/page-allocator.h b/src/base/page-allocator.h
+index 8d43376f91d..b9331476291 100644
+--- a/src/base/page-allocator.h
++++ b/src/base/page-allocator.h
+@@ -12,6 +12,11 @@
+ #include "src/base/compiler-specific.h"
+ 
+ namespace v8 {
++
++//@billbbzhang, Define A FileMMap Allocator which will be defined in the CreateParams
++class FileMmapAllocator;
++
++
+ namespace base {
+ 
+ class SharedMemory;
+@@ -61,6 +66,101 @@ class V8_BASE_EXPORT PageAllocator
+   const size_t commit_page_size_;
+ };
+ 
++class V8_BASE_EXPORT FileMmapPageAllocator : public v8::PageAllocator {
++ public:
++  FileMmapPageAllocator(FileMmapAllocator* fileMmapAllocator, size_t alignment);
++  virtual ~FileMmapPageAllocator() {}
++  /**
++   * Gets the page granularity for AllocatePages and FreePages. Addresses and
++   * lengths for those calls should be multiples of AllocatePageSize().
++   */
++  size_t AllocatePageSize() override { return allocate_page_size_; }
++
++  /**
++   * Gets the page granularity for SetPermissions and ReleasePages. Addresses
++   * and lengths for those calls should be multiples of CommitPageSize().
++   */
++  size_t CommitPageSize() override { return commit_page_size_; }
++
++  /**
++   * Sets the random seed so that GetRandomMmapAddr() will generate repeatable
++   * sequences of random mmap addresses.
++   */
++  void SetRandomMmapSeed(int64_t seed) override {}
++
++  /**
++   * Returns a randomized address, suitable for memory allocation under ASLR.
++   * The address will be aligned to AllocatePageSize.
++   */
++  void* GetRandomMmapAddr() override { return nullptr; }
++
++  /**
++   * Allocates memory in range with the given alignment and permission.
++   */
++  void* AllocatePages(void* address, size_t length, size_t alignment,
++                      Permission permissions) override;
++
++  /**
++   * Frees memory in a range that was allocated by a call to AllocatePages.
++   */
++  bool FreePages(void* address, size_t length) override;
++
++  /**
++   * Releases memory in a range that was allocated by a call to AllocatePages.
++   */
++  bool ReleasePages(void* address, size_t length, size_t new_length) override {
++    return true;
++  }
++
++  /**
++   * Sets permissions on pages in an allocated range.
++   */
++  bool SetPermissions(void* address, size_t length,
++                      Permission permissions) override {
++    return true;
++  }
++
++  /**
++   * Recommits discarded pages in the given range with given permissions.
++   * Discarded pages must be recommitted with their original permissions
++   * before they are used again.
++   */
++  bool RecommitPages(void* address, size_t length,
++                     Permission permissions) override {
++    return true;
++  }
++
++  /**
++   * Frees memory in the given [address, address + size) range. address and size
++   * should be operating system page-aligned. The next write to this
++   * memory area brings the memory transparently back. This should be treated as
++   * a hint to the OS that the pages are no longer needed. It does not guarantee
++   * that the pages will be discarded immediately or at all.
++   */
++  bool DiscardSystemPages(void* address, size_t size) override { return true; }
++
++  /**
++   * Decommits any wired memory pages in the given range, allowing the OS to
++   * reclaim them, and marks the region as inacessible (kNoAccess). The address
++   * range stays reserved and can be accessed again later by changing its
++   * permissions. However, in that case the memory content is guaranteed to be
++   * zero-initialized again. The memory must have been previously allocated by a
++   * call to AllocatePages. Returns true on success, false otherwise.
++   */
++  virtual bool DecommitPages(void* address, size_t size) override {
++    return true;
++  }
++
++  bool IsInVmRegion(void* address) const;
++
++ protected:
++  // FileMMapAllocator Support, must not be null.
++  FileMmapAllocator* file_mmap_allocator_;  
++  const size_t allocate_page_size_;
++  const size_t commit_page_size_;
++};
++
++
+ }  // namespace base
+ }  // namespace v8
+ #endif  // V8_BASE_PAGE_ALLOCATOR_H_
+diff --git a/src/base/platform/platform.h b/src/base/platform/platform.h
+index 4ced4fdeddc..1b34902aa69 100644
+--- a/src/base/platform/platform.h
++++ b/src/base/platform/platform.h
+@@ -127,6 +127,7 @@ V8_INLINE intptr_t InternalGetExistingThreadLocal(intptr_t index) {
+ 
+ class AddressSpaceReservation;
+ class PageAllocator;
++class FileMmapPageAllocator;
+ class TimezoneCache;
+ class VirtualAddressSpace;
+ class VirtualAddressSubspace;
+@@ -352,6 +353,7 @@ class V8_BASE_EXPORT OS {
+   friend class MemoryMappedFile;
+   friend class PosixMemoryMappedFile;
+   friend class v8::base::PageAllocator;
++  friend class v8::base::FileMmapPageAllocator;
+   friend class v8::base::VirtualAddressSpace;
+   friend class v8::base::VirtualAddressSubspace;
+   FRIEND_TEST(OS, RemapPages);
+diff --git a/src/heap/heap.h b/src/heap/heap.h
+index 7da06e6048e..7d89d73bd39 100644
+--- a/src/heap/heap.h
++++ b/src/heap/heap.h
+@@ -1602,6 +1602,28 @@ class Heap final {
+ 
+   bool ShouldUseBackgroundThreads() const;
+ 
++  void SetLargeObjFileMmap(FileMmapAllocator* fileMmapAllocator) {
++    large_obj_file_mmap = fileMmapAllocator;
++  }
++  FileMmapAllocator* GetLargeObjFileMmap() const {
++    return large_obj_file_mmap;
++  }
++
++  void SetCodePageFileMmap(FileMmapAllocator* fileMmapAllocator) {
++    code_page_file_mmap = fileMmapAllocator;
++  }
++  FileMmapAllocator* GetCodePageFileMmap() const {
++    return code_page_file_mmap;
++  }
++
++  void SetDataPageFileMmap(FileMmapAllocator* fileMmapAllocator) {
++    data_page_file_mmap = fileMmapAllocator;
++  }
++
++  FileMmapAllocator* GetDataPageFileMmap() const {
++    return data_page_file_mmap;
++  }
++
+  private:
+   class AllocationTrackerForDebugging;
+ 
+@@ -2340,6 +2362,12 @@ class Heap final {
+ 
+   std::unique_ptr<MemoryBalancer> mb_;
+ 
++  //@billbbzhang, provide a fileMMap Allocator to handle Large Object's Memory
++  //to reduce the footprint
++  v8::FileMmapAllocator* large_obj_file_mmap = nullptr;
++  v8::FileMmapAllocator* code_page_file_mmap = nullptr;
++  v8::FileMmapAllocator* data_page_file_mmap = nullptr;
++
+   // Classes in "heap" can be friends.
+   friend class ActivateMemoryReducerTask;
+   friend class AlwaysAllocateScope;
+diff --git a/src/heap/memory-allocator.cc b/src/heap/memory-allocator.cc
+index e2da11ccac9..5f3f5b101f7 100644
+--- a/src/heap/memory-allocator.cc
++++ b/src/heap/memory-allocator.cc
+@@ -40,6 +40,21 @@ MemoryAllocator::MemoryAllocator(Isolate* isolate,
+       capacity_(RoundUp(capacity, Page::kPageSize)),
+       unmapper_(isolate->heap(), this) {
+   DCHECK_NOT_NULL(code_page_allocator);
++  v8::FileMmapAllocator* file_mmap_allocator_ = isolate->heap()->GetLargeObjFileMmap();
++  if (file_mmap_allocator_) {
++    large_obj_file_mmap_allocator_ = new v8::base::FileMmapPageAllocator(
++        file_mmap_allocator_, MemoryChunk::kAlignment);
++  }
++  file_mmap_allocator_ = isolate->heap()->GetCodePageFileMmap();
++  if (file_mmap_allocator_) {
++    code_page_file_mmap_allocator_ = new v8::base::FileMmapPageAllocator(
++        file_mmap_allocator_, MemoryChunk::kAlignment);
++  }
++  file_mmap_allocator_ = isolate->heap()->GetDataPageFileMmap();
++  if (file_mmap_allocator_) {
++    data_page_file_mmap_allocator_ = new v8::base::FileMmapPageAllocator(
++        file_mmap_allocator_, MemoryChunk::kAlignment);
++  }
+ }
+ 
+ void MemoryAllocator::TearDown() {
+@@ -57,6 +72,18 @@ void MemoryAllocator::TearDown() {
+ 
+   code_page_allocator_ = nullptr;
+   data_page_allocator_ = nullptr;
++  if (large_obj_file_mmap_allocator_) {
++    delete large_obj_file_mmap_allocator_;
++    large_obj_file_mmap_allocator_ = nullptr;
++  }
++  if (code_page_file_mmap_allocator_) {
++    delete code_page_file_mmap_allocator_;
++    code_page_file_mmap_allocator_ = nullptr;
++  }
++  if (data_page_file_mmap_allocator_) {
++    delete data_page_file_mmap_allocator_;
++    data_page_file_mmap_allocator_ = nullptr;
++  }
+ }
+ 
+ class MemoryAllocator::Unmapper::UnmapFreeMemoryJob : public JobTask {
+@@ -249,19 +276,41 @@ bool MemoryAllocator::UncommitMemory(VirtualMemory* reservation) {
+   return true;
+ }
+ 
+-void MemoryAllocator::FreeMemoryRegion(v8::PageAllocator* page_allocator,
++bool MemoryAllocator::FreeMemoryRegion(v8::PageAllocator* page_allocator,
+                                        Address base, size_t size) {
+-  FreePages(page_allocator, reinterpret_cast<void*>(base), size);
++  return FreePages(page_allocator, reinterpret_cast<void*>(base), size);
+ }
+ 
+ Address MemoryAllocator::AllocateAlignedMemory(
+     size_t chunk_size, size_t area_size, size_t alignment,
+     AllocationSpace space, Executability executable, void* hint,
+-    VirtualMemory* controller) {
+-  v8::PageAllocator* page_allocator = this->page_allocator(executable);
++    VirtualMemory* controller, PageSize page_size) {
++  v8::PageAllocator* page_allocator = nullptr;
+   DCHECK_LT(area_size, chunk_size);
++  VirtualMemory reservation;
++  
++  //@billbbzhang, try allocate memory from fileMmapAllocator for Large Object 
++  if (page_size == PageSize::kLarge) {
++    if (large_obj_file_mmap_allocator_) {
++      page_allocator = large_obj_file_mmap_allocator_;
++      reservation.ConstructBy(page_allocator, chunk_size, hint, alignment);
++    }
++  }
++  else
++  {
++    page_allocator = executable == EXECUTABLE ? code_page_file_mmap_allocator_
++                                            : data_page_file_mmap_allocator_;
++    if (page_allocator) {
++      reservation.ConstructBy(page_allocator, chunk_size, hint, alignment);
++    }
++  }
++  
++
++  if (!reservation.IsReserved()) {
++    page_allocator = this->page_allocator(executable);
++    reservation.ConstructBy(page_allocator, chunk_size, hint, alignment);
++  }
+ 
+-  VirtualMemory reservation(page_allocator, chunk_size, hint, alignment);
+   if (!reservation.IsReserved()) return HandleAllocationFailure(executable);
+ 
+   // We cannot use the last chunk in the address space because we would
+@@ -378,7 +427,7 @@ MemoryAllocator::AllocateUninitializedChunkAt(BaseSpace* space,
+ 
+   Address base = AllocateAlignedMemory(
+       chunk_size, area_size, MemoryChunk::kAlignment, space->identity(),
+-      executable, reinterpret_cast<void*>(hint), &reservation);
++      executable, reinterpret_cast<void*>(hint), &reservation, page_size);
+   if (base == kNullAddress) return {};
+ 
+   size_ += reservation.size();
+@@ -579,8 +628,14 @@ void MemoryAllocator::Free(MemoryAllocator::FreeMode mode, MemoryChunk* chunk) {
+ void MemoryAllocator::FreePooledChunk(MemoryChunk* chunk) {
+   // Pooled pages cannot be touched anymore as their memory is uncommitted.
+   // Pooled pages are not-executable.
+-  FreeMemoryRegion(data_page_allocator(), chunk->address(),
+-                   static_cast<size_t>(MemoryChunk::kPageSize));
++  void* p = reinterpret_cast<void*>(chunk->address());
++  size_t s = static_cast<size_t>(MemoryChunk::kPageSize);
++  if (data_page_file_mmap_allocator_ &&
++      data_page_file_mmap_allocator_->FreePages(p, s))
++  {
++      return;  
++  }
++  FreeMemoryRegion(data_page_allocator(), chunk->address(), s);
+ }
+ 
+ Page* MemoryAllocator::AllocatePage(MemoryAllocator::AllocationMode alloc_mode,
+@@ -668,7 +723,21 @@ MemoryAllocator::AllocateUninitializedPageFromPool(Space* space) {
+   const Address area_end = start + size;
+   // Pooled pages are always regular data pages.
+   DCHECK_NE(CODE_SPACE, space->identity());
+-  VirtualMemory reservation(data_page_allocator(), start, size);
++  //@billbbzhang, maybe another pageAllocator -- data_page_file_mmap_allocator_
++  v8::PageAllocator* allocator = nullptr;  
++  
++  if (data_page_file_mmap_allocator_) {
++    v8::base::FileMmapPageAllocator* fileMmapAllocator =
++        (v8::base::FileMmapPageAllocator *)data_page_file_mmap_allocator_;
++    if (fileMmapAllocator->IsInVmRegion(chunk))
++    {
++      allocator = data_page_file_mmap_allocator_;
++    }
++  }
++  if (allocator == nullptr) {
++    allocator = data_page_allocator();
++  }
++  VirtualMemory reservation(allocator, start, size); 
+   if (!CommitMemory(&reservation, NOT_EXECUTABLE)) return {};
+   if (heap::ShouldZapGarbage()) {
+     heap::ZapBlock(start, size, kZapValue);
+diff --git a/src/heap/memory-allocator.h b/src/heap/memory-allocator.h
+index 266836c3de1..345906d4307 100644
+--- a/src/heap/memory-allocator.h
++++ b/src/heap/memory-allocator.h
+@@ -326,7 +326,7 @@ class MemoryAllocator {
+   Address AllocateAlignedMemory(size_t chunk_size, size_t area_size,
+                                 size_t alignment, AllocationSpace space,
+                                 Executability executable, void* hint,
+-                                VirtualMemory* controller);
++                                VirtualMemory* controller, PageSize page_size);
+ 
+   // Commit memory region owned by given reservation object.  Returns true if
+   // it succeeded and false otherwise.
+@@ -343,7 +343,7 @@ class MemoryAllocator {
+   bool UncommitMemory(VirtualMemory* reservation);
+ 
+   // Frees the given memory region.
+-  void FreeMemoryRegion(v8::PageAllocator* page_allocator, Address addr,
++  bool FreeMemoryRegion(v8::PageAllocator* page_allocator, Address addr,
+                         size_t size);
+ 
+   // PreFreeMemory logically frees the object, i.e., it unregisters the
+@@ -446,6 +446,12 @@ class MemoryAllocator {
+   // displacement can be used for call and jump instructions).
+   v8::PageAllocator* code_page_allocator_;
+ 
++
++  ////@billbbzhang, provide a fileMMap Allocator to handle Large Object's Memory to reduce the footprint
++  v8::PageAllocator* large_obj_file_mmap_allocator_ = nullptr;
++  v8::PageAllocator* code_page_file_mmap_allocator_ = nullptr;
++  v8::PageAllocator* data_page_file_mmap_allocator_ = nullptr;
++
+   // Maximum space size in bytes.
+   size_t capacity_;
+ 
+diff --git a/src/heap/read-only-spaces.cc b/src/heap/read-only-spaces.cc
+index 5526988963a..d24199671ab 100644
+--- a/src/heap/read-only-spaces.cc
++++ b/src/heap/read-only-spaces.cc
+@@ -83,9 +83,13 @@ SingleCopyReadOnlyArtifacts::~SingleCopyReadOnlyArtifacts() {
+   shared_read_only_space_->pages_.resize(0);
+ 
+   for (ReadOnlyPage* chunk : pages_) {
++    v8::PageAllocator* allocator = chunk->reserved_memory()->page_allocator();
++    if (allocator == nullptr) {
++      allocator = page_allocator_;
++    }
+     void* chunk_address = reinterpret_cast<void*>(chunk->address());
+-    size_t size = RoundUp(chunk->size(), page_allocator_->AllocatePageSize());
+-    CHECK(page_allocator_->FreePages(chunk_address, size));
++    size_t size = RoundUp(chunk->size(), allocator->AllocatePageSize());
++    CHECK(allocator->FreePages(chunk_address, size));
+   }
+ }
+ 
+diff --git a/src/objects/string-table.cc b/src/objects/string-table.cc
+index 83dc059d992..57e5a31b237 100644
+--- a/src/objects/string-table.cc
++++ b/src/objects/string-table.cc
+@@ -90,8 +90,9 @@ bool KeyIsMatch(IsolateT* isolate, StringTableKey* key, String string) {
+ // respectively.
+ class StringTable::Data {
+  public:
+-  static std::unique_ptr<Data> New(int capacity);
+-  static std::unique_ptr<Data> Resize(PtrComprCageBase cage_base,
++  static std::unique_ptr<Data> New(int capacity, FileMmapAllocator* filemmapAllocator);
++  static std::unique_ptr<Data> Resize(FileMmapAllocator* filemmapAllocator,
++                                      PtrComprCageBase cage_base,
+                                       std::unique_ptr<Data> data, int capacity);
+ 
+   OffHeapObjectSlot slot(InternalIndex index) const {
+@@ -127,7 +128,7 @@ class StringTable::Data {
+     number_of_deleted_elements_ += count;
+   }
+ 
+-  void* operator new(size_t size, int capacity);
++  void* operator new(size_t size, int capacity, FileMmapAllocator* filemmapAllocator);
+   void* operator new(size_t size) = delete;
+   void operator delete(void* description);
+ 
+@@ -162,7 +163,7 @@ class StringTable::Data {
+   size_t GetCurrentMemoryUsage() const;
+ 
+  private:
+-  explicit Data(int capacity);
++  explicit Data(int capacity, FileMmapAllocator* filemmapAllocator);
+ 
+   // Returns probe entry.
+   inline static InternalIndex FirstProbe(uint32_t hash, uint32_t size) {
+@@ -176,13 +177,14 @@ class StringTable::Data {
+ 
+  private:
+   std::unique_ptr<Data> previous_data_;
++  FileMmapAllocator* filemmapAllocator_;
+   int number_of_elements_;
+   int number_of_deleted_elements_;
+-  const int capacity_;
++  const int capacity_; 
+   Tagged_t elements_[1];
+ };
+ 
+-void* StringTable::Data::operator new(size_t size, int capacity) {
++void* StringTable::Data::operator new(size_t size, int capacity, FileMmapAllocator* filemmapAllocator) {
+   // Make sure the size given is the size of the Data structure.
+   DCHECK_EQ(size, sizeof(StringTable::Data));
+   // Make sure that the elements_ array is at the end of Data, with no padding,
+@@ -197,11 +199,30 @@ void* StringTable::Data::operator new(size_t size, int capacity) {
+ 
+   // Subtract 1 from capacity, as the member elements_ already supplies the
+   // storage for the first element.
+-  return AlignedAllocWithRetry(size + (capacity - 1) * sizeof(Tagged_t),
+-                               alignof(StringTable::Data));
++  size_t memSize = size + (capacity - 1) * sizeof(Tagged_t);
++  if (filemmapAllocator) {
++    void * p = filemmapAllocator->Allocate(memSize);
++    if (p) {
++      return p;
++    }
++  }
++  return AlignedAllocWithRetry(memSize, alignof(StringTable::Data));
+ }
+ 
+-void StringTable::Data::operator delete(void* table) { AlignedFree(table); }
++
++
++void StringTable::Data::operator delete(void* table) {
++  StringTable::Data* data = reinterpret_cast<StringTable::Data*>(table);
++  if (data != nullptr) {
++    FileMmapAllocator* filemmapAllocator = data->filemmapAllocator_;
++    size_t memSize =
++        sizeof(StringTable::Data) + (data->capacity_ - 1) * sizeof(Tagged_t);
++    if (filemmapAllocator && filemmapAllocator->Free(table, memSize)) {
++      return;
++    }
++  }
++  AlignedFree(table);
++}
+ 
+ size_t StringTable::Data::GetCurrentMemoryUsage() const {
+   size_t usage = sizeof(*this) + (capacity_ - 1) * sizeof(Tagged_t);
+@@ -211,22 +232,30 @@ size_t StringTable::Data::GetCurrentMemoryUsage() const {
+   return usage;
+ }
+ 
+-StringTable::Data::Data(int capacity)
++StringTable::Data::Data(int capacity, FileMmapAllocator* filemmapAllocator)
+     : previous_data_(nullptr),
++      filemmapAllocator_(filemmapAllocator),
+       number_of_elements_(0),
+       number_of_deleted_elements_(0),
+-      capacity_(capacity) {
++      capacity_(capacity)
++ {
+   OffHeapObjectSlot first_slot = slot(InternalIndex(0));
+   MemsetTagged(first_slot, empty_element(), capacity);
+ }
+ 
+-std::unique_ptr<StringTable::Data> StringTable::Data::New(int capacity) {
+-  return std::unique_ptr<Data>(new (capacity) Data(capacity));
++std::unique_ptr<StringTable::Data> StringTable::Data::New(
++    int capacity, FileMmapAllocator* filemmapAllocator) {
++  return std::unique_ptr<Data>(new (capacity, filemmapAllocator)
++                                   Data(capacity, filemmapAllocator));
+ }
+ 
++//@billbbzhang, try allocate the memory from DataPageFileMmap (to reduce the footprint)
+ std::unique_ptr<StringTable::Data> StringTable::Data::Resize(
++    FileMmapAllocator* filemmapAllocator,
+     PtrComprCageBase cage_base, std::unique_ptr<Data> data, int capacity) {
+-  std::unique_ptr<Data> new_data(new (capacity) Data(capacity));
++
++  std::unique_ptr<Data> new_data(new (capacity, filemmapAllocator)
++                                     Data(capacity, filemmapAllocator));
+ 
+   DCHECK_LT(data->number_of_elements(), new_data->capacity());
+   DCHECK(StringTableHasSufficientCapacityToAdd(
+@@ -327,7 +356,10 @@ void StringTable::Data::Print(PtrComprCageBase cage_base) const {
+ }
+ 
+ StringTable::StringTable(Isolate* isolate)
+-    : data_(Data::New(kStringTableMinCapacity).release()), isolate_(isolate) {}
++    : data_(Data::New(kStringTableMinCapacity,
++                      isolate->heap()->GetDataPageFileMmap())
++                .release()),
++      isolate_(isolate) {}
+ 
+ StringTable::~StringTable() { delete data_; }
+ 
+@@ -686,8 +718,10 @@ StringTable::Data* StringTable::EnsureCapacity(PtrComprCageBase cage_base,
+   }
+ 
+   if (new_capacity != -1) {
+-    std::unique_ptr<Data> new_data =
+-        Data::Resize(cage_base, std::unique_ptr<Data>(data), new_capacity);
++    //@billbbzhang, try allocate the memory from DataPageFileMmap (to reduce the footprint)
++    FileMmapAllocator* filemmapAllocator = isolate_->heap()->GetDataPageFileMmap();
++    std::unique_ptr<Data> new_data = Data::Resize(
++        filemmapAllocator, cage_base, std::unique_ptr<Data>(data), new_capacity);
+     // `new_data` is the new owner of `data`.
+     DCHECK_EQ(new_data->PreviousData(), data);
+     // Release-store the new data pointer as `data_`, so that it can be
+diff --git a/src/utils/allocation.cc b/src/utils/allocation.cc
+index dc8a3696fa4..4ab14be36d5 100644
+--- a/src/utils/allocation.cc
++++ b/src/utils/allocation.cc
+@@ -178,21 +178,25 @@ void* AllocatePages(v8::PageAllocator* page_allocator, void* hint, size_t size,
+   return result;
+ }
+ 
+-void FreePages(v8::PageAllocator* page_allocator, void* address,
++bool FreePages(v8::PageAllocator* page_allocator, void* address,
+                const size_t size) {
+   DCHECK_NOT_NULL(page_allocator);
+   DCHECK(IsAligned(size, page_allocator->AllocatePageSize()));
+   if (!page_allocator->FreePages(address, size)) {
+-    V8::FatalProcessOutOfMemory(nullptr, "FreePages");
++    //V8::FatalProcessOutOfMemory(nullptr, "FreePages");
++    return false;
+   }
++  return true;
+ }
+ 
+-void ReleasePages(v8::PageAllocator* page_allocator, void* address, size_t size,
++bool ReleasePages(v8::PageAllocator* page_allocator, void* address, size_t size,
+                   size_t new_size) {
+   DCHECK_NOT_NULL(page_allocator);
+   DCHECK_LT(new_size, size);
+   DCHECK(IsAligned(new_size, page_allocator->CommitPageSize()));
+-  CHECK(page_allocator->ReleasePages(address, size, new_size));
++  bool ret = page_allocator->ReleasePages(address, size, new_size);
++  CHECK(ret);
++  return ret;
+ }
+ 
+ bool SetPermissions(v8::PageAllocator* page_allocator, void* address,
+@@ -208,8 +212,13 @@ void OnCriticalMemoryPressure() {
+ VirtualMemory::VirtualMemory() = default;
+ 
+ VirtualMemory::VirtualMemory(v8::PageAllocator* page_allocator, size_t size,
+-                             void* hint, size_t alignment, JitPermission jit)
+-    : page_allocator_(page_allocator) {
++                             void* hint, size_t alignment, JitPermission jit) {
++  ConstructBy(page_allocator, size, hint, alignment, jit);
++}
++
++void VirtualMemory::ConstructBy(v8::PageAllocator* page_allocator, size_t size,
++                             void* hint, size_t alignment, JitPermission jit) {
++  page_allocator_ = page_allocator;
+   DCHECK_NOT_NULL(page_allocator);
+   DCHECK(IsAligned(size, page_allocator_->CommitPageSize()));
+   size_t page_size = page_allocator_->AllocatePageSize();
+diff --git a/src/utils/allocation.h b/src/utils/allocation.h
+index 6e523325304..356f4a1b8a7 100644
+--- a/src/utils/allocation.h
++++ b/src/utils/allocation.h
+@@ -156,7 +156,7 @@ V8_WARN_UNUSED_RESULT void* AllocatePages(v8::PageAllocator* page_allocator,
+ // Frees memory allocated by a call to AllocatePages. |address| and |size| must
+ // be multiples of AllocatePageSize().
+ V8_EXPORT_PRIVATE
+-void FreePages(v8::PageAllocator* page_allocator, void* address,
++bool FreePages(v8::PageAllocator* page_allocator, void* address,
+                const size_t size);
+ 
+ // Releases memory that is no longer needed. The range specified by |address|
+@@ -164,7 +164,7 @@ void FreePages(v8::PageAllocator* page_allocator, void* address,
+ // multiples of CommitPageSize(). Memory from |new_size| to |size| is released.
+ // Released memory is left in an undefined state, so it should not be accessed.
+ V8_EXPORT_PRIVATE
+-void ReleasePages(v8::PageAllocator* page_allocator, void* address, size_t size,
++bool ReleasePages(v8::PageAllocator* page_allocator, void* address, size_t size,
+                   size_t new_size);
+ 
+ // Sets permissions according to |access|. |address| and |size| must be
+@@ -201,6 +201,9 @@ class VirtualMemory final {
+   V8_EXPORT_PRIVATE VirtualMemory(v8::PageAllocator* page_allocator,
+                                   size_t size, void* hint, size_t alignment = 1,
+                                   JitPermission jit = JitPermission::kNoJit);
++  V8_EXPORT_PRIVATE void ConstructBy(v8::PageAllocator* page_allocator,
++                                    size_t size, void* hint, size_t alignment = 1,
++                                  JitPermission jit = JitPermission::kNoJit);
+ 
+   // Construct a virtual memory by assigning it some already mapped address
+   // and size.
+-- 
+2.38.1.windows.1
+
