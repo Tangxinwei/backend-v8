@@ -26,6 +26,10 @@ call git checkout refs/tags/%VERSION%
 call gclient sync
 
 
+if "%VERSION%"=="11.8.172.18" (
+    node %GITHUB_WORKSPACE%\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\win_dll_v11.8.172.patch"
+)
+
 echo =====[ add ArrayBuffer_New_Without_Stl ]=====
 node %GITHUB_WORKSPACE%\node-script\add_arraybuffer_new_without_stl.js .
 
