@@ -1,3 +1,13 @@
+From 606f334911d0626f563359f44d8fb4e8533ca41f Mon Sep 17 00:00:00 2001
+From: tangxinwei <txw19881222@126.com>
+Date: Thu, 4 Dec 2025 19:39:06 +0800
+Subject: [PATCH] sf
+
+---
+ src/base/contextual.h          | 4 ++++
+ src/heap/cppgc/marking-state.h | 2 +-
+ 2 files changed, 5 insertions(+), 1 deletion(-)
+
 diff --git a/src/base/contextual.h b/src/base/contextual.h
 index 3b81c50d115..2798f8affd2 100644
 --- a/src/base/contextual.h
@@ -14,3 +24,19 @@ index 3b81c50d115..2798f8affd2 100644
  
  #if defined(USING_V8_SHARED)
    // Hide the access to `top_` from other DLLs/libraries, since access to
+diff --git a/src/heap/cppgc/marking-state.h b/src/heap/cppgc/marking-state.h
+index 4ce1ce40741..3153407f4f2 100644
+--- a/src/heap/cppgc/marking-state.h
++++ b/src/heap/cppgc/marking-state.h
+@@ -342,7 +342,7 @@ class MutatorMarkingState final : public BasicMarkingState {
+   ~MutatorMarkingState() override = default;
+ 
+   inline bool MarkNoPush(HeapObjectHeader& header) {
+-    return MutatorMarkingState::BasicMarkingState::MarkNoPush(header);
++    return BasicMarkingState::MarkNoPush(header);
+   }
+ 
+   inline void ReTraceMarkedWeakContainer(cppgc::Visitor&, HeapObjectHeader&);
+-- 
+2.38.1.windows.1
+
