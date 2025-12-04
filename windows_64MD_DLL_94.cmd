@@ -42,7 +42,7 @@ if "%USE_MMAP%"=="true" (
     node node-script/do-gitpatch-commit.js -p patches/use_mmap.patch
 )
 
-set GN_ARGS=target_os=""win"" target_cpu=""x64"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false is_clang=true is_component_build=true v8_enable_sandbox=false use_custom_libcxx=true
+set GN_ARGS=target_os=""win"" target_cpu=""x64"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false is_clang=false is_component_build=true v8_enable_sandbox=false use_custom_libcxx=false
 
 if "%FULL_SYMBOLE%"=="true" (
     set GN_ARGS=%GN_ARGS% strip_debug_info=false symbol_level=2
