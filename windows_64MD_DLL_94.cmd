@@ -34,6 +34,9 @@ if "%VERSION%"=="11.8.172.18" (
     node %GITHUB_WORKSPACE%\node-script\do-gitpatch.js -p %GITHUB_WORKSPACE%\patches\win_dll_v11.8.172.patch"
 )
 
+echo =====[ Make dynamic_crt ]=====
+node %GITHUB_WORKSPACE%\node-script\rep.js  build\config\win\BUILD.gn
+
 echo =====[ add ArrayBuffer_New_Without_Stl ]=====
 node %GITHUB_WORKSPACE%\node-script\add_arraybuffer_new_without_stl.js .
 
