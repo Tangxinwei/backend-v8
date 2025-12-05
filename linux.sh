@@ -34,6 +34,15 @@ export PATH=$(pwd)/depot_tools:$PATH
 gclient
 export DEPOT_TOOLS_UPDATE=0
 
+echo "============ intall clang-17"
+sudo apt update
+sudo apt install -y wget gnupg lsb-release software-properties-common
+wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+sudo add-apt-repository "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-17 main"
+sudo apt update
+sudo apt install -y clang-17 libc++-17-dev libc++abi-17-dev lld
+ln -s /usr/lib/llvm-17 ~/customclang
+
 
 mkdir v8
 cd v8
@@ -67,7 +76,7 @@ if [ "$USE_MMAP" == "true" ]; then
 fi
 
 
-GN_ARGS="is_debug=false v8_enable_i18n_support=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true libcxx_abi_unstable=false v8_enable_sandbox=false use_custom_libcxx=false is_clang=true clang_use_chrome_plugins=false"
+GN_ARGS="is_debug=false v8_enable_i18n_support=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true libcxx_abi_unstable=false v8_enable_sandbox=false use_custom_libcxx=false is_clang=true clang_use_chrome_plugins=false use_sysroot=false use_glib=false clang_base_path=\"$HOME/customclang\"  "
 
 if [ "$FULL_SYMBOLE" == "true" ]; then
   GN_ARGS=$GN_ARGS" strip_debug_info=false symbol_level=2"
