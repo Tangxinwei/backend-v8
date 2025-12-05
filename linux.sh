@@ -42,7 +42,7 @@ sudo add-apt-repository "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolch
 sudo apt update
 sudo apt install -y clang-17 libc++-17-dev libc++abi-17-dev lld
 ln -s /usr/lib/llvm-17 ~/customclang
-
+export LD_LIBRARY_PATH=$HOME/customclang/lib:$LD_LIBRARY_PATH
 
 mkdir v8
 cd v8
@@ -63,6 +63,7 @@ echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
 node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
 node $GITHUB_WORKSPACE/node-script/patchs.js . $VERSION
+node $GITHUB_WORKSPACE/node-script/use_libcxx.js .
 
 if [ "$ENABLE_FP" == "true" ]; then
   node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/compiler.gni', fs.readFileSync('./build/config/compiler/compiler.gni', 'utf-8').replace('can_unwind_with_frame_pointers = enable_frame_pointers', 'enable_frame_pointers = true\n can_unwind_with_frame_pointers = enable_frame_pointers'));"
