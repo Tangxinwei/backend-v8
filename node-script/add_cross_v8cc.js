@@ -65,6 +65,10 @@ v8_executable("v8cc") {
     new_context += context.slice(v8_base_without_compiler_end);
     new_context += v8cc_target;
     new_context = new_context.replace(/V8_TARGET_ARCH_X64|V8_TARGET_ARCH_IA32/g, target_cpu == 'arm' ? 'V8_TARGET_ARCH_ARM' : 'V8_TARGET_ARCH_ARM64');
+    
+    if(target_cpu == "arm64"){
+        new_context = new_context.replace("v8_enable_wasm_simd256_revec = true", "v8_enable_wasm_simd256_revec = false")
+    }
 
     fs.writeFileSync(filepath, new_context);
     

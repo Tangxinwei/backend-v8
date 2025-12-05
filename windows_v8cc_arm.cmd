@@ -36,7 +36,7 @@ call git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 
 node %GITHUB_WORKSPACE%\node-script\add_cross_v8cc.js . %VERSION% arm
 
-set GN_ARGS=target_os=""win"" target_cpu=""arm"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false v8_static_library=true is_clang=true use_custom_libcxx=true v8_enable_sandbox=false
+set GN_ARGS=target_os=""win"" target_cpu=""x86"" v8_use_external_startup_data=false v8_enable_i18n_support=false is_debug=false v8_static_library=true is_clang=true use_custom_libcxx=true v8_enable_sandbox=false
 
 if "%FULL_SYMBOLE%"=="true" (
     set GN_ARGS=%GN_ARGS% strip_debug_info=false symbol_level=2
