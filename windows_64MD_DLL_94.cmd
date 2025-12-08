@@ -80,3 +80,11 @@ copy /Y out.gn\x64.release\v8_libplatform.dll.pdb output\v8\Lib\Win64DLL\
 
 copy /Y out.gn\x64.release\third_party_zlib.dll output\v8\Lib\Win64DLL\
 copy /Y out.gn\x64.release\third_party_zlib.dll.pdb output\v8\Lib\Win64DLL\
+
+copy /Y out.gn\x64.release\libc++.dll output\v8\Lib\Win64DLL\
+copy /Y out.gn\x64.release\libc++.dll.lib output\v8\Lib\Win64DLL\
+copy /Y out.gn\x64.release\libc++.dll.pdb output\v8\Lib\Win64DLL\
+
+copy /Y out.gn\x64.release\third_party_abseil-cpp_absl.dll output\v8\Lib\Win64DLL\
+copy /Y out.gn\x64.release\third_party_abseil-cpp_absl.dll.lib output\v8\Lib\Win64DLL\
+copy /Y out.gn\x64.release\third_party_abseil-cpp_absl.dll.pdb output\v8\Lib\Win64DLL\
