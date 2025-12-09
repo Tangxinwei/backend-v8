@@ -61,7 +61,7 @@ gclient sync
 
 echo "=====[ add ArrayBuffer_New_Without_Stl ]====="
 node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
-#node $GITHUB_WORKSPACE/node-script/use_libcxx.js .
+node $GITHUB_WORKSPACE/node-script/use_libcxx.js .
 
 node $GITHUB_WORKSPACE/node-script/patchs.js . $VERSION
 
@@ -72,7 +72,7 @@ fi
 git add -A
 git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 
-GN_ARGS="is_debug=false v8_enable_i18n_support=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true libcxx_abi_unstable=false v8_enable_sandbox=false use_custom_libcxx=false is_clang=true clang_use_chrome_plugins=false use_glib=false  "
+GN_ARGS="is_debug=false v8_enable_i18n_support=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true libcxx_abi_unstable=false v8_enable_sandbox=false use_custom_libcxx=false is_clang=true clang_use_chrome_plugins=false use_glib=false use_sysroot=false"
 
 if [ "$FULL_SYMBOLE" == "true" ]; then
   GN_ARGS=$GN_ARGS" strip_debug_info=false symbol_level=2"
