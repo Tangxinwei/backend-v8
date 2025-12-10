@@ -44,6 +44,10 @@ fi
 git add -A
 git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 
+if [ "$USE_MMAP" == "true" ]; then
+  node $GITHUB_WORKSPACE/node-script/do-gitpatch-commit.js -p $GITHUB_WORKSPACE/patches/use_mmap_12.patch
+fi
+
 GN_ARGS="v8_use_external_startup_data=false v8_use_snapshot=true v8_enable_i18n_support=false is_debug=false v8_static_library=true ios_enable_code_signing=false target_os=\"ios\" target_cpu=\"arm64\" libcxx_abi_unstable=false v8_enable_sandbox=false use_custom_libcxx=false v8_enable_webassembly=false"
 
 if [ "$FULL_SYMBOLE" == "true" ]; then
