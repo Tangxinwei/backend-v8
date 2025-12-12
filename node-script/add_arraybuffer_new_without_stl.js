@@ -26,12 +26,10 @@ V8_EXPORT void* ArrayBuffer_Get_Data(Local<ArrayBuffer> array_buffer);
 
 
     v8_h_insert_code = v8_h_insert_code + `
-#if defined(V8_OS_WIN) && V8_OS_WIN
-#define PUERTS_V8_USE_CUSTOM_CXX 1
-#else
-#define PUERTS_V8_USE_CUSTOM_CXX 0
-#endif
-#if PUERTS_V8_USE_CUSTOM_CXX
+
+#define V8_EXPORT_NONE_STD_FUNCTION 1
+
+#if V8_EXPORT_NONE_STD_FUNCTION
 #include "v8-inspector.h"
 #include "libplatform/libplatform.h"
 namespace v8
@@ -121,7 +119,7 @@ V8_EXPORT void* ArrayBuffer_Get_Data(Local<ArrayBuffer> array_buffer)
 
 
 api_cc_insert_code = api_cc_insert_code + `
-#if  PUERTS_V8_USE_CUSTOM_CXX
+#if  V8_EXPORT_NONE_STD_FUNCTION
 namespace v8
 {
 static std::vector<std::shared_ptr<BackingStore> >* _cached_backing_store = nullptr;
