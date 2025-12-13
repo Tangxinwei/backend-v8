@@ -37,6 +37,10 @@ node $GITHUB_WORKSPACE/node-script/add_arraybuffer_new_without_stl.js .
 
 node $GITHUB_WORKSPACE/node-script/patchs.js . $VERSION
 
+echo "use ios 15.0"
+node -e "const fs = require('fs'); fs.writeFileSync('./build/config/ios/ios_sdk_overrides.gni', fs.readFileSync('./build/config/ios/ios_sdk_overrides.gni', 'utf-8').replace('ios_deployment_target = \"16.0\"', 'ios_deployment_target = \"15.0\"'));"
+node -e "const fs = require('fs'); fs.writeFileSync('./build/toolchain/ios/BUILD.gn', fs.readFileSync('./build/toolchain/ios/BUILD.gn', 'utf-8').replace('ios_deployment_target = \"16.0\"', 'ios_deployment_target = \"15.0\"'));"
+
 if [ "$ENABLE_FP" == "true" ]; then
   node -e "const fs = require('fs'); fs.writeFileSync('./build/config/compiler/compiler.gni', fs.readFileSync('./build/config/compiler/compiler.gni', 'utf-8').replace('can_unwind_with_frame_pointers = enable_frame_pointers', 'enable_frame_pointers = true\n can_unwind_with_frame_pointers = enable_frame_pointers'));"
 fi
