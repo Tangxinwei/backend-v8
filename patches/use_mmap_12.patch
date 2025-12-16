@@ -1,11 +1,11 @@
-From eaf795822130b58baa7557aeef53c252460bdd89 Mon Sep 17 00:00:00 2001
+From 0f01df2f56a0f750e32633923d90637f6de2f962 Mon Sep 17 00:00:00 2001
 From: tangxinwei <txw19881222@126.com>
 Date: Mon, 15 Dec 2025 18:21:48 +0800
 Subject: [PATCH] mmap
 
 ---
  include/v8-initialization.h        |   9 ++-
- include/v8-isolate.h               |  17 +++++
+ include/v8-isolate.h               |  18 +++++
  src/api/api.cc                     |  10 ++-
  src/base/bounded-page-allocator.cc | 104 +++++++++++++++++++++++++++--
  src/base/bounded-page-allocator.h  |  15 +++--
@@ -27,7 +27,7 @@ Subject: [PATCH] mmap
  src/init/v8.h                      |   3 +-
  src/utils/allocation.cc            |  89 +++++++++++++++++++++---
  src/utils/allocation.h             |  11 ++-
- 23 files changed, 571 insertions(+), 65 deletions(-)
+ 23 files changed, 572 insertions(+), 65 deletions(-)
 
 diff --git a/include/v8-initialization.h b/include/v8-initialization.h
 index c3984668bb1..93752f4ff9a 100644
@@ -71,10 +71,10 @@ index c3984668bb1..93752f4ff9a 100644
    friend class Context;
    template <class K, class V, class T>
 diff --git a/include/v8-isolate.h b/include/v8-isolate.h
-index 08fcfc40f1f..32a1ed0fd97 100644
+index 08fcfc40f1f..e01f3a70dc5 100644
 --- a/include/v8-isolate.h
 +++ b/include/v8-isolate.h
-@@ -201,6 +201,18 @@ enum class MemoryPressureLevel { kNone, kModerate, kCritical };
+@@ -201,6 +201,19 @@ enum class MemoryPressureLevel { kNone, kModerate, kCritical };
   */
  using StackState = cppgc::EmbedderStackState;
  
@@ -83,7 +83,8 @@ index 08fcfc40f1f..32a1ed0fd97 100644
 +class V8_EXPORT FileMmapAllocator {
 + public:
 +  virtual ~FileMmapAllocator(){}
-+  virtual uint64_t CreateFileMmap(size_t alignment, void* baseAddress = nullptr) = 0;
++  virtual size_t CreateFileMmap(size_t alignment,
++                                void* baseAddress = nullptr) = 0;
 +  virtual void* Allocate(size_t size) = 0;
 +  virtual bool Free(void* address, size_t length) = 0;
 +  virtual bool IsInVmRegion(void* address) = 0;
@@ -93,7 +94,7 @@ index 08fcfc40f1f..32a1ed0fd97 100644
  /**
   * Isolate represents an isolated instance of the V8 engine.  V8 isolates have
   * completely separate states.  Objects from one isolate must not be used in
-@@ -297,6 +309,11 @@ class V8_EXPORT Isolate {
+@@ -297,6 +310,11 @@ class V8_EXPORT Isolate {
       * CppHeap passed this way.
       */
      CppHeap* cpp_heap = nullptr;
