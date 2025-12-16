@@ -1,7 +1,7 @@
-From 1993de9318370a604d203d8b0252aab22e0fe33e Mon Sep 17 00:00:00 2001
+From eaf795822130b58baa7557aeef53c252460bdd89 Mon Sep 17 00:00:00 2001
 From: tangxinwei <txw19881222@126.com>
 Date: Mon, 15 Dec 2025 18:21:48 +0800
-Subject: [PATCH] test
+Subject: [PATCH] mmap
 
 ---
  include/v8-initialization.h        |   9 ++-
@@ -25,9 +25,9 @@ Subject: [PATCH] test
  src/init/isolate-group.h           |   6 +-
  src/init/v8.cc                     |   4 +-
  src/init/v8.h                      |   3 +-
- src/utils/allocation.cc            |  63 +++++++++++++----
+ src/utils/allocation.cc            |  89 +++++++++++++++++++++---
  src/utils/allocation.h             |  11 ++-
- 23 files changed, 539 insertions(+), 71 deletions(-)
+ 23 files changed, 571 insertions(+), 65 deletions(-)
 
 diff --git a/include/v8-initialization.h b/include/v8-initialization.h
 index c3984668bb1..93752f4ff9a 100644
@@ -1148,7 +1148,7 @@ index 68193bd235e..60394c876f9 100644
  
    // Report process out of memory. Implementation found in api.cc.
 diff --git a/src/utils/allocation.cc b/src/utils/allocation.cc
-index b886de7ee83..5b71f0be8e1 100644
+index b886de7ee83..9c72407905f 100644
 --- a/src/utils/allocation.cc
 +++ b/src/utils/allocation.cc
 @@ -178,21 +178,25 @@ void* AllocatePages(v8::PageAllocator* page_allocator, void* hint, size_t size,
@@ -1181,12 +1181,8 @@ index b886de7ee83..5b71f0be8e1 100644
  }
  
  bool SetPermissions(v8::PageAllocator* page_allocator, void* address,
-@@ -208,9 +212,17 @@ void OnCriticalMemoryPressure() {
- VirtualMemory::VirtualMemory() = default;
- 
- VirtualMemory::VirtualMemory(v8::PageAllocator* page_allocator, size_t size,
--                             void* hint, size_t alignment,
-+                               void* hint, size_t alignment,
+@@ -211,6 +215,14 @@ VirtualMemory::VirtualMemory(v8::PageAllocator* page_allocator, size_t size,
+                              void* hint, size_t alignment,
                               PageAllocator::Permission permissions)
      : page_allocator_(page_allocator) {
 +  ConstructBy(page_allocator, size, hint, alignment, permissions);
@@ -1209,52 +1205,80 @@ index b886de7ee83..5b71f0be8e1 100644
    if (!existing_reservation.is_empty()) {
      CHECK_EQ(existing_reservation.size(), params.reservation_size);
      CHECK(params.base_alignment == ReservationParams::kAnyBaseAlignment ||
-@@ -340,15 +354,36 @@ bool VirtualMemoryCage::InitReservation(
-     // Require the hint to be properly aligned because here it's not clear
-     // anymore whether it should be rounded up or down.
-     CHECK(IsAligned(hint, params.base_alignment));
--    VirtualMemory reservation(params.page_allocator, params.reservation_size,
--                              reinterpret_cast<void*>(hint),
--                              params.base_alignment, params.permissions);
--    // The virtual memory reservation fails only due to OOM.
--    if (!reservation.IsReserved()) return false;
-+    //billbbzhang, create File Mmmap if
- 
--    reservation_ = std::move(reservation);
+@@ -345,10 +359,69 @@ bool VirtualMemoryCage::InitReservation(
+                               params.base_alignment, params.permissions);
+     // The virtual memory reservation fails only due to OOM.
+     if (!reservation.IsReserved()) return false;
+-
++    // base_ maybe different with hint
++    base_ = reservation.address(); 
++
++    //billbbzhang, create File Mmmap if the incoming param is not null 
++    if (params.file_mmap_allocator != nullptr) {
++      int retryCount = 10;
++      while (retryCount > 0) {
++        // free at first, release the big mmap from base_
++        reservation.Free();
++        // construct FileMmap at the base_ (mmap success before)
++        fileMmapPageAllocator = new base::FileMmapPageAllocator(
++            params.file_mmap_allocator, allocate_page_size, (void*)base_);
++        fileMmapCapacity = fileMmapPageAllocator->GetCapacity();
++
++        CHECK(params.reservation_size > fileMmapCapacity);
++        // reconstruct the mmap after the File Mmap (base_ + fileMmapCapacity)
++        reservation.ConstructBy(
++            params.page_allocator, params.reservation_size - fileMmapCapacity,
++            reinterpret_cast<void*>(base_ + fileMmapCapacity),
++            fileMmapCapacity == 0 ? params.base_alignment : allocate_page_size, params.permissions);
++        // The virtual memory reservation fails only due to OOM.
++        if (!reservation.IsReserved()) {
++          delete fileMmapPageAllocator;
++          return false;
++        }
++
++        if (fileMmapCapacity > 0 && reservation.address() == (base_ + fileMmapCapacity)) {
++          break;
++        }
++
++        if (fileMmapCapacity == 0) {
++          delete fileMmapPageAllocator;
++          fileMmapPageAllocator = nullptr;
++        } else {
++          //reconstruct big mmap space
++          reservation.Free();
++          reservation.ConstructBy(
++              params.page_allocator, params.reservation_size,
++              reinterpret_cast<void*>(base_),
++              params.base_alignment, params.permissions);
++          if (!reservation.IsReserved()) {
++            delete fileMmapPageAllocator;
++            return false;
++          }
++        }
++
++        base_ = reservation.address(); 
++        retryCount--;
++        //Last Loop Abort file MMap
++        if (retryCount == 0)
++        {
++          if (fileMmapCapacity > 0) {
++            delete fileMmapPageAllocator;
++            fileMmapPageAllocator = nullptr;
++            fileMmapCapacity = 0;
++          }
++        }
++      }
++      CHECK_EQ(base_ + fileMmapCapacity, reservation.address());
++      
++    }
+     reservation_ = std::move(reservation);
 -    base_ = reservation_.address();
 -    CHECK_EQ(reservation_.size(), params.reservation_size);
-+    if (params.file_mmap_allocator != nullptr) {
-+      fileMmapPageAllocator = new base::FileMmapPageAllocator(
-+          params.file_mmap_allocator, allocate_page_size, (void*)hint);
-+      fileMmapCapacity = fileMmapPageAllocator->GetCapacity();
-+    }
-+    if (fileMmapCapacity > 0) {
-+      CHECK(params.reservation_size > fileMmapCapacity);
-+      VirtualMemory reservation(params.page_allocator, params.reservation_size - fileMmapCapacity,
-+                                reinterpret_cast<void*>(hint + fileMmapCapacity), allocate_page_size,
-+          params.permissions);
-+      // The virtual memory reservation fails only due to OOM.
-+      if (!reservation.IsReserved()) return false;
-+
-+      reservation_ = std::move(reservation);
-+      base_ = hint;
-+
-+    } else {
-+    
-+      VirtualMemory reservation(params.page_allocator, params.reservation_size,
-+                                reinterpret_cast<void*>(hint),
-+                                params.base_alignment, params.permissions);
-+      // The virtual memory reservation fails only due to OOM.
-+      if (!reservation.IsReserved()) return false;
-+
-+      reservation_ = std::move(reservation);
-+      base_ = reservation_.address();
-+      CHECK_EQ(reservation_.size(), params.reservation_size);
-+    }
++    CHECK_EQ(reservation_.size(), params.reservation_size - fileMmapCapacity);
    }
    CHECK_NE(base_, kNullAddress);
    CHECK(IsAligned(base_, params.base_alignment));
-@@ -361,7 +396,7 @@ bool VirtualMemoryCage::InitReservation(
+@@ -361,7 +434,7 @@ bool VirtualMemoryCage::InitReservation(
    page_allocator_ = std::make_unique<base::BoundedPageAllocator>(
        params.page_allocator, allocatable_base, allocatable_size,
        params.page_size, params.page_initialization_mode,
