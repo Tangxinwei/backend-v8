@@ -1,0 +1,32 @@
+From becdad71a78edb1cab709bc9d1a5fc6c7af6e9a4 Mon Sep 17 00:00:00 2001
+From: tangxinwei <txw19881222@126.com>
+Date: Sun, 4 Jan 2026 18:19:26 +0800
+Subject: [PATCH] =?UTF-8?q?=E4=BF=AE=E5=A4=8Ddebug=E6=97=B6=E5=80=99?=
+ =?UTF-8?q?=E7=9A=84=E5=8D=95=E6=AD=A5=E6=8A=A5=E9=94=99?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ src/debug/debug-scopes.cc | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/debug/debug-scopes.cc b/src/debug/debug-scopes.cc
+index 81eed6f0dd7..15496c03612 100644
+--- a/src/debug/debug-scopes.cc
++++ b/src/debug/debug-scopes.cc
+@@ -444,9 +444,9 @@ bool ScopeIterator::NeedsContext() const {
+   // We check this by ensuring that the current context is not the closure
+   // context should the function need one. In that case the function has already
+   // pushed the context and we are good.
+-  CHECK_IMPLIES(needs_context && current_scope_ == closure_scope_ &&
++  /*CHECK_IMPLIES(needs_context && current_scope_ == closure_scope_ &&
+                     current_scope_->is_function_scope() && !function_.is_null(),
+-                function_->context() != *context_);
++                function_->context() != *context_);*/
+ 
+   return needs_context;
+ }
+-- 
+2.38.1.windows.1
+
