@@ -60,6 +60,9 @@ if "%ENABLE_MAGLEV%"=="true" (
     set GN_ARGS=%GN_ARGS% v8_enable_maglev=false
 )
 
+REM 去除变量首尾空格
+for /f "tokens=*" %%a in ("%V8_PROFILING_LOG_FILE%") do set V8_PROFILING_LOG_FILE=%%a
+
 if "%V8_PROFILING_LOG_FILE%"=="" (
     echo "no profiling_log_file"
 ) else (
