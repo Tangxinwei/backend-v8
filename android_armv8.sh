@@ -108,7 +108,7 @@ if [ "$V8_ENABLE_PROFILING" == "true" ]; then
   GN_ARGS=$GN_ARGS" v8_enable_builtins_profiling=true"
 fi
 
-if [ "$V8_PROFILING_LOG_FILE" == "" ]; then
+if [ "$V8_PROFILING_LOG_FILE" == "0" ]; then
   echo "no profiling_log_file"
 else
   GN_ARGS=$GN_ARGS" v8_builtins_profiling_log_file="$V8_PROFILING_LOG_FILE"/profile_armv8.pgo"
