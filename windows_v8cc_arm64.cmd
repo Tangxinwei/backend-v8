@@ -4,6 +4,7 @@ set FULL_SYMBOLE=%3
 set USE_POINTERCOMPRESS=%4
 set USE_MMAP=%5
 set ENABLE_MAGLEV=%6
+set V8_PROFILING_LOG_FILE=%7
 
 cd /d %USERPROFILE%
 echo =====[ Getting Depot Tools ]=====
@@ -57,6 +58,12 @@ if "%ENABLE_MAGLEV%"=="true" (
     set GN_ARGS=%GN_ARGS% v8_enable_maglev=true
 ) else if "%ENABLE_MAGLEV%"=="false" (
     set GN_ARGS=%GN_ARGS% v8_enable_maglev=false
+)
+
+if "%V8_PROFILING_LOG_FILE%"=="" (
+    echo "no profiling_log_file"
+) else (
+    set GN_ARGS=%GN_ARGS% v8_builtins_profiling_log_file=%V8_PROFILING_LOG_FILE%\profile_armv8.pgo
 )
 
 echo =====[ Building V8 ]=====

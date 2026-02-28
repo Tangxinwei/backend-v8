@@ -4,6 +4,11 @@ FULL_SYMBOLE=$3
 USE_POINTERCOMPRESS=$4
 USE_MMAP=$5
 ENABLE_MAGLEV=$6
+V8_ENABLE_PROFILING=$7
+V8_PROFILING_LOG_FILE=$8
+echo "===== param"
+echo $V8_ENABLE_PROFILING
+echo $V8_PROFILING_LOG_FILE
 
 [ -z "$GITHUB_WORKSPACE" ] && GITHUB_WORKSPACE="$( cd "$( dirname "$0" )"/.. && pwd )"
 
@@ -70,6 +75,16 @@ if [ "$ENABLE_MAGLEV" == "true" ]; then
   GN_ARGS=$GN_ARGS" v8_enable_maglev=true"
 else
   GN_ARGS=$GN_ARGS" v8_enable_maglev=false"
+fi
+
+if [ "$V8_ENABLE_PROFILING" == "true" ]; then
+  GN_ARGS=$GN_ARGS" v8_enable_builtins_profiling=true"
+fi
+
+if [ "$V8_PROFILING_LOG_FILE" == "" ]; then
+  echo "no profiling_log_file"
+else
+  GN_ARGS=$GN_ARGS" v8_builtins_profiling_log_file="$V8_PROFILING_LOG_FILE"/profile_armv8.pgo"
 fi
 
 echo "=====[ Building V8 ]====="
