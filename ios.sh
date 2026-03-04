@@ -84,7 +84,7 @@ fi
 if [ "$V8_PROFILING_LOG_FILE" == "0" ]; then
   echo "no profiling_log_file"
 else
-  GN_ARGS=$GN_ARGS" v8_builtins_profiling_log_file="$GITHUB_WORKSPACE"/"$V8_PROFILING_LOG_FILE"/android_result/merged.profile"
+  GN_ARGS=$GN_ARGS" v8_builtins_profiling_log_file=\""$GITHUB_WORKSPACE"/"$V8_PROFILING_LOG_FILE"/android_result/merged.profile\""
 fi
 
 echo "=====[ Building V8 ]====="
