@@ -64,7 +64,8 @@ if "%ENABLE_MAGLEV%"=="true" (
 if "%V8_PROFILING_LOG_FILE%"=="0" (
     echo "no profiling_log_file"
 ) else (
-    set GN_ARGS=%GN_ARGS% v8_builtins_profiling_log_file=%V8_PROFILING_LOG_FILE%\profile_armv8.pgo
+    echo "pgodata:"
+    set GN_ARGS=%GN_ARGS% v8_builtins_profiling_log_file=%GITHUB_WORKSPACE%\%V8_PROFILING_LOG_FILE%\ios_result\merged.profile
 )
 
 echo =====[ Building V8 ]=====
