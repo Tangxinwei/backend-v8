@@ -55,7 +55,6 @@ block_hint	RecordWriteSaveFP	24	25
 block_hint	RecordWriteSaveFP	26	27
 block_hint	RecordWriteSaveFP	20	21
 block_hint	RecordWriteSaveFP	22	23
-builtin_hash	RecordWriteSaveFP	919086917
 block	RecordWriteIgnoreFP	0	281397
 block	RecordWriteIgnoreFP	31	270876
 block	RecordWriteIgnoreFP	7	270876
@@ -112,9 +111,7 @@ block_hint	RecordWriteIgnoreFP	24	25
 block_hint	RecordWriteIgnoreFP	26	27
 block_hint	RecordWriteIgnoreFP	20	21
 block_hint	RecordWriteIgnoreFP	22	23
-builtin_hash	RecordWriteIgnoreFP	919086917
 block	EphemeronKeyBarrierSaveFP	0	3
-builtin_hash	EphemeronKeyBarrierSaveFP	-1060453337
 block	AdaptorWithBuiltinExitFrame	0	1608048
 block	AdaptorWithBuiltinExitFrame	4	1373737
 block	AdaptorWithBuiltinExitFrame	3	234311
@@ -123,7 +120,6 @@ block	AdaptorWithBuiltinExitFrame	5	9323
 block	AdaptorWithBuiltinExitFrame	2	1608048
 block_hint	AdaptorWithBuiltinExitFrame	3	4
 block_hint	AdaptorWithBuiltinExitFrame	5	6
-builtin_hash	AdaptorWithBuiltinExitFrame	-462951091
 block	CallWithSpread	0	6139185
 block	CallWithSpread	52	6139185
 block	CallWithSpread	30	6139185
@@ -183,7 +179,6 @@ block_hint	CallWithSpread	13	14
 block_hint	CallWithSpread	50	51
 block_hint	CallWithSpread	56	57
 block_hint	CallWithSpread	15	16
-builtin_hash	CallWithSpread	825318635
 block	CallWithArrayLike	0	146564
 block	CallWithArrayLike	27	146564
 block	CallWithArrayLike	29	146564
@@ -227,7 +222,6 @@ block_hint	CallWithArrayLike	18	19
 block_hint	CallWithArrayLike	45	46
 block_hint	CallWithArrayLike	52	53
 block_hint	CallWithArrayLike	20	21
-builtin_hash	CallWithArrayLike	-1033434947
 block	CallFunctionTemplate_Generic	0	51758708
 block	CallFunctionTemplate_Generic	28	21149082
 block	CallFunctionTemplate_Generic	27	30609626
@@ -248,7 +242,6 @@ block_hint	CallFunctionTemplate_Generic	23	24
 block_hint	CallFunctionTemplate_Generic	14	15
 block_hint	CallFunctionTemplate_Generic	10	11
 block_hint	CallFunctionTemplate_Generic	6	7
-builtin_hash	CallFunctionTemplate_Generic	732103394
 block	ConstructWithSpread	0	27057
 block	ConstructWithSpread	52	27057
 block	ConstructWithSpread	31	26005
@@ -289,7 +282,6 @@ block_hint	ConstructWithSpread	13	14
 block_hint	ConstructWithSpread	50	51
 block_hint	ConstructWithSpread	56	57
 block_hint	ConstructWithSpread	15	16
-builtin_hash	ConstructWithSpread	-440396963
 block	FastNewObject	0	3878512
 block	FastNewObject	40	3878512
 block	FastNewObject	42	3878512
@@ -363,7 +355,6 @@ block_hint	FastNewObject	33	34
 block_hint	FastNewObject	35	36
 block_hint	FastNewObject	65	66
 block_hint	FastNewObject	38	39
-builtin_hash	FastNewObject	6336092
 block	FastNewClosure	0	3412064
 block	FastNewClosure	19	3346916
 block	FastNewClosure	17	3342682
@@ -399,7 +390,6 @@ block_hint	FastNewClosure	6	7
 block_hint	FastNewClosure	8	9
 block_hint	FastNewClosure	21	22
 block_hint	FastNewClosure	11	12
-builtin_hash	FastNewClosure	423470194
 block	StringEqual	0	14080535
 block	StringEqual	2	14443785
 block	StringEqual	42	12127779
@@ -527,7 +517,6 @@ block_hint	StringEqual	83	84
 block_hint	StringEqual	34	35
 block_hint	StringEqual	50	51
 block_hint	StringEqual	36	37
-builtin_hash	StringEqual	227258093
 block	StringLessThan	0	82
 block	StringLessThan	2	82
 block	StringLessThan	28	82
@@ -575,7 +564,6 @@ block_hint	StringLessThan	17	18
 block_hint	StringLessThan	23	24
 block_hint	StringLessThan	29	30
 block_hint	StringLessThan	25	26
-builtin_hash	StringLessThan	-22507346
 block	StringCompare	0	17
 block	StringCompare	2	17
 block	StringCompare	28	17
@@ -613,7 +601,6 @@ block_hint	StringCompare	17	18
 block_hint	StringCompare	23	24
 block_hint	StringCompare	29	30
 block_hint	StringCompare	25	26
-builtin_hash	StringCompare	877577992
 block	StringSubstring	0	142
 block	StringSubstring	154	142
 block	StringSubstring	42	93
@@ -750,7 +737,6 @@ block_hint	StringSubstring	242	243
 block_hint	StringSubstring	46	47
 block_hint	StringSubstring	121	122
 block_hint	StringSubstring	43	44
-builtin_hash	StringSubstring	170212664
 block	OrderedHashTableHealIndex	0	2222
 block	OrderedHashTableHealIndex	13	2222
 block	OrderedHashTableHealIndex	8	2222
@@ -766,7 +752,6 @@ block_hint	OrderedHashTableHealIndex	7	8
 block_hint	OrderedHashTableHealIndex	11	12
 block_hint	OrderedHashTableHealIndex	5	6
 block_hint	OrderedHashTableHealIndex	9	10
-builtin_hash	OrderedHashTableHealIndex	-460786626
 block	CompileLazy	0	1934255
 block	CompileLazy	36	1934255
 block	CompileLazy	15	1934255
@@ -792,20 +777,16 @@ block_hint	CompileLazy	26	27
 block_hint	CompileLazy	4	5
 block_hint	CompileLazy	23	24
 block_hint	CompileLazy	29	30
-builtin_hash	CompileLazy	-630469319
 block	HandleApiCallOrConstruct	0	52389511
 block	HandleApiCallOrConstruct	3	630958
 block	HandleApiCallOrConstruct	2	51758553
 block_hint	HandleApiCallOrConstruct	2	3
-builtin_hash	HandleApiCallOrConstruct	-12644302
 block	AllocateInYoungGeneration	0	20536
 block	AllocateInYoungGeneration	2	20536
 block_hint	AllocateInYoungGeneration	2	3
-builtin_hash	AllocateInYoungGeneration	-941967472
 block	AllocateInOldGeneration	0	5
 block	AllocateInOldGeneration	2	5
 block_hint	AllocateInOldGeneration	2	3
-builtin_hash	AllocateInOldGeneration	-941967472
 block	KeyedLoadIC_PolymorphicName	0	101849
 block	KeyedLoadIC_PolymorphicName	175	140
 block	KeyedLoadIC_PolymorphicName	174	101709
@@ -991,7 +972,6 @@ block_hint	KeyedLoadIC_PolymorphicName	122	123
 block_hint	KeyedLoadIC_PolymorphicName	124	125
 block_hint	KeyedLoadIC_PolymorphicName	88	89
 block_hint	KeyedLoadIC_PolymorphicName	90	91
-builtin_hash	KeyedLoadIC_PolymorphicName	658375635
 block	KeyedStoreIC_Megamorphic	0	273098
 block	KeyedStoreIC_Megamorphic	554	273098
 block	KeyedStoreIC_Megamorphic	557	270684
@@ -2169,7 +2149,6 @@ block_hint	KeyedStoreIC_Megamorphic	1234	1235
 block_hint	KeyedStoreIC_Megamorphic	362	363
 block_hint	KeyedStoreIC_Megamorphic	1236	1237
 block_hint	KeyedStoreIC_Megamorphic	364	365
-builtin_hash	KeyedStoreIC_Megamorphic	394281837
 block	DefineKeyedOwnIC_Megamorphic	0	159
 block	DefineKeyedOwnIC_Megamorphic	314	159
 block	DefineKeyedOwnIC_Megamorphic	317	159
@@ -2593,7 +2572,6 @@ block_hint	DefineKeyedOwnIC_Megamorphic	807	808
 block_hint	DefineKeyedOwnIC_Megamorphic	236	237
 block_hint	DefineKeyedOwnIC_Megamorphic	809	810
 block_hint	DefineKeyedOwnIC_Megamorphic	238	239
-builtin_hash	DefineKeyedOwnIC_Megamorphic	623596502
 block	LoadGlobalIC_NoFeedback	0	35849
 block	LoadGlobalIC_NoFeedback	38	35849
 block	LoadGlobalIC_NoFeedback	6	35849
@@ -2636,16 +2614,13 @@ block_hint	LoadGlobalIC_NoFeedback	12	13
 block_hint	LoadGlobalIC_NoFeedback	16	17
 block_hint	LoadGlobalIC_NoFeedback	18	19
 block_hint	LoadGlobalIC_NoFeedback	20	21
-builtin_hash	LoadGlobalIC_NoFeedback	-513058172
 block	LoadIC_FunctionPrototype	0	767172
 block	LoadIC_FunctionPrototype	3	767172
 block	LoadIC_FunctionPrototype	5	199899
 block	LoadIC_FunctionPrototype	4	567273
 block_hint	LoadIC_FunctionPrototype	2	3
 block_hint	LoadIC_FunctionPrototype	4	5
-builtin_hash	LoadIC_FunctionPrototype	998755610
 block	LoadIC_StringLength	0	775471
-builtin_hash	LoadIC_StringLength	-473659881
 block	LoadIC_NoFeedback	0	1068305
 block	LoadIC_NoFeedback	88	3781
 block	LoadIC_NoFeedback	87	1064524
@@ -2958,7 +2933,6 @@ block_hint	LoadIC_NoFeedback	81	82
 block_hint	LoadIC_NoFeedback	113	114
 block_hint	LoadIC_NoFeedback	83	84
 block_hint	LoadIC_NoFeedback	85	86
-builtin_hash	LoadIC_NoFeedback	-644939230
 block	StoreIC_NoFeedback	0	194806
 block	StoreIC_NoFeedback	129	194806
 block	StoreIC_NoFeedback	132	166100
@@ -3490,7 +3464,6 @@ block_hint	StoreIC_NoFeedback	50	51
 block_hint	StoreIC_NoFeedback	378	379
 block_hint	StoreIC_NoFeedback	308	309
 block_hint	StoreIC_NoFeedback	52	53
-builtin_hash	StoreIC_NoFeedback	640816091
 block	DefineNamedOwnIC_NoFeedback	0	415781
 block	DefineNamedOwnIC_NoFeedback	77	415781
 block	DefineNamedOwnIC_NoFeedback	80	415781
@@ -3700,7 +3673,6 @@ block_hint	DefineNamedOwnIC_NoFeedback	30	31
 block_hint	DefineNamedOwnIC_NoFeedback	222	223
 block_hint	DefineNamedOwnIC_NoFeedback	186	187
 block_hint	DefineNamedOwnIC_NoFeedback	32	33
-builtin_hash	DefineNamedOwnIC_NoFeedback	689617088
 block	StoreFastElementIC_InBounds	0	2450080
 block	StoreFastElementIC_InBounds	280	35023
 block	StoreFastElementIC_InBounds	376	35022
@@ -4244,7 +4216,6 @@ block_hint	StoreFastElementIC_InBounds	231	232
 block_hint	StoreFastElementIC_InBounds	867	868
 block_hint	StoreFastElementIC_InBounds	780	781
 block_hint	StoreFastElementIC_InBounds	782	783
-builtin_hash	StoreFastElementIC_InBounds	238964777
 block	StoreFastElementIC_NoTransitionGrowAndHandleCOW	0	103374
 block	StoreFastElementIC_NoTransitionGrowAndHandleCOW	94	17836
 block	StoreFastElementIC_NoTransitionGrowAndHandleCOW	507	17835
@@ -4714,7 +4685,6 @@ block_hint	StoreFastElementIC_NoTransitionGrowAndHandleCOW	773	774
 block_hint	StoreFastElementIC_NoTransitionGrowAndHandleCOW	399	400
 block_hint	StoreFastElementIC_NoTransitionGrowAndHandleCOW	504	505
 block_hint	StoreFastElementIC_NoTransitionGrowAndHandleCOW	58	59
-builtin_hash	StoreFastElementIC_NoTransitionGrowAndHandleCOW	-546044352
 block	StoreFastElementIC_NoTransitionIgnoreTypedArrayOOB	0	46156
 block	StoreFastElementIC_NoTransitionIgnoreTypedArrayOOB	269	46156
 block	StoreFastElementIC_NoTransitionIgnoreTypedArrayOOB	697	46156
@@ -5139,7 +5109,6 @@ block_hint	StoreFastElementIC_NoTransitionIgnoreTypedArrayOOB	231	232
 block_hint	StoreFastElementIC_NoTransitionIgnoreTypedArrayOOB	847	848
 block_hint	StoreFastElementIC_NoTransitionIgnoreTypedArrayOOB	911	912
 block_hint	StoreFastElementIC_NoTransitionIgnoreTypedArrayOOB	913	914
-builtin_hash	StoreFastElementIC_NoTransitionIgnoreTypedArrayOOB	-306169288
 block	StoreFastElementIC_NoTransitionHandleCOW	0	44
 block	StoreFastElementIC_NoTransitionHandleCOW	82	44
 block	StoreFastElementIC_NoTransitionHandleCOW	369	44
@@ -5356,7 +5325,6 @@ block_hint	StoreFastElementIC_NoTransitionHandleCOW	297	298
 block_hint	StoreFastElementIC_NoTransitionHandleCOW	455	456
 block_hint	StoreFastElementIC_NoTransitionHandleCOW	299	300
 block_hint	StoreFastElementIC_NoTransitionHandleCOW	46	47
-builtin_hash	StoreFastElementIC_NoTransitionHandleCOW	460959118
 block	ElementsTransitionAndStore_InBounds	0	330
 block	ElementsTransitionAndStore_InBounds	46	44
 block	ElementsTransitionAndStore_InBounds	642	11
@@ -5682,7 +5650,6 @@ block_hint	ElementsTransitionAndStore_InBounds	273	274
 block_hint	ElementsTransitionAndStore_InBounds	524	525
 block_hint	ElementsTransitionAndStore_InBounds	275	276
 block_hint	ElementsTransitionAndStore_InBounds	38	39
-builtin_hash	ElementsTransitionAndStore_InBounds	53906438
 block	ElementsTransitionAndStore_NoTransitionGrowAndHandleCOW	0	17
 block	ElementsTransitionAndStore_NoTransitionGrowAndHandleCOW	91	10
 block	ElementsTransitionAndStore_NoTransitionGrowAndHandleCOW	1229	5
@@ -6385,7 +6352,6 @@ block_hint	ElementsTransitionAndStore_NoTransitionGrowAndHandleCOW	835	836
 block_hint	ElementsTransitionAndStore_NoTransitionGrowAndHandleCOW	105	106
 block_hint	ElementsTransitionAndStore_NoTransitionGrowAndHandleCOW	107	108
 block_hint	ElementsTransitionAndStore_NoTransitionGrowAndHandleCOW	78	79
-builtin_hash	ElementsTransitionAndStore_NoTransitionGrowAndHandleCOW	679141913
 block	KeyedHasIC_PolymorphicName	0	2591
 block	KeyedHasIC_PolymorphicName	69	2591
 block	KeyedHasIC_PolymorphicName	9	2591
@@ -6469,14 +6435,12 @@ block_hint	KeyedHasIC_PolymorphicName	34	35
 block_hint	KeyedHasIC_PolymorphicName	67	68
 block_hint	KeyedHasIC_PolymorphicName	36	37
 block_hint	KeyedHasIC_PolymorphicName	53	54
-builtin_hash	KeyedHasIC_PolymorphicName	-647640284
 block	EnqueueMicrotask	0	76109
 block	EnqueueMicrotask	5	76109
 block	EnqueueMicrotask	3	75922
 block	EnqueueMicrotask	2	187
 block_hint	EnqueueMicrotask	4	5
 block_hint	EnqueueMicrotask	2	3
-builtin_hash	EnqueueMicrotask	713407361
 block	RunMicrotasks	0	24530
 block	RunMicrotasks	2	100639
 block	RunMicrotasks	11	76109
@@ -6547,7 +6511,6 @@ block_hint	RunMicrotasks	67	68
 block_hint	RunMicrotasks	30	31
 block_hint	RunMicrotasks	59	60
 block_hint	RunMicrotasks	32	33
-builtin_hash	RunMicrotasks	558680661
 block	HasProperty	0	12462
 block	HasProperty	146	12462
 block	HasProperty	148	12462
@@ -6657,7 +6620,6 @@ block_hint	HasProperty	22	23
 block_hint	HasProperty	94	95
 block_hint	HasProperty	140	141
 block_hint	HasProperty	142	143
-builtin_hash	HasProperty	-264596385
 block	DeleteProperty	0	1781
 block	DeleteProperty	43	1781
 block	DeleteProperty	72	1781
@@ -6740,7 +6702,6 @@ block_hint	DeleteProperty	31	32
 block_hint	DeleteProperty	18	19
 block_hint	DeleteProperty	39	40
 block_hint	DeleteProperty	41	42
-builtin_hash	DeleteProperty	202035688
 block	CopyDataProperties	0	1047
 block	CopyDataProperties	34	1047
 block	CopyDataProperties	71	1047
@@ -6856,7 +6817,6 @@ block_hint	CopyDataProperties	87	88
 block_hint	CopyDataProperties	20	21
 block_hint	CopyDataProperties	55	56
 block_hint	CopyDataProperties	16	17
-builtin_hash	CopyDataProperties	989301175
 block	SetDataProperties	0	138894
 block	SetDataProperties	130	138894
 block	SetDataProperties	258	138894
@@ -7301,18 +7261,15 @@ block_hint	SetDataProperties	191	192
 block_hint	SetDataProperties	193	194
 block_hint	SetDataProperties	195	196
 block_hint	SetDataProperties	127	128
-builtin_hash	SetDataProperties	-180390921
 block	ReturnReceiver	0	324272
 block	ReturnReceiver	3	324272
 block	ReturnReceiver	2	324272
 block_hint	ReturnReceiver	3	4
-builtin_hash	ReturnReceiver	-696175409
 block	ArrayConstructor	0	125492
 block	ArrayConstructor	4	5858
 block	ArrayConstructor	3	119634
 block	ArrayConstructor	2	125492
 block_hint	ArrayConstructor	3	4
-builtin_hash	ArrayConstructor	1040992938
 block	ArrayConstructorImpl	0	301215
 block	ArrayConstructorImpl	33	985
 block	ArrayConstructorImpl	32	300230
@@ -7366,7 +7323,6 @@ block_hint	ArrayConstructorImpl	11	12
 block_hint	ArrayConstructorImpl	13	14
 block_hint	ArrayConstructorImpl	27	28
 block_hint	ArrayConstructorImpl	29	30
-builtin_hash	ArrayConstructorImpl	111628775
 block	ArrayNoArgumentConstructor_PackedSmi_DontOverride	0	67387
 block	ArrayNoArgumentConstructor_PackedSmi_DontOverride	3	67387
 block	ArrayNoArgumentConstructor_PackedSmi_DontOverride	6	14
@@ -7374,7 +7330,6 @@ block	ArrayNoArgumentConstructor_PackedSmi_DontOverride	5	67373
 block	ArrayNoArgumentConstructor_PackedSmi_DontOverride	2	67387
 block_hint	ArrayNoArgumentConstructor_PackedSmi_DontOverride	3	4
 block_hint	ArrayNoArgumentConstructor_PackedSmi_DontOverride	5	6
-builtin_hash	ArrayNoArgumentConstructor_PackedSmi_DontOverride	889663611
 block	ArrayNoArgumentConstructor_HoleySmi_DontOverride	0	4411
 block	ArrayNoArgumentConstructor_HoleySmi_DontOverride	3	4411
 block	ArrayNoArgumentConstructor_HoleySmi_DontOverride	6	1
@@ -7382,7 +7337,6 @@ block	ArrayNoArgumentConstructor_HoleySmi_DontOverride	5	4410
 block	ArrayNoArgumentConstructor_HoleySmi_DontOverride	2	4411
 block_hint	ArrayNoArgumentConstructor_HoleySmi_DontOverride	3	4
 block_hint	ArrayNoArgumentConstructor_HoleySmi_DontOverride	5	6
-builtin_hash	ArrayNoArgumentConstructor_HoleySmi_DontOverride	889663611
 block	ArrayNoArgumentConstructor_PackedSmi_DisableAllocationSites	0	120886
 block	ArrayNoArgumentConstructor_PackedSmi_DisableAllocationSites	3	120886
 block	ArrayNoArgumentConstructor_PackedSmi_DisableAllocationSites	6	47
@@ -7390,7 +7344,6 @@ block	ArrayNoArgumentConstructor_PackedSmi_DisableAllocationSites	5	120839
 block	ArrayNoArgumentConstructor_PackedSmi_DisableAllocationSites	2	120886
 block_hint	ArrayNoArgumentConstructor_PackedSmi_DisableAllocationSites	3	4
 block_hint	ArrayNoArgumentConstructor_PackedSmi_DisableAllocationSites	5	6
-builtin_hash	ArrayNoArgumentConstructor_PackedSmi_DisableAllocationSites	-602320298
 block	ArrayNoArgumentConstructor_Packed_DisableAllocationSites	0	42403
 block	ArrayNoArgumentConstructor_Packed_DisableAllocationSites	3	42403
 block	ArrayNoArgumentConstructor_Packed_DisableAllocationSites	6	10
@@ -7398,21 +7351,18 @@ block	ArrayNoArgumentConstructor_Packed_DisableAllocationSites	5	42393
 block	ArrayNoArgumentConstructor_Packed_DisableAllocationSites	2	42403
 block_hint	ArrayNoArgumentConstructor_Packed_DisableAllocationSites	3	4
 block_hint	ArrayNoArgumentConstructor_Packed_DisableAllocationSites	5	6
-builtin_hash	ArrayNoArgumentConstructor_Packed_DisableAllocationSites	-602320298
 block	ArrayNoArgumentConstructor_Holey_DisableAllocationSites	0	4512
 block	ArrayNoArgumentConstructor_Holey_DisableAllocationSites	3	4512
 block	ArrayNoArgumentConstructor_Holey_DisableAllocationSites	5	4512
 block	ArrayNoArgumentConstructor_Holey_DisableAllocationSites	2	4512
 block_hint	ArrayNoArgumentConstructor_Holey_DisableAllocationSites	3	4
 block_hint	ArrayNoArgumentConstructor_Holey_DisableAllocationSites	5	6
-builtin_hash	ArrayNoArgumentConstructor_Holey_DisableAllocationSites	-602320298
 block	ArrayNoArgumentConstructor_PackedDouble_DisableAllocationSites	0	11
 block	ArrayNoArgumentConstructor_PackedDouble_DisableAllocationSites	3	11
 block	ArrayNoArgumentConstructor_PackedDouble_DisableAllocationSites	5	11
 block	ArrayNoArgumentConstructor_PackedDouble_DisableAllocationSites	2	11
 block_hint	ArrayNoArgumentConstructor_PackedDouble_DisableAllocationSites	3	4
 block_hint	ArrayNoArgumentConstructor_PackedDouble_DisableAllocationSites	5	6
-builtin_hash	ArrayNoArgumentConstructor_PackedDouble_DisableAllocationSites	954647766
 block	ArraySingleArgumentConstructor_HoleySmi_DontOverride	0	24971
 block	ArraySingleArgumentConstructor_HoleySmi_DontOverride	5	24971
 block	ArraySingleArgumentConstructor_HoleySmi_DontOverride	19	24971
@@ -7459,7 +7409,6 @@ block_hint	ArraySingleArgumentConstructor_HoleySmi_DontOverride	25	26
 block_hint	ArraySingleArgumentConstructor_HoleySmi_DontOverride	10	11
 block_hint	ArraySingleArgumentConstructor_HoleySmi_DontOverride	12	13
 block_hint	ArraySingleArgumentConstructor_HoleySmi_DontOverride	27	28
-builtin_hash	ArraySingleArgumentConstructor_HoleySmi_DontOverride	-611934318
 block	ArraySingleArgumentConstructor_HoleySmi_DisableAllocationSites	0	3340
 block	ArraySingleArgumentConstructor_HoleySmi_DisableAllocationSites	5	3340
 block	ArraySingleArgumentConstructor_HoleySmi_DisableAllocationSites	19	2965
@@ -7507,7 +7456,6 @@ block_hint	ArraySingleArgumentConstructor_HoleySmi_DisableAllocationSites	25	26
 block_hint	ArraySingleArgumentConstructor_HoleySmi_DisableAllocationSites	10	11
 block_hint	ArraySingleArgumentConstructor_HoleySmi_DisableAllocationSites	12	13
 block_hint	ArraySingleArgumentConstructor_HoleySmi_DisableAllocationSites	27	28
-builtin_hash	ArraySingleArgumentConstructor_HoleySmi_DisableAllocationSites	918948853
 block	ArraySingleArgumentConstructor_Holey_DisableAllocationSites	0	9398
 block	ArraySingleArgumentConstructor_Holey_DisableAllocationSites	5	9398
 block	ArraySingleArgumentConstructor_Holey_DisableAllocationSites	19	9398
@@ -7548,7 +7496,6 @@ block_hint	ArraySingleArgumentConstructor_Holey_DisableAllocationSites	25	26
 block_hint	ArraySingleArgumentConstructor_Holey_DisableAllocationSites	10	11
 block_hint	ArraySingleArgumentConstructor_Holey_DisableAllocationSites	12	13
 block_hint	ArraySingleArgumentConstructor_Holey_DisableAllocationSites	27	28
-builtin_hash	ArraySingleArgumentConstructor_Holey_DisableAllocationSites	918948853
 block	ArraySingleArgumentConstructor_HoleyDouble_DisableAllocationSites	0	22630
 block	ArraySingleArgumentConstructor_HoleyDouble_DisableAllocationSites	5	22630
 block	ArraySingleArgumentConstructor_HoleyDouble_DisableAllocationSites	21	22630
@@ -7591,7 +7538,6 @@ block_hint	ArraySingleArgumentConstructor_HoleyDouble_DisableAllocationSites	27	
 block_hint	ArraySingleArgumentConstructor_HoleyDouble_DisableAllocationSites	10	11
 block_hint	ArraySingleArgumentConstructor_HoleyDouble_DisableAllocationSites	12	13
 block_hint	ArraySingleArgumentConstructor_HoleyDouble_DisableAllocationSites	29	30
-builtin_hash	ArraySingleArgumentConstructor_HoleyDouble_DisableAllocationSites	188964572
 block	ArrayIncludesSmi	0	27328
 block	ArrayIncludesSmi	137	27328
 block	ArrayIncludesSmi	119	27328
@@ -7683,7 +7629,6 @@ block_hint	ArrayIncludesSmi	67	68
 block_hint	ArrayIncludesSmi	79	80
 block_hint	ArrayIncludesSmi	61	62
 block_hint	ArrayIncludesSmi	55	56
-builtin_hash	ArrayIncludesSmi	582633299
 block	ArrayIncludesSmiOrObject	0	169691
 block	ArrayIncludesSmiOrObject	130	12
 block	ArrayIncludesSmiOrObject	129	169679
@@ -7818,7 +7763,6 @@ block_hint	ArrayIncludesSmiOrObject	64	65
 block_hint	ArrayIncludesSmiOrObject	76	77
 block_hint	ArrayIncludesSmiOrObject	60	61
 block_hint	ArrayIncludesSmiOrObject	54	55
-builtin_hash	ArrayIncludesSmiOrObject	582633299
 block	ArrayIncludes	0	227364
 block	ArrayIncludes	49	227364
 block	ArrayIncludes	48	227364
@@ -7865,7 +7809,6 @@ block_hint	ArrayIncludes	9	10
 block_hint	ArrayIncludes	11	12
 block_hint	ArrayIncludes	15	16
 block_hint	ArrayIncludes	22	23
-builtin_hash	ArrayIncludes	764923980
 block	ArrayIndexOfSmi	0	48346
 block	ArrayIndexOfSmi	132	48346
 block	ArrayIndexOfSmi	114	48346
@@ -7948,7 +7891,6 @@ block_hint	ArrayIndexOfSmi	117	118
 block_hint	ArrayIndexOfSmi	54	55
 block_hint	ArrayIndexOfSmi	108	109
 block_hint	ArrayIndexOfSmi	56	57
-builtin_hash	ArrayIndexOfSmi	966706529
 block	ArrayIndexOfSmiOrObject	0	232273
 block	ArrayIndexOfSmiOrObject	122	232273
 block	ArrayIndexOfSmiOrObject	109	232273
@@ -8065,7 +8007,6 @@ block_hint	ArrayIndexOfSmiOrObject	110	111
 block_hint	ArrayIndexOfSmiOrObject	53	54
 block_hint	ArrayIndexOfSmiOrObject	102	103
 block_hint	ArrayIndexOfSmiOrObject	55	56
-builtin_hash	ArrayIndexOfSmiOrObject	966706529
 block	ArrayIndexOf	0	307184
 block	ArrayIndexOf	49	307184
 block	ArrayIndexOf	48	307184
@@ -8106,7 +8047,6 @@ block_hint	ArrayIndexOf	9	10
 block_hint	ArrayIndexOf	11	12
 block_hint	ArrayIndexOf	15	16
 block_hint	ArrayIndexOf	22	23
-builtin_hash	ArrayIndexOf	231305960
 block	ArrayPrototypePop	0	29645
 block	ArrayPrototypePop	46	29645
 block	ArrayPrototypePop	43	29645
@@ -8151,7 +8091,6 @@ block_hint	ArrayPrototypePop	18	19
 block_hint	ArrayPrototypePop	14	15
 block_hint	ArrayPrototypePop	9	10
 block_hint	ArrayPrototypePop	11	12
-builtin_hash	ArrayPrototypePop	1064253828
 block	ArrayPrototypePush	0	1595689
 block	ArrayPrototypePush	192	3
 block	ArrayPrototypePush	191	1595686
@@ -8365,7 +8304,6 @@ block_hint	ArrayPrototypePush	23	24
 block_hint	ArrayPrototypePush	68	69
 block_hint	ArrayPrototypePush	70	71
 block_hint	ArrayPrototypePush	72	73
-builtin_hash	ArrayPrototypePush	-486443327
 block	CloneFastJSArray	0	2974
 block	CloneFastJSArray	48	1381
 block	CloneFastJSArray	47	1593
@@ -8419,7 +8357,6 @@ block_hint	CloneFastJSArray	62	63
 block_hint	CloneFastJSArray	39	40
 block_hint	CloneFastJSArray	6	7
 block_hint	CloneFastJSArray	27	28
-builtin_hash	CloneFastJSArray	472704253
 block	CloneFastJSArrayFillingHoles	0	573
 block	CloneFastJSArrayFillingHoles	175	525
 block	CloneFastJSArrayFillingHoles	141	30
@@ -8562,7 +8499,6 @@ block_hint	CloneFastJSArrayFillingHoles	161	162
 block_hint	CloneFastJSArrayFillingHoles	110	111
 block_hint	CloneFastJSArrayFillingHoles	15	16
 block_hint	CloneFastJSArrayFillingHoles	74	75
-builtin_hash	CloneFastJSArrayFillingHoles	-1009570332
 block	ExtractFastJSArray	0	36152
 block	ExtractFastJSArray	6	36152
 block	ExtractFastJSArray	46	61
@@ -8620,7 +8556,6 @@ block_hint	ExtractFastJSArray	16	17
 block_hint	ExtractFastJSArray	18	19
 block_hint	ExtractFastJSArray	50	51
 block_hint	ExtractFastJSArray	26	27
-builtin_hash	ExtractFastJSArray	-369404505
 block	CreateArrayFromSlowBoilerplate	0	14313
 block	CreateArrayFromSlowBoilerplate	6	34
 block	CreateArrayFromSlowBoilerplate	5	14279
@@ -8628,7 +8563,6 @@ block	CreateArrayFromSlowBoilerplate	3	14279
 block	CreateArrayFromSlowBoilerplate	4	34
 block_hint	CreateArrayFromSlowBoilerplate	5	6
 block_hint	CreateArrayFromSlowBoilerplate	2	3
-builtin_hash	CreateArrayFromSlowBoilerplate	-741117208
 block	CreateObjectFromSlowBoilerplate	0	131697
 block	CreateObjectFromSlowBoilerplate	6	64
 block	CreateObjectFromSlowBoilerplate	5	131633
@@ -8636,7 +8570,6 @@ block	CreateObjectFromSlowBoilerplate	3	131633
 block	CreateObjectFromSlowBoilerplate	4	64
 block_hint	CreateObjectFromSlowBoilerplate	5	6
 block_hint	CreateObjectFromSlowBoilerplate	2	3
-builtin_hash	CreateObjectFromSlowBoilerplate	-741117208
 block	CreateArrayFromSlowBoilerplateHelper	0	49027
 block	CreateArrayFromSlowBoilerplateHelper	108	49027
 block	CreateArrayFromSlowBoilerplateHelper	77	49027
@@ -8776,7 +8709,6 @@ block_hint	CreateArrayFromSlowBoilerplateHelper	97	98
 block_hint	CreateArrayFromSlowBoilerplateHelper	69	70
 block_hint	CreateArrayFromSlowBoilerplateHelper	67	68
 block_hint	CreateArrayFromSlowBoilerplateHelper	20	21
-builtin_hash	CreateArrayFromSlowBoilerplateHelper	519756117
 block	CreateObjectFromSlowBoilerplateHelper	0	158542
 block	CreateObjectFromSlowBoilerplateHelper	169	158542
 block	CreateObjectFromSlowBoilerplateHelper	114	158542
@@ -8956,7 +8888,6 @@ block_hint	CreateObjectFromSlowBoilerplateHelper	139	140
 block_hint	CreateObjectFromSlowBoilerplateHelper	100	101
 block_hint	CreateObjectFromSlowBoilerplateHelper	98	99
 block_hint	CreateObjectFromSlowBoilerplateHelper	22	23
-builtin_hash	CreateObjectFromSlowBoilerplateHelper	1069991651
 block	ArrayPrototypeEntries	0	4
 block	ArrayPrototypeEntries	14	4
 block	ArrayPrototypeEntries	13	4
@@ -8971,7 +8902,6 @@ block_hint	ArrayPrototypeEntries	11	12
 block_hint	ArrayPrototypeEntries	8	9
 block_hint	ArrayPrototypeEntries	3	4
 block_hint	ArrayPrototypeEntries	6	7
-builtin_hash	ArrayPrototypeEntries	466918476
 block	ArrayPrototypeValues	0	3247112
 block	ArrayPrototypeValues	15	3
 block	ArrayPrototypeValues	14	3247109
@@ -8988,7 +8918,6 @@ block_hint	ArrayPrototypeValues	11	12
 block_hint	ArrayPrototypeValues	8	9
 block_hint	ArrayPrototypeValues	3	4
 block_hint	ArrayPrototypeValues	6	7
-builtin_hash	ArrayPrototypeValues	911033937
 block	ArrayIteratorPrototypeNext	0	8216339
 block	ArrayIteratorPrototypeNext	142	8
 block	ArrayIteratorPrototypeNext	141	8216331
@@ -9138,7 +9067,6 @@ block_hint	ArrayIteratorPrototypeNext	59	60
 block_hint	ArrayIteratorPrototypeNext	61	62
 block_hint	ArrayIteratorPrototypeNext	63	64
 block_hint	ArrayIteratorPrototypeNext	83	84
-builtin_hash	ArrayIteratorPrototypeNext	-198119904
 block	AsyncFunctionEnter	0	134839
 block	AsyncFunctionEnter	44	134839
 block	AsyncFunctionEnter	43	134839
@@ -9187,9 +9115,7 @@ block_hint	AsyncFunctionEnter	24	25
 block_hint	AsyncFunctionEnter	31	32
 block_hint	AsyncFunctionEnter	6	7
 block_hint	AsyncFunctionEnter	16	17
-builtin_hash	AsyncFunctionEnter	-379678587
 block	AsyncFunctionResolve	0	132127
-builtin_hash	AsyncFunctionResolve	617454189
 block	AsyncFunctionAwait	0	47303
 block	AsyncFunctionAwait	24	47303
 block	AsyncFunctionAwait	20	567
@@ -9230,14 +9156,12 @@ block_hint	AsyncFunctionAwait	10	11
 block_hint	AsyncFunctionAwait	12	13
 block_hint	AsyncFunctionAwait	14	15
 block_hint	AsyncFunctionAwait	22	23
-builtin_hash	AsyncFunctionAwait	-894012940
 block	AsyncFunctionAwaitResolveClosure	0	44591
 block	AsyncFunctionAwaitResolveClosure	5	44591
 block	AsyncFunctionAwaitResolveClosure	4	44591
 block	AsyncFunctionAwaitResolveClosure	2	44591
 block_hint	AsyncFunctionAwaitResolveClosure	5	6
 block_hint	AsyncFunctionAwaitResolveClosure	2	3
-builtin_hash	AsyncFunctionAwaitResolveClosure	-289721451
 block	DatePrototypeGetDate	0	334
 block	DatePrototypeGetDate	10	334
 block	DatePrototypeGetDate	9	334
@@ -9248,7 +9172,6 @@ block_hint	DatePrototypeGetDate	10	11
 block_hint	DatePrototypeGetDate	5	6
 block_hint	DatePrototypeGetDate	7	8
 block_hint	DatePrototypeGetDate	3	4
-builtin_hash	DatePrototypeGetDate	15315987
 block	DatePrototypeGetDay	0	281
 block	DatePrototypeGetDay	10	281
 block	DatePrototypeGetDay	9	281
@@ -9259,7 +9182,6 @@ block_hint	DatePrototypeGetDay	10	11
 block_hint	DatePrototypeGetDay	5	6
 block_hint	DatePrototypeGetDay	7	8
 block_hint	DatePrototypeGetDay	3	4
-builtin_hash	DatePrototypeGetDay	15315987
 block	DatePrototypeGetFullYear	0	333
 block	DatePrototypeGetFullYear	10	333
 block	DatePrototypeGetFullYear	9	333
@@ -9270,7 +9192,6 @@ block_hint	DatePrototypeGetFullYear	10	11
 block_hint	DatePrototypeGetFullYear	5	6
 block_hint	DatePrototypeGetFullYear	7	8
 block_hint	DatePrototypeGetFullYear	3	4
-builtin_hash	DatePrototypeGetFullYear	15315987
 block	DatePrototypeGetHours	0	627
 block	DatePrototypeGetHours	10	627
 block	DatePrototypeGetHours	9	627
@@ -9282,7 +9203,6 @@ block_hint	DatePrototypeGetHours	10	11
 block_hint	DatePrototypeGetHours	5	6
 block_hint	DatePrototypeGetHours	7	8
 block_hint	DatePrototypeGetHours	3	4
-builtin_hash	DatePrototypeGetHours	15315987
 block	DatePrototypeGetMinutes	0	612
 block	DatePrototypeGetMinutes	10	612
 block	DatePrototypeGetMinutes	9	612
@@ -9293,7 +9213,6 @@ block_hint	DatePrototypeGetMinutes	10	11
 block_hint	DatePrototypeGetMinutes	5	6
 block_hint	DatePrototypeGetMinutes	7	8
 block_hint	DatePrototypeGetMinutes	3	4
-builtin_hash	DatePrototypeGetMinutes	15315987
 block	DatePrototypeGetMonth	0	334
 block	DatePrototypeGetMonth	10	334
 block	DatePrototypeGetMonth	9	334
@@ -9305,7 +9224,6 @@ block_hint	DatePrototypeGetMonth	10	11
 block_hint	DatePrototypeGetMonth	5	6
 block_hint	DatePrototypeGetMonth	7	8
 block_hint	DatePrototypeGetMonth	3	4
-builtin_hash	DatePrototypeGetMonth	15315987
 block	DatePrototypeGetSeconds	0	612
 block	DatePrototypeGetSeconds	10	612
 block	DatePrototypeGetSeconds	9	612
@@ -9316,7 +9234,6 @@ block_hint	DatePrototypeGetSeconds	10	11
 block_hint	DatePrototypeGetSeconds	5	6
 block_hint	DatePrototypeGetSeconds	7	8
 block_hint	DatePrototypeGetSeconds	3	4
-builtin_hash	DatePrototypeGetSeconds	15315987
 block	DatePrototypeGetTime	0	22504
 block	DatePrototypeGetTime	21	22504
 block	DatePrototypeGetTime	14	22504
@@ -9335,7 +9252,6 @@ block_hint	DatePrototypeGetTime	15	16
 block_hint	DatePrototypeGetTime	17	18
 block_hint	DatePrototypeGetTime	4	5
 block_hint	DatePrototypeGetTime	7	8
-builtin_hash	DatePrototypeGetTime	819496153
 block	DatePrototypeGetTimezoneOffset	0	20
 block	DatePrototypeGetTimezoneOffset	8	20
 block	DatePrototypeGetTimezoneOffset	7	20
@@ -9344,7 +9260,6 @@ block	DatePrototypeGetTimezoneOffset	3	20
 block_hint	DatePrototypeGetTimezoneOffset	8	9
 block_hint	DatePrototypeGetTimezoneOffset	5	6
 block_hint	DatePrototypeGetTimezoneOffset	3	4
-builtin_hash	DatePrototypeGetTimezoneOffset	-733801068
 block	DatePrototypeGetUTCDate	0	30
 block	DatePrototypeGetUTCDate	8	30
 block	DatePrototypeGetUTCDate	7	30
@@ -9353,7 +9268,6 @@ block	DatePrototypeGetUTCDate	3	30
 block_hint	DatePrototypeGetUTCDate	8	9
 block_hint	DatePrototypeGetUTCDate	5	6
 block_hint	DatePrototypeGetUTCDate	3	4
-builtin_hash	DatePrototypeGetUTCDate	-733801068
 block	DatePrototypeGetUTCDay	0	3
 block	DatePrototypeGetUTCDay	8	3
 block	DatePrototypeGetUTCDay	7	3
@@ -9362,7 +9276,6 @@ block	DatePrototypeGetUTCDay	3	3
 block_hint	DatePrototypeGetUTCDay	8	9
 block_hint	DatePrototypeGetUTCDay	5	6
 block_hint	DatePrototypeGetUTCDay	3	4
-builtin_hash	DatePrototypeGetUTCDay	-733801068
 block	DatePrototypeGetUTCFullYear	0	32
 block	DatePrototypeGetUTCFullYear	8	32
 block	DatePrototypeGetUTCFullYear	7	32
@@ -9371,7 +9284,6 @@ block	DatePrototypeGetUTCFullYear	3	32
 block_hint	DatePrototypeGetUTCFullYear	8	9
 block_hint	DatePrototypeGetUTCFullYear	5	6
 block_hint	DatePrototypeGetUTCFullYear	3	4
-builtin_hash	DatePrototypeGetUTCFullYear	-733801068
 block	DatePrototypeGetUTCHours	0	19
 block	DatePrototypeGetUTCHours	8	19
 block	DatePrototypeGetUTCHours	7	19
@@ -9380,7 +9292,6 @@ block	DatePrototypeGetUTCHours	3	19
 block_hint	DatePrototypeGetUTCHours	8	9
 block_hint	DatePrototypeGetUTCHours	5	6
 block_hint	DatePrototypeGetUTCHours	3	4
-builtin_hash	DatePrototypeGetUTCHours	-733801068
 block	DatePrototypeGetUTCMinutes	0	17
 block	DatePrototypeGetUTCMinutes	8	17
 block	DatePrototypeGetUTCMinutes	7	17
@@ -9389,7 +9300,6 @@ block	DatePrototypeGetUTCMinutes	3	17
 block_hint	DatePrototypeGetUTCMinutes	8	9
 block_hint	DatePrototypeGetUTCMinutes	5	6
 block_hint	DatePrototypeGetUTCMinutes	3	4
-builtin_hash	DatePrototypeGetUTCMinutes	-733801068
 block	DatePrototypeGetUTCMonth	0	30
 block	DatePrototypeGetUTCMonth	8	30
 block	DatePrototypeGetUTCMonth	7	30
@@ -9398,7 +9308,6 @@ block	DatePrototypeGetUTCMonth	3	30
 block_hint	DatePrototypeGetUTCMonth	8	9
 block_hint	DatePrototypeGetUTCMonth	5	6
 block_hint	DatePrototypeGetUTCMonth	3	4
-builtin_hash	DatePrototypeGetUTCMonth	-733801068
 block	DatePrototypeGetUTCSeconds	0	17
 block	DatePrototypeGetUTCSeconds	8	17
 block	DatePrototypeGetUTCSeconds	7	17
@@ -9407,7 +9316,6 @@ block	DatePrototypeGetUTCSeconds	3	17
 block_hint	DatePrototypeGetUTCSeconds	8	9
 block_hint	DatePrototypeGetUTCSeconds	5	6
 block_hint	DatePrototypeGetUTCSeconds	3	4
-builtin_hash	DatePrototypeGetUTCSeconds	-733801068
 block	DatePrototypeValueOf	0	340
 block	DatePrototypeValueOf	21	340
 block	DatePrototypeValueOf	14	340
@@ -9425,7 +9333,6 @@ block_hint	DatePrototypeValueOf	15	16
 block_hint	DatePrototypeValueOf	17	18
 block_hint	DatePrototypeValueOf	4	5
 block_hint	DatePrototypeValueOf	7	8
-builtin_hash	DatePrototypeValueOf	819496153
 block	CreateIterResultObject	0	701891
 block	CreateIterResultObject	4	701891
 block	CreateIterResultObject	20	102
@@ -9447,7 +9354,6 @@ block_hint	CreateIterResultObject	10	11
 block_hint	CreateIterResultObject	6	7
 block_hint	CreateIterResultObject	8	9
 block_hint	CreateIterResultObject	12	13
-builtin_hash	CreateIterResultObject	-775157807
 block	CreateGeneratorObject	0	71719
 block	CreateGeneratorObject	30	71719
 block	CreateGeneratorObject	33	3126
@@ -9540,7 +9446,6 @@ block_hint	CreateGeneratorObject	22	23
 block_hint	CreateGeneratorObject	68	69
 block_hint	CreateGeneratorObject	47	48
 block_hint	CreateGeneratorObject	26	27
-builtin_hash	CreateGeneratorObject	317160267
 block	GeneratorPrototypeNext	0	704664
 block	GeneratorPrototypeNext	19	704664
 block	GeneratorPrototypeNext	18	704664
@@ -9561,7 +9466,6 @@ block_hint	GeneratorPrototypeNext	13	14
 block_hint	GeneratorPrototypeNext	5	6
 block_hint	GeneratorPrototypeNext	7	8
 block_hint	GeneratorPrototypeNext	3	4
-builtin_hash	GeneratorPrototypeNext	319396693
 block	GeneratorPrototypeReturn	0	11
 block	GeneratorPrototypeReturn	19	11
 block	GeneratorPrototypeReturn	18	11
@@ -9581,7 +9485,6 @@ block_hint	GeneratorPrototypeReturn	13	14
 block_hint	GeneratorPrototypeReturn	5	6
 block_hint	GeneratorPrototypeReturn	7	8
 block_hint	GeneratorPrototypeReturn	3	4
-builtin_hash	GeneratorPrototypeReturn	-202769722
 block	GlobalIsFinite	0	119687
 block	GlobalIsFinite	9	119687
 block	GlobalIsFinite	4	119687
@@ -9596,7 +9499,6 @@ block_hint	GlobalIsFinite	9	10
 block_hint	GlobalIsFinite	7	8
 block_hint	GlobalIsFinite	11	12
 block_hint	GlobalIsFinite	5	6
-builtin_hash	GlobalIsFinite	-330364680
 block	GlobalIsNaN	0	256220
 block	GlobalIsNaN	9	256220
 block	GlobalIsNaN	4	256220
@@ -9611,7 +9513,6 @@ block_hint	GlobalIsNaN	9	10
 block_hint	GlobalIsNaN	7	8
 block_hint	GlobalIsNaN	11	12
 block_hint	GlobalIsNaN	5	6
-builtin_hash	GlobalIsNaN	695980506
 block	LoadIC	0	4836805
 block	LoadIC	233	4836805
 block	LoadIC	98	4836805
@@ -9792,7 +9693,6 @@ block_hint	LoadIC	129	130
 block_hint	LoadIC	131	132
 block_hint	LoadIC	92	93
 block_hint	LoadIC	94	95
-builtin_hash	LoadIC	1012017475
 block	LoadIC_Noninlined	0	56527872
 block	LoadIC_Noninlined	268	364
 block	LoadIC_Noninlined	267	56527508
@@ -10011,7 +9911,6 @@ block_hint	LoadIC_Noninlined	131	132
 block_hint	LoadIC_Noninlined	133	134
 block_hint	LoadIC_Noninlined	87	88
 block_hint	LoadIC_Noninlined	89	90
-builtin_hash	LoadIC_Noninlined	878867382
 block	LoadSuperIC	0	969268
 block	LoadSuperIC	429	962123
 block	LoadSuperIC	202	962123
@@ -10403,7 +10302,6 @@ block_hint	LoadSuperIC	169	170
 block_hint	LoadSuperIC	197	198
 block_hint	LoadSuperIC	171	172
 block_hint	LoadSuperIC	173	174
-builtin_hash	LoadSuperIC	-613486450
 block	KeyedLoadIC	0	37092675
 block	KeyedLoadIC	545	140
 block	KeyedLoadIC	544	37092535
@@ -10774,7 +10672,6 @@ block_hint	KeyedLoadIC	290	291
 block_hint	KeyedLoadIC	292	293
 block_hint	KeyedLoadIC	60	61
 block_hint	KeyedLoadIC	218	219
-builtin_hash	KeyedLoadIC	-691525301
 block	EnumeratedKeyedLoadIC	0	187467
 block	EnumeratedKeyedLoadIC	568	187467
 block	EnumeratedKeyedLoadIC	430	187467
@@ -11101,7 +10998,6 @@ block_hint	EnumeratedKeyedLoadIC	298	299
 block_hint	EnumeratedKeyedLoadIC	300	301
 block_hint	EnumeratedKeyedLoadIC	66	67
 block_hint	EnumeratedKeyedLoadIC	226	227
-builtin_hash	EnumeratedKeyedLoadIC	762735209
 block	KeyedLoadIC_Megamorphic	0	18288283
 block	KeyedLoadIC_Megamorphic	432	18288283
 block	KeyedLoadIC_Megamorphic	435	18288280
@@ -11991,7 +11887,6 @@ block_hint	KeyedLoadIC_Megamorphic	994	995
 block_hint	KeyedLoadIC_Megamorphic	426	427
 block_hint	KeyedLoadIC_Megamorphic	510	511
 block_hint	KeyedLoadIC_Megamorphic	125	126
-builtin_hash	KeyedLoadIC_Megamorphic	680549211
 block	StoreGlobalIC	0	10
 block	StoreGlobalIC	87	10
 block_hint	StoreGlobalIC	87	88
@@ -12155,7 +12050,6 @@ block_hint	StoreGlobalIC	145	146
 block_hint	StoreGlobalIC	192	193
 block_hint	StoreGlobalIC	147	148
 block_hint	StoreGlobalIC	65	66
-builtin_hash	StoreGlobalIC	780135548
 block	StoreIC	0	93747172
 block	StoreIC	329	93747172
 block	StoreIC	228	93747172
@@ -12541,7 +12435,6 @@ block_hint	StoreIC	133	134
 block_hint	StoreIC	186	187
 block_hint	StoreIC	135	136
 block_hint	StoreIC	68	69
-builtin_hash	StoreIC	630531306
 block	DefineNamedOwnIC	0	4882192
 block	DefineNamedOwnIC	319	4882192
 block	DefineNamedOwnIC	222	4882192
@@ -12798,7 +12691,6 @@ block_hint	DefineNamedOwnIC	133	134
 block_hint	DefineNamedOwnIC	182	183
 block_hint	DefineNamedOwnIC	135	136
 block_hint	DefineNamedOwnIC	66	67
-builtin_hash	DefineNamedOwnIC	885711955
 block	KeyedStoreIC	0	1185994
 block	KeyedStoreIC	392	1185994
 block	KeyedStoreIC	281	1185994
@@ -13095,7 +12987,6 @@ block_hint	KeyedStoreIC	166	167
 block_hint	KeyedStoreIC	225	226
 block_hint	KeyedStoreIC	168	169
 block_hint	KeyedStoreIC	82	83
-builtin_hash	KeyedStoreIC	878217789
 block	DefineKeyedOwnIC	0	159
 block	DefineKeyedOwnIC	446	159
 block	DefineKeyedOwnIC	418	159
@@ -13294,7 +13185,6 @@ block_hint	DefineKeyedOwnIC	168	169
 block_hint	DefineKeyedOwnIC	223	224
 block_hint	DefineKeyedOwnIC	170	171
 block_hint	DefineKeyedOwnIC	80	81
-builtin_hash	DefineKeyedOwnIC	-637854768
 block	StoreInArrayLiteralIC	0	1841430
 block	StoreInArrayLiteralIC	30	1841430
 block	StoreInArrayLiteralIC	25	1841430
@@ -13323,7 +13213,6 @@ block_hint	StoreInArrayLiteralIC	8	9
 block_hint	StoreInArrayLiteralIC	4	5
 block_hint	StoreInArrayLiteralIC	21	22
 block_hint	StoreInArrayLiteralIC	6	7
-builtin_hash	StoreInArrayLiteralIC	397249658
 block	CloneObjectIC	0	3904
 block	CloneObjectIC	176	3904
 block	CloneObjectIC	146	3904
@@ -13527,7 +13416,6 @@ block_hint	CloneObjectIC	116	117
 block_hint	CloneObjectIC	118	119
 block_hint	CloneObjectIC	140	141
 block_hint	CloneObjectIC	58	59
-builtin_hash	CloneObjectIC	855804358
 block	CloneObjectIC_Slow	0	592
 block	CloneObjectIC_Slow	72	592
 block	CloneObjectIC_Slow	74	592
@@ -13656,7 +13544,6 @@ block_hint	CloneObjectIC_Slow	145	146
 block_hint	CloneObjectIC_Slow	143	144
 block_hint	CloneObjectIC_Slow	91	92
 block_hint	CloneObjectIC_Slow	26	27
-builtin_hash	CloneObjectIC_Slow	-156740803
 block	KeyedHasIC	0	10125189
 block	KeyedHasIC	267	10125189
 block	KeyedHasIC	206	10125189
@@ -13814,7 +13701,6 @@ block_hint	KeyedHasIC	91	92
 block_hint	KeyedHasIC	169	170
 block_hint	KeyedHasIC	93	94
 block_hint	KeyedHasIC	121	122
-builtin_hash	KeyedHasIC	-1037355869
 block	KeyedHasIC_Megamorphic	0	10122563
 block	KeyedHasIC_Megamorphic	146	10122563
 block	KeyedHasIC_Megamorphic	148	10122563
@@ -14009,7 +13895,6 @@ block_hint	KeyedHasIC_Megamorphic	22	23
 block_hint	KeyedHasIC_Megamorphic	94	95
 block_hint	KeyedHasIC_Megamorphic	140	141
 block_hint	KeyedHasIC_Megamorphic	142	143
-builtin_hash	KeyedHasIC_Megamorphic	-264596385
 block	IterableToList	0	26605
 block	IterableToList	46	26605
 block	IterableToList	48	26605
@@ -14133,7 +14018,6 @@ block_hint	IterableToList	136	137
 block_hint	IterableToList	39	40
 block_hint	IterableToList	73	74
 block_hint	IterableToList	75	76
-builtin_hash	IterableToList	145735701
 block	IterableToListWithSymbolLookup	0	1410
 block	IterableToListWithSymbolLookup	40	1410
 block	IterableToListWithSymbolLookup	87	1410
@@ -14233,7 +14117,6 @@ block_hint	IterableToListWithSymbolLookup	10	11
 block_hint	IterableToListWithSymbolLookup	45	46
 block_hint	IterableToListWithSymbolLookup	23	24
 block_hint	IterableToListWithSymbolLookup	19	20
-builtin_hash	IterableToListWithSymbolLookup	321933921
 block	IterableToListMayPreserveHoles	0	26005
 block	IterableToListMayPreserveHoles	8	26005
 block	IterableToListMayPreserveHoles	16	26005
@@ -14248,7 +14131,6 @@ block_hint	IterableToListMayPreserveHoles	11	12
 block_hint	IterableToListMayPreserveHoles	3	4
 block_hint	IterableToListMayPreserveHoles	13	14
 block_hint	IterableToListMayPreserveHoles	5	6
-builtin_hash	IterableToListMayPreserveHoles	806419038
 block	IterableToListConvertHoles	0	32
 block	IterableToListConvertHoles	8	32
 block	IterableToListConvertHoles	16	32
@@ -14264,7 +14146,6 @@ block_hint	IterableToListConvertHoles	11	12
 block_hint	IterableToListConvertHoles	3	4
 block_hint	IterableToListConvertHoles	13	14
 block_hint	IterableToListConvertHoles	5	6
-builtin_hash	IterableToListConvertHoles	806419038
 block	FindOrderedHashMapEntry	0	21711106
 block	FindOrderedHashMapEntry	28	3227565
 block	FindOrderedHashMapEntry	6	6012514
@@ -14368,7 +14249,6 @@ block_hint	FindOrderedHashMapEntry	59	60
 block_hint	FindOrderedHashMapEntry	75	76
 block_hint	FindOrderedHashMapEntry	61	62
 block_hint	FindOrderedHashMapEntry	63	64
-builtin_hash	FindOrderedHashMapEntry	696579041
 block	MapConstructor	0	296659
 block	MapConstructor	347	8
 block	MapConstructor	346	296651
@@ -14685,7 +14565,6 @@ block_hint	MapConstructor	365	366
 block_hint	MapConstructor	228	229
 block_hint	MapConstructor	230	231
 block_hint	MapConstructor	102	103
-builtin_hash	MapConstructor	509978711
 block	MapPrototypeSet	0	1456375
 block	MapPrototypeSet	101	3
 block	MapPrototypeSet	100	1456372
@@ -14814,7 +14693,6 @@ block_hint	MapPrototypeSet	53	54
 block_hint	MapPrototypeSet	55	56
 block_hint	MapPrototypeSet	104	105
 block_hint	MapPrototypeSet	70	71
-builtin_hash	MapPrototypeSet	-208148287
 block	MapPrototypeDelete	0	267673
 block	MapPrototypeDelete	101	267673
 block	MapPrototypeDelete	92	267673
@@ -14915,7 +14793,6 @@ block_hint	MapPrototypeDelete	17	18
 block_hint	MapPrototypeDelete	19	20
 block_hint	MapPrototypeDelete	21	22
 block_hint	MapPrototypeDelete	23	24
-builtin_hash	MapPrototypeDelete	499296456
 block	MapPrototypeGet	0	19164516
 block	MapPrototypeGet	13	1
 block	MapPrototypeGet	12	19164515
@@ -14930,7 +14807,6 @@ block_hint	MapPrototypeGet	7	8
 block_hint	MapPrototypeGet	9	10
 block_hint	MapPrototypeGet	5	6
 block_hint	MapPrototypeGet	3	4
-builtin_hash	MapPrototypeGet	776278732
 block	MapPrototypeHas	0	2546590
 block	MapPrototypeHas	10	2546590
 block	MapPrototypeHas	9	2546590
@@ -14942,7 +14818,6 @@ block_hint	MapPrototypeHas	10	11
 block_hint	MapPrototypeHas	5	6
 block_hint	MapPrototypeHas	7	8
 block_hint	MapPrototypeHas	3	4
-builtin_hash	MapPrototypeHas	734419204
 block	MapPrototypeEntries	0	1146000
 block	MapPrototypeEntries	14	1
 block	MapPrototypeEntries	13	1145999
@@ -14958,7 +14833,6 @@ block_hint	MapPrototypeEntries	8	9
 block_hint	MapPrototypeEntries	10	11
 block_hint	MapPrototypeEntries	4	5
 block_hint	MapPrototypeEntries	6	7
-builtin_hash	MapPrototypeEntries	-622020649
 block	MapPrototypeGetSize	0	2436038
 block	MapPrototypeGetSize	8	2436038
 block	MapPrototypeGetSize	7	2436038
@@ -14967,7 +14841,6 @@ block	MapPrototypeGetSize	3	2436038
 block_hint	MapPrototypeGetSize	8	9
 block_hint	MapPrototypeGetSize	5	6
 block_hint	MapPrototypeGetSize	3	4
-builtin_hash	MapPrototypeGetSize	-614011665
 block	MapPrototypeForEach	0	1242787
 block	MapPrototypeForEach	33	1242787
 block	MapPrototypeForEach	32	1242787
@@ -15004,7 +14877,6 @@ block_hint	MapPrototypeForEach	18	19
 block_hint	MapPrototypeForEach	9	10
 block_hint	MapPrototypeForEach	16	17
 block_hint	MapPrototypeForEach	7	8
-builtin_hash	MapPrototypeForEach	468748911
 block	MapPrototypeKeys	0	68586
 block	MapPrototypeKeys	13	68586
 block	MapPrototypeKeys	12	68586
@@ -15019,7 +14891,6 @@ block_hint	MapPrototypeKeys	8	9
 block_hint	MapPrototypeKeys	10	11
 block_hint	MapPrototypeKeys	4	5
 block_hint	MapPrototypeKeys	6	7
-builtin_hash	MapPrototypeKeys	-622020649
 block	MapPrototypeValues	0	181740
 block	MapPrototypeValues	13	181740
 block	MapPrototypeValues	12	181740
@@ -15034,7 +14905,6 @@ block_hint	MapPrototypeValues	8	9
 block_hint	MapPrototypeValues	10	11
 block_hint	MapPrototypeValues	4	5
 block_hint	MapPrototypeValues	6	7
-builtin_hash	MapPrototypeValues	-622020649
 block	MapIteratorPrototypeNext	0	11988329
 block	MapIteratorPrototypeNext	48	3
 block	MapIteratorPrototypeNext	47	11988326
@@ -15093,7 +14963,6 @@ block_hint	MapIteratorPrototypeNext	13	14
 block_hint	MapIteratorPrototypeNext	15	16
 block_hint	MapIteratorPrototypeNext	17	18
 block_hint	MapIteratorPrototypeNext	25	26
-builtin_hash	MapIteratorPrototypeNext	-829610439
 block	MapIteratorToList	0	29526
 block	MapIteratorToList	15	29526
 block	MapIteratorToList	23	29526
@@ -15152,7 +15021,6 @@ block_hint	MapIteratorToList	37	38
 block_hint	MapIteratorToList	12	13
 block_hint	MapIteratorToList	21	22
 block_hint	MapIteratorToList	30	31
-builtin_hash	MapIteratorToList	804670135
 block	ObjectAssign	0	138896
 block	ObjectAssign	242	138896
 block	ObjectAssign	228	138896
@@ -15283,7 +15151,6 @@ block_hint	ObjectAssign	50	51
 block_hint	ObjectAssign	64	65
 block_hint	ObjectAssign	52	53
 block_hint	ObjectAssign	54	55
-builtin_hash	ObjectAssign	-224811221
 block	ObjectCreate	0	8033
 block	ObjectCreate	93	8033
 block	ObjectCreate	92	8033
@@ -15385,7 +15252,6 @@ block_hint	ObjectCreate	31	32
 block_hint	ObjectCreate	26	27
 block_hint	ObjectCreate	28	29
 block_hint	ObjectCreate	33	34
-builtin_hash	ObjectCreate	-620895719
 block	ObjectEntries	0	3215
 block	ObjectEntries	90	1
 block	ObjectEntries	89	3214
@@ -15478,7 +15344,6 @@ block_hint	ObjectEntries	58	59
 block_hint	ObjectEntries	28	29
 block_hint	ObjectEntries	15	16
 block_hint	ObjectEntries	31	32
-builtin_hash	ObjectEntries	-294783645
 block	ObjectGetOwnPropertyDescriptor	0	825738
 block	ObjectGetOwnPropertyDescriptor	352	2
 block	ObjectGetOwnPropertyDescriptor	351	825736
@@ -15679,7 +15544,6 @@ block_hint	ObjectGetOwnPropertyDescriptor	158	159
 block_hint	ObjectGetOwnPropertyDescriptor	331	332
 block_hint	ObjectGetOwnPropertyDescriptor	293	294
 block_hint	ObjectGetOwnPropertyDescriptor	209	210
-builtin_hash	ObjectGetOwnPropertyDescriptor	388961378
 block	ObjectGetOwnPropertyNames	0	7492
 block	ObjectGetOwnPropertyNames	53	7492
 block	ObjectGetOwnPropertyNames	47	7492
@@ -15714,7 +15578,6 @@ block_hint	ObjectGetOwnPropertyNames	11	12
 block_hint	ObjectGetOwnPropertyNames	13	14
 block_hint	ObjectGetOwnPropertyNames	9	10
 block_hint	ObjectGetOwnPropertyNames	18	19
-builtin_hash	ObjectGetOwnPropertyNames	240157214
 block	ObjectKeys	0	43771
 block	ObjectKeys	50	6
 block	ObjectKeys	49	43765
@@ -15765,7 +15628,6 @@ block_hint	ObjectKeys	11	12
 block_hint	ObjectKeys	13	14
 block_hint	ObjectKeys	9	10
 block_hint	ObjectKeys	18	19
-builtin_hash	ObjectKeys	-766438641
 block	ObjectPrototypeHasOwnProperty	0	119907
 block	ObjectPrototypeHasOwnProperty	252	2
 block	ObjectPrototypeHasOwnProperty	251	119905
@@ -15941,7 +15803,6 @@ block_hint	ObjectPrototypeHasOwnProperty	143	144
 block_hint	ObjectPrototypeHasOwnProperty	141	142
 block_hint	ObjectPrototypeHasOwnProperty	16	17
 block_hint	ObjectPrototypeHasOwnProperty	82	83
-builtin_hash	ObjectPrototypeHasOwnProperty	1063467439
 block	ObjectPrototypeIsPrototypeOf	0	64901
 block	ObjectPrototypeIsPrototypeOf	26	64901
 block	ObjectPrototypeIsPrototypeOf	17	64901
@@ -15965,7 +15826,6 @@ block_hint	ObjectPrototypeIsPrototypeOf	20	21
 block_hint	ObjectPrototypeIsPrototypeOf	6	7
 block_hint	ObjectPrototypeIsPrototypeOf	4	5
 block_hint	ObjectPrototypeIsPrototypeOf	11	12
-builtin_hash	ObjectPrototypeIsPrototypeOf	455506882
 block	ObjectToString	0	1772
 block	ObjectToString	70	1772
 block	ObjectToString	78	1772
@@ -16024,7 +15884,6 @@ block_hint	ObjectToString	18	19
 block_hint	ObjectToString	53	54
 block_hint	ObjectToString	25	26
 block_hint	ObjectToString	27	28
-builtin_hash	ObjectToString	-814304426
 block	ObjectValues	0	7564
 block	ObjectValues	83	1
 block	ObjectValues	82	7563
@@ -16105,7 +15964,6 @@ block_hint	ObjectValues	59	60
 block_hint	ObjectValues	24	25
 block_hint	ObjectValues	11	12
 block_hint	ObjectValues	27	28
-builtin_hash	ObjectValues	449578536
 block	ForInFilter	0	105656
 block	ForInFilter	239	105656
 block	ForInFilter	241	105656
@@ -16294,7 +16152,6 @@ block_hint	ForInFilter	127	128
 block_hint	ForInFilter	20	21
 block_hint	ForInFilter	220	221
 block_hint	ForInFilter	35	36
-builtin_hash	ForInFilter	-929904217
 block	RegExpConstructor	0	432
 block	RegExpConstructor	63	432
 block	RegExpConstructor	46	432
@@ -16426,12 +16283,10 @@ block_hint	RegExpConstructor	97	98
 block_hint	RegExpConstructor	51	52
 block_hint	RegExpConstructor	88	89
 block_hint	RegExpConstructor	71	72
-builtin_hash	RegExpConstructor	792698098
 block	RegExpExecAtom	0	145890
 block	RegExpExecAtom	3	78050
 block	RegExpExecAtom	2	67840
 block_hint	RegExpExecAtom	2	3
-builtin_hash	RegExpExecAtom	368391792
 block	RegExpExecInternal	0	2
 block	RegExpExecInternal	25	2
 block	RegExpExecInternal	27	2
@@ -16468,7 +16323,6 @@ block_hint	RegExpExecInternal	20	21
 block_hint	RegExpExecInternal	14	15
 block_hint	RegExpExecInternal	16	17
 block_hint	RegExpExecInternal	22	23
-builtin_hash	RegExpExecInternal	941417865
 block	FindOrderedHashSetEntry	0	974045
 block	FindOrderedHashSetEntry	28	19099
 block	FindOrderedHashSetEntry	6	24280
@@ -16567,7 +16421,6 @@ block_hint	FindOrderedHashSetEntry	59	60
 block_hint	FindOrderedHashSetEntry	75	76
 block_hint	FindOrderedHashSetEntry	61	62
 block_hint	FindOrderedHashSetEntry	63	64
-builtin_hash	FindOrderedHashSetEntry	-990310560
 block	SetConstructor	0	235058
 block	SetConstructor	375	235058
 block	SetConstructor	293	235058
@@ -16883,7 +16736,6 @@ block_hint	SetConstructor	113	114
 block_hint	SetConstructor	108	109
 block_hint	SetConstructor	110	111
 block_hint	SetConstructor	115	116
-builtin_hash	SetConstructor	-703302226
 block	SetPrototypeHas	0	974045
 block	SetPrototypeHas	11	1
 block	SetPrototypeHas	10	974044
@@ -16896,7 +16748,6 @@ block_hint	SetPrototypeHas	10	11
 block_hint	SetPrototypeHas	5	6
 block_hint	SetPrototypeHas	7	8
 block_hint	SetPrototypeHas	3	4
-builtin_hash	SetPrototypeHas	734419204
 block	SetPrototypeAdd	0	233121
 block	SetPrototypeAdd	100	233121
 block	SetPrototypeAdd	80	233121
@@ -17021,7 +16872,6 @@ block_hint	SetPrototypeAdd	53	54
 block_hint	SetPrototypeAdd	55	56
 block_hint	SetPrototypeAdd	104	105
 block_hint	SetPrototypeAdd	70	71
-builtin_hash	SetPrototypeAdd	-1001978358
 block	SetPrototypeDelete	0	121567
 block	SetPrototypeDelete	101	121567
 block	SetPrototypeDelete	92	121567
@@ -17118,7 +16968,6 @@ block_hint	SetPrototypeDelete	69	70
 block_hint	SetPrototypeDelete	19	20
 block_hint	SetPrototypeDelete	21	22
 block_hint	SetPrototypeDelete	23	24
-builtin_hash	SetPrototypeDelete	-1061238819
 block	SetPrototypeGetSize	0	36948
 block	SetPrototypeGetSize	8	36948
 block	SetPrototypeGetSize	7	36948
@@ -17127,7 +16976,6 @@ block	SetPrototypeGetSize	3	36948
 block_hint	SetPrototypeGetSize	8	9
 block_hint	SetPrototypeGetSize	5	6
 block_hint	SetPrototypeGetSize	3	4
-builtin_hash	SetPrototypeGetSize	-614011665
 block	SetPrototypeForEach	0	163581
 block	SetPrototypeForEach	31	163581
 block	SetPrototypeForEach	30	163581
@@ -17158,7 +17006,6 @@ block_hint	SetPrototypeForEach	12	13
 block_hint	SetPrototypeForEach	16	17
 block_hint	SetPrototypeForEach	7	8
 block_hint	SetPrototypeForEach	14	15
-builtin_hash	SetPrototypeForEach	769489015
 block	SetPrototypeValues	0	182664
 block	SetPrototypeValues	13	182664
 block	SetPrototypeValues	12	182664
@@ -17173,7 +17020,6 @@ block_hint	SetPrototypeValues	8	9
 block_hint	SetPrototypeValues	10	11
 block_hint	SetPrototypeValues	4	5
 block_hint	SetPrototypeValues	6	7
-builtin_hash	SetPrototypeValues	-622020649
 block	SetIteratorPrototypeNext	0	465876
 block	SetIteratorPrototypeNext	41	465876
 block	SetIteratorPrototypeNext	34	465876
@@ -17213,7 +17059,6 @@ block_hint	SetIteratorPrototypeNext	11	12
 block_hint	SetIteratorPrototypeNext	13	14
 block_hint	SetIteratorPrototypeNext	15	16
 block_hint	SetIteratorPrototypeNext	23	24
-builtin_hash	SetIteratorPrototypeNext	866485925
 block	SetOrSetIteratorToList	0	601
 block	SetOrSetIteratorToList	33	21
 block	SetOrSetIteratorToList	14	21
@@ -17270,7 +17115,6 @@ block_hint	SetOrSetIteratorToList	17	18
 block_hint	SetOrSetIteratorToList	37	38
 block_hint	SetOrSetIteratorToList	11	12
 block_hint	SetOrSetIteratorToList	20	21
-builtin_hash	SetOrSetIteratorToList	466614138
 block	AtomicsStore	0	4754
 block	AtomicsStore	218	4754
 block	AtomicsStore	211	4754
@@ -17374,7 +17218,6 @@ block_hint	AtomicsStore	40	41
 block_hint	AtomicsStore	120	121
 block_hint	AtomicsStore	82	83
 block_hint	AtomicsStore	84	85
-builtin_hash	AtomicsStore	-237988335
 block	AtomicsCompareExchange	0	5201
 block	AtomicsCompareExchange	269	5201
 block	AtomicsCompareExchange	261	5201
@@ -17503,7 +17346,6 @@ block_hint	AtomicsCompareExchange	178	179
 block_hint	AtomicsCompareExchange	176	177
 block_hint	AtomicsCompareExchange	72	73
 block_hint	AtomicsCompareExchange	105	106
-builtin_hash	AtomicsCompareExchange	-946045624
 block	StringFromCharCode	0	3986
 block	StringFromCharCode	88	3986
 block	StringFromCharCode	76	3986
@@ -17577,7 +17419,6 @@ block_hint	StringFromCharCode	77	78
 block_hint	StringFromCharCode	41	42
 block_hint	StringFromCharCode	17	18
 block_hint	StringFromCharCode	44	45
-builtin_hash	StringFromCharCode	651898649
 block	StringPrototypeReplace	0	67539
 block	StringPrototypeReplace	36	67539
 block	StringPrototypeReplace	21	67539
@@ -17662,7 +17503,6 @@ block_hint	StringPrototypeReplace	46	47
 block_hint	StringPrototypeReplace	16	17
 block_hint	StringPrototypeReplace	18	19
 block_hint	StringPrototypeReplace	26	27
-builtin_hash	StringPrototypeReplace	-656710095
 block	StringPrototypeSplit	0	308144
 block	StringPrototypeSplit	135	308144
 block	StringPrototypeSplit	126	308144
@@ -17799,7 +17639,6 @@ block_hint	StringPrototypeSplit	81	82
 block_hint	StringPrototypeSplit	14	15
 block_hint	StringPrototypeSplit	22	23
 block_hint	StringPrototypeSplit	48	49
-builtin_hash	StringPrototypeSplit	-183501363
 block	TypedArrayConstructor	0	39291
 block	TypedArrayConstructor	14	39291
 block	TypedArrayConstructor	13	39291
@@ -17817,7 +17656,6 @@ block_hint	TypedArrayConstructor	11	12
 block_hint	TypedArrayConstructor	8	9
 block_hint	TypedArrayConstructor	5	6
 block_hint	TypedArrayConstructor	2	3
-builtin_hash	TypedArrayConstructor	823434984
 block	TypedArrayPrototypeLength	0	104673
 block	TypedArrayPrototypeLength	51	104673
 block	TypedArrayPrototypeLength	41	104673
@@ -17842,7 +17680,6 @@ block_hint	TypedArrayPrototypeLength	25	26
 block_hint	TypedArrayPrototypeLength	5	6
 block_hint	TypedArrayPrototypeLength	20	21
 block_hint	TypedArrayPrototypeLength	32	33
-builtin_hash	TypedArrayPrototypeLength	747664895
 block	WeakMapConstructor	0	4
 block	WeakMapConstructor	386	4
 block	WeakMapConstructor	331	4
@@ -18031,7 +17868,6 @@ block_hint	WeakMapConstructor	32	33
 block_hint	WeakMapConstructor	34	35
 block_hint	WeakMapConstructor	119	120
 block_hint	WeakMapConstructor	123	124
-builtin_hash	WeakMapConstructor	286747039
 block	WeakMapLookupHashIndex	0	5416
 block	WeakMapLookupHashIndex	9	5416
 block	WeakMapLookupHashIndex	27	5416
@@ -18064,7 +17900,6 @@ block_hint	WeakMapLookupHashIndex	5	6
 block_hint	WeakMapLookupHashIndex	17	18
 block_hint	WeakMapLookupHashIndex	19	20
 block_hint	WeakMapLookupHashIndex	7	8
-builtin_hash	WeakMapLookupHashIndex	-1008147087
 block	WeakMapGet	0	5412
 block	WeakMapGet	12	5412
 block	WeakMapGet	11	5412
@@ -18078,7 +17913,6 @@ block_hint	WeakMapGet	7	8
 block_hint	WeakMapGet	9	10
 block_hint	WeakMapGet	5	6
 block_hint	WeakMapGet	3	4
-builtin_hash	WeakMapGet	-725045867
 block	WeakMapPrototypeHas	0	4
 block	WeakMapPrototypeHas	10	4
 block	WeakMapPrototypeHas	9	4
@@ -18089,7 +17923,6 @@ block_hint	WeakMapPrototypeHas	10	11
 block_hint	WeakMapPrototypeHas	5	6
 block_hint	WeakMapPrototypeHas	7	8
 block_hint	WeakMapPrototypeHas	3	4
-builtin_hash	WeakMapPrototypeHas	467471719
 block	WeakMapPrototypeSet	0	37
 block	WeakMapPrototypeSet	20	37
 block	WeakMapPrototypeSet	17	37
@@ -18107,7 +17940,6 @@ block_hint	WeakMapPrototypeSet	18	19
 block_hint	WeakMapPrototypeSet	15	16
 block_hint	WeakMapPrototypeSet	11	12
 block_hint	WeakMapPrototypeSet	9	10
-builtin_hash	WeakMapPrototypeSet	418498438
 block	WeakMapPrototypeDelete	0	1
 block	WeakMapPrototypeDelete	10	1
 block	WeakMapPrototypeDelete	9	1
@@ -18118,7 +17950,6 @@ block_hint	WeakMapPrototypeDelete	10	11
 block_hint	WeakMapPrototypeDelete	5	6
 block_hint	WeakMapPrototypeDelete	7	8
 block_hint	WeakMapPrototypeDelete	3	4
-builtin_hash	WeakMapPrototypeDelete	-448924418
 block	WeakCollectionDelete	0	1
 block	WeakCollectionDelete	17	1
 block	WeakCollectionDelete	37	1
@@ -18157,7 +17988,6 @@ block_hint	WeakCollectionDelete	7	8
 block_hint	WeakCollectionDelete	9	10
 block_hint	WeakCollectionDelete	11	12
 block_hint	WeakCollectionDelete	13	14
-builtin_hash	WeakCollectionDelete	721501714
 block	WeakCollectionSet	0	37
 block	WeakCollectionSet	17	37
 block	WeakCollectionSet	27	37
@@ -18190,7 +18020,6 @@ block_hint	WeakCollectionSet	11	12
 block_hint	WeakCollectionSet	7	8
 block_hint	WeakCollectionSet	13	14
 block_hint	WeakCollectionSet	9	10
-builtin_hash	WeakCollectionSet	372180665
 block	StringAdd_CheckNone	0	7003541
 block	StringAdd_CheckNone	18	255266
 block	StringAdd_CheckNone	17	6748275
@@ -18330,7 +18159,6 @@ block_hint	StringAdd_CheckNone	44	45
 block_hint	StringAdd_CheckNone	30	31
 block_hint	StringAdd_CheckNone	32	33
 block_hint	StringAdd_CheckNone	46	47
-builtin_hash	StringAdd_CheckNone	143226361
 block	SubString	0	152393
 block	SubString	154	147639
 block	SubString	42	147551
@@ -18516,7 +18344,6 @@ block_hint	SubString	242	243
 block_hint	SubString	46	47
 block_hint	SubString	121	122
 block_hint	SubString	43	44
-builtin_hash	SubString	-3251714
 block	GetProperty	0	1147736
 block	GetProperty	55	1147736
 block	GetProperty	58	5121
@@ -18720,7 +18547,6 @@ block_hint	GetProperty	99	100
 block_hint	GetProperty	24	25
 block_hint	GetProperty	69	70
 block_hint	GetProperty	71	72
-builtin_hash	GetProperty	334572917
 block	GetPropertyWithReceiver	0	10439739
 block	GetPropertyWithReceiver	57	10439739
 block	GetPropertyWithReceiver	59	10439739
@@ -18869,7 +18695,6 @@ block_hint	GetPropertyWithReceiver	73	74
 block_hint	GetPropertyWithReceiver	20	21
 block_hint	GetPropertyWithReceiver	100	101
 block_hint	GetPropertyWithReceiver	98	99
-builtin_hash	GetPropertyWithReceiver	1023096415
 block	SetProperty	0	19865
 block	SetProperty	366	19865
 block	SetProperty	369	19865
@@ -19488,7 +19313,6 @@ block_hint	SetProperty	955	956
 block_hint	SetProperty	275	276
 block_hint	SetProperty	957	958
 block_hint	SetProperty	277	278
-builtin_hash	SetProperty	608502159
 block	CreateDataProperty	0	187653
 block	CreateDataProperty	304	187653
 block	CreateDataProperty	307	187653
@@ -20189,12 +20013,10 @@ block_hint	CreateDataProperty	789	790
 block_hint	CreateDataProperty	219	220
 block_hint	CreateDataProperty	791	792
 block_hint	CreateDataProperty	221	222
-builtin_hash	CreateDataProperty	-995265310
 block	GetOwnPropertyDescriptor	0	825738
 block	GetOwnPropertyDescriptor	3	298604
 block	GetOwnPropertyDescriptor	2	527134
 block_hint	GetOwnPropertyDescriptor	2	3
-builtin_hash	GetOwnPropertyDescriptor	418890457
 block	OrdinaryGetOwnPropertyDescriptor	0	298604
 block	OrdinaryGetOwnPropertyDescriptor	145	298604
 block	OrdinaryGetOwnPropertyDescriptor	181	298604
@@ -20389,7 +20211,6 @@ block_hint	OrdinaryGetOwnPropertyDescriptor	143	144
 block_hint	OrdinaryGetOwnPropertyDescriptor	92	93
 block_hint	OrdinaryGetOwnPropertyDescriptor	121	122
 block_hint	OrdinaryGetOwnPropertyDescriptor	94	95
-builtin_hash	OrdinaryGetOwnPropertyDescriptor	253293582
 block	ArrayPrototypeAt	0	8969
 block	ArrayPrototypeAt	83	8969
 block	ArrayPrototypeAt	74	8969
@@ -20454,7 +20275,6 @@ block_hint	ArrayPrototypeAt	33	34
 block_hint	ArrayPrototypeAt	22	23
 block_hint	ArrayPrototypeAt	43	44
 block_hint	ArrayPrototypeAt	24	25
-builtin_hash	ArrayPrototypeAt	1022174834
 block	ArrayPrototypeConcat	0	835
 block	ArrayPrototypeConcat	72	835
 block	ArrayPrototypeConcat	61	835
@@ -20510,7 +20330,6 @@ block_hint	ArrayPrototypeConcat	35	36
 block_hint	ArrayPrototypeConcat	50	51
 block_hint	ArrayPrototypeConcat	27	28
 block_hint	ArrayPrototypeConcat	11	12
-builtin_hash	ArrayPrototypeConcat	784342256
 block	ArrayEvery	0	4
 block	ArrayEvery	73	4
 block	ArrayEvery	36	4
@@ -20599,7 +20418,6 @@ block_hint	ArrayEvery	84	85
 block_hint	ArrayEvery	82	83
 block_hint	ArrayEvery	24	25
 block_hint	ArrayEvery	53	54
-builtin_hash	ArrayEvery	309783519
 block	ArrayFilterLoopContinuation	0	112
 block	ArrayFilterLoopContinuation	2	1100
 block	ArrayFilterLoopContinuation	235	1100
@@ -20761,7 +20579,6 @@ block_hint	ArrayFilterLoopContinuation	237	238
 block_hint	ArrayFilterLoopContinuation	239	240
 block_hint	ArrayFilterLoopContinuation	114	115
 block_hint	ArrayFilterLoopContinuation	145	146
-builtin_hash	ArrayFilterLoopContinuation	737302596
 block	ArrayFilter	0	6827
 block	ArrayFilter	201	6827
 block	ArrayFilter	111	6827
@@ -21041,7 +20858,6 @@ block_hint	ArrayFilter	279	280
 block_hint	ArrayFilter	159	160
 block_hint	ArrayFilter	46	47
 block_hint	ArrayFilter	136	137
-builtin_hash	ArrayFilter	649278494
 block	ArrayPrototypeFind	0	648995
 block	ArrayPrototypeFind	85	1
 block	ArrayPrototypeFind	84	648994
@@ -21138,7 +20954,6 @@ block_hint	ArrayPrototypeFind	35	36
 block_hint	ArrayPrototypeFind	41	42
 block_hint	ArrayPrototypeFind	39	40
 block_hint	ArrayPrototypeFind	66	67
-builtin_hash	ArrayPrototypeFind	-397633070
 block	ArrayPrototypeFindIndex	0	7490
 block	ArrayPrototypeFindIndex	84	7490
 block	ArrayPrototypeFindIndex	49	7490
@@ -21229,7 +21044,6 @@ block_hint	ArrayPrototypeFindIndex	35	36
 block_hint	ArrayPrototypeFindIndex	41	42
 block_hint	ArrayPrototypeFindIndex	39	40
 block_hint	ArrayPrototypeFindIndex	66	67
-builtin_hash	ArrayPrototypeFindIndex	-253539262
 block	FlattenIntoArrayWithoutMapFn	0	2100
 block	FlattenIntoArrayWithoutMapFn	181	2100
 block	FlattenIntoArrayWithoutMapFn	133	2100
@@ -21380,7 +21194,6 @@ block_hint	FlattenIntoArrayWithoutMapFn	184	185
 block_hint	FlattenIntoArrayWithoutMapFn	186	187
 block_hint	FlattenIntoArrayWithoutMapFn	119	120
 block_hint	FlattenIntoArrayWithoutMapFn	137	138
-builtin_hash	FlattenIntoArrayWithoutMapFn	-35940522
 block	FlattenIntoArrayWithMapFn	0	4
 block	FlattenIntoArrayWithMapFn	113	4
 block	FlattenIntoArrayWithMapFn	70	4
@@ -21518,7 +21331,6 @@ block_hint	FlattenIntoArrayWithMapFn	181	182
 block_hint	FlattenIntoArrayWithMapFn	183	184
 block_hint	FlattenIntoArrayWithMapFn	119	120
 block_hint	FlattenIntoArrayWithMapFn	136	137
-builtin_hash	FlattenIntoArrayWithMapFn	-73802239
 block	ArrayPrototypeFlat	0	1006
 block	ArrayPrototypeFlat	59	1006
 block	ArrayPrototypeFlat	54	1006
@@ -21559,7 +21371,6 @@ block_hint	ArrayPrototypeFlat	22	23
 block_hint	ArrayPrototypeFlat	47	48
 block_hint	ArrayPrototypeFlat	35	36
 block_hint	ArrayPrototypeFlat	37	38
-builtin_hash	ArrayPrototypeFlat	344912354
 block	ArrayPrototypeFlatMap	0	4
 block	ArrayPrototypeFlatMap	50	4
 block	ArrayPrototypeFlatMap	48	4
@@ -21597,7 +21408,6 @@ block_hint	ArrayPrototypeFlatMap	33	34
 block_hint	ArrayPrototypeFlatMap	35	36
 block_hint	ArrayPrototypeFlatMap	19	20
 block_hint	ArrayPrototypeFlatMap	25	26
-builtin_hash	ArrayPrototypeFlatMap	-618039342
 block	ArrayForEach	0	173714
 block	ArrayForEach	70	173714
 block	ArrayForEach	34	173714
@@ -21678,7 +21488,6 @@ block_hint	ArrayForEach	16	17
 block_hint	ArrayForEach	56	57
 block_hint	ArrayForEach	73	74
 block_hint	ArrayForEach	51	52
-builtin_hash	ArrayForEach	10187955
 block	ArrayFrom	0	30134
 block	ArrayFrom	274	30134
 block	ArrayFrom	176	30134
@@ -21942,7 +21751,6 @@ block_hint	ArrayFrom	161	162
 block_hint	ArrayFrom	292	293
 block_hint	ArrayFrom	163	164
 block_hint	ArrayFrom	174	175
-builtin_hash	ArrayFrom	353395025
 block	ArrayIsArray	0	145248
 block	ArrayIsArray	13	145248
 block	ArrayIsArray	12	145248
@@ -21960,13 +21768,11 @@ block_hint	ArrayIsArray	9	10
 block_hint	ArrayIsArray	3	4
 block_hint	ArrayIsArray	5	6
 block_hint	ArrayIsArray	7	8
-builtin_hash	ArrayIsArray	20844915
 block	LoadJoinElement_FastSmiOrObjectElements_0	0	165562
 block	LoadJoinElement_FastSmiOrObjectElements_0	2	165562
 block	LoadJoinElement_FastSmiOrObjectElements_0	5	165562
 block_hint	LoadJoinElement_FastSmiOrObjectElements_0	2	3
 block_hint	LoadJoinElement_FastSmiOrObjectElements_0	4	5
-builtin_hash	LoadJoinElement_FastSmiOrObjectElements_0	267887600
 block	LoadJoinElement_FastDoubleElements_0	0	269
 block	LoadJoinElement_FastDoubleElements_0	3	269
 block	LoadJoinElement_FastDoubleElements_0	6	269
@@ -21975,7 +21781,6 @@ block	LoadJoinElement_FastDoubleElements_0	2	269
 block_hint	LoadJoinElement_FastDoubleElements_0	3	4
 block_hint	LoadJoinElement_FastDoubleElements_0	5	6
 block_hint	LoadJoinElement_FastDoubleElements_0	7	8
-builtin_hash	LoadJoinElement_FastDoubleElements_0	-346827057
 block	JoinStackPush	0	93
 block	JoinStackPush	2	186
 block	JoinStackPush	30	186
@@ -21998,7 +21803,6 @@ block_hint	JoinStackPush	36	37
 block_hint	JoinStackPush	28	29
 block_hint	JoinStackPush	18	19
 block_hint	JoinStackPush	20	21
-builtin_hash	JoinStackPush	-361038382
 block	JoinStackPop	0	93
 block	JoinStackPop	2	186
 block	JoinStackPop	9	186
@@ -22015,7 +21819,6 @@ block_hint	JoinStackPop	16	17
 block_hint	JoinStackPop	14	15
 block_hint	JoinStackPop	18	19
 block_hint	JoinStackPop	6	7
-builtin_hash	JoinStackPop	-1020105532
 block	ArrayPrototypeJoin	0	150348
 block	ArrayPrototypeJoin	763	150348
 block	ArrayPrototypeJoin	754	150348
@@ -22529,7 +22332,6 @@ block_hint	ArrayPrototypeJoin	160	161
 block_hint	ArrayPrototypeJoin	162	163
 block_hint	ArrayPrototypeJoin	508	509
 block_hint	ArrayPrototypeJoin	321	322
-builtin_hash	ArrayPrototypeJoin	613755768
 block	ArrayPrototypeToString	0	2293
 block	ArrayPrototypeToString	14	2293
 block	ArrayPrototypeToString	13	2293
@@ -22543,7 +22345,6 @@ block_hint	ArrayPrototypeToString	11	12
 block_hint	ArrayPrototypeToString	8	9
 block_hint	ArrayPrototypeToString	5	6
 block_hint	ArrayPrototypeToString	3	4
-builtin_hash	ArrayPrototypeToString	-871287367
 block	TypedArrayPrototypeJoin	0	10
 block	TypedArrayPrototypeJoin	635	10
 block	TypedArrayPrototypeJoin	575	10
@@ -22919,7 +22720,6 @@ block_hint	TypedArrayPrototypeJoin	166	167
 block_hint	TypedArrayPrototypeJoin	168	169
 block_hint	TypedArrayPrototypeJoin	511	512
 block_hint	TypedArrayPrototypeJoin	328	329
-builtin_hash	TypedArrayPrototypeJoin	-622163741
 block	ArrayPrototypeLastIndexOf	0	34759
 block	ArrayPrototypeLastIndexOf	376	34759
 block	ArrayPrototypeLastIndexOf	356	34759
@@ -23170,7 +22970,6 @@ block_hint	ArrayPrototypeLastIndexOf	238	239
 block_hint	ArrayPrototypeLastIndexOf	240	241
 block_hint	ArrayPrototypeLastIndexOf	87	88
 block_hint	ArrayPrototypeLastIndexOf	113	114
-builtin_hash	ArrayPrototypeLastIndexOf	-683502965
 block	ArrayMapLoopContinuation	0	1268
 block	ArrayMapLoopContinuation	2	2536
 block	ArrayMapLoopContinuation	235	2536
@@ -23305,7 +23104,6 @@ block_hint	ArrayMapLoopContinuation	236	237
 block_hint	ArrayMapLoopContinuation	238	239
 block_hint	ArrayMapLoopContinuation	114	115
 block_hint	ArrayMapLoopContinuation	145	146
-builtin_hash	ArrayMapLoopContinuation	-493918033
 block	ArrayMap	0	41573
 block	ArrayMap	167	41573
 block	ArrayMap	102	41573
@@ -23544,7 +23342,6 @@ block_hint	ArrayMap	100	101
 block_hint	ArrayMap	43	44
 block_hint	ArrayMap	142	143
 block_hint	ArrayMap	124	125
-builtin_hash	ArrayMap	504051018
 block	ArrayReduce	0	1059
 block	ArrayReduce	81	1059
 block	ArrayReduce	36	1059
@@ -23639,7 +23436,6 @@ block_hint	ArrayReduce	112	113
 block_hint	ArrayReduce	59	60
 block_hint	ArrayReduce	23	24
 block_hint	ArrayReduce	51	52
-builtin_hash	ArrayReduce	-746106157
 block	ArrayPrototypeReverse	0	443
 block	ArrayPrototypeReverse	236	443
 block	ArrayPrototypeReverse	217	443
@@ -23766,7 +23562,6 @@ block_hint	ArrayPrototypeReverse	200	201
 block_hint	ArrayPrototypeReverse	202	203
 block_hint	ArrayPrototypeReverse	154	155
 block_hint	ArrayPrototypeReverse	172	173
-builtin_hash	ArrayPrototypeReverse	874442436
 block	ArrayPrototypeShift	0	6186
 block	ArrayPrototypeShift	213	6186
 block	ArrayPrototypeShift	190	6186
@@ -23932,7 +23727,6 @@ block_hint	ArrayPrototypeShift	182	183
 block_hint	ArrayPrototypeShift	184	185
 block_hint	ArrayPrototypeShift	123	124
 block_hint	ArrayPrototypeShift	146	147
-builtin_hash	ArrayPrototypeShift	567146175
 block	ArrayPrototypeSlice	0	3229
 block	ArrayPrototypeSlice	339	1
 block	ArrayPrototypeSlice	338	3228
@@ -24242,7 +24036,6 @@ block_hint	ArrayPrototypeSlice	232	233
 block_hint	ArrayPrototypeSlice	234	235
 block_hint	ArrayPrototypeSlice	144	145
 block_hint	ArrayPrototypeSlice	170	171
-builtin_hash	ArrayPrototypeSlice	-745093991
 block	ArraySome	0	144594
 block	ArraySome	90	144594
 block	ArraySome	45	144594
@@ -24333,7 +24126,6 @@ block_hint	ArraySome	37	38
 block_hint	ArraySome	43	44
 block_hint	ArraySome	41	42
 block_hint	ArraySome	62	63
-builtin_hash	ArraySome	-119054720
 block	ArrayPrototypeSplice	0	35904
 block	ArrayPrototypeSplice	621	35904
 block	ArrayPrototypeSplice	564	35904
@@ -25032,7 +24824,6 @@ block_hint	ArrayPrototypeSplice	522	523
 block_hint	ArrayPrototypeSplice	524	525
 block_hint	ArrayPrototypeSplice	312	313
 block_hint	ArrayPrototypeSplice	409	410
-builtin_hash	ArrayPrototypeSplice	85240939
 block	ArrayPrototypeUnshift	0	26
 block	ArrayPrototypeUnshift	158	26
 block	ArrayPrototypeUnshift	141	26
@@ -25141,7 +24932,6 @@ block_hint	ArrayPrototypeUnshift	134	135
 block_hint	ArrayPrototypeUnshift	136	137
 block_hint	ArrayPrototypeUnshift	83	84
 block_hint	ArrayPrototypeUnshift	105	106
-builtin_hash	ArrayPrototypeUnshift	78673702
 block	ToInteger	0	2552
 block	ToInteger	2	5102
 block	ToInteger	4	5102
@@ -25163,7 +24953,6 @@ block_hint	ToInteger	18	19
 block_hint	ToInteger	20	21
 block_hint	ToInteger	10	11
 block_hint	ToInteger	13	14
-builtin_hash	ToInteger	549769115
 block	FastCreateDataProperty	0	4593
 block	FastCreateDataProperty	180	4593
 block	FastCreateDataProperty	110	4593
@@ -25329,7 +25118,6 @@ block_hint	FastCreateDataProperty	76	77
 block_hint	FastCreateDataProperty	78	79
 block_hint	FastCreateDataProperty	116	117
 block_hint	FastCreateDataProperty	27	28
-builtin_hash	FastCreateDataProperty	497858019
 block	BooleanConstructor	0	317737
 block	BooleanConstructor	110	1
 block	BooleanConstructor	109	317736
@@ -25400,7 +25188,6 @@ block_hint	BooleanConstructor	34	35
 block_hint	BooleanConstructor	36	37
 block_hint	BooleanConstructor	77	78
 block_hint	BooleanConstructor	40	41
-builtin_hash	BooleanConstructor	674714099
 block	BooleanPrototypeToString	0	20
 block	BooleanPrototypeToString	9	20
 block	BooleanPrototypeToString	3	20
@@ -25412,7 +25199,6 @@ block_hint	BooleanPrototypeToString	9	10
 block_hint	BooleanPrototypeToString	11	12
 block_hint	BooleanPrototypeToString	7	8
 block_hint	BooleanPrototypeToString	5	6
-builtin_hash	BooleanPrototypeToString	-877229094
 block	BigIntAddNoThrow	0	112
 block	BigIntAddNoThrow	52	112
 block	BigIntAddNoThrow	49	112
@@ -25445,7 +25231,6 @@ block_hint	BigIntAddNoThrow	5	6
 block_hint	BigIntAddNoThrow	36	37
 block_hint	BigIntAddNoThrow	27	28
 block_hint	BigIntAddNoThrow	16	17
-builtin_hash	BigIntAddNoThrow	20182640
 block	BigIntMultiplyNoThrow	0	112
 block	BigIntMultiplyNoThrow	6	112
 block	BigIntMultiplyNoThrow	8	112
@@ -25463,7 +25248,6 @@ block_hint	BigIntMultiplyNoThrow	2	3
 block_hint	BigIntMultiplyNoThrow	17	18
 block_hint	BigIntMultiplyNoThrow	15	16
 block_hint	BigIntMultiplyNoThrow	4	5
-builtin_hash	BigIntMultiplyNoThrow	-898195699
 block	BigIntBitwiseOrNoThrow	0	4
 block	BigIntBitwiseOrNoThrow	14	4
 block	BigIntBitwiseOrNoThrow	16	4
@@ -25493,7 +25277,6 @@ block_hint	BigIntBitwiseOrNoThrow	28	29
 block_hint	BigIntBitwiseOrNoThrow	8	9
 block_hint	BigIntBitwiseOrNoThrow	36	37
 block_hint	BigIntBitwiseOrNoThrow	24	25
-builtin_hash	BigIntBitwiseOrNoThrow	688858619
 block	BigIntShiftLeftNoThrow	0	10
 block	BigIntShiftLeftNoThrow	49	10
 block	BigIntShiftLeftNoThrow	18	10
@@ -25538,7 +25321,6 @@ block_hint	BigIntShiftLeftNoThrow	37	38
 block_hint	BigIntShiftLeftNoThrow	55	56
 block_hint	BigIntShiftLeftNoThrow	35	36
 block_hint	BigIntShiftLeftNoThrow	33	34
-builtin_hash	BigIntShiftLeftNoThrow	834218478
 block	BigIntLessThan	0	4
 block	BigIntLessThan	12	4
 block	BigIntLessThan	6	4
@@ -25555,7 +25337,6 @@ block_hint	BigIntLessThan	7	8
 block_hint	BigIntLessThan	22	23
 block_hint	BigIntLessThan	18	19
 block_hint	BigIntLessThan	3	4
-builtin_hash	BigIntLessThan	42205036
 block	ToString	0	1210931
 block	ToString	2	1218966
 block	ToString	133	185760
@@ -25688,7 +25469,6 @@ block_hint	ToString	72	73
 block_hint	ToString	74	75
 block_hint	ToString	76	77
 block_hint	ToString	28	29
-builtin_hash	ToString	-230237184
 block	StringPrototypeToString	0	254600
 block	StringPrototypeToString	9	254600
 block	StringPrototypeToString	3	254600
@@ -25700,7 +25480,6 @@ block_hint	StringPrototypeToString	9	10
 block_hint	StringPrototypeToString	11	12
 block_hint	StringPrototypeToString	7	8
 block_hint	StringPrototypeToString	5	6
-builtin_hash	StringPrototypeToString	687193742
 block	StringPrototypeCharAt	0	848
 block	StringPrototypeCharAt	51	848
 block	StringPrototypeCharAt	42	848
@@ -25734,7 +25513,6 @@ block_hint	StringPrototypeCharAt	40	41
 block_hint	StringPrototypeCharAt	48	49
 block_hint	StringPrototypeCharAt	6	7
 block_hint	StringPrototypeCharAt	17	18
-builtin_hash	StringPrototypeCharAt	102360809
 block	StringPrototypeCharCodeAt	0	53784
 block	StringPrototypeCharCodeAt	46	53784
 block	StringPrototypeCharCodeAt	45	53784
@@ -25777,7 +25555,6 @@ block_hint	StringPrototypeCharCodeAt	34	35
 block_hint	StringPrototypeCharCodeAt	10	11
 block_hint	StringPrototypeCharCodeAt	30	31
 block_hint	StringPrototypeCharCodeAt	37	38
-builtin_hash	StringPrototypeCharCodeAt	152272282
 block	StringPrototypeConcat	0	13
 block	StringPrototypeConcat	19	13
 block	StringPrototypeConcat	16	13
@@ -25800,7 +25577,6 @@ block_hint	StringPrototypeConcat	4	5
 block_hint	StringPrototypeConcat	22	23
 block_hint	StringPrototypeConcat	17	18
 block_hint	StringPrototypeConcat	13	14
-builtin_hash	StringPrototypeConcat	-431087766
 block	StringConstructor	0	31357
 block	StringConstructor	80	31357
 block	StringConstructor	64	31357
@@ -25859,7 +25635,6 @@ block_hint	StringConstructor	34	35
 block_hint	StringConstructor	36	37
 block_hint	StringConstructor	70	71
 block_hint	StringConstructor	42	43
-builtin_hash	StringConstructor	453536766
 block	StringAddConvertLeft	0	66530
 block	StringAddConvertLeft	68	64298
 block	StringAddConvertLeft	67	2232
@@ -25961,7 +25736,6 @@ block_hint	StringAddConvertLeft	151	152
 block_hint	StringAddConvertLeft	153	154
 block_hint	StringAddConvertLeft	155	156
 block_hint	StringAddConvertLeft	126	127
-builtin_hash	StringAddConvertLeft	895109997
 block	StringAddConvertRight	0	488165
 block	StringAddConvertRight	68	421450
 block	StringAddConvertRight	67	66715
@@ -26082,7 +25856,6 @@ block_hint	StringAddConvertRight	151	152
 block_hint	StringAddConvertRight	153	154
 block_hint	StringAddConvertRight	155	156
 block_hint	StringAddConvertRight	126	127
-builtin_hash	StringAddConvertRight	-336706188
 block	StringCharAt	0	77
 block	StringCharAt	8	77
 block	StringCharAt	34	77
@@ -26100,7 +25873,6 @@ block_hint	StringCharAt	25	26
 block_hint	StringCharAt	32	33
 block_hint	StringCharAt	5	6
 block_hint	StringCharAt	10	11
-builtin_hash	StringCharAt	654114346
 block	ObjectConstructor	0	115
 block	ObjectConstructor	35	115
 block	ObjectConstructor	31	115
@@ -26138,7 +25910,6 @@ block_hint	ObjectConstructor	11	12
 block_hint	ObjectConstructor	6	7
 block_hint	ObjectConstructor	8	9
 block_hint	ObjectConstructor	13	14
-builtin_hash	ObjectConstructor	469894000
 block	NumberConstructor	0	551822
 block	NumberConstructor	18	551822
 block	NumberConstructor	9	551822
@@ -26180,12 +25951,10 @@ block_hint	NumberConstructor	24	25
 block_hint	NumberConstructor	26	27
 block_hint	NumberConstructor	30	31
 block_hint	NumberConstructor	2	3
-builtin_hash	NumberConstructor	-374166297
 block	StringToNumber	0	15099
 block	StringToNumber	3	811
 block	StringToNumber	2	14288
 block_hint	StringToNumber	2	3
-builtin_hash	StringToNumber	-365604621
 block	NonNumberToNumber	0	2580
 block	NonNumberToNumber	15	2580
 block	NonNumberToNumber	13	2580
@@ -26200,7 +25969,6 @@ block_hint	NonNumberToNumber	9	10
 block_hint	NonNumberToNumber	11	12
 block_hint	NonNumberToNumber	3	4
 block_hint	NonNumberToNumber	5	6
-builtin_hash	NonNumberToNumber	384276794
 block	NonNumberToNumeric	0	84866
 block	NonNumberToNumeric	18	84866
 block	NonNumberToNumeric	16	84866
@@ -26217,7 +25985,6 @@ block_hint	NonNumberToNumeric	14	15
 block_hint	NonNumberToNumeric	5	6
 block_hint	NonNumberToNumeric	3	4
 block_hint	NonNumberToNumeric	7	8
-builtin_hash	NonNumberToNumeric	941194808
 block	ToNumeric	0	45
 block	ToNumeric	5	45
 block	ToNumeric	4	37
@@ -26225,7 +25992,6 @@ block	ToNumeric	3	8
 block	ToNumeric	2	8
 block_hint	ToNumeric	5	6
 block_hint	ToNumeric	3	4
-builtin_hash	ToNumeric	955027275
 block	ToLength	0	72024
 block	ToLength	2	72024
 block	ToLength	20	72024
@@ -26246,7 +26012,6 @@ block_hint	ToLength	30	31
 block_hint	ToLength	32	33
 block_hint	ToLength	11	12
 block_hint	ToLength	16	17
-builtin_hash	ToLength	301339072
 block	ToName	0	1511505
 block	ToName	2	1511508
 block	ToName	39	666702
@@ -26310,7 +26075,6 @@ block_hint	ToName	49	50
 block_hint	ToName	51	52
 block_hint	ToName	53	54
 block_hint	ToName	24	25
-builtin_hash	ToName	-51843934
 block	ToObject	0	240481
 block	ToObject	46	240481
 block	ToObject	8	240481
@@ -26346,7 +26110,6 @@ block_hint	ToObject	36	37
 block_hint	ToObject	38	39
 block_hint	ToObject	65	66
 block_hint	ToObject	44	45
-builtin_hash	ToObject	738925050
 block	NonPrimitiveToPrimitive_Default	0	1481
 block	NonPrimitiveToPrimitive_Default	2	4867
 block	NonPrimitiveToPrimitive_Default	26	3405
@@ -26378,7 +26141,6 @@ block_hint	NonPrimitiveToPrimitive_Default	31	32
 block_hint	NonPrimitiveToPrimitive_Default	33	34
 block_hint	NonPrimitiveToPrimitive_Default	17	18
 block_hint	NonPrimitiveToPrimitive_Default	10	11
-builtin_hash	NonPrimitiveToPrimitive_Default	524929863
 block	NonPrimitiveToPrimitive_Number	0	1810
 block	NonPrimitiveToPrimitive_Number	2	5540
 block	NonPrimitiveToPrimitive_Number	26	3730
@@ -26402,7 +26164,6 @@ block_hint	NonPrimitiveToPrimitive_Number	31	32
 block_hint	NonPrimitiveToPrimitive_Number	33	34
 block_hint	NonPrimitiveToPrimitive_Number	17	18
 block_hint	NonPrimitiveToPrimitive_Number	10	11
-builtin_hash	NonPrimitiveToPrimitive_Number	524929863
 block	NonPrimitiveToPrimitive_String	0	3
 block	NonPrimitiveToPrimitive_String	2	3
 block	NonPrimitiveToPrimitive_String	85	3
@@ -26456,7 +26217,6 @@ block_hint	NonPrimitiveToPrimitive_String	64	65
 block_hint	NonPrimitiveToPrimitive_String	66	67
 block_hint	NonPrimitiveToPrimitive_String	40	41
 block_hint	NonPrimitiveToPrimitive_String	42	43
-builtin_hash	NonPrimitiveToPrimitive_String	1047363601
 block	OrdinaryToPrimitive_Number_Inline	0	3291
 block	OrdinaryToPrimitive_Number_Inline	56	3291
 block	OrdinaryToPrimitive_Number_Inline	53	3291
@@ -26499,7 +26259,6 @@ block_hint	OrdinaryToPrimitive_Number_Inline	36	37
 block_hint	OrdinaryToPrimitive_Number_Inline	38	39
 block_hint	OrdinaryToPrimitive_Number_Inline	24	25
 block_hint	OrdinaryToPrimitive_Number_Inline	26	27
-builtin_hash	OrdinaryToPrimitive_Number_Inline	211713750
 block	DataViewPrototypeGetBuffer	0	1786
 block	DataViewPrototypeGetBuffer	14	1786
 block	DataViewPrototypeGetBuffer	13	1786
@@ -26511,7 +26270,6 @@ block_hint	DataViewPrototypeGetBuffer	11	12
 block_hint	DataViewPrototypeGetBuffer	4	5
 block_hint	DataViewPrototypeGetBuffer	8	9
 block_hint	DataViewPrototypeGetBuffer	6	7
-builtin_hash	DataViewPrototypeGetBuffer	1061911887
 block	DataViewPrototypeGetUint8	0	4
 block	DataViewPrototypeGetUint8	84	4
 block	DataViewPrototypeGetUint8	79	4
@@ -26575,7 +26333,6 @@ block_hint	DataViewPrototypeGetUint8	23	24
 block_hint	DataViewPrototypeGetUint8	6	7
 block_hint	DataViewPrototypeGetUint8	4	5
 block_hint	DataViewPrototypeGetUint8	9	10
-builtin_hash	DataViewPrototypeGetUint8	-85916982
 block	DataViewPrototypeGetUint32	0	31579
 block	DataViewPrototypeGetUint32	98	31579
 block	DataViewPrototypeGetUint32	96	31579
@@ -26646,7 +26403,6 @@ block_hint	DataViewPrototypeGetUint32	29	30
 block_hint	DataViewPrototypeGetUint32	36	37
 block_hint	DataViewPrototypeGetUint32	10	11
 block_hint	DataViewPrototypeGetUint32	14	15
-builtin_hash	DataViewPrototypeGetUint32	374261860
 block	DataViewPrototypeGetInt32	0	2468
 block	DataViewPrototypeGetInt32	98	2468
 block	DataViewPrototypeGetInt32	96	2468
@@ -26717,7 +26473,6 @@ block_hint	DataViewPrototypeGetInt32	29	30
 block_hint	DataViewPrototypeGetInt32	36	37
 block_hint	DataViewPrototypeGetInt32	10	11
 block_hint	DataViewPrototypeGetInt32	13	14
-builtin_hash	DataViewPrototypeGetInt32	-530172266
 block	DataViewPrototypeGetFloat32	0	18879
 block	DataViewPrototypeGetFloat32	106	18879
 block	DataViewPrototypeGetFloat32	104	18879
@@ -26800,7 +26555,6 @@ block_hint	DataViewPrototypeGetFloat32	37	38
 block_hint	DataViewPrototypeGetFloat32	39	40
 block_hint	DataViewPrototypeGetFloat32	10	11
 block_hint	DataViewPrototypeGetFloat32	14	15
-builtin_hash	DataViewPrototypeGetFloat32	209713448
 block	DataViewPrototypeSetUint32	0	12646
 block	DataViewPrototypeSetUint32	121	12646
 block	DataViewPrototypeSetUint32	117	12646
@@ -26884,7 +26638,6 @@ block_hint	DataViewPrototypeSetUint32	5	6
 block_hint	DataViewPrototypeSetUint32	27	28
 block_hint	DataViewPrototypeSetUint32	45	46
 block_hint	DataViewPrototypeSetUint32	13	14
-builtin_hash	DataViewPrototypeSetUint32	-325265780
 block	DataViewPrototypeSetInt32	0	3251
 block	DataViewPrototypeSetInt32	121	3251
 block	DataViewPrototypeSetInt32	117	3251
@@ -26968,7 +26721,6 @@ block_hint	DataViewPrototypeSetInt32	5	6
 block_hint	DataViewPrototypeSetInt32	27	28
 block_hint	DataViewPrototypeSetInt32	45	46
 block_hint	DataViewPrototypeSetInt32	13	14
-builtin_hash	DataViewPrototypeSetInt32	-325265780
 block	DataViewPrototypeSetFloat32	0	20704
 block	DataViewPrototypeSetFloat32	121	20704
 block	DataViewPrototypeSetFloat32	117	20704
@@ -27055,7 +26807,6 @@ block_hint	DataViewPrototypeSetFloat32	5	6
 block_hint	DataViewPrototypeSetFloat32	27	28
 block_hint	DataViewPrototypeSetFloat32	45	46
 block_hint	DataViewPrototypeSetFloat32	13	14
-builtin_hash	DataViewPrototypeSetFloat32	-570988396
 block	FunctionPrototypeHasInstance	0	695043
 block	FunctionPrototypeHasInstance	35	695043
 block	FunctionPrototypeHasInstance	29	695043
@@ -27097,7 +26848,6 @@ block_hint	FunctionPrototypeHasInstance	25	26
 block_hint	FunctionPrototypeHasInstance	27	28
 block_hint	FunctionPrototypeHasInstance	7	8
 block_hint	FunctionPrototypeHasInstance	5	6
-builtin_hash	FunctionPrototypeHasInstance	384725414
 block	FastFunctionPrototypeBind	0	56173
 block	FastFunctionPrototypeBind	93	56173
 block	FastFunctionPrototypeBind	92	56173
@@ -27190,13 +26940,11 @@ block_hint	FastFunctionPrototypeBind	19	20
 block_hint	FastFunctionPrototypeBind	41	42
 block_hint	FastFunctionPrototypeBind	75	76
 block_hint	FastFunctionPrototypeBind	27	28
-builtin_hash	FastFunctionPrototypeBind	739815826
 block	GetIteratorWithFeedback	0	4845662
 block	GetIteratorWithFeedback	4	4836805
 block	GetIteratorWithFeedback	3	8857
 block	GetIteratorWithFeedback	2	4845662
 block_hint	GetIteratorWithFeedback	3	4
-builtin_hash	GetIteratorWithFeedback	-8307238
 block	CallIteratorWithFeedback	0	4845662
 block	CallIteratorWithFeedback	57	8857
 block	CallIteratorWithFeedback	56	4836805
@@ -27269,7 +27017,6 @@ block_hint	CallIteratorWithFeedback	26	27
 block_hint	CallIteratorWithFeedback	28	29
 block_hint	CallIteratorWithFeedback	30	31
 block_hint	CallIteratorWithFeedback	10	11
-builtin_hash	CallIteratorWithFeedback	1016099031
 block	MathAbs	0	69214
 block	MathAbs	14	69214
 block	MathAbs	4	69214
@@ -27301,7 +27048,6 @@ block_hint	MathAbs	21	22
 block_hint	MathAbs	23	24
 block_hint	MathAbs	9	10
 block_hint	MathAbs	12	13
-builtin_hash	MathAbs	-188247584
 block	MathCeil	0	67672
 block	MathCeil	13	1
 block	MathCeil	12	67671
@@ -27328,7 +27074,6 @@ block_hint	MathCeil	17	18
 block_hint	MathCeil	19	20
 block_hint	MathCeil	7	8
 block_hint	MathCeil	10	11
-builtin_hash	MathCeil	-98462019
 block	MathFloor	0	279591
 block	MathFloor	13	1
 block	MathFloor	12	279590
@@ -27357,7 +27102,6 @@ block_hint	MathFloor	17	18
 block_hint	MathFloor	19	20
 block_hint	MathFloor	7	8
 block_hint	MathFloor	10	11
-builtin_hash	MathFloor	576302290
 block	MathRound	0	82361
 block	MathRound	12	82361
 block	MathRound	4	82361
@@ -27383,7 +27127,6 @@ block_hint	MathRound	17	18
 block_hint	MathRound	19	20
 block_hint	MathRound	7	8
 block_hint	MathRound	10	11
-builtin_hash	MathRound	871523104
 block	MathTrunc	0	291
 block	MathTrunc	12	291
 block	MathTrunc	4	291
@@ -27408,7 +27151,6 @@ block_hint	MathTrunc	17	18
 block_hint	MathTrunc	19	20
 block_hint	MathTrunc	7	8
 block_hint	MathTrunc	10	11
-builtin_hash	MathTrunc	763451421
 block	MathPow	0	49634
 block	MathPow	12	49634
 block	MathPow	5	49634
@@ -27432,7 +27174,6 @@ block_hint	MathPow	21	22
 block_hint	MathPow	23	24
 block_hint	MathPow	7	8
 block_hint	MathPow	10	11
-builtin_hash	MathPow	732086630
 block	MathMax	0	490697
 block	MathMax	13	490697
 block	MathMax	5	490697
@@ -27467,7 +27208,6 @@ block_hint	MathMax	22	23
 block_hint	MathMax	24	25
 block_hint	MathMax	8	9
 block_hint	MathMax	11	12
-builtin_hash	MathMax	-560696036
 block	MathMin	0	159187
 block	MathMin	13	159187
 block	MathMin	5	159187
@@ -27502,7 +27242,6 @@ block_hint	MathMin	22	23
 block_hint	MathMin	24	25
 block_hint	MathMin	8	9
 block_hint	MathMin	11	12
-builtin_hash	MathMin	689112587
 block	MathAcos	0	3402
 block	MathAcos	25	3402
 block	MathAcos	22	3402
@@ -27525,7 +27264,6 @@ block_hint	MathAcos	9	10
 block_hint	MathAcos	11	12
 block_hint	MathAcos	3	4
 block_hint	MathAcos	6	7
-builtin_hash	MathAcos	-763054710
 block	MathAsin	0	340
 block	MathAsin	25	340
 block	MathAsin	22	340
@@ -27548,7 +27286,6 @@ block_hint	MathAsin	9	10
 block_hint	MathAsin	11	12
 block_hint	MathAsin	3	4
 block_hint	MathAsin	6	7
-builtin_hash	MathAsin	-636636240
 block	MathAtan2	0	41933
 block	MathAtan2	34	41933
 block	MathAtan2	31	41933
@@ -27581,7 +27318,6 @@ block_hint	MathAtan2	9	10
 block_hint	MathAtan2	11	12
 block_hint	MathAtan2	3	4
 block_hint	MathAtan2	6	7
-builtin_hash	MathAtan2	-330573351
 block	MathClz32	0	8
 block	MathClz32	17	8
 block	MathClz32	14	8
@@ -27596,7 +27332,6 @@ block_hint	MathClz32	15	16
 block_hint	MathClz32	8	9
 block_hint	MathClz32	3	4
 block_hint	MathClz32	5	6
-builtin_hash	MathClz32	480587578
 block	MathCos	0	23223
 block	MathCos	25	23223
 block	MathCos	22	23223
@@ -27626,7 +27361,6 @@ block_hint	MathCos	9	10
 block_hint	MathCos	11	12
 block_hint	MathCos	3	4
 block_hint	MathCos	6	7
-builtin_hash	MathCos	-57389586
 block	MathLog	0	54280
 block	MathLog	25	54280
 block	MathLog	22	54280
@@ -27657,7 +27391,6 @@ block_hint	MathLog	9	10
 block_hint	MathLog	11	12
 block_hint	MathLog	3	4
 block_hint	MathLog	6	7
-builtin_hash	MathLog	112209186
 block	MathLog2	0	8
 block	MathLog2	25	8
 block	MathLog2	22	8
@@ -27680,7 +27413,6 @@ block_hint	MathLog2	9	10
 block_hint	MathLog2	11	12
 block_hint	MathLog2	3	4
 block_hint	MathLog2	6	7
-builtin_hash	MathLog2	623927152
 block	MathSin	0	7496
 block	MathSin	25	7496
 block	MathSin	22	7496
@@ -27711,7 +27443,6 @@ block_hint	MathSin	9	10
 block_hint	MathSin	11	12
 block_hint	MathSin	3	4
 block_hint	MathSin	6	7
-builtin_hash	MathSin	-1065542841
 block	MathSign	0	334
 block	MathSign	16	334
 block	MathSign	13	334
@@ -27733,7 +27464,6 @@ block_hint	MathSign	14	15
 block_hint	MathSign	7	8
 block_hint	MathSign	2	3
 block_hint	MathSign	4	5
-builtin_hash	MathSign	-908722410
 block	MathSqrt	0	262726
 block	MathSqrt	25	262726
 block	MathSqrt	22	262726
@@ -27762,7 +27492,6 @@ block_hint	MathSqrt	9	10
 block_hint	MathSqrt	11	12
 block_hint	MathSqrt	3	4
 block_hint	MathSqrt	6	7
-builtin_hash	MathSqrt	701980614
 block	MathTan	0	29
 block	MathTan	25	29
 block	MathTan	22	29
@@ -27785,7 +27514,6 @@ block_hint	MathTan	9	10
 block_hint	MathTan	11	12
 block_hint	MathTan	3	4
 block_hint	MathTan	6	7
-builtin_hash	MathTan	184164719
 block	MathHypot	0	41858
 block	MathHypot	122	41858
 block	MathHypot	92	41858
@@ -27879,7 +27607,6 @@ block_hint	MathHypot	94	95
 block_hint	MathHypot	96	97
 block_hint	MathHypot	35	36
 block_hint	MathHypot	55	56
-builtin_hash	MathHypot	-115202426
 block	MathRandom	0	9131
 block	MathRandom	15	9131
 block	MathRandom	11	9131
@@ -27899,7 +27626,6 @@ block_hint	MathRandom	5	6
 block_hint	MathRandom	7	8
 block_hint	MathRandom	9	10
 block_hint	MathRandom	13	14
-builtin_hash	MathRandom	-718398231
 block	NumberPrototypeToString	0	593726
 block	NumberPrototypeToString	70	593726
 block	NumberPrototypeToString	9	593726
@@ -28060,7 +27786,6 @@ block_hint	NumberPrototypeToString	95	96
 block_hint	NumberPrototypeToString	97	98
 block_hint	NumberPrototypeToString	99	100
 block_hint	NumberPrototypeToString	43	44
-builtin_hash	NumberPrototypeToString	530976153
 block	NumberIsFinite	0	182220
 block	NumberIsFinite	9	182220
 block	NumberIsFinite	8	182220
@@ -28073,7 +27798,6 @@ block_hint	NumberIsFinite	9	10
 block_hint	NumberIsFinite	2	3
 block_hint	NumberIsFinite	4	5
 block_hint	NumberIsFinite	6	7
-builtin_hash	NumberIsFinite	840038493
 block	NumberIsInteger	0	32028
 block	NumberIsInteger	11	32028
 block	NumberIsInteger	8	32028
@@ -28088,7 +27812,6 @@ block_hint	NumberIsInteger	11	12
 block_hint	NumberIsInteger	5	6
 block_hint	NumberIsInteger	9	10
 block_hint	NumberIsInteger	3	4
-builtin_hash	NumberIsInteger	-720555329
 block	NumberIsNaN	0	13285
 block	NumberIsNaN	9	13285
 block	NumberIsNaN	8	13285
@@ -28101,7 +27824,6 @@ block_hint	NumberIsNaN	9	10
 block_hint	NumberIsNaN	2	3
 block_hint	NumberIsNaN	4	5
 block_hint	NumberIsNaN	6	7
-builtin_hash	NumberIsNaN	-741844692
 block	NumberPrototypeValueOf	0	947
 block	NumberPrototypeValueOf	11	947
 block	NumberPrototypeValueOf	4	947
@@ -28112,7 +27834,6 @@ block_hint	NumberPrototypeValueOf	11	12
 block_hint	NumberPrototypeValueOf	9	10
 block_hint	NumberPrototypeValueOf	5	6
 block_hint	NumberPrototypeValueOf	7	8
-builtin_hash	NumberPrototypeValueOf	125990954
 block	NumberParseFloat	0	233
 block	NumberParseFloat	14	233
 block	NumberParseFloat	9	233
@@ -28131,7 +27852,6 @@ block_hint	NumberParseFloat	17	18
 block_hint	NumberParseFloat	10	11
 block_hint	NumberParseFloat	4	5
 block_hint	NumberParseFloat	7	8
-builtin_hash	NumberParseFloat	-717723366
 block	ParseInt	0	42859
 block	ParseInt	34	42809
 block	ParseInt	27	42809
@@ -28161,12 +27881,10 @@ block_hint	ParseInt	25	26
 block_hint	ParseInt	23	24
 block_hint	ParseInt	10	11
 block_hint	ParseInt	17	18
-builtin_hash	ParseInt	1047339423
 block	NumberParseInt	0	42859
 block	NumberParseInt	3	42859
 block	NumberParseInt	2	42859
 block_hint	NumberParseInt	3	4
-builtin_hash	NumberParseInt	394155672
 block	Add	0	571326
 block	Add	2	587961
 block	Add	67	64306
@@ -28235,7 +27953,6 @@ block_hint	Add	18	19
 block_hint	Add	54	55
 block_hint	Add	7	8
 block_hint	Add	29	30
-builtin_hash	Add	-519474245
 block	Subtract	0	3975
 block	Subtract	2	7950
 block	Subtract	34	12
@@ -28272,7 +27989,6 @@ block_hint	Subtract	26	27
 block_hint	Subtract	11	12
 block_hint	Subtract	7	8
 block_hint	Subtract	14	15
-builtin_hash	Subtract	-779642592
 block	Multiply	0	512
 block	Multiply	2	1024
 block	Multiply	48	1024
@@ -28303,7 +28019,6 @@ block_hint	Multiply	11	12
 block_hint	Multiply	22	23
 block_hint	Multiply	20	21
 block_hint	Multiply	13	14
-builtin_hash	Multiply	601762603
 block	Divide	0	133
 block	Divide	2	301
 block	Divide	51	196
@@ -28344,7 +28059,6 @@ block_hint	Divide	33	34
 block_hint	Divide	31	32
 block_hint	Divide	7	8
 block_hint	Divide	15	16
-builtin_hash	Divide	384110157
 block	ObjectFromEntries	0	21
 block	ObjectFromEntries	282	21
 block	ObjectFromEntries	228	21
@@ -28570,7 +28284,6 @@ block_hint	ObjectFromEntries	174	175
 block_hint	ObjectFromEntries	176	177
 block_hint	ObjectFromEntries	178	179
 block_hint	ObjectFromEntries	180	181
-builtin_hash	ObjectFromEntries	923544825
 block	ObjectGetPrototypeOf	0	478747
 block	ObjectGetPrototypeOf	11	478747
 block	ObjectGetPrototypeOf	10	478747
@@ -28582,7 +28295,6 @@ block_hint	ObjectGetPrototypeOf	11	12
 block_hint	ObjectGetPrototypeOf	8	9
 block_hint	ObjectGetPrototypeOf	5	6
 block_hint	ObjectGetPrototypeOf	2	3
-builtin_hash	ObjectGetPrototypeOf	-217423947
 block	ObjectSetPrototypeOf	0	1278
 block	ObjectSetPrototypeOf	18	1278
 block	ObjectSetPrototypeOf	12	1278
@@ -28602,12 +28314,10 @@ block_hint	ObjectSetPrototypeOf	15	16
 block_hint	ObjectSetPrototypeOf	6	7
 block_hint	ObjectSetPrototypeOf	8	9
 block_hint	ObjectSetPrototypeOf	10	11
-builtin_hash	ObjectSetPrototypeOf	745939439
 block	ObjectPrototypeToString	0	1772
 block	ObjectPrototypeToString	3	1772
 block	ObjectPrototypeToString	2	1772
 block_hint	ObjectPrototypeToString	3	4
-builtin_hash	ObjectPrototypeToString	349413460
 block	ObjectPrototypeValueOf	0	3291
 block	ObjectPrototypeValueOf	8	3291
 block	ObjectPrototypeValueOf	7	3291
@@ -28616,7 +28326,6 @@ block	ObjectPrototypeValueOf	2	3291
 block_hint	ObjectPrototypeValueOf	8	9
 block_hint	ObjectPrototypeValueOf	5	6
 block_hint	ObjectPrototypeValueOf	2	3
-builtin_hash	ObjectPrototypeValueOf	-597543343
 block	FulfillPromise	0	170415
 block	FulfillPromise	2	211434
 block	FulfillPromise	12	41019
@@ -28663,7 +28372,6 @@ block_hint	FulfillPromise	38	39
 block_hint	FulfillPromise	25	26
 block_hint	FulfillPromise	30	31
 block_hint	FulfillPromise	27	28
-builtin_hash	FulfillPromise	-153652209
 block	RejectPromise	0	84
 block	RejectPromise	31	84
 block	RejectPromise	12	84
@@ -28699,7 +28407,6 @@ block_hint	RejectPromise	43	44
 block_hint	RejectPromise	28	29
 block_hint	RejectPromise	35	36
 block_hint	RejectPromise	32	33
-builtin_hash	RejectPromise	285050467
 block	NewPromiseCapability	0	1702
 block	NewPromiseCapability	50	1702
 block	NewPromiseCapability	52	1702
@@ -28775,7 +28482,6 @@ block_hint	NewPromiseCapability	137	138
 block_hint	NewPromiseCapability	111	112
 block_hint	NewPromiseCapability	113	114
 block_hint	NewPromiseCapability	27	28
-builtin_hash	NewPromiseCapability	-5486789
 block	PromiseCapabilityDefaultReject	0	84
 block	PromiseCapabilityDefaultReject	11	84
 block	PromiseCapabilityDefaultReject	8	84
@@ -28788,7 +28494,6 @@ block_hint	PromiseCapabilityDefaultReject	2	3
 block_hint	PromiseCapabilityDefaultReject	4	5
 block_hint	PromiseCapabilityDefaultReject	9	10
 block_hint	PromiseCapabilityDefaultReject	6	7
-builtin_hash	PromiseCapabilityDefaultReject	-152977140
 block	PromiseCapabilityDefaultResolve	0	19594
 block	PromiseCapabilityDefaultResolve	9	19594
 block	PromiseCapabilityDefaultResolve	6	19594
@@ -28799,7 +28504,6 @@ block_hint	PromiseCapabilityDefaultResolve	9	10
 block_hint	PromiseCapabilityDefaultResolve	2	3
 block_hint	PromiseCapabilityDefaultResolve	4	5
 block_hint	PromiseCapabilityDefaultResolve	7	8
-builtin_hash	PromiseCapabilityDefaultResolve	332713511
 block	PerformPromiseThen	0	53775
 block	PerformPromiseThen	46	35956
 block	PerformPromiseThen	42	6
@@ -28864,7 +28568,6 @@ block_hint	PerformPromiseThen	39	40
 block_hint	PerformPromiseThen	80	81
 block_hint	PerformPromiseThen	76	77
 block_hint	PerformPromiseThen	65	66
-builtin_hash	PerformPromiseThen	463693329
 block	PromiseAll	0	1474
 block	PromiseAll	266	1474
 block	PromiseAll	168	1474
@@ -29097,7 +28800,6 @@ block_hint	PromiseAll	216	217
 block_hint	PromiseAll	133	134
 block_hint	PromiseAll	286	287
 block_hint	PromiseAll	288	289
-builtin_hash	PromiseAll	-500192822
 block	PromiseAllResolveElementClosure	0	4919
 block	PromiseAllResolveElementClosure	71	4919
 block	PromiseAllResolveElementClosure	68	4919
@@ -29153,7 +28855,6 @@ block_hint	PromiseAllResolveElementClosure	30	31
 block_hint	PromiseAllResolveElementClosure	32	33
 block_hint	PromiseAllResolveElementClosure	34	35
 block_hint	PromiseAllResolveElementClosure	69	70
-builtin_hash	PromiseAllResolveElementClosure	982708968
 block	PromiseConstructor	0	21251
 block	PromiseConstructor	139	21251
 block	PromiseConstructor	101	21251
@@ -29273,7 +28974,6 @@ block_hint	PromiseConstructor	133	134
 block_hint	PromiseConstructor	135	136
 block_hint	PromiseConstructor	44	45
 block_hint	PromiseConstructor	46	47
-builtin_hash	PromiseConstructor	454970262
 block	PromisePrototypeCatch	0	550
 block	PromisePrototypeCatch	14	550
 block	PromisePrototypeCatch	8	550
@@ -29293,14 +28993,12 @@ block_hint	PromisePrototypeCatch	4	5
 block_hint	PromisePrototypeCatch	19	20
 block_hint	PromisePrototypeCatch	12	13
 block_hint	PromisePrototypeCatch	6	7
-builtin_hash	PromisePrototypeCatch	839371971
 block	PromiseValueThunkFinally	0	104
 block	PromiseValueThunkFinally	5	104
 block	PromiseValueThunkFinally	4	104
 block	PromiseValueThunkFinally	2	104
 block_hint	PromiseValueThunkFinally	5	6
 block_hint	PromiseValueThunkFinally	2	3
-builtin_hash	PromiseValueThunkFinally	-189829634
 block	PromiseThenFinally	0	104
 block	PromiseThenFinally	50	104
 block	PromiseThenFinally	28	104
@@ -29351,7 +29049,6 @@ block_hint	PromiseThenFinally	21	22
 block_hint	PromiseThenFinally	60	61
 block_hint	PromiseThenFinally	46	47
 block_hint	PromiseThenFinally	23	24
-builtin_hash	PromiseThenFinally	-726943414
 block	PromisePrototypeFinally	0	230
 block	PromisePrototypeFinally	105	230
 block	PromisePrototypeFinally	86	230
@@ -29434,7 +29131,6 @@ block_hint	PromisePrototypeFinally	31	32
 block_hint	PromisePrototypeFinally	108	109
 block_hint	PromisePrototypeFinally	82	83
 block_hint	PromisePrototypeFinally	33	34
-builtin_hash	PromisePrototypeFinally	-579610732
 block	PromiseResolveThenableJob	0	6487
 block	PromiseResolveThenableJob	6	6487
 block	PromiseResolveThenableJob	83	15
@@ -29496,7 +29192,6 @@ block_hint	PromiseResolveThenableJob	84	85
 block_hint	PromiseResolveThenableJob	73	74
 block_hint	PromiseResolveThenableJob	75	76
 block_hint	PromiseResolveThenableJob	26	27
-builtin_hash	PromiseResolveThenableJob	-209347858
 block	PromiseRace	0	228
 block	PromiseRace	119	228
 block	PromiseRace	67	228
@@ -29583,7 +29278,6 @@ block_hint	PromiseRace	65	66
 block_hint	PromiseRace	63	64
 block_hint	PromiseRace	111	112
 block_hint	PromiseRace	113	114
-builtin_hash	PromiseRace	-634186238
 block	PromiseFulfillReactionJob	0	69538
 block	PromiseFulfillReactionJob	23	65330
 block	PromiseFulfillReactionJob	18	65330
@@ -29598,7 +29292,6 @@ block_hint	PromiseFulfillReactionJob	2	3
 block_hint	PromiseFulfillReactionJob	20	21
 block_hint	PromiseFulfillReactionJob	16	17
 block_hint	PromiseFulfillReactionJob	7	8
-builtin_hash	PromiseFulfillReactionJob	344286133
 block	PromiseRejectReactionJob	0	84
 block	PromiseRejectReactionJob	28	84
 block	PromiseRejectReactionJob	20	84
@@ -29613,7 +29306,6 @@ block_hint	PromiseRejectReactionJob	18	19
 block_hint	PromiseRejectReactionJob	10	11
 block_hint	PromiseRejectReactionJob	16	17
 block_hint	PromiseRejectReactionJob	4	5
-builtin_hash	PromiseRejectReactionJob	-51963457
 block	PromiseResolveTrampoline	0	2638
 block	PromiseResolveTrampoline	8	2638
 block	PromiseResolveTrampoline	7	2638
@@ -29622,7 +29314,6 @@ block	PromiseResolveTrampoline	4	2638
 block_hint	PromiseResolveTrampoline	8	9
 block_hint	PromiseResolveTrampoline	5	6
 block_hint	PromiseResolveTrampoline	3	4
-builtin_hash	PromiseResolveTrampoline	575462261
 block	PromiseResolve	0	4078
 block	PromiseResolve	2	4078
 block	PromiseResolve	28	10
@@ -29654,7 +29345,6 @@ block_hint	PromiseResolve	10	11
 block_hint	PromiseResolve	32	33
 block_hint	PromiseResolve	21	22
 block_hint	PromiseResolve	25	26
-builtin_hash	PromiseResolve	1015520214
 block	ResolvePromise	0	176902
 block	ResolvePromise	28	176902
 block	ResolvePromise	30	176902
@@ -29714,7 +29404,6 @@ block_hint	ResolvePromise	25	26
 block_hint	ResolvePromise	55	56
 block_hint	ResolvePromise	53	54
 block_hint	ResolvePromise	37	38
-builtin_hash	ResolvePromise	-242736916
 block	PromisePrototypeThen	0	18193
 block	PromisePrototypeThen	105	18193
 block	PromisePrototypeThen	68	18193
@@ -29816,7 +29505,6 @@ block_hint	PromisePrototypeThen	129	130
 block_hint	PromisePrototypeThen	123	124
 block_hint	PromisePrototypeThen	112	113
 block_hint	PromisePrototypeThen	21	22
-builtin_hash	PromisePrototypeThen	-442791994
 block	ProxyConstructor	0	158
 block	ProxyConstructor	30	158
 block	ProxyConstructor	16	158
@@ -29845,7 +29533,6 @@ block_hint	ProxyConstructor	17	18
 block_hint	ProxyConstructor	3	4
 block_hint	ProxyConstructor	5	6
 block_hint	ProxyConstructor	12	13
-builtin_hash	ProxyConstructor	100343836
 block	ProxyGetProperty	0	10438794
 block	ProxyGetProperty	176	3
 block	ProxyGetProperty	175	10438791
@@ -29987,7 +29674,6 @@ block_hint	ProxyGetProperty	73	74
 block_hint	ProxyGetProperty	143	144
 block_hint	ProxyGetProperty	77	78
 block_hint	ProxyGetProperty	43	44
-builtin_hash	ProxyGetProperty	-584279145
 block	ProxySetProperty	0	828
 block	ProxySetProperty	222	828
 block	ProxySetProperty	175	828
@@ -30126,7 +29812,6 @@ block_hint	ProxySetProperty	70	71
 block_hint	ProxySetProperty	68	69
 block_hint	ProxySetProperty	111	112
 block_hint	ProxySetProperty	72	73
-builtin_hash	ProxySetProperty	646956676
 block	ReflectGet	0	895
 block	ReflectGet	20	895
 block	ReflectGet	17	895
@@ -30148,7 +29833,6 @@ block_hint	ReflectGet	7	8
 block_hint	ReflectGet	18	19
 block_hint	ReflectGet	9	10
 block_hint	ReflectGet	12	13
-builtin_hash	ReflectGet	761245777
 block	RegExpPrototypeExec	0	69
 block	RegExpPrototypeExec	218	69
 block	RegExpPrototypeExec	178	69
@@ -30297,7 +29981,6 @@ block_hint	RegExpPrototypeExec	68	69
 block_hint	RegExpPrototypeExec	95	96
 block_hint	RegExpPrototypeExec	118	119
 block_hint	RegExpPrototypeExec	163	164
-builtin_hash	RegExpPrototypeExec	939166145
 block	RegExpMatchFast	0	5462
 block	RegExpMatchFast	379	5462
 block	RegExpMatchFast	307	5462
@@ -30563,7 +30246,6 @@ block_hint	RegExpMatchFast	219	220
 block_hint	RegExpMatchFast	328	329
 block_hint	RegExpMatchFast	221	222
 block_hint	RegExpMatchFast	186	187
-builtin_hash	RegExpMatchFast	356958610
 block	RegExpPrototypeMatch	0	5121
 block	RegExpPrototypeMatch	189	5121
 block	RegExpPrototypeMatch	126	5121
@@ -30687,7 +30369,6 @@ block_hint	RegExpPrototypeMatch	90	91
 block_hint	RegExpPrototypeMatch	134	135
 block_hint	RegExpPrototypeMatch	92	93
 block_hint	RegExpPrototypeMatch	63	64
-builtin_hash	RegExpPrototypeMatch	965759895
 block	RegExpReplace	0	67446
 block	RegExpReplace	258	67446
 block	RegExpReplace	208	67446
@@ -30891,7 +30572,6 @@ block_hint	RegExpReplace	249	250
 block_hint	RegExpReplace	188	189
 block_hint	RegExpReplace	34	35
 block_hint	RegExpReplace	36	37
-builtin_hash	RegExpReplace	-474308354
 block	RegExpSearchFast	0	1113
 block	RegExpSearchFast	51	1113
 block	RegExpSearchFast	41	1113
@@ -30961,7 +30641,6 @@ block_hint	RegExpSearchFast	38	39
 block_hint	RegExpSearchFast	12	13
 block_hint	RegExpSearchFast	14	15
 block_hint	RegExpSearchFast	44	45
-builtin_hash	RegExpSearchFast	937295144
 block	RegExpSplit	0	2
 block	RegExpSplit	180	2
 block	RegExpSplit	131	2
@@ -31099,7 +30778,6 @@ block_hint	RegExpSplit	81	82
 block_hint	RegExpSplit	83	84
 block_hint	RegExpSplit	300	301
 block_hint	RegExpSplit	102	103
-builtin_hash	RegExpSplit	-1025188900
 block	RegExpPrototypeTest	0	24562
 block	RegExpPrototypeTest	108	24562
 block	RegExpPrototypeTest	77	24562
@@ -31219,7 +30897,6 @@ block_hint	RegExpPrototypeTest	100	101
 block_hint	RegExpPrototypeTest	67	68
 block_hint	RegExpPrototypeTest	69	70
 block_hint	RegExpPrototypeTest	25	26
-builtin_hash	RegExpPrototypeTest	-123480886
 block	StringPrototypeEndsWith	0	37780
 block	StringPrototypeEndsWith	287	1
 block	StringPrototypeEndsWith	286	37779
@@ -31392,7 +31069,6 @@ block_hint	StringPrototypeEndsWith	144	145
 block_hint	StringPrototypeEndsWith	35	36
 block_hint	StringPrototypeEndsWith	49	50
 block_hint	StringPrototypeEndsWith	116	117
-builtin_hash	StringPrototypeEndsWith	-493272167
 block	StringPrototypeIncludes	0	456494
 block	StringPrototypeIncludes	80	1
 block	StringPrototypeIncludes	79	456493
@@ -31447,7 +31123,6 @@ block_hint	StringPrototypeIncludes	26	27
 block_hint	StringPrototypeIncludes	28	29
 block_hint	StringPrototypeIncludes	30	31
 block_hint	StringPrototypeIncludes	3	4
-builtin_hash	StringPrototypeIncludes	-112608883
 block	StringPrototypeIndexOf	0	25058
 block	StringPrototypeIndexOf	39	25058
 block	StringPrototypeIndexOf	38	25058
@@ -31478,7 +31153,6 @@ block_hint	StringPrototypeIndexOf	11	12
 block_hint	StringPrototypeIndexOf	13	14
 block_hint	StringPrototypeIndexOf	15	16
 block_hint	StringPrototypeIndexOf	17	18
-builtin_hash	StringPrototypeIndexOf	490570419
 block	StringPrototypeMatch	0	5462
 block	StringPrototypeMatch	74	5462
 block	StringPrototypeMatch	49	5462
@@ -31583,7 +31257,6 @@ block_hint	StringPrototypeMatch	37	38
 block_hint	StringPrototypeMatch	39	40
 block_hint	StringPrototypeMatch	112	113
 block_hint	StringPrototypeMatch	84	85
-builtin_hash	StringPrototypeMatch	-307917113
 block	StringPrototypeSearch	0	1113
 block	StringPrototypeSearch	74	1113
 block	StringPrototypeSearch	49	1113
@@ -31653,7 +31326,6 @@ block_hint	StringPrototypeSearch	37	38
 block_hint	StringPrototypeSearch	39	40
 block_hint	StringPrototypeSearch	112	113
 block_hint	StringPrototypeSearch	84	85
-builtin_hash	StringPrototypeSearch	-307917113
 block	StringPrototypePadStart	0	50711
 block	StringPrototypePadStart	48	50711
 block	StringPrototypePadStart	40	50711
@@ -31702,7 +31374,6 @@ block_hint	StringPrototypePadStart	11	12
 block_hint	StringPrototypePadStart	13	14
 block_hint	StringPrototypePadStart	28	29
 block_hint	StringPrototypePadStart	30	31
-builtin_hash	StringPrototypePadStart	-1047878613
 block	StringPrototypePadEnd	0	18835
 block	StringPrototypePadEnd	49	1
 block	StringPrototypePadEnd	48	18834
@@ -31744,7 +31415,6 @@ block_hint	StringPrototypePadEnd	11	12
 block_hint	StringPrototypePadEnd	13	14
 block_hint	StringPrototypePadEnd	28	29
 block_hint	StringPrototypePadEnd	30	31
-builtin_hash	StringPrototypePadEnd	-1052481180
 block	StringRepeat	0	51709
 block	StringRepeat	2	111798
 block	StringRepeat	7	33931
@@ -31754,7 +31424,6 @@ block	StringRepeat	4	60089
 block	StringRepeat	3	51709
 block_hint	StringRepeat	6	7
 block_hint	StringRepeat	3	4
-builtin_hash	StringRepeat	-316452316
 block	StringPrototypeRepeat	0	4009
 block	StringPrototypeRepeat	33	4009
 block	StringPrototypeRepeat	30	4009
@@ -31784,7 +31453,6 @@ block_hint	StringPrototypeRepeat	8	9
 block_hint	StringPrototypeRepeat	23	24
 block_hint	StringPrototypeRepeat	21	22
 block_hint	StringPrototypeRepeat	10	11
-builtin_hash	StringPrototypeRepeat	454975330
 block	StringPrototypeSlice	0	150749
 block	StringPrototypeSlice	277	150749
 block	StringPrototypeSlice	248	150749
@@ -31982,7 +31650,6 @@ block_hint	StringPrototypeSlice	269	270
 block_hint	StringPrototypeSlice	48	49
 block_hint	StringPrototypeSlice	126	127
 block_hint	StringPrototypeSlice	45	46
-builtin_hash	StringPrototypeSlice	410471659
 block	StringPrototypeStartsWith	0	227023
 block	StringPrototypeStartsWith	286	227023
 block	StringPrototypeStartsWith	280	227023
@@ -32149,7 +31816,6 @@ block_hint	StringPrototypeStartsWith	144	145
 block_hint	StringPrototypeStartsWith	35	36
 block_hint	StringPrototypeStartsWith	49	50
 block_hint	StringPrototypeStartsWith	116	117
-builtin_hash	StringPrototypeStartsWith	542178675
 block	StringPrototypeSubstr	0	39836
 block	StringPrototypeSubstr	273	39836
 block	StringPrototypeSubstr	245	39836
@@ -32326,7 +31992,6 @@ block_hint	StringPrototypeSubstr	268	269
 block_hint	StringPrototypeSubstr	48	49
 block_hint	StringPrototypeSubstr	126	127
 block_hint	StringPrototypeSubstr	45	46
-builtin_hash	StringPrototypeSubstr	-535845052
 block	StringPrototypeSubstring	0	89560
 block	StringPrototypeSubstring	257	89560
 block	StringPrototypeSubstring	233	89560
@@ -32519,7 +32184,6 @@ block_hint	StringPrototypeSubstring	253	254
 block_hint	StringPrototypeSubstring	46	47
 block_hint	StringPrototypeSubstring	123	124
 block_hint	StringPrototypeSubstring	43	44
-builtin_hash	StringPrototypeSubstring	827814848
 block	StringPrototypeTrim	0	7586
 block	StringPrototypeTrim	658	7586
 block	StringPrototypeTrim	473	7586
@@ -32981,7 +32645,6 @@ block_hint	StringPrototypeTrim	679	680
 block_hint	StringPrototypeTrim	121	122
 block_hint	StringPrototypeTrim	277	278
 block_hint	StringPrototypeTrim	113	114
-builtin_hash	StringPrototypeTrim	1065362530
 block	StringPrototypeTrimStart	0	10
 block	StringPrototypeTrimStart	580	10
 block	StringPrototypeTrimStart	451	10
@@ -33232,7 +32895,6 @@ block_hint	StringPrototypeTrimStart	601	602
 block_hint	StringPrototypeTrimStart	111	112
 block_hint	StringPrototypeTrimStart	261	262
 block_hint	StringPrototypeTrimStart	103	104
-builtin_hash	StringPrototypeTrimStart	394901186
 block	StringPrototypeTrimEnd	0	6
 block	StringPrototypeTrimEnd	574	6
 block	StringPrototypeTrimEnd	447	6
@@ -33483,7 +33145,6 @@ block_hint	StringPrototypeTrimEnd	558	559
 block_hint	StringPrototypeTrimEnd	435	436
 block_hint	StringPrototypeTrimEnd	111	112
 block_hint	StringPrototypeTrimEnd	261	262
-builtin_hash	StringPrototypeTrimEnd	-1026208154
 block	CreateTypedArray	0	53688
 block	CreateTypedArray	666	15589
 block	CreateTypedArray	665	38099
@@ -33992,7 +33653,6 @@ block_hint	CreateTypedArray	721	722
 block_hint	CreateTypedArray	629	630
 block_hint	CreateTypedArray	488	489
 block_hint	CreateTypedArray	290	291
-builtin_hash	CreateTypedArray	-50149642
 block	TypedArrayPrototypeForEach	0	1
 block	TypedArrayPrototypeForEach	107	1
 block	TypedArrayPrototypeForEach	88	1
@@ -34068,7 +33728,6 @@ block_hint	TypedArrayPrototypeForEach	23	24
 block_hint	TypedArrayPrototypeForEach	125	126
 block_hint	TypedArrayPrototypeForEach	86	87
 block_hint	TypedArrayPrototypeForEach	99	100
-builtin_hash	TypedArrayPrototypeForEach	38717971
 block	TypedArrayPrototypeSet	0	6667
 block	TypedArrayPrototypeSet	187	6667
 block	TypedArrayPrototypeSet	127	6667
@@ -34193,7 +33852,6 @@ block_hint	TypedArrayPrototypeSet	71	72
 block_hint	TypedArrayPrototypeSet	73	74
 block_hint	TypedArrayPrototypeSet	179	180
 block_hint	TypedArrayPrototypeSet	142	143
-builtin_hash	TypedArrayPrototypeSet	-655312554
 block	TypedArrayPrototypeSlice	0	4904
 block	TypedArrayPrototypeSlice	230	4904
 block	TypedArrayPrototypeSlice	188	4904
@@ -34343,7 +34001,6 @@ block_hint	TypedArrayPrototypeSlice	113	114
 block_hint	TypedArrayPrototypeSlice	115	116
 block_hint	TypedArrayPrototypeSlice	205	206
 block_hint	TypedArrayPrototypeSlice	130	131
-builtin_hash	TypedArrayPrototypeSlice	-716072744
 block	TypedArrayPrototypeSubArray	0	9493
 block	TypedArrayPrototypeSubArray	131	9493
 block	TypedArrayPrototypeSubArray	109	9493
@@ -34462,7 +34119,6 @@ block_hint	TypedArrayPrototypeSubArray	74	75
 block_hint	TypedArrayPrototypeSubArray	105	106
 block_hint	TypedArrayPrototypeSubArray	107	108
 block_hint	TypedArrayPrototypeSubArray	77	78
-builtin_hash	TypedArrayPrototypeSubArray	-290810016
 block	TypedArrayPrototypeValues	0	7
 block	TypedArrayPrototypeValues	28	7
 block	TypedArrayPrototypeValues	20	7
@@ -34487,7 +34143,6 @@ block_hint	TypedArrayPrototypeValues	18	19
 block_hint	TypedArrayPrototypeValues	16	17
 block_hint	TypedArrayPrototypeValues	5	6
 block_hint	TypedArrayPrototypeValues	8	9
-builtin_hash	TypedArrayPrototypeValues	-17528171
 block	WeakRefConstructor	0	252
 block	WeakRefConstructor	68	252
 block	WeakRefConstructor	42	252
@@ -34558,7 +34213,6 @@ block_hint	WeakRefConstructor	32	33
 block_hint	WeakRefConstructor	34	35
 block_hint	WeakRefConstructor	79	80
 block_hint	WeakRefConstructor	51	52
-builtin_hash	WeakRefConstructor	-647567543
 block	WeakRefDeref	0	361
 block	WeakRefDeref	11	361
 block	WeakRefDeref	10	361
@@ -34570,7 +34224,6 @@ block_hint	WeakRefDeref	11	12
 block_hint	WeakRefDeref	6	7
 block_hint	WeakRefDeref	8	9
 block_hint	WeakRefDeref	4	5
-builtin_hash	WeakRefDeref	-732933651
 block	StringSlowFlatten	0	23134
 block	StringSlowFlatten	2	23134
 block	StringSlowFlatten	35	23134
@@ -34596,7 +34249,6 @@ block_hint	StringSlowFlatten	24	25
 block_hint	StringSlowFlatten	4	5
 block_hint	StringSlowFlatten	30	31
 block_hint	StringSlowFlatten	22	23
-builtin_hash	StringSlowFlatten	-327576202
 block	StringIndexOf	0	695074
 block	StringIndexOf	161	695074
 block	StringIndexOf	135	695074
@@ -34709,15 +34361,12 @@ block_hint	StringIndexOf	56	57
 block_hint	StringIndexOf	58	59
 block_hint	StringIndexOf	89	90
 block_hint	StringIndexOf	114	115
-builtin_hash	StringIndexOf	555987787
 block	Load_FastSmiElements_0	0	595130
 block	Load_FastSmiElements_0	2	595130
 block_hint	Load_FastSmiElements_0	2	3
-builtin_hash	Load_FastSmiElements_0	458926508
 block	Load_FastObjectElements_0	0	37270
 block	Load_FastObjectElements_0	2	37270
 block_hint	Load_FastObjectElements_0	2	3
-builtin_hash	Load_FastObjectElements_0	458926508
 block	Load_FastDoubleElements_0	0	28
 block	Load_FastDoubleElements_0	3	28
 block	Load_FastDoubleElements_0	6	28
@@ -34726,19 +34375,15 @@ block	Load_FastDoubleElements_0	2	28
 block_hint	Load_FastDoubleElements_0	3	4
 block_hint	Load_FastDoubleElements_0	5	6
 block_hint	Load_FastDoubleElements_0	7	8
-builtin_hash	Load_FastDoubleElements_0	-68132536
 block	Store_FastSmiElements_0	0	595130
 block	Store_FastSmiElements_0	2	595130
 block_hint	Store_FastSmiElements_0	2	3
-builtin_hash	Store_FastSmiElements_0	-316609515
 block	Store_FastObjectElements_0	0	37270
 block	Store_FastObjectElements_0	2	37270
 block_hint	Store_FastObjectElements_0	2	3
-builtin_hash	Store_FastObjectElements_0	-112935219
 block	Store_FastDoubleElements_0	0	28
 block	Store_FastDoubleElements_0	2	28
 block_hint	Store_FastDoubleElements_0	2	3
-builtin_hash	Store_FastDoubleElements_0	926065648
 block	SortCompareDefault	0	17
 block	SortCompareDefault	5	17
 block	SortCompareDefault	13	17
@@ -34751,7 +34396,6 @@ block_hint	SortCompareDefault	2	3
 block_hint	SortCompareDefault	13	14
 block_hint	SortCompareDefault	10	11
 block_hint	SortCompareDefault	7	8
-builtin_hash	SortCompareDefault	700774980
 block	SortCompareUserFn	0	749167
 block	SortCompareUserFn	10	742221
 block	SortCompareUserFn	9	6946
@@ -34766,7 +34410,6 @@ block_hint	SortCompareUserFn	9	10
 block_hint	SortCompareUserFn	11	12
 block_hint	SortCompareUserFn	5	6
 block_hint	SortCompareUserFn	3	4
-builtin_hash	SortCompareUserFn	122667239
 block	Copy	0	171
 block	Copy	14	34
 block	Copy	2	1078
@@ -34788,7 +34431,6 @@ block_hint	Copy	11	12
 block_hint	Copy	15	16
 block_hint	Copy	5	6
 block_hint	Copy	7	8
-builtin_hash	Copy	536273486
 block	MergeAt	0	21
 block	MergeAt	13	21
 block	MergeAt	15	21
@@ -35046,7 +34688,6 @@ block_hint	MergeAt	113	114
 block_hint	MergeAt	65	66
 block_hint	MergeAt	67	68
 block_hint	MergeAt	192	193
-builtin_hash	MergeAt	-836463222
 block	GallopLeft	0	92
 block	GallopLeft	11	92
 block	GallopLeft	48	90
@@ -35124,7 +34765,6 @@ block_hint	GallopLeft	17	18
 block_hint	GallopLeft	61	62
 block_hint	GallopLeft	43	44
 block_hint	GallopLeft	45	46
-builtin_hash	GallopLeft	-619505268
 block	GallopRight	0	101
 block	GallopRight	11	101
 block	GallopRight	48	99
@@ -35198,7 +34838,6 @@ block_hint	GallopRight	17	18
 block_hint	GallopRight	61	62
 block_hint	GallopRight	43	44
 block_hint	GallopRight	45	46
-builtin_hash	GallopRight	-530119460
 block	ArrayTimSort	0	43325
 block	ArrayTimSort	121	43325
 block	ArrayTimSort	16	43325
@@ -35452,7 +35091,6 @@ block_hint	ArrayTimSort	111	112
 block_hint	ArrayTimSort	87	88
 block_hint	ArrayTimSort	113	114
 block_hint	ArrayTimSort	89	90
-builtin_hash	ArrayTimSort	-142774629
 block	ArrayPrototypeSort	0	178893
 block	ArrayPrototypeSort	106	178893
 block	ArrayPrototypeSort	93	178893
@@ -35562,69 +35200,52 @@ block_hint	ArrayPrototypeSort	33	34
 block_hint	ArrayPrototypeSort	98	99
 block_hint	ArrayPrototypeSort	91	92
 block_hint	ArrayPrototypeSort	56	57
-builtin_hash	ArrayPrototypeSort	-251784551
 block	LoadJoinTypedElement_Uint8Elements_0	0	50
-builtin_hash	LoadJoinTypedElement_Uint8Elements_0	669014460
 block	CanUseSameAccessor_FastDoubleElements_0	0	7
 block	CanUseSameAccessor_FastDoubleElements_0	2	7
 block	CanUseSameAccessor_FastDoubleElements_0	4	7
 block_hint	CanUseSameAccessor_FastDoubleElements_0	2	3
 block_hint	CanUseSameAccessor_FastDoubleElements_0	4	5
-builtin_hash	CanUseSameAccessor_FastDoubleElements_0	-840157987
 block	CanUseSameAccessor_FastSmiElements_0	0	38042
 block	CanUseSameAccessor_FastSmiElements_0	2	38042
 block	CanUseSameAccessor_FastSmiElements_0	4	38042
 block_hint	CanUseSameAccessor_FastSmiElements_0	2	3
 block_hint	CanUseSameAccessor_FastSmiElements_0	4	5
-builtin_hash	CanUseSameAccessor_FastSmiElements_0	-840157987
 block	CanUseSameAccessor_FastObjectElements_0	0	5276
 block	CanUseSameAccessor_FastObjectElements_0	2	5276
 block	CanUseSameAccessor_FastObjectElements_0	4	5276
 block_hint	CanUseSameAccessor_FastObjectElements_0	2	3
 block_hint	CanUseSameAccessor_FastObjectElements_0	4	5
-builtin_hash	CanUseSameAccessor_FastObjectElements_0	-840157987
 block	LoadTypedElement_Uint8Elements_0	0	3222
-builtin_hash	LoadTypedElement_Uint8Elements_0	669014460
 block	WideHandler	0	29357137
-builtin_hash	WideHandler	-286070772
 block	ExtraWideHandler	0	11143032
-builtin_hash	ExtraWideHandler	-286070772
 block	LdarHandler	0	279176981
-builtin_hash	LdarHandler	-1033032599
 block	LdaZeroHandler	0	48944459
 block	LdaZeroHandler	3	29480116
 block	LdaZeroHandler	2	19464343
 block_hint	LdaZeroHandler	2	3
-builtin_hash	LdaZeroHandler	-113853574
 block	LdaSmiHandler	0	42425323
 block	LdaSmiHandler	3	8852209
 block	LdaSmiHandler	2	33573114
 block_hint	LdaSmiHandler	2	3
-builtin_hash	LdaSmiHandler	13032984
 block	LdaUndefinedHandler	0	57061126
 block	LdaUndefinedHandler	3	53583684
 block	LdaUndefinedHandler	2	3477442
 block_hint	LdaUndefinedHandler	2	3
-builtin_hash	LdaUndefinedHandler	838142306
 block	LdaNullHandler	0	7841289
 block	LdaNullHandler	3	6419408
 block	LdaNullHandler	2	1421881
 block_hint	LdaNullHandler	2	3
-builtin_hash	LdaNullHandler	838142306
 block	LdaTheHoleHandler	0	22792213
 block	LdaTheHoleHandler	3	5875701
 block	LdaTheHoleHandler	2	16916512
 block_hint	LdaTheHoleHandler	2	3
-builtin_hash	LdaTheHoleHandler	838142306
 block	LdaTrueHandler	0	38041619
-builtin_hash	LdaTrueHandler	213023749
 block	LdaFalseHandler	0	35933495
-builtin_hash	LdaFalseHandler	213023749
 block	LdaConstantHandler	0	24372162
 block	LdaConstantHandler	3	8662587
 block	LdaConstantHandler	2	15709575
 block_hint	LdaConstantHandler	2	3
-builtin_hash	LdaConstantHandler	-708854195
 block	LdaContextSlotHandler	0	840792
 block	LdaContextSlotHandler	10	33487
 block	LdaContextSlotHandler	9	807305
@@ -35641,7 +35262,6 @@ block_hint	LdaContextSlotHandler	3	4
 block_hint	LdaContextSlotHandler	11	12
 block_hint	LdaContextSlotHandler	5	6
 block_hint	LdaContextSlotHandler	7	8
-builtin_hash	LdaContextSlotHandler	-245302882
 block	LdaImmutableContextSlotHandler	0	44860640
 block	LdaImmutableContextSlotHandler	10	4202602
 block	LdaImmutableContextSlotHandler	9	40658038
@@ -35658,35 +35278,27 @@ block_hint	LdaImmutableContextSlotHandler	3	4
 block_hint	LdaImmutableContextSlotHandler	11	12
 block_hint	LdaImmutableContextSlotHandler	5	6
 block_hint	LdaImmutableContextSlotHandler	7	8
-builtin_hash	LdaImmutableContextSlotHandler	-245302882
 block	LdaCurrentContextSlotHandler	0	22260538
 block	LdaCurrentContextSlotHandler	2	22260538
 block	LdaCurrentContextSlotHandler	5	20396636
 block	LdaCurrentContextSlotHandler	4	1863902
 block_hint	LdaCurrentContextSlotHandler	2	3
 block_hint	LdaCurrentContextSlotHandler	4	5
-builtin_hash	LdaCurrentContextSlotHandler	-596849685
 block	LdaImmutableCurrentContextSlotHandler	0	154856566
 block	LdaImmutableCurrentContextSlotHandler	2	154856566
 block	LdaImmutableCurrentContextSlotHandler	5	98508928
 block	LdaImmutableCurrentContextSlotHandler	4	56347638
 block_hint	LdaImmutableCurrentContextSlotHandler	2	3
 block_hint	LdaImmutableCurrentContextSlotHandler	4	5
-builtin_hash	LdaImmutableCurrentContextSlotHandler	-596849685
 block	StarHandler	0	87146448
-builtin_hash	StarHandler	-62093629
 block	MovHandler	0	139763478
-builtin_hash	MovHandler	201252850
 block	PushContextHandler	0	7133800
-builtin_hash	PushContextHandler	865928200
 block	PopContextHandler	0	462580
-builtin_hash	PopContextHandler	685914753
 block	TestReferenceEqualHandler	0	17798196
 block	TestReferenceEqualHandler	4	13917167
 block	TestReferenceEqualHandler	3	3881029
 block	TestReferenceEqualHandler	2	17798196
 block_hint	TestReferenceEqualHandler	3	4
-builtin_hash	TestReferenceEqualHandler	-476445724
 block	TestUndetectableHandler	0	6089950
 block	TestUndetectableHandler	5	344649
 block	TestUndetectableHandler	4	5745301
@@ -35696,19 +35308,16 @@ block	TestUndetectableHandler	3	5745301
 block	TestUndetectableHandler	2	6089950
 block_hint	TestUndetectableHandler	4	5
 block_hint	TestUndetectableHandler	6	7
-builtin_hash	TestUndetectableHandler	-1030850476
 block	TestNullHandler	0	16381
 block	TestNullHandler	4	3781
 block	TestNullHandler	3	12600
 block	TestNullHandler	2	16381
 block_hint	TestNullHandler	3	4
-builtin_hash	TestNullHandler	482471041
 block	TestUndefinedHandler	0	1037928
 block	TestUndefinedHandler	4	475977
 block	TestUndefinedHandler	3	561951
 block	TestUndefinedHandler	2	1037928
 block_hint	TestUndefinedHandler	3	4
-builtin_hash	TestUndefinedHandler	482471041
 block	TestTypeOfHandler	0	2004554
 block	TestTypeOfHandler	44	535114
 block	TestTypeOfHandler	47	460675
@@ -35769,7 +35378,6 @@ block_hint	TestTypeOfHandler	31	32
 block_hint	TestTypeOfHandler	50	51
 block_hint	TestTypeOfHandler	33	34
 block_hint	TestTypeOfHandler	35	36
-builtin_hash	TestTypeOfHandler	942286230
 block	LdaGlobalHandler	0	6302657
 block	LdaGlobalHandler	122	6268472
 block	LdaGlobalHandler	66	6268472
@@ -35887,7 +35495,6 @@ block_hint	LdaGlobalHandler	117	118
 block_hint	LdaGlobalHandler	47	48
 block_hint	LdaGlobalHandler	51	52
 block_hint	LdaGlobalHandler	53	54
-builtin_hash	LdaGlobalHandler	937301598
 block	LdaGlobalInsideTypeofHandler	0	6198
 block	LdaGlobalInsideTypeofHandler	73	6153
 block	LdaGlobalInsideTypeofHandler	77	6153
@@ -35995,9 +35602,7 @@ block_hint	LdaGlobalInsideTypeofHandler	101	102
 block_hint	LdaGlobalInsideTypeofHandler	103	104
 block_hint	LdaGlobalInsideTypeofHandler	66	67
 block_hint	LdaGlobalInsideTypeofHandler	68	69
-builtin_hash	LdaGlobalInsideTypeofHandler	919093999
 block	StaGlobalHandler	0	10
-builtin_hash	StaGlobalHandler	84138464
 block	StaContextSlotHandler	0	12795
 block	StaContextSlotHandler	8	3602
 block	StaContextSlotHandler	7	9193
@@ -36011,11 +35616,9 @@ block_hint	StaContextSlotHandler	7	8
 block_hint	StaContextSlotHandler	3	4
 block_hint	StaContextSlotHandler	9	10
 block_hint	StaContextSlotHandler	5	6
-builtin_hash	StaContextSlotHandler	936062387
 block	StaCurrentContextSlotHandler	0	15124394
 block	StaCurrentContextSlotHandler	2	15124394
 block_hint	StaCurrentContextSlotHandler	2	3
-builtin_hash	StaCurrentContextSlotHandler	104363388
 block	StaCurrentScriptContextSlotHandler	0	4
 block	StaCurrentScriptContextSlotHandler	2	4
 block	StaCurrentScriptContextSlotHandler	4	4
@@ -36041,7 +35644,6 @@ block_hint	StaCurrentScriptContextSlotHandler	12	13
 block_hint	StaCurrentScriptContextSlotHandler	14	15
 block_hint	StaCurrentScriptContextSlotHandler	8	9
 block_hint	StaCurrentScriptContextSlotHandler	16	17
-builtin_hash	StaCurrentScriptContextSlotHandler	-261660471
 block	GetNamedPropertyHandler	0	702136914
 block	GetNamedPropertyHandler	122	701130196
 block	GetNamedPropertyHandler	263	568473
@@ -36269,28 +35871,18 @@ block_hint	GetNamedPropertyHandler	173	174
 block_hint	GetNamedPropertyHandler	115	116
 block_hint	GetNamedPropertyHandler	117	118
 block_hint	GetNamedPropertyHandler	17	18
-builtin_hash	GetNamedPropertyHandler	553608821
 block	GetNamedPropertyFromSuperHandler	0	969268
-builtin_hash	GetNamedPropertyFromSuperHandler	-476012600
 block	GetKeyedPropertyHandler	0	37019193
 block	GetKeyedPropertyHandler	3	19463014
 block	GetKeyedPropertyHandler	2	17556175
 block_hint	GetKeyedPropertyHandler	2	3
-builtin_hash	GetKeyedPropertyHandler	619128743
 block	GetEnumeratedKeyedPropertyHandler	0	185943
-builtin_hash	GetEnumeratedKeyedPropertyHandler	1013107863
 block	SetNamedPropertyHandler	0	93404893
-builtin_hash	SetNamedPropertyHandler	-961085360
 block	DefineNamedOwnPropertyHandler	0	4445471
-builtin_hash	DefineNamedOwnPropertyHandler	-961085360
 block	SetKeyedPropertyHandler	0	1182187
-builtin_hash	SetKeyedPropertyHandler	-483110299
 block	DefineKeyedOwnPropertyHandler	0	97
-builtin_hash	DefineKeyedOwnPropertyHandler	-612223684
 block	StaInArrayLiteralHandler	0	1744101
-builtin_hash	StaInArrayLiteralHandler	-483110299
 block	DefineKeyedOwnPropertyInLiteralHandler	0	667978
-builtin_hash	DefineKeyedOwnPropertyInLiteralHandler	534037225
 block	AddHandler	0	37298218
 block	AddHandler	110	20453804
 block	AddHandler	81	20188923
@@ -36445,7 +36037,6 @@ block_hint	AddHandler	60	61
 block_hint	AddHandler	83	84
 block_hint	AddHandler	25	26
 block_hint	AddHandler	3	4
-builtin_hash	AddHandler	-972673138
 block	SubHandler	0	18849960
 block	SubHandler	94	1510774
 block	SubHandler	68	1069675
@@ -36571,7 +36162,6 @@ block_hint	SubHandler	44	45
 block_hint	SubHandler	56	57
 block_hint	SubHandler	21	22
 block_hint	SubHandler	3	4
-builtin_hash	SubHandler	-517816406
 block	MulHandler	0	6506590
 block	MulHandler	123	1908704
 block	MulHandler	111	1491593
@@ -36710,7 +36300,6 @@ block_hint	MulHandler	47	48
 block_hint	MulHandler	59	60
 block_hint	MulHandler	23	24
 block_hint	MulHandler	3	4
-builtin_hash	MulHandler	-379265740
 block	DivHandler	0	1480903
 block	DivHandler	133	699844
 block	DivHandler	120	200320
@@ -36853,7 +36442,6 @@ block_hint	DivHandler	48	49
 block_hint	DivHandler	53	54
 block_hint	DivHandler	66	67
 block_hint	DivHandler	23	24
-builtin_hash	DivHandler	809626611
 block	ModHandler	0	385336
 block	ModHandler	130	293003
 block	ModHandler	119	169933
@@ -36936,7 +36524,6 @@ block_hint	ModHandler	47	48
 block_hint	ModHandler	52	53
 block_hint	ModHandler	63	64
 block_hint	ModHandler	23	24
-builtin_hash	ModHandler	-265639590
 block	ExpHandler	0	207
 block	ExpHandler	58	66
 block	ExpHandler	45	51
@@ -36988,7 +36575,6 @@ block_hint	ExpHandler	26	27
 block_hint	ExpHandler	30	31
 block_hint	ExpHandler	36	37
 block_hint	ExpHandler	10	11
-builtin_hash	ExpHandler	408603595
 block	BitwiseOrHandler	0	2722731
 block	BitwiseOrHandler	13	2364984
 block	BitwiseOrHandler	12	357747
@@ -37116,7 +36702,6 @@ block_hint	BitwiseOrHandler	134	135
 block_hint	BitwiseOrHandler	97	98
 block_hint	BitwiseOrHandler	42	43
 block_hint	BitwiseOrHandler	58	59
-builtin_hash	BitwiseOrHandler	243519180
 block	BitwiseXorHandler	0	8
 block	BitwiseXorHandler	13	8
 block	BitwiseXorHandler	30	8
@@ -37185,7 +36770,6 @@ block_hint	BitwiseXorHandler	134	135
 block_hint	BitwiseXorHandler	97	98
 block_hint	BitwiseXorHandler	42	43
 block_hint	BitwiseXorHandler	58	59
-builtin_hash	BitwiseXorHandler	-1012589605
 block	BitwiseAndHandler	0	154552
 block	BitwiseAndHandler	13	154018
 block	BitwiseAndHandler	12	534
@@ -37275,7 +36859,6 @@ block_hint	BitwiseAndHandler	134	135
 block_hint	BitwiseAndHandler	97	98
 block_hint	BitwiseAndHandler	42	43
 block_hint	BitwiseAndHandler	58	59
-builtin_hash	BitwiseAndHandler	-857035590
 block	ShiftLeftHandler	0	267240
 block	ShiftLeftHandler	12	249231
 block	ShiftLeftHandler	11	18009
@@ -37346,7 +36929,6 @@ block_hint	ShiftLeftHandler	97	98
 block_hint	ShiftLeftHandler	80	81
 block_hint	ShiftLeftHandler	40	41
 block_hint	ShiftLeftHandler	54	55
-builtin_hash	ShiftLeftHandler	5052875
 block	ShiftRightHandler	0	8
 block	ShiftRightHandler	12	8
 block	ShiftRightHandler	28	8
@@ -37393,7 +36975,6 @@ block_hint	ShiftRightHandler	97	98
 block_hint	ShiftRightHandler	80	81
 block_hint	ShiftRightHandler	40	41
 block_hint	ShiftRightHandler	54	55
-builtin_hash	ShiftRightHandler	-826067142
 block	ShiftRightLogicalHandler	0	35870
 block	ShiftRightLogicalHandler	12	2
 block	ShiftRightLogicalHandler	11	35868
@@ -37450,7 +37031,6 @@ block_hint	ShiftRightLogicalHandler	95	96
 block_hint	ShiftRightLogicalHandler	67	68
 block_hint	ShiftRightLogicalHandler	24	25
 block_hint	ShiftRightLogicalHandler	40	41
-builtin_hash	ShiftRightLogicalHandler	-731047773
 block	AddSmiHandler	0	7841640
 block	AddSmiHandler	28	7690483
 block	AddSmiHandler	20	7690483
@@ -37492,7 +37072,6 @@ block_hint	AddSmiHandler	25	26
 block_hint	AddSmiHandler	30	31
 block_hint	AddSmiHandler	11	12
 block_hint	AddSmiHandler	2	3
-builtin_hash	AddSmiHandler	-576935829
 block	SubSmiHandler	0	707849
 block	SubSmiHandler	37	707518
 block	SubSmiHandler	26	707518
@@ -37530,7 +37109,6 @@ block_hint	SubSmiHandler	27	28
 block_hint	SubSmiHandler	32	33
 block_hint	SubSmiHandler	11	12
 block_hint	SubSmiHandler	2	3
-builtin_hash	SubSmiHandler	84822084
 block	MulSmiHandler	0	388410
 block	MulSmiHandler	46	198686
 block	MulSmiHandler	52	198686
@@ -37589,7 +37167,6 @@ block_hint	MulSmiHandler	20	21
 block_hint	MulSmiHandler	24	25
 block_hint	MulSmiHandler	28	29
 block_hint	MulSmiHandler	9	10
-builtin_hash	MulSmiHandler	-421398222
 block	DivSmiHandler	0	235606
 block	DivSmiHandler	50	90870
 block	DivSmiHandler	46	90870
@@ -37642,7 +37219,6 @@ block_hint	DivSmiHandler	21	22
 block_hint	DivSmiHandler	25	26
 block_hint	DivSmiHandler	31	32
 block_hint	DivSmiHandler	9	10
-builtin_hash	DivSmiHandler	-223290261
 block	ModSmiHandler	0	69734
 block	ModSmiHandler	47	68251
 block	ModSmiHandler	42	68251
@@ -37688,7 +37264,6 @@ block_hint	ModSmiHandler	20	21
 block_hint	ModSmiHandler	24	25
 block_hint	ModSmiHandler	28	29
 block_hint	ModSmiHandler	9	10
-builtin_hash	ModSmiHandler	187364711
 block	ExpSmiHandler	0	34194
 block	ExpSmiHandler	32	1
 block	ExpSmiHandler	22	1
@@ -37721,7 +37296,6 @@ block_hint	ExpSmiHandler	20	21
 block_hint	ExpSmiHandler	24	25
 block_hint	ExpSmiHandler	27	28
 block_hint	ExpSmiHandler	9	10
-builtin_hash	ExpSmiHandler	750904329
 block	BitwiseOrSmiHandler	0	5003796
 block	BitwiseOrSmiHandler	8	4044442
 block	BitwiseOrSmiHandler	7	959354
@@ -37763,7 +37337,6 @@ block_hint	BitwiseOrSmiHandler	42	43
 block_hint	BitwiseOrSmiHandler	34	35
 block_hint	BitwiseOrSmiHandler	13	14
 block_hint	BitwiseOrSmiHandler	21	22
-builtin_hash	BitwiseOrSmiHandler	-915077349
 block	BitwiseAndSmiHandler	0	5446569
 block	BitwiseAndSmiHandler	8	5376323
 block	BitwiseAndSmiHandler	7	70246
@@ -37800,7 +37373,6 @@ block_hint	BitwiseAndSmiHandler	42	43
 block_hint	BitwiseAndSmiHandler	34	35
 block_hint	BitwiseAndSmiHandler	13	14
 block_hint	BitwiseAndSmiHandler	21	22
-builtin_hash	BitwiseAndSmiHandler	-966282705
 block	ShiftLeftSmiHandler	0	2577242
 block	ShiftLeftSmiHandler	8	2545878
 block	ShiftLeftSmiHandler	46	2262956
@@ -37848,7 +37420,6 @@ block_hint	ShiftLeftSmiHandler	51	52
 block_hint	ShiftLeftSmiHandler	37	38
 block_hint	ShiftLeftSmiHandler	13	14
 block_hint	ShiftLeftSmiHandler	21	22
-builtin_hash	ShiftLeftSmiHandler	-570967516
 block	ShiftRightSmiHandler	0	201119
 block	ShiftRightSmiHandler	8	201049
 block	ShiftRightSmiHandler	7	70
@@ -37880,7 +37451,6 @@ block_hint	ShiftRightSmiHandler	42	43
 block_hint	ShiftRightSmiHandler	34	35
 block_hint	ShiftRightSmiHandler	13	14
 block_hint	ShiftRightSmiHandler	21	22
-builtin_hash	ShiftRightSmiHandler	-342051016
 block	ShiftRightLogicalSmiHandler	0	9926103
 block	ShiftRightLogicalSmiHandler	8	4298424
 block	ShiftRightLogicalSmiHandler	46	4286957
@@ -37936,7 +37506,6 @@ block_hint	ShiftRightLogicalSmiHandler	52	53
 block_hint	ShiftRightLogicalSmiHandler	37	38
 block_hint	ShiftRightLogicalSmiHandler	13	14
 block_hint	ShiftRightLogicalSmiHandler	21	22
-builtin_hash	ShiftRightLogicalSmiHandler	-800727131
 block	IncHandler	0	3224210
 block	IncHandler	2	3224210
 block	IncHandler	32	843
@@ -37967,7 +37536,6 @@ block_hint	IncHandler	30	31
 block_hint	IncHandler	18	19
 block_hint	IncHandler	23	24
 block_hint	IncHandler	5	6
-builtin_hash	IncHandler	-106504004
 block	DecHandler	0	178953
 block	DecHandler	2	178953
 block	DecHandler	32	3155
@@ -37998,7 +37566,6 @@ block_hint	DecHandler	30	31
 block_hint	DecHandler	18	19
 block_hint	DecHandler	23	24
 block_hint	DecHandler	5	6
-builtin_hash	DecHandler	-164241326
 block	NegateHandler	0	1200279
 block	NegateHandler	2	1200279
 block	NegateHandler	34	628240
@@ -38030,7 +37597,6 @@ block_hint	NegateHandler	19	20
 block_hint	NegateHandler	29	30
 block_hint	NegateHandler	8	9
 block_hint	NegateHandler	17	18
-builtin_hash	NegateHandler	-91141225
 block	BitwiseNotHandler	0	1131390
 block	BitwiseNotHandler	7	38412
 block	BitwiseNotHandler	6	1092978
@@ -38067,7 +37633,6 @@ block_hint	BitwiseNotHandler	42	43
 block_hint	BitwiseNotHandler	32	33
 block_hint	BitwiseNotHandler	16	17
 block_hint	BitwiseNotHandler	22	23
-builtin_hash	BitwiseNotHandler	-909947237
 block	ToBooleanLogicalNotHandler	0	11140142
 block	ToBooleanLogicalNotHandler	24	34736
 block	ToBooleanLogicalNotHandler	10	13238
@@ -38101,13 +37666,11 @@ block_hint	ToBooleanLogicalNotHandler	21	22
 block_hint	ToBooleanLogicalNotHandler	7	8
 block_hint	ToBooleanLogicalNotHandler	13	14
 block_hint	ToBooleanLogicalNotHandler	11	12
-builtin_hash	ToBooleanLogicalNotHandler	-987739765
 block	LogicalNotHandler	0	16872077
 block	LogicalNotHandler	4	12028846
 block	LogicalNotHandler	3	4843231
 block	LogicalNotHandler	2	16872077
 block_hint	LogicalNotHandler	3	4
-builtin_hash	LogicalNotHandler	639738733
 block	TypeOfHandler	0	27
 block	TypeOfHandler	69	6
 block	TypeOfHandler	68	21
@@ -38164,9 +37727,7 @@ block_hint	TypeOfHandler	46	47
 block_hint	TypeOfHandler	25	26
 block_hint	TypeOfHandler	44	45
 block_hint	TypeOfHandler	2	3
-builtin_hash	TypeOfHandler	910591950
 block	DeletePropertyStrictHandler	0	1733
-builtin_hash	DeletePropertyStrictHandler	-233055195
 block	FindNonDefaultConstructorOrConstructHandler	0	258403
 block	FindNonDefaultConstructorOrConstructHandler	13	258403
 block	FindNonDefaultConstructorOrConstructHandler	7	258403
@@ -38188,7 +37749,6 @@ block_hint	FindNonDefaultConstructorOrConstructHandler	4	5
 block_hint	FindNonDefaultConstructorOrConstructHandler	18	19
 block_hint	FindNonDefaultConstructorOrConstructHandler	10	11
 block_hint	FindNonDefaultConstructorOrConstructHandler	8	9
-builtin_hash	FindNonDefaultConstructorOrConstructHandler	-739698779
 block	CallAnyReceiverHandler	0	966806
 block	CallAnyReceiverHandler	20	7013
 block	CallAnyReceiverHandler	19	959793
@@ -38240,7 +37800,6 @@ block_hint	CallAnyReceiverHandler	14	15
 block_hint	CallAnyReceiverHandler	16	17
 block_hint	CallAnyReceiverHandler	69	70
 block_hint	CallAnyReceiverHandler	54	55
-builtin_hash	CallAnyReceiverHandler	514884056
 block	CallPropertyHandler	0	4443174
 block	CallPropertyHandler	20	29999
 block	CallPropertyHandler	19	4413175
@@ -38315,7 +37874,6 @@ block_hint	CallPropertyHandler	14	15
 block_hint	CallPropertyHandler	16	17
 block_hint	CallPropertyHandler	69	70
 block_hint	CallPropertyHandler	54	55
-builtin_hash	CallPropertyHandler	514884056
 block	CallProperty0Handler	0	60166032
 block	CallProperty0Handler	20	141120
 block	CallProperty0Handler	19	60024912
@@ -38388,7 +37946,6 @@ block_hint	CallProperty0Handler	14	15
 block_hint	CallProperty0Handler	16	17
 block_hint	CallProperty0Handler	69	70
 block_hint	CallProperty0Handler	54	55
-builtin_hash	CallProperty0Handler	-898255527
 block	CallProperty1Handler	0	90340808
 block	CallProperty1Handler	20	165489
 block	CallProperty1Handler	19	90175319
@@ -38461,7 +38018,6 @@ block_hint	CallProperty1Handler	14	15
 block_hint	CallProperty1Handler	16	17
 block_hint	CallProperty1Handler	69	70
 block_hint	CallProperty1Handler	54	55
-builtin_hash	CallProperty1Handler	-863783231
 block	CallProperty2Handler	0	12418401
 block	CallProperty2Handler	20	43029
 block	CallProperty2Handler	19	12375372
@@ -38553,7 +38109,6 @@ block_hint	CallProperty2Handler	14	15
 block_hint	CallProperty2Handler	16	17
 block_hint	CallProperty2Handler	69	70
 block_hint	CallProperty2Handler	54	55
-builtin_hash	CallProperty2Handler	-859642679
 block	CallUndefinedReceiverHandler	0	4832384
 block	CallUndefinedReceiverHandler	20	8135
 block	CallUndefinedReceiverHandler	19	4824249
@@ -38626,7 +38181,6 @@ block_hint	CallUndefinedReceiverHandler	14	15
 block_hint	CallUndefinedReceiverHandler	16	17
 block_hint	CallUndefinedReceiverHandler	69	70
 block_hint	CallUndefinedReceiverHandler	54	55
-builtin_hash	CallUndefinedReceiverHandler	491544159
 block	CallUndefinedReceiver0Handler	0	26119599
 block	CallUndefinedReceiver0Handler	20	3820
 block	CallUndefinedReceiver0Handler	19	26115779
@@ -38699,7 +38253,6 @@ block_hint	CallUndefinedReceiver0Handler	14	15
 block_hint	CallUndefinedReceiver0Handler	16	17
 block_hint	CallUndefinedReceiver0Handler	69	70
 block_hint	CallUndefinedReceiver0Handler	54	55
-builtin_hash	CallUndefinedReceiver0Handler	-863798539
 block	CallUndefinedReceiver1Handler	0	40084236
 block	CallUndefinedReceiver1Handler	20	77196
 block	CallUndefinedReceiver1Handler	19	40007040
@@ -38775,7 +38328,6 @@ block_hint	CallUndefinedReceiver1Handler	14	15
 block_hint	CallUndefinedReceiver1Handler	16	17
 block_hint	CallUndefinedReceiver1Handler	69	70
 block_hint	CallUndefinedReceiver1Handler	54	55
-builtin_hash	CallUndefinedReceiver1Handler	558502336
 block	CallUndefinedReceiver2Handler	0	5175226
 block	CallUndefinedReceiver2Handler	20	14918
 block	CallUndefinedReceiver2Handler	19	5160308
@@ -38851,7 +38403,6 @@ block_hint	CallUndefinedReceiver2Handler	14	15
 block_hint	CallUndefinedReceiver2Handler	16	17
 block_hint	CallUndefinedReceiver2Handler	69	70
 block_hint	CallUndefinedReceiver2Handler	54	55
-builtin_hash	CallUndefinedReceiver2Handler	-39439157
 block	CallWithSpreadHandler	0	6139184
 block	CallWithSpreadHandler	20	512
 block	CallWithSpreadHandler	19	6138672
@@ -38920,9 +38471,7 @@ block_hint	CallWithSpreadHandler	14	15
 block_hint	CallWithSpreadHandler	16	17
 block_hint	CallWithSpreadHandler	69	70
 block_hint	CallWithSpreadHandler	54	55
-builtin_hash	CallWithSpreadHandler	181827860
 block	CallRuntimeHandler	0	7325
-builtin_hash	CallRuntimeHandler	-320960950
 block	InvokeIntrinsicHandler	0	1766831
 block	InvokeIntrinsicHandler	34	47303
 block	InvokeIntrinsicHandler	33	134839
@@ -38946,7 +38495,6 @@ block_hint	InvokeIntrinsicHandler	42	43
 block_hint	InvokeIntrinsicHandler	15	16
 block_hint	InvokeIntrinsicHandler	17	18
 block_hint	InvokeIntrinsicHandler	46	47
-builtin_hash	InvokeIntrinsicHandler	-400658332
 block	ConstructHandler	0	5094652
 block	ConstructHandler	50	31104
 block	ConstructHandler	49	5063548
@@ -39011,7 +38559,6 @@ block_hint	ConstructHandler	41	42
 block_hint	ConstructHandler	33	34
 block_hint	ConstructHandler	26	27
 block_hint	ConstructHandler	7	8
-builtin_hash	ConstructHandler	822750979
 block	ConstructWithSpreadHandler	0	27057
 block	ConstructWithSpreadHandler	17	22432
 block	ConstructWithSpreadHandler	19	13134
@@ -39044,7 +38591,6 @@ block_hint	ConstructWithSpreadHandler	7	8
 block_hint	ConstructWithSpreadHandler	24	25
 block_hint	ConstructWithSpreadHandler	22	23
 block_hint	ConstructWithSpreadHandler	3	4
-builtin_hash	ConstructWithSpreadHandler	477146740
 block	ConstructForwardAllArgsHandler	0	154662
 block	ConstructForwardAllArgsHandler	20	151924
 block	ConstructForwardAllArgsHandler	24	151924
@@ -39090,7 +38636,6 @@ block_hint	ConstructForwardAllArgsHandler	10	11
 block_hint	ConstructForwardAllArgsHandler	50	51
 block_hint	ConstructForwardAllArgsHandler	37	38
 block_hint	ConstructForwardAllArgsHandler	41	42
-builtin_hash	ConstructForwardAllArgsHandler	136661020
 block	TestEqualHandler	0	21278632
 block	TestEqualHandler	2	21439952
 block	TestEqualHandler	140	16737675
@@ -39275,7 +38820,6 @@ block_hint	TestEqualHandler	129	130
 block_hint	TestEqualHandler	89	90
 block_hint	TestEqualHandler	8	9
 block_hint	TestEqualHandler	26	27
-builtin_hash	TestEqualHandler	82508751
 block	TestEqualStrictHandler	0	36921222
 block	TestEqualStrictHandler	100	27445440
 block	TestEqualStrictHandler	106	4480416
@@ -39417,7 +38961,6 @@ block_hint	TestEqualStrictHandler	58	59
 block_hint	TestEqualStrictHandler	36	37
 block_hint	TestEqualStrictHandler	5	6
 block_hint	TestEqualStrictHandler	9	10
-builtin_hash	TestEqualStrictHandler	-1002428302
 block	TestLessThanHandler	0	24131300
 block	TestLessThanHandler	2	24190612
 block	TestLessThanHandler	127	19207110
@@ -39524,7 +39067,6 @@ block_hint	TestLessThanHandler	34	35
 block_hint	TestLessThanHandler	74	75
 block_hint	TestLessThanHandler	7	8
 block_hint	TestLessThanHandler	27	28
-builtin_hash	TestLessThanHandler	423362453
 block	TestGreaterThanHandler	0	1123829
 block	TestGreaterThanHandler	2	1123880
 block	TestGreaterThanHandler	127	596770
@@ -39628,7 +39170,6 @@ block_hint	TestGreaterThanHandler	34	35
 block_hint	TestGreaterThanHandler	74	75
 block_hint	TestGreaterThanHandler	7	8
 block_hint	TestGreaterThanHandler	27	28
-builtin_hash	TestGreaterThanHandler	-465605373
 block	TestLessThanOrEqualHandler	0	9219741
 block	TestLessThanOrEqualHandler	2	9221978
 block	TestLessThanOrEqualHandler	127	3352831
@@ -39701,7 +39242,6 @@ block_hint	TestLessThanOrEqualHandler	34	35
 block_hint	TestLessThanOrEqualHandler	74	75
 block_hint	TestLessThanOrEqualHandler	7	8
 block_hint	TestLessThanOrEqualHandler	27	28
-builtin_hash	TestLessThanOrEqualHandler	-1059934854
 block	TestGreaterThanOrEqualHandler	0	5076910
 block	TestGreaterThanOrEqualHandler	2	5077201
 block	TestGreaterThanOrEqualHandler	127	3627270
@@ -39774,7 +39314,6 @@ block_hint	TestGreaterThanOrEqualHandler	34	35
 block_hint	TestGreaterThanOrEqualHandler	74	75
 block_hint	TestGreaterThanOrEqualHandler	7	8
 block_hint	TestGreaterThanOrEqualHandler	27	28
-builtin_hash	TestGreaterThanOrEqualHandler	-402979996
 block	TestInstanceOfHandler	0	695031
 block	TestInstanceOfHandler	54	2596
 block	TestInstanceOfHandler	53	692435
@@ -39825,11 +39364,8 @@ block_hint	TestInstanceOfHandler	25	26
 block_hint	TestInstanceOfHandler	31	32
 block_hint	TestInstanceOfHandler	29	30
 block_hint	TestInstanceOfHandler	13	14
-builtin_hash	TestInstanceOfHandler	451788745
 block	TestInHandler	0	10125178
-builtin_hash	TestInHandler	949106765
 block	ToNameHandler	0	666753
-builtin_hash	ToNameHandler	159275373
 block	ToNumberHandler	0	37
 block	ToNumberHandler	9	37
 block	ToNumberHandler	12	30
@@ -39845,7 +39381,6 @@ block_hint	ToNumberHandler	9	10
 block_hint	ToNumberHandler	11	12
 block_hint	ToNumberHandler	4	5
 block_hint	ToNumberHandler	7	8
-builtin_hash	ToNumberHandler	63858089
 block	ToNumericHandler	0	341941
 block	ToNumericHandler	10	341941
 block	ToNumericHandler	6	341941
@@ -39860,9 +39395,7 @@ block_hint	ToNumericHandler	11	12
 block_hint	ToNumericHandler	13	14
 block_hint	ToNumericHandler	4	5
 block_hint	ToNumericHandler	7	8
-builtin_hash	ToNumericHandler	714981669
 block	ToObjectHandler	0	25682
-builtin_hash	ToObjectHandler	929619758
 block	ToStringHandler	0	2142576
 block	ToStringHandler	7	1015135
 block	ToStringHandler	6	1127441
@@ -39872,7 +39405,6 @@ block	ToStringHandler	3	954167
 block	ToStringHandler	2	2142576
 block_hint	ToStringHandler	6	7
 block_hint	ToStringHandler	3	4
-builtin_hash	ToStringHandler	-697005528
 block	ToBooleanHandler	0	2971194
 block	ToBooleanHandler	24	5559
 block	ToBooleanHandler	10	661
@@ -39904,7 +39436,6 @@ block_hint	ToBooleanHandler	21	22
 block_hint	ToBooleanHandler	7	8
 block_hint	ToBooleanHandler	13	14
 block_hint	ToBooleanHandler	11	12
-builtin_hash	ToBooleanHandler	686498501
 block	CreateRegExpLiteralHandler	0	93106
 block	CreateRegExpLiteralHandler	10	92911
 block	CreateRegExpLiteralHandler	12	37
@@ -39920,7 +39451,6 @@ block_hint	CreateRegExpLiteralHandler	9	10
 block_hint	CreateRegExpLiteralHandler	11	12
 block_hint	CreateRegExpLiteralHandler	7	8
 block_hint	CreateRegExpLiteralHandler	3	4
-builtin_hash	CreateRegExpLiteralHandler	-33636983
 block	CreateArrayLiteralHandler	0	1114522
 block	CreateArrayLiteralHandler	54	1098684
 block	CreateArrayLiteralHandler	49	14313
@@ -40009,9 +39539,7 @@ block_hint	CreateArrayLiteralHandler	5	6
 block_hint	CreateArrayLiteralHandler	46	47
 block_hint	CreateArrayLiteralHandler	7	8
 block_hint	CreateArrayLiteralHandler	11	12
-builtin_hash	CreateArrayLiteralHandler	-314597013
 block	CreateArrayFromIterableHandler	0	1410
-builtin_hash	CreateArrayFromIterableHandler	159275373
 block	CreateEmptyArrayLiteralHandler	0	660285
 block	CreateEmptyArrayLiteralHandler	12	652766
 block	CreateEmptyArrayLiteralHandler	18	699
@@ -40037,7 +39565,6 @@ block_hint	CreateEmptyArrayLiteralHandler	3	4
 block_hint	CreateEmptyArrayLiteralHandler	13	14
 block_hint	CreateEmptyArrayLiteralHandler	5	6
 block_hint	CreateEmptyArrayLiteralHandler	15	16
-builtin_hash	CreateEmptyArrayLiteralHandler	248379278
 block	CreateObjectLiteralHandler	0	1780930
 block	CreateObjectLiteralHandler	116	1762126
 block	CreateObjectLiteralHandler	94	131697
@@ -40178,7 +39705,6 @@ block_hint	CreateObjectLiteralHandler	132	133
 block_hint	CreateObjectLiteralHandler	58	59
 block_hint	CreateObjectLiteralHandler	22	23
 block_hint	CreateObjectLiteralHandler	26	27
-builtin_hash	CreateObjectLiteralHandler	627698033
 block	CreateEmptyObjectLiteralHandler	0	27919
 block	CreateEmptyObjectLiteralHandler	4	27919
 block	CreateEmptyObjectLiteralHandler	20	5
@@ -40201,9 +39727,7 @@ block_hint	CreateEmptyObjectLiteralHandler	10	11
 block_hint	CreateEmptyObjectLiteralHandler	6	7
 block_hint	CreateEmptyObjectLiteralHandler	8	9
 block_hint	CreateEmptyObjectLiteralHandler	12	13
-builtin_hash	CreateEmptyObjectLiteralHandler	-327598411
 block	CloneObjectHandler	0	3896
-builtin_hash	CloneObjectHandler	-367238342
 block	CreateClosureHandler	0	3434452
 block	CreateClosureHandler	8	3344890
 block	CreateClosureHandler	7	89562
@@ -40215,11 +39739,8 @@ block	CreateClosureHandler	2	3406844
 block_hint	CreateClosureHandler	7	8
 block_hint	CreateClosureHandler	2	3
 block_hint	CreateClosureHandler	4	5
-builtin_hash	CreateClosureHandler	-422299740
 block	CreateBlockContextHandler	0	903763
-builtin_hash	CreateBlockContextHandler	481114879
 block	CreateCatchContextHandler	0	28
-builtin_hash	CreateCatchContextHandler	149978397
 block	CreateFunctionContextHandler	0	6230009
 block	CreateFunctionContextHandler	20	1011
 block	CreateFunctionContextHandler	19	6228998
@@ -40244,7 +39765,6 @@ block_hint	CreateFunctionContextHandler	11	12
 block_hint	CreateFunctionContextHandler	6	7
 block_hint	CreateFunctionContextHandler	8	9
 block_hint	CreateFunctionContextHandler	13	14
-builtin_hash	CreateFunctionContextHandler	-873936905
 block	CreateMappedArgumentsHandler	0	4120
 block	CreateMappedArgumentsHandler	53	4120
 block	CreateMappedArgumentsHandler	42	4120
@@ -40335,7 +39855,6 @@ block_hint	CreateMappedArgumentsHandler	68	69
 block_hint	CreateMappedArgumentsHandler	32	33
 block_hint	CreateMappedArgumentsHandler	34	35
 block_hint	CreateMappedArgumentsHandler	72	73
-builtin_hash	CreateMappedArgumentsHandler	-489356394
 block	CreateUnmappedArgumentsHandler	0	121311
 block	CreateUnmappedArgumentsHandler	16	121311
 block	CreateUnmappedArgumentsHandler	19	121311
@@ -40373,7 +39892,6 @@ block_hint	CreateUnmappedArgumentsHandler	11	12
 block_hint	CreateUnmappedArgumentsHandler	27	28
 block_hint	CreateUnmappedArgumentsHandler	13	14
 block_hint	CreateUnmappedArgumentsHandler	23	24
-builtin_hash	CreateUnmappedArgumentsHandler	-449457818
 block	CreateRestParameterHandler	0	6797088
 block	CreateRestParameterHandler	16	6797088
 block	CreateRestParameterHandler	19	6797088
@@ -40418,7 +39936,6 @@ block_hint	CreateRestParameterHandler	29	30
 block_hint	CreateRestParameterHandler	13	14
 block_hint	CreateRestParameterHandler	27	28
 block_hint	CreateRestParameterHandler	23	24
-builtin_hash	CreateRestParameterHandler	-401034241
 block	JumpLoopHandler	0	21646172
 block	JumpLoopHandler	46	21621073
 block	JumpLoopHandler	45	25099
@@ -40451,46 +39968,36 @@ block_hint	JumpLoopHandler	13	14
 block_hint	JumpLoopHandler	15	16
 block_hint	JumpLoopHandler	37	38
 block_hint	JumpLoopHandler	11	12
-builtin_hash	JumpLoopHandler	-997501839
 block	JumpHandler	0	124994561
-builtin_hash	JumpHandler	958397376
 block	JumpConstantHandler	0	477460
-builtin_hash	JumpConstantHandler	-170945055
 block	JumpIfNullConstantHandler	0	17320
 block	JumpIfNullConstantHandler	3	17320
 block_hint	JumpIfNullConstantHandler	2	3
-builtin_hash	JumpIfNullConstantHandler	-871129857
 block	JumpIfUndefinedConstantHandler	0	3491
 block	JumpIfUndefinedConstantHandler	3	3341
 block	JumpIfUndefinedConstantHandler	2	150
 block_hint	JumpIfUndefinedConstantHandler	2	3
-builtin_hash	JumpIfUndefinedConstantHandler	-871129857
 block	JumpIfNotUndefinedConstantHandler	0	11293
 block	JumpIfNotUndefinedConstantHandler	3	2737
 block	JumpIfNotUndefinedConstantHandler	2	8556
 block_hint	JumpIfNotUndefinedConstantHandler	2	3
-builtin_hash	JumpIfNotUndefinedConstantHandler	-1015519238
 block	JumpIfUndefinedOrNullConstantHandler	0	698
 block	JumpIfUndefinedOrNullConstantHandler	6	698
 block	JumpIfUndefinedOrNullConstantHandler	4	698
 block_hint	JumpIfUndefinedOrNullConstantHandler	5	6
 block_hint	JumpIfUndefinedOrNullConstantHandler	3	4
-builtin_hash	JumpIfUndefinedOrNullConstantHandler	-342002517
 block	JumpIfTrueConstantHandler	0	1556843
 block	JumpIfTrueConstantHandler	3	1074793
 block	JumpIfTrueConstantHandler	2	482050
 block_hint	JumpIfTrueConstantHandler	2	3
-builtin_hash	JumpIfTrueConstantHandler	-871129857
 block	JumpIfFalseConstantHandler	0	2419577
 block	JumpIfFalseConstantHandler	3	1662211
 block	JumpIfFalseConstantHandler	2	757366
 block_hint	JumpIfFalseConstantHandler	2	3
-builtin_hash	JumpIfFalseConstantHandler	-871129857
 block	JumpIfForInDoneConstantHandler	0	4175
 block	JumpIfForInDoneConstantHandler	3	3484
 block	JumpIfForInDoneConstantHandler	2	691
 block_hint	JumpIfForInDoneConstantHandler	2	3
-builtin_hash	JumpIfForInDoneConstantHandler	-536262295
 block	JumpIfToBooleanTrueConstantHandler	0	2648880
 block	JumpIfToBooleanTrueConstantHandler	23	31434
 block	JumpIfToBooleanTrueConstantHandler	9	31372
@@ -40517,7 +40024,6 @@ block_hint	JumpIfToBooleanTrueConstantHandler	20	21
 block_hint	JumpIfToBooleanTrueConstantHandler	6	7
 block_hint	JumpIfToBooleanTrueConstantHandler	12	13
 block_hint	JumpIfToBooleanTrueConstantHandler	10	11
-builtin_hash	JumpIfToBooleanTrueConstantHandler	135752081
 block	JumpIfToBooleanFalseConstantHandler	0	21624054
 block	JumpIfToBooleanFalseConstantHandler	23	194398
 block	JumpIfToBooleanFalseConstantHandler	9	148548
@@ -40548,7 +40054,6 @@ block_hint	JumpIfToBooleanFalseConstantHandler	20	21
 block_hint	JumpIfToBooleanFalseConstantHandler	6	7
 block_hint	JumpIfToBooleanFalseConstantHandler	12	13
 block_hint	JumpIfToBooleanFalseConstantHandler	10	11
-builtin_hash	JumpIfToBooleanFalseConstantHandler	-853487550
 block	JumpIfToBooleanTrueHandler	0	71141901
 block	JumpIfToBooleanTrueHandler	23	546336
 block	JumpIfToBooleanTrueHandler	9	490945
@@ -40579,7 +40084,6 @@ block_hint	JumpIfToBooleanTrueHandler	20	21
 block_hint	JumpIfToBooleanTrueHandler	6	7
 block_hint	JumpIfToBooleanTrueHandler	12	13
 block_hint	JumpIfToBooleanTrueHandler	10	11
-builtin_hash	JumpIfToBooleanTrueHandler	-1016126360
 block	JumpIfToBooleanFalseHandler	0	171455297
 block	JumpIfToBooleanFalseHandler	23	2491169
 block	JumpIfToBooleanFalseHandler	9	1689080
@@ -40613,37 +40117,30 @@ block_hint	JumpIfToBooleanFalseHandler	20	21
 block_hint	JumpIfToBooleanFalseHandler	6	7
 block_hint	JumpIfToBooleanFalseHandler	12	13
 block_hint	JumpIfToBooleanFalseHandler	10	11
-builtin_hash	JumpIfToBooleanFalseHandler	109118956
 block	JumpIfTrueHandler	0	38299194
 block	JumpIfTrueHandler	3	12953507
 block	JumpIfTrueHandler	2	25345687
 block_hint	JumpIfTrueHandler	2	3
-builtin_hash	JumpIfTrueHandler	666426217
 block	JumpIfFalseHandler	0	88170842
 block	JumpIfFalseHandler	3	23286831
 block	JumpIfFalseHandler	2	64884011
 block_hint	JumpIfFalseHandler	2	3
-builtin_hash	JumpIfFalseHandler	666426217
 block	JumpIfNullHandler	0	68202
 block	JumpIfNullHandler	3	46219
 block	JumpIfNullHandler	2	21983
 block_hint	JumpIfNullHandler	2	3
-builtin_hash	JumpIfNullHandler	666426217
 block	JumpIfNotNullHandler	0	7678
 block	JumpIfNotNullHandler	3	1128
 block	JumpIfNotNullHandler	2	6550
 block_hint	JumpIfNotNullHandler	2	3
-builtin_hash	JumpIfNotNullHandler	342677261
 block	JumpIfUndefinedHandler	0	225973
 block	JumpIfUndefinedHandler	3	179214
 block	JumpIfUndefinedHandler	2	46759
 block_hint	JumpIfUndefinedHandler	2	3
-builtin_hash	JumpIfUndefinedHandler	666426217
 block	JumpIfNotUndefinedHandler	0	3791900
 block	JumpIfNotUndefinedHandler	3	2018230
 block	JumpIfNotUndefinedHandler	2	1773670
 block_hint	JumpIfNotUndefinedHandler	2	3
-builtin_hash	JumpIfNotUndefinedHandler	342677261
 block	JumpIfUndefinedOrNullHandler	0	50410809
 block	JumpIfUndefinedOrNullHandler	6	45478188
 block	JumpIfUndefinedOrNullHandler	4	44877327
@@ -40652,18 +40149,15 @@ block	JumpIfUndefinedOrNullHandler	5	4932621
 block	JumpIfUndefinedOrNullHandler	2	5533482
 block_hint	JumpIfUndefinedOrNullHandler	5	6
 block_hint	JumpIfUndefinedOrNullHandler	3	4
-builtin_hash	JumpIfUndefinedOrNullHandler	161189276
 block	JumpIfJSReceiverHandler	0	21250886
 block	JumpIfJSReceiverHandler	5	21250886
 block	JumpIfJSReceiverHandler	3	21250886
 block_hint	JumpIfJSReceiverHandler	5	6
 block_hint	JumpIfJSReceiverHandler	3	4
-builtin_hash	JumpIfJSReceiverHandler	874301561
 block	JumpIfForInDoneHandler	0	193623
 block	JumpIfForInDoneHandler	3	168827
 block	JumpIfForInDoneHandler	2	24796
 block_hint	JumpIfForInDoneHandler	2	3
-builtin_hash	JumpIfForInDoneHandler	874287252
 block	SwitchOnSmiNoFeedbackHandler	0	7043953
 block	SwitchOnSmiNoFeedbackHandler	6	6664800
 block	SwitchOnSmiNoFeedbackHandler	4	6664732
@@ -40672,7 +40166,6 @@ block	SwitchOnSmiNoFeedbackHandler	5	379153
 block	SwitchOnSmiNoFeedbackHandler	2	379221
 block_hint	SwitchOnSmiNoFeedbackHandler	5	6
 block_hint	SwitchOnSmiNoFeedbackHandler	3	4
-builtin_hash	SwitchOnSmiNoFeedbackHandler	831409200
 block	ForInEnumerateHandler	0	25682
 block	ForInEnumerateHandler	12	24119
 block	ForInEnumerateHandler	2	46626
@@ -40712,7 +40205,6 @@ block_hint	ForInEnumerateHandler	24	25
 block_hint	ForInEnumerateHandler	26	27
 block_hint	ForInEnumerateHandler	8	9
 block_hint	ForInEnumerateHandler	17	18
-builtin_hash	ForInEnumerateHandler	-934633065
 block	ForInPrepareHandler	0	25572
 block	ForInPrepareHandler	17	3110
 block	ForInPrepareHandler	10	2909
@@ -40737,7 +40229,6 @@ block_hint	ForInPrepareHandler	14	15
 block_hint	ForInPrepareHandler	18	19
 block_hint	ForInPrepareHandler	7	8
 block_hint	ForInPrepareHandler	12	13
-builtin_hash	ForInPrepareHandler	-97771361
 block	ForInNextHandler	0	171995
 block	ForInNextHandler	2	171995
 block	ForInNextHandler	5	104564
@@ -40752,45 +40243,34 @@ block_hint	ForInNextHandler	2	3
 block_hint	ForInNextHandler	4	5
 block_hint	ForInNextHandler	8	9
 block_hint	ForInNextHandler	10	11
-builtin_hash	ForInNextHandler	167929857
 block	ForInStepHandler	0	173072
-builtin_hash	ForInStepHandler	-810514171
 block	SetPendingMessageHandler	0	97
-builtin_hash	SetPendingMessageHandler	-434643338
 block	ThrowHandler	0	12
-builtin_hash	ThrowHandler	376529611
 block	ReThrowHandler	0	33
-builtin_hash	ReThrowHandler	376529611
 block	ReturnHandler	0	182560761
 block	ReturnHandler	4	71168
 block	ReturnHandler	3	182489593
 block	ReturnHandler	2	182560761
 block_hint	ReturnHandler	3	4
-builtin_hash	ReturnHandler	375671097
 block	ThrowReferenceErrorIfHoleHandler	0	116948000
 block	ThrowReferenceErrorIfHoleHandler	5	116948000
 block	ThrowReferenceErrorIfHoleHandler	3	63563050
 block	ThrowReferenceErrorIfHoleHandler	2	53384950
 block_hint	ThrowReferenceErrorIfHoleHandler	4	5
 block_hint	ThrowReferenceErrorIfHoleHandler	2	3
-builtin_hash	ThrowReferenceErrorIfHoleHandler	46735545
 block	ThrowSuperNotCalledIfHoleHandler	0	259853
 block	ThrowSuperNotCalledIfHoleHandler	3	259853
 block_hint	ThrowSuperNotCalledIfHoleHandler	2	3
-builtin_hash	ThrowSuperNotCalledIfHoleHandler	-785397403
 block	ThrowSuperAlreadyCalledIfNotHoleHandler	0	90896
 block	ThrowSuperAlreadyCalledIfNotHoleHandler	2	90896
 block_hint	ThrowSuperAlreadyCalledIfNotHoleHandler	2	3
-builtin_hash	ThrowSuperAlreadyCalledIfNotHoleHandler	-63584765
 block	ThrowIfNotSuperConstructorHandler	0	208989
 block	ThrowIfNotSuperConstructorHandler	2	208989
 block_hint	ThrowIfNotSuperConstructorHandler	2	3
-builtin_hash	ThrowIfNotSuperConstructorHandler	-493469734
 block	SwitchOnGeneratorStateHandler	0	887851
 block	SwitchOnGeneratorStateHandler	3	749266
 block	SwitchOnGeneratorStateHandler	2	138585
 block_hint	SwitchOnGeneratorStateHandler	2	3
-builtin_hash	SwitchOnGeneratorStateHandler	212939212
 block	SuspendGeneratorHandler	0	752336
 block	SuspendGeneratorHandler	2	957581
 block	SuspendGeneratorHandler	10	205245
@@ -40804,7 +40284,6 @@ block_hint	SuspendGeneratorHandler	10	11
 block_hint	SuspendGeneratorHandler	4	5
 block_hint	SuspendGeneratorHandler	8	9
 block_hint	SuspendGeneratorHandler	6	7
-builtin_hash	SuspendGeneratorHandler	-747412686
 block	ResumeGeneratorHandler	0	749266
 block	ResumeGeneratorHandler	2	2804824
 block	ResumeGeneratorHandler	7	2055558
@@ -40814,17 +40293,11 @@ block	ResumeGeneratorHandler	8	749266
 block_hint	ResumeGeneratorHandler	7	8
 block_hint	ResumeGeneratorHandler	3	4
 block_hint	ResumeGeneratorHandler	5	6
-builtin_hash	ResumeGeneratorHandler	-165051546
 block	GetIteratorHandler	0	4790243
-builtin_hash	GetIteratorHandler	-850514852
 block	ShortStarHandler	0	238023894
-builtin_hash	ShortStarHandler	784736392
 block	LdarWideHandler	0	81713
-builtin_hash	LdarWideHandler	673188120
 block	LdaSmiWideHandler	0	609166
-builtin_hash	LdaSmiWideHandler	-468653904
 block	LdaConstantWideHandler	0	3545
-builtin_hash	LdaConstantWideHandler	255049309
 block	LdaImmutableContextSlotWideHandler	0	3
 block	LdaImmutableContextSlotWideHandler	8	3
 block	LdaImmutableContextSlotWideHandler	11	3
@@ -40833,20 +40306,14 @@ block_hint	LdaImmutableContextSlotWideHandler	7	8
 block_hint	LdaImmutableContextSlotWideHandler	3	4
 block_hint	LdaImmutableContextSlotWideHandler	9	10
 block_hint	LdaImmutableContextSlotWideHandler	5	6
-builtin_hash	LdaImmutableContextSlotWideHandler	-648911272
 block	StarWideHandler	0	136536
-builtin_hash	StarWideHandler	175483508
 block	MovWideHandler	0	3527
-builtin_hash	MovWideHandler	-511351751
 block	PushContextWideHandler	0	24
-builtin_hash	PushContextWideHandler	252080824
 block	PopContextWideHandler	0	16
-builtin_hash	PopContextWideHandler	550596689
 block	TestReferenceEqualWideHandler	0	55
 block	TestReferenceEqualWideHandler	4	55
 block	TestReferenceEqualWideHandler	2	55
 block_hint	TestReferenceEqualWideHandler	3	4
-builtin_hash	TestReferenceEqualWideHandler	347831489
 block	LdaGlobalWideHandler	0	86630
 block	LdaGlobalWideHandler	73	85011
 block	LdaGlobalWideHandler	77	85011
@@ -40938,7 +40405,6 @@ block_hint	LdaGlobalWideHandler	101	102
 block_hint	LdaGlobalWideHandler	103	104
 block_hint	LdaGlobalWideHandler	66	67
 block_hint	LdaGlobalWideHandler	68	69
-builtin_hash	LdaGlobalWideHandler	-681992292
 block	GetNamedPropertyWideHandler	0	9890928
 block	GetNamedPropertyWideHandler	99	9865188
 block	GetNamedPropertyWideHandler	264	765
@@ -41145,23 +40611,14 @@ block_hint	GetNamedPropertyWideHandler	162	163
 block_hint	GetNamedPropertyWideHandler	164	165
 block_hint	GetNamedPropertyWideHandler	92	93
 block_hint	GetNamedPropertyWideHandler	94	95
-builtin_hash	GetNamedPropertyWideHandler	819034243
 block	GetKeyedPropertyWideHandler	0	73482
-builtin_hash	GetKeyedPropertyWideHandler	-871913943
 block	GetEnumeratedKeyedPropertyWideHandler	0	1524
-builtin_hash	GetEnumeratedKeyedPropertyWideHandler	-792262888
 block	SetNamedPropertyWideHandler	0	342276
-builtin_hash	SetNamedPropertyWideHandler	6440462
 block	DefineNamedOwnPropertyWideHandler	0	289355
-builtin_hash	DefineNamedOwnPropertyWideHandler	6440462
 block	SetKeyedPropertyWideHandler	0	3807
-builtin_hash	SetKeyedPropertyWideHandler	314344096
 block	DefineKeyedOwnPropertyWideHandler	0	62
-builtin_hash	DefineKeyedOwnPropertyWideHandler	-931659125
 block	StaInArrayLiteralWideHandler	0	93036
-builtin_hash	StaInArrayLiteralWideHandler	314344096
 block	DefineKeyedOwnPropertyInLiteralWideHandler	0	138
-builtin_hash	DefineKeyedOwnPropertyInLiteralWideHandler	629439305
 block	AddWideHandler	0	196552
 block	AddWideHandler	103	22276
 block	AddWideHandler	69	22201
@@ -41267,7 +40724,6 @@ block_hint	AddWideHandler	55	56
 block_hint	AddWideHandler	57	58
 block_hint	AddWideHandler	71	72
 block_hint	AddWideHandler	19	20
-builtin_hash	AddWideHandler	659265719
 block	SubWideHandler	0	5618
 block	SubWideHandler	92	2533
 block	SubWideHandler	66	2533
@@ -41338,7 +40794,6 @@ block_hint	SubWideHandler	38	39
 block_hint	SubWideHandler	42	43
 block_hint	SubWideHandler	54	55
 block_hint	SubWideHandler	17	18
-builtin_hash	SubWideHandler	1019910720
 block	MulWideHandler	0	105307
 block	MulWideHandler	121	19005
 block	MulWideHandler	104	19005
@@ -41409,7 +40864,6 @@ block_hint	MulWideHandler	39	40
 block_hint	MulWideHandler	43	44
 block_hint	MulWideHandler	54	55
 block_hint	MulWideHandler	19	20
-builtin_hash	MulWideHandler	-585324999
 block	DivWideHandler	0	158
 block	DivWideHandler	132	158
 block	DivWideHandler	121	158
@@ -41476,7 +40930,6 @@ block_hint	DivWideHandler	48	49
 block_hint	DivWideHandler	53	54
 block_hint	DivWideHandler	66	67
 block_hint	DivWideHandler	23	24
-builtin_hash	DivWideHandler	-255727312
 block	AddSmiWideHandler	0	1084935
 block	AddSmiWideHandler	26	22599
 block	AddSmiWideHandler	18	22599
@@ -41510,7 +40963,6 @@ block_hint	AddSmiWideHandler	21	22
 block_hint	AddSmiWideHandler	23	24
 block_hint	AddSmiWideHandler	28	29
 block_hint	AddSmiWideHandler	9	10
-builtin_hash	AddSmiWideHandler	-924661049
 block	SubSmiWideHandler	0	135
 block	SubSmiWideHandler	35	34
 block	SubSmiWideHandler	24	34
@@ -41545,7 +40997,6 @@ block_hint	SubSmiWideHandler	21	22
 block_hint	SubSmiWideHandler	25	26
 block_hint	SubSmiWideHandler	30	31
 block_hint	SubSmiWideHandler	9	10
-builtin_hash	SubSmiWideHandler	-58232199
 block	MulSmiWideHandler	0	113724
 block	MulSmiWideHandler	46	24977
 block	MulSmiWideHandler	52	24976
@@ -41597,7 +41048,6 @@ block_hint	MulSmiWideHandler	20	21
 block_hint	MulSmiWideHandler	24	25
 block_hint	MulSmiWideHandler	28	29
 block_hint	MulSmiWideHandler	9	10
-builtin_hash	MulSmiWideHandler	244354641
 block	DivSmiWideHandler	0	193844
 block	DivSmiWideHandler	50	10058
 block	DivSmiWideHandler	46	10058
@@ -41649,7 +41099,6 @@ block_hint	DivSmiWideHandler	21	22
 block_hint	DivSmiWideHandler	25	26
 block_hint	DivSmiWideHandler	31	32
 block_hint	DivSmiWideHandler	9	10
-builtin_hash	DivSmiWideHandler	252736283
 block	ModSmiWideHandler	0	27462
 block	ModSmiWideHandler	47	41
 block	ModSmiWideHandler	42	41
@@ -41688,7 +41137,6 @@ block_hint	ModSmiWideHandler	20	21
 block_hint	ModSmiWideHandler	24	25
 block_hint	ModSmiWideHandler	28	29
 block_hint	ModSmiWideHandler	9	10
-builtin_hash	ModSmiWideHandler	-134610922
 block	BitwiseOrSmiWideHandler	0	52680
 block	BitwiseOrSmiWideHandler	8	52680
 block	BitwiseOrSmiWideHandler	20	52680
@@ -41712,7 +41160,6 @@ block_hint	BitwiseOrSmiWideHandler	42	43
 block_hint	BitwiseOrSmiWideHandler	34	35
 block_hint	BitwiseOrSmiWideHandler	13	14
 block_hint	BitwiseOrSmiWideHandler	21	22
-builtin_hash	BitwiseOrSmiWideHandler	839033466
 block	BitwiseAndSmiWideHandler	0	3505
 block	BitwiseAndSmiWideHandler	8	3380
 block	BitwiseAndSmiWideHandler	7	125
@@ -41744,7 +41191,6 @@ block_hint	BitwiseAndSmiWideHandler	42	43
 block_hint	BitwiseAndSmiWideHandler	34	35
 block_hint	BitwiseAndSmiWideHandler	13	14
 block_hint	BitwiseAndSmiWideHandler	21	22
-builtin_hash	BitwiseAndSmiWideHandler	185523773
 block	ShiftRightLogicalSmiWideHandler	0	120
 block	ShiftRightLogicalSmiWideHandler	8	120
 block	ShiftRightLogicalSmiWideHandler	46	120
@@ -41774,7 +41220,6 @@ block_hint	ShiftRightLogicalSmiWideHandler	52	53
 block_hint	ShiftRightLogicalSmiWideHandler	37	38
 block_hint	ShiftRightLogicalSmiWideHandler	13	14
 block_hint	ShiftRightLogicalSmiWideHandler	21	22
-builtin_hash	ShiftRightLogicalSmiWideHandler	-1023270282
 block	IncWideHandler	0	758758
 block	IncWideHandler	2	758758
 block	IncWideHandler	31	758758
@@ -41796,7 +41241,6 @@ block_hint	IncWideHandler	19	20
 block_hint	IncWideHandler	26	27
 block_hint	IncWideHandler	8	9
 block_hint	IncWideHandler	17	18
-builtin_hash	IncWideHandler	736143145
 block	NegateWideHandler	0	3429
 block	NegateWideHandler	2	3429
 block	NegateWideHandler	34	3429
@@ -41823,7 +41267,6 @@ block_hint	NegateWideHandler	19	20
 block_hint	NegateWideHandler	29	30
 block_hint	NegateWideHandler	8	9
 block_hint	NegateWideHandler	17	18
-builtin_hash	NegateWideHandler	-966932695
 block	CallAnyReceiverWideHandler	0	15
 block	CallAnyReceiverWideHandler	20	9
 block	CallAnyReceiverWideHandler	19	6
@@ -41875,7 +41318,6 @@ block_hint	CallAnyReceiverWideHandler	14	15
 block_hint	CallAnyReceiverWideHandler	16	17
 block_hint	CallAnyReceiverWideHandler	69	70
 block_hint	CallAnyReceiverWideHandler	54	55
-builtin_hash	CallAnyReceiverWideHandler	350247760
 block	CallPropertyWideHandler	0	75007
 block	CallPropertyWideHandler	20	759
 block	CallPropertyWideHandler	19	74248
@@ -41927,7 +41369,6 @@ block_hint	CallPropertyWideHandler	14	15
 block_hint	CallPropertyWideHandler	16	17
 block_hint	CallPropertyWideHandler	69	70
 block_hint	CallPropertyWideHandler	54	55
-builtin_hash	CallPropertyWideHandler	350247760
 block	CallProperty0WideHandler	0	685154
 block	CallProperty0WideHandler	20	4093
 block	CallProperty0WideHandler	19	681061
@@ -41996,7 +41437,6 @@ block_hint	CallProperty0WideHandler	14	15
 block_hint	CallProperty0WideHandler	16	17
 block_hint	CallProperty0WideHandler	69	70
 block_hint	CallProperty0WideHandler	54	55
-builtin_hash	CallProperty0WideHandler	-209746324
 block	CallProperty1WideHandler	0	1383807
 block	CallProperty1WideHandler	20	6378
 block	CallProperty1WideHandler	19	1377429
@@ -42062,7 +41502,6 @@ block_hint	CallProperty1WideHandler	14	15
 block_hint	CallProperty1WideHandler	16	17
 block_hint	CallProperty1WideHandler	69	70
 block_hint	CallProperty1WideHandler	54	55
-builtin_hash	CallProperty1WideHandler	-966394378
 block	CallProperty2WideHandler	0	317163
 block	CallProperty2WideHandler	20	3132
 block	CallProperty2WideHandler	19	314031
@@ -42128,7 +41567,6 @@ block_hint	CallProperty2WideHandler	14	15
 block_hint	CallProperty2WideHandler	16	17
 block_hint	CallProperty2WideHandler	69	70
 block_hint	CallProperty2WideHandler	54	55
-builtin_hash	CallProperty2WideHandler	-407364668
 block	CallUndefinedReceiverWideHandler	0	52922
 block	CallUndefinedReceiverWideHandler	20	512
 block	CallUndefinedReceiverWideHandler	19	52410
@@ -42180,7 +41618,6 @@ block_hint	CallUndefinedReceiverWideHandler	14	15
 block_hint	CallUndefinedReceiverWideHandler	16	17
 block_hint	CallUndefinedReceiverWideHandler	69	70
 block_hint	CallUndefinedReceiverWideHandler	54	55
-builtin_hash	CallUndefinedReceiverWideHandler	810224968
 block	CallUndefinedReceiver0WideHandler	0	3277
 block	CallUndefinedReceiver0WideHandler	20	290
 block	CallUndefinedReceiver0WideHandler	19	2987
@@ -42232,7 +41669,6 @@ block_hint	CallUndefinedReceiver0WideHandler	14	15
 block_hint	CallUndefinedReceiver0WideHandler	16	17
 block_hint	CallUndefinedReceiver0WideHandler	69	70
 block_hint	CallUndefinedReceiver0WideHandler	54	55
-builtin_hash	CallUndefinedReceiver0WideHandler	64583451
 block	CallUndefinedReceiver1WideHandler	0	49858
 block	CallUndefinedReceiver1WideHandler	20	2157
 block	CallUndefinedReceiver1WideHandler	19	47701
@@ -42285,7 +41721,6 @@ block_hint	CallUndefinedReceiver1WideHandler	14	15
 block_hint	CallUndefinedReceiver1WideHandler	16	17
 block_hint	CallUndefinedReceiver1WideHandler	69	70
 block_hint	CallUndefinedReceiver1WideHandler	54	55
-builtin_hash	CallUndefinedReceiver1WideHandler	191535234
 block	CallUndefinedReceiver2WideHandler	0	157689
 block	CallUndefinedReceiver2WideHandler	20	971
 block	CallUndefinedReceiver2WideHandler	19	156718
@@ -42354,7 +41789,6 @@ block_hint	CallUndefinedReceiver2WideHandler	14	15
 block_hint	CallUndefinedReceiver2WideHandler	16	17
 block_hint	CallUndefinedReceiver2WideHandler	69	70
 block_hint	CallUndefinedReceiver2WideHandler	54	55
-builtin_hash	CallUndefinedReceiver2WideHandler	1040687568
 block	CallWithSpreadWideHandler	0	1
 block	CallWithSpreadWideHandler	20	1
 block	CallWithSpreadWideHandler	4	1
@@ -42390,9 +41824,7 @@ block_hint	CallWithSpreadWideHandler	14	15
 block_hint	CallWithSpreadWideHandler	16	17
 block_hint	CallWithSpreadWideHandler	69	70
 block_hint	CallWithSpreadWideHandler	54	55
-builtin_hash	CallWithSpreadWideHandler	-628404632
 block	CallRuntimeWideHandler	0	1572
-builtin_hash	CallRuntimeWideHandler	1039872370
 block	ConstructWideHandler	0	40618
 block	ConstructWideHandler	43	1020
 block	ConstructWideHandler	42	39598
@@ -42447,7 +41879,6 @@ block_hint	ConstructWideHandler	50	51
 block_hint	ConstructWideHandler	32	33
 block_hint	ConstructWideHandler	23	24
 block_hint	ConstructWideHandler	19	20
-builtin_hash	ConstructWideHandler	-163291338
 block	TestEqualWideHandler	0	224372
 block	TestEqualWideHandler	2	224375
 block	TestEqualWideHandler	140	172816
@@ -42563,7 +41994,6 @@ block_hint	TestEqualWideHandler	129	130
 block_hint	TestEqualWideHandler	89	90
 block_hint	TestEqualWideHandler	8	9
 block_hint	TestEqualWideHandler	26	27
-builtin_hash	TestEqualWideHandler	150312204
 block	TestEqualStrictWideHandler	0	2424541
 block	TestEqualStrictWideHandler	100	240922
 block	TestEqualStrictWideHandler	106	103963
@@ -42677,7 +42107,6 @@ block_hint	TestEqualStrictWideHandler	58	59
 block_hint	TestEqualStrictWideHandler	36	37
 block_hint	TestEqualStrictWideHandler	5	6
 block_hint	TestEqualStrictWideHandler	9	10
-builtin_hash	TestEqualStrictWideHandler	485149581
 block	TestLessThanWideHandler	0	66686
 block	TestLessThanWideHandler	2	67978
 block	TestLessThanWideHandler	127	66068
@@ -42750,7 +42179,6 @@ block_hint	TestLessThanWideHandler	34	35
 block_hint	TestLessThanWideHandler	74	75
 block_hint	TestLessThanWideHandler	7	8
 block_hint	TestLessThanWideHandler	27	28
-builtin_hash	TestLessThanWideHandler	389913600
 block	TestGreaterThanWideHandler	0	8772
 block	TestGreaterThanWideHandler	2	8772
 block	TestGreaterThanWideHandler	127	6615
@@ -42813,7 +42241,6 @@ block_hint	TestGreaterThanWideHandler	34	35
 block_hint	TestGreaterThanWideHandler	74	75
 block_hint	TestGreaterThanWideHandler	7	8
 block_hint	TestGreaterThanWideHandler	27	28
-builtin_hash	TestGreaterThanWideHandler	-278703986
 block	TestLessThanOrEqualWideHandler	0	76167
 block	TestLessThanOrEqualWideHandler	2	76167
 block	TestLessThanOrEqualWideHandler	127	18299
@@ -42877,7 +42304,6 @@ block_hint	TestLessThanOrEqualWideHandler	34	35
 block_hint	TestLessThanOrEqualWideHandler	74	75
 block_hint	TestLessThanOrEqualWideHandler	7	8
 block_hint	TestLessThanOrEqualWideHandler	27	28
-builtin_hash	TestLessThanOrEqualWideHandler	622020838
 block	TestGreaterThanOrEqualWideHandler	0	39532
 block	TestGreaterThanOrEqualWideHandler	2	39532
 block	TestGreaterThanOrEqualWideHandler	127	22507
@@ -42940,7 +42366,6 @@ block_hint	TestGreaterThanOrEqualWideHandler	34	35
 block_hint	TestGreaterThanOrEqualWideHandler	74	75
 block_hint	TestGreaterThanOrEqualWideHandler	7	8
 block_hint	TestGreaterThanOrEqualWideHandler	27	28
-builtin_hash	TestGreaterThanOrEqualWideHandler	-752632423
 block	TestInstanceOfWideHandler	0	12
 block	TestInstanceOfWideHandler	53	12
 block	TestInstanceOfWideHandler	56	1
@@ -42986,11 +42411,8 @@ block_hint	TestInstanceOfWideHandler	25	26
 block_hint	TestInstanceOfWideHandler	31	32
 block_hint	TestInstanceOfWideHandler	29	30
 block_hint	TestInstanceOfWideHandler	13	14
-builtin_hash	TestInstanceOfWideHandler	507817597
 block	TestInWideHandler	0	11
-builtin_hash	TestInWideHandler	598325752
 block	ToObjectWideHandler	0	2
-builtin_hash	ToObjectWideHandler	-211181242
 block	CreateRegExpLiteralWideHandler	0	1
 block	CreateRegExpLiteralWideHandler	9	1
 block	CreateRegExpLiteralWideHandler	6	1
@@ -42999,7 +42421,6 @@ block_hint	CreateRegExpLiteralWideHandler	9	10
 block_hint	CreateRegExpLiteralWideHandler	11	12
 block_hint	CreateRegExpLiteralWideHandler	7	8
 block_hint	CreateRegExpLiteralWideHandler	3	4
-builtin_hash	CreateRegExpLiteralWideHandler	-450035957
 block	CreateArrayLiteralWideHandler	0	61478
 block	CreateArrayLiteralWideHandler	33	15
 block	CreateArrayLiteralWideHandler	30	15
@@ -43046,7 +42467,6 @@ block_hint	CreateArrayLiteralWideHandler	69	70
 block_hint	CreateArrayLiteralWideHandler	46	47
 block_hint	CreateArrayLiteralWideHandler	6	7
 block_hint	CreateArrayLiteralWideHandler	28	29
-builtin_hash	CreateArrayLiteralWideHandler	301463824
 block	CreateEmptyArrayLiteralWideHandler	0	9708
 block	CreateEmptyArrayLiteralWideHandler	12	9632
 block	CreateEmptyArrayLiteralWideHandler	18	14
@@ -43070,7 +42490,6 @@ block_hint	CreateEmptyArrayLiteralWideHandler	3	4
 block_hint	CreateEmptyArrayLiteralWideHandler	13	14
 block_hint	CreateEmptyArrayLiteralWideHandler	5	6
 block_hint	CreateEmptyArrayLiteralWideHandler	15	16
-builtin_hash	CreateEmptyArrayLiteralWideHandler	-599773025
 block	CreateObjectLiteralWideHandler	0	77201
 block	CreateObjectLiteralWideHandler	74	15053
 block	CreateObjectLiteralWideHandler	64	15053
@@ -43182,9 +42601,7 @@ block_hint	CreateObjectLiteralWideHandler	113	114
 block_hint	CreateObjectLiteralWideHandler	115	116
 block_hint	CreateObjectLiteralWideHandler	128	129
 block_hint	CreateObjectLiteralWideHandler	55	56
-builtin_hash	CreateObjectLiteralWideHandler	623073216
 block	CloneObjectWideHandler	0	8
-builtin_hash	CloneObjectWideHandler	-132139232
 block	CreateClosureWideHandler	0	5250
 block	CreateClosureWideHandler	7	5250
 block	CreateClosureWideHandler	6	5250
@@ -43194,9 +42611,7 @@ block	CreateClosureWideHandler	2	5220
 block_hint	CreateClosureWideHandler	7	8
 block_hint	CreateClosureWideHandler	2	3
 block_hint	CreateClosureWideHandler	4	5
-builtin_hash	CreateClosureWideHandler	-309733169
 block	CreateBlockContextWideHandler	0	24
-builtin_hash	CreateBlockContextWideHandler	-374155471
 block	JumpLoopWideHandler	0	9372905
 block	JumpLoopWideHandler	46	9366662
 block	JumpLoopWideHandler	45	6243
@@ -43229,9 +42644,7 @@ block_hint	JumpLoopWideHandler	13	14
 block_hint	JumpLoopWideHandler	15	16
 block_hint	JumpLoopWideHandler	37	38
 block_hint	JumpLoopWideHandler	11	12
-builtin_hash	JumpLoopWideHandler	-347527453
 block	JumpWideHandler	0	164
-builtin_hash	JumpWideHandler	958397376
 block	JumpIfToBooleanTrueWideHandler	0	357
 block	JumpIfToBooleanTrueWideHandler	22	357
 block	JumpIfToBooleanTrueWideHandler	15	31
@@ -43252,7 +42665,6 @@ block_hint	JumpIfToBooleanTrueWideHandler	20	21
 block_hint	JumpIfToBooleanTrueWideHandler	6	7
 block_hint	JumpIfToBooleanTrueWideHandler	12	13
 block_hint	JumpIfToBooleanTrueWideHandler	10	11
-builtin_hash	JumpIfToBooleanTrueWideHandler	-720171909
 block	JumpIfToBooleanFalseWideHandler	0	762
 block	JumpIfToBooleanFalseWideHandler	22	762
 block	JumpIfToBooleanFalseWideHandler	15	319
@@ -43270,21 +42682,17 @@ block_hint	JumpIfToBooleanFalseWideHandler	20	21
 block_hint	JumpIfToBooleanFalseWideHandler	6	7
 block_hint	JumpIfToBooleanFalseWideHandler	12	13
 block_hint	JumpIfToBooleanFalseWideHandler	10	11
-builtin_hash	JumpIfToBooleanFalseWideHandler	-500097280
 block	JumpIfTrueWideHandler	0	290
 block	JumpIfTrueWideHandler	3	289
 block	JumpIfTrueWideHandler	2	1
 block_hint	JumpIfTrueWideHandler	2	3
-builtin_hash	JumpIfTrueWideHandler	925747621
 block	JumpIfFalseWideHandler	0	212
 block	JumpIfFalseWideHandler	3	79
 block	JumpIfFalseWideHandler	2	133
 block_hint	JumpIfFalseWideHandler	2	3
-builtin_hash	JumpIfFalseWideHandler	925747621
 block	JumpIfUndefinedWideHandler	0	1106
 block	JumpIfUndefinedWideHandler	3	1106
 block_hint	JumpIfUndefinedWideHandler	2	3
-builtin_hash	JumpIfUndefinedWideHandler	925747621
 block	JumpIfUndefinedOrNullWideHandler	0	58
 block	JumpIfUndefinedOrNullWideHandler	6	4
 block	JumpIfUndefinedOrNullWideHandler	4	4
@@ -43292,18 +42700,15 @@ block	JumpIfUndefinedOrNullWideHandler	5	54
 block	JumpIfUndefinedOrNullWideHandler	2	54
 block_hint	JumpIfUndefinedOrNullWideHandler	5	6
 block_hint	JumpIfUndefinedOrNullWideHandler	3	4
-builtin_hash	JumpIfUndefinedOrNullWideHandler	-347538321
 block	JumpIfJSReceiverWideHandler	0	163
 block	JumpIfJSReceiverWideHandler	5	163
 block	JumpIfJSReceiverWideHandler	3	163
 block_hint	JumpIfJSReceiverWideHandler	5	6
 block_hint	JumpIfJSReceiverWideHandler	3	4
-builtin_hash	JumpIfJSReceiverWideHandler	309446646
 block	JumpIfForInDoneWideHandler	0	1110
 block	JumpIfForInDoneWideHandler	3	1106
 block	JumpIfForInDoneWideHandler	2	4
 block_hint	JumpIfForInDoneWideHandler	2	3
-builtin_hash	JumpIfForInDoneWideHandler	890091924
 block	ForInEnumerateWideHandler	0	2
 block	ForInEnumerateWideHandler	11	2
 block	ForInEnumerateWideHandler	23	1
@@ -43330,7 +42735,6 @@ block_hint	ForInEnumerateWideHandler	24	25
 block_hint	ForInEnumerateWideHandler	26	27
 block_hint	ForInEnumerateWideHandler	8	9
 block_hint	ForInEnumerateWideHandler	17	18
-builtin_hash	ForInEnumerateWideHandler	307875775
 block	ForInPrepareWideHandler	0	112
 block	ForInPrepareWideHandler	17	110
 block	ForInPrepareWideHandler	10	97
@@ -43351,7 +42755,6 @@ block_hint	ForInPrepareWideHandler	14	15
 block_hint	ForInPrepareWideHandler	18	19
 block_hint	ForInPrepareWideHandler	7	8
 block_hint	ForInPrepareWideHandler	12	13
-builtin_hash	ForInPrepareWideHandler	954762735
 block	ForInNextWideHandler	0	1422
 block	ForInNextWideHandler	2	1422
 block	ForInNextWideHandler	5	1092
@@ -43365,23 +42768,15 @@ block_hint	ForInNextWideHandler	2	3
 block_hint	ForInNextWideHandler	4	5
 block_hint	ForInNextWideHandler	8	9
 block_hint	ForInNextWideHandler	10	11
-builtin_hash	ForInNextWideHandler	335700843
 block	ForInStepWideHandler	0	152
-builtin_hash	ForInStepWideHandler	52928716
 block	ThrowReferenceErrorIfHoleWideHandler	0	5
 block	ThrowReferenceErrorIfHoleWideHandler	3	5
 block_hint	ThrowReferenceErrorIfHoleWideHandler	2	3
-builtin_hash	ThrowReferenceErrorIfHoleWideHandler	-807563422
 block	GetIteratorWideHandler	0	55419
-builtin_hash	GetIteratorWideHandler	968643654
 block	LdaSmiExtraWideHandler	0	894928
-builtin_hash	LdaSmiExtraWideHandler	809600339
 block	SetNamedPropertyExtraWideHandler	0	3
-builtin_hash	SetNamedPropertyExtraWideHandler	1011743451
 block	DefineNamedOwnPropertyExtraWideHandler	0	147366
-builtin_hash	DefineNamedOwnPropertyExtraWideHandler	1011743451
 block	StaInArrayLiteralExtraWideHandler	0	4293
-builtin_hash	StaInArrayLiteralExtraWideHandler	324079323
 block	MulSmiExtraWideHandler	0	10968
 block	MulSmiExtraWideHandler	46	10958
 block	MulSmiExtraWideHandler	52	10958
@@ -43429,7 +42824,6 @@ block_hint	MulSmiExtraWideHandler	20	21
 block_hint	MulSmiExtraWideHandler	24	25
 block_hint	MulSmiExtraWideHandler	28	29
 block_hint	MulSmiExtraWideHandler	9	10
-builtin_hash	MulSmiExtraWideHandler	-377313863
 block	DivSmiExtraWideHandler	0	1146
 block	DivSmiExtraWideHandler	50	1020
 block	DivSmiExtraWideHandler	46	1020
@@ -43480,7 +42874,6 @@ block_hint	DivSmiExtraWideHandler	21	22
 block_hint	DivSmiExtraWideHandler	25	26
 block_hint	DivSmiExtraWideHandler	31	32
 block_hint	DivSmiExtraWideHandler	9	10
-builtin_hash	DivSmiExtraWideHandler	437813791
 block	BitwiseAndSmiExtraWideHandler	0	10075745
 block	BitwiseAndSmiExtraWideHandler	8	5115341
 block	BitwiseAndSmiExtraWideHandler	7	4960404
@@ -43512,7 +42905,6 @@ block_hint	BitwiseAndSmiExtraWideHandler	42	43
 block_hint	BitwiseAndSmiExtraWideHandler	34	35
 block_hint	BitwiseAndSmiExtraWideHandler	13	14
 block_hint	BitwiseAndSmiExtraWideHandler	21	22
-builtin_hash	BitwiseAndSmiExtraWideHandler	-281967965
 block	ConstructExtraWideHandler	0	3
 block	ConstructExtraWideHandler	43	3
 block	ConstructExtraWideHandler	31	3
@@ -43540,7 +42932,6 @@ block_hint	ConstructExtraWideHandler	50	51
 block_hint	ConstructExtraWideHandler	32	33
 block_hint	ConstructExtraWideHandler	23	24
 block_hint	ConstructExtraWideHandler	19	20
-builtin_hash	ConstructExtraWideHandler	-1040065733
 block	CreateArrayLiteralExtraWideHandler	0	4290
 block	CreateArrayLiteralExtraWideHandler	32	4290
 block	CreateArrayLiteralExtraWideHandler	8	4290
@@ -43573,7 +42964,6 @@ block_hint	CreateArrayLiteralExtraWideHandler	69	70
 block_hint	CreateArrayLiteralExtraWideHandler	46	47
 block_hint	CreateArrayLiteralExtraWideHandler	6	7
 block_hint	CreateArrayLiteralExtraWideHandler	28	29
-builtin_hash	CreateArrayLiteralExtraWideHandler	-1000465466
 block	CreateObjectLiteralExtraWideHandler	0	4290
 block	CreateObjectLiteralExtraWideHandler	73	4290
 block	CreateObjectLiteralExtraWideHandler	24	4290
@@ -43631,4 +43021,3 @@ block_hint	CreateObjectLiteralExtraWideHandler	107	108
 block_hint	CreateObjectLiteralExtraWideHandler	109	110
 block_hint	CreateObjectLiteralExtraWideHandler	47	48
 block_hint	CreateObjectLiteralExtraWideHandler	92	93
-block_hint	CreateObjectLite
