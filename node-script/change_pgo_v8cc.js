@@ -12,7 +12,7 @@ let context = fs.readFileSync(filepath, 'utf-8');
 const run_mksnapshot_start = context.indexOf('template("run_mksnapshot") {')
 const run_mksnapshot_end = context.indexOf('run_mksnapshot("default") {')
 
-let new_context = context.slice(0, run_mksnapshot_start) + context.slice(run_mksnapshot_start, run_mksnapshot_end).replace(/current_cpu/g, 'v8_cross_cpu') + context.slice(run_mksnapshot_end)
+let new_context = context.slice(0, run_mksnapshot_start) + context.slice(run_mksnapshot_start, run_mksnapshot_end).replace("$current_cpu", target_cpu) + context.slice(run_mksnapshot_end)
 
 fs.writeFileSync(filepath, new_context);
 
