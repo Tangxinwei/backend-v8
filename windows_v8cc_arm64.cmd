@@ -65,7 +65,7 @@ if "%V8_PROFILING_LOG_FILE%"=="0" (
     echo "no profiling_log_file"
 ) else (
     echo "pgodata:"
-    set GN_ARGS=%GN_ARGS% v8_builtins_profiling_log_file=""%GITHUB_WORKSPACE%\%V8_PROFILING_LOG_FILE%\android_result\merged.profile""
+    set GN_ARGS=%GN_ARGS% v8_builtins_profiling_log_file=""%GITHUB_WORKSPACE%\%V8_PROFILING_LOG_FILE%\android_result\merged.profile" v8_target_cpu=""arm64""
 )
 
 echo =====[ Building V8 ]=====
