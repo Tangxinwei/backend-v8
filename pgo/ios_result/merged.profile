@@ -5734,7 +5734,6 @@ block_hint,BitwiseAndSmiExtraWideHandler,34,35,0
 block_hint,BitwiseAndSmiExtraWideHandler,13,14,0
 block_hint,BitwiseAndSmiExtraWideHandler,21,22,1
 block_hint,CreateArrayLiteralExtraWideHandler,32,33,1
-block_hint,CreateObjectLiteralExtraWideHandler,73,74,1
 block_hint,RecordWriteIgnoreFP,50,51,1
 block_hint,FastNewClosure,18,19,0
 block_hint,KeyedLoadIC_PolymorphicName,122,123,1

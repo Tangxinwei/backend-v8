@@ -6643,7 +6643,6 @@ block_hint,JumpIfForInDoneWideHandler,2,3,0
 block_hint,ForInNextWideHandler,2,3,1
 block_hint,ForInNextWideHandler,8,9,1
 block_hint,CreateArrayLiteralExtraWideHandler,32,33,1
-block_hint,CreateObjectLiteralExtraWideHandler,73,74,1
 builtin_count,RecordWriteSaveFP,223
 builtin_count,RecordWriteIgnoreFP,3
 builtin_count,EphemeronKeyBarrierSaveFP,0

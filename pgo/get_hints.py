@@ -153,6 +153,8 @@ def write_hints_to_output(output_file, branch_hints, builtin_hashes,
   try:
     with open(output_file, "w") as f:
       for key in branch_hints:
+        if key[0] not in builtin_hashes:
+          continue
         f.write("{},{},{},{},{}\n".format(BRANCH_HINT_MARKER, key[0], key[1],
                                           key[2], branch_hints[key]))
       # Put the NORMALIZED_BUILTIN_COUNT_MARKER before NORMALIZED_BLOCK_COUNT_MARKER,

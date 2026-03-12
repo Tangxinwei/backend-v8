@@ -13,20 +13,6 @@ block_hint,RecordWriteIgnoreFP,50,51,1
 block_hint,RecordWriteIgnoreFP,43,44,0
 block_hint,RecordWriteIgnoreFP,40,41,0
 block_hint,RecordWriteIgnoreFP,24,25,1
-block_hint,Call_ReceiverIsNullOrUndefined_Baseline_Compact,19,20,1
-block_hint,Call_ReceiverIsNullOrUndefined_Baseline_Compact,83,84,0
-block_hint,Call_ReceiverIsNullOrUndefined_Baseline_Compact,80,81,0
-block_hint,Call_ReceiverIsNullOrUndefined_Baseline_Compact,63,64,0
-block_hint,Call_ReceiverIsNullOrUndefined_Baseline_Compact,35,36,1
-block_hint,Call_ReceiverIsNullOrUndefined_Baseline_Compact,67,68,1
-block_hint,Call_ReceiverIsNullOrUndefined_Baseline_Compact,50,51,0
-block_hint,Call_ReceiverIsNullOrUndefined_Baseline_Compact,29,30,1
-block_hint,Call_ReceiverIsNullOrUndefined_Baseline_Compact,7,8,1
-block_hint,Call_ReceiverIsNullOrUndefined_Baseline_Compact,61,62,0
-block_hint,Call_ReceiverIsNullOrUndefined_Baseline_Compact,14,15,1
-block_hint,Call_ReceiverIsNullOrUndefined_Baseline_Compact,16,17,0
-block_hint,Call_ReceiverIsNullOrUndefined_Baseline_Compact,69,70,0
-block_hint,Call_ReceiverIsNullOrUndefined_Baseline_Compact,54,55,1
 block_hint,Call_ReceiverIsNotNullOrUndefined_Baseline_Compact,19,20,1
 block_hint,Call_ReceiverIsNotNullOrUndefined_Baseline_Compact,83,84,0
 block_hint,Call_ReceiverIsNotNullOrUndefined_Baseline_Compact,80,81,0
@@ -5849,7 +5835,6 @@ block_hint,JumpIfForInDoneWideHandler,2,3,0
 block_hint,ForInNextWideHandler,2,3,1
 block_hint,ForInNextWideHandler,8,9,1
 block_hint,CreateArrayLiteralExtraWideHandler,32,33,1
-block_hint,CreateObjectLiteralExtraWideHandler,73,74,1
 block_hint,RecordWriteSaveFP,52,53,0
 block_hint,ToBigIntConvertNumber,5,6,1
 block_hint,ToBigIntConvertNumber,2,3,0
@@ -5892,7 +5877,6 @@ builtin_hash,RecordWriteSaveFP,786070009
 builtin_hash,RecordWriteIgnoreFP,786070009
 builtin_hash,EphemeronKeyBarrierSaveFP,-734185455
 builtin_hash,AdaptorWithBuiltinExitFrame,-990847691
-builtin_hash,Call_ReceiverIsNullOrUndefined_Baseline_Compact,-272991554
 builtin_hash,Call_ReceiverIsNotNullOrUndefined_Baseline_Compact,-904541315
 builtin_hash,Call_ReceiverIsAny_Baseline_Compact,-904541315
 builtin_hash,CallWithSpread,821961127
