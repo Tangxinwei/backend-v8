@@ -13,7 +13,13 @@ def do_dir(dir_name):
       old_content = []
       with open(file_path, 'r', encoding='utf-8') as f:
         old_content = f.readlines()
-      new_content = [c for c in old_content if len(c.strip().split('\t')) == 4]
+      expected_cols = {'block': 4, 'block_hint': 4, 'builtin_hash': 3}
+      if old_content:
+        last = old_content[-1].strip().split('\t')
+        if expected_cols.get(last[0]) != len(last):
+          print("stripped:", old_content[:-1])
+          old_content = old_content[:-1]
+      new_content = old_content
       with open(file_path, 'w', encoding='utf-8') as f:
         f.writelines(new_content)
       in_param = ['python', 'get_hints.py', '--min', '100', '--ratio', '40', file_path, os.path.join(dir_name + '_result', filename)]
