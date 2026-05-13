@@ -1,6 +1,7 @@
 #!/bin/bash
 
 VERSION=$1
+USE_ZONE_MEMORY_TRIM=$2
 [ -z "$GITHUB_WORKSPACE" ] && GITHUB_WORKSPACE="$( cd "$( dirname "$0" )"/.. && pwd )"
 
 if [ "$VERSION" == "10.6.194" -o "$VERSION" == "11.8.172" ]; then 
@@ -78,6 +79,13 @@ node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/o
 cd ../third_party/zlib
 node $GITHUB_WORKSPACE/node-script/do-gitpatch.js -p $GITHUB_WORKSPACE/patches/ohos_zlib_v$VERSION.patch
 cd ../..
+
+git add -A
+git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
+
+if [ "$USE_ZONE_MEMORY_TRIM" == "true" ]; then
+  node $GITHUB_WORKSPACE/node-script/do-gitpatch-commit.js -p $GITHUB_WORKSPACE/patches/v8-zone-resize-memory.patch
+fi
 
 echo "=====[ Building V8 ]====="
 gn gen --args="target_os=\"ohos\" target_cpu=\"arm\" is_debug = false v8_enable_i18n_support= false v8_target_cpu = \"arm\" use_goma = false v8_use_external_startup_data = false v8_static_library = true strip_debug_info = false symbol_level=1 use_custom_libcxx=false use_custom_libcxx_for_host=true v8_enable_pointer_compression=false use_musl=true" out.gn/arm.release

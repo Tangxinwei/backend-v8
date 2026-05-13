@@ -6,6 +6,7 @@ FULL_SYMBOLE=$3
 USE_POINTERCOMPRESS=$4
 USE_MMAP=$5
 ENABLE_MAGLEV=$6
+USE_ZONE_MEMORY_TRIM=$7
 
 [ -z "$GITHUB_WORKSPACE" ] && GITHUB_WORKSPACE="$( cd "$( dirname "$0" )"/.. && pwd )"
 
@@ -74,6 +75,10 @@ git -c user.name="s" -c user.email="s@s.com" commit -m 'test'
 
 if [ "$USE_MMAP" == "true" ]; then
   node $GITHUB_WORKSPACE/node-script/do-gitpatch-commit.js -p $GITHUB_WORKSPACE/patches/use_mmap_12.patch
+fi
+
+if [ "$USE_ZONE_MEMORY_TRIM" == "true" ]; then
+  node $GITHUB_WORKSPACE/node-script/do-gitpatch-commit.js -p $GITHUB_WORKSPACE/patches/v8-zone-resize-memory.patch
 fi
 
 GN_ARGS="is_debug=false v8_enable_i18n_support=false v8_use_snapshot=true v8_use_external_startup_data=false v8_static_library=true libcxx_abi_unstable=false v8_enable_sandbox=false use_custom_libcxx=false is_clang=true clang_use_chrome_plugins=false use_glib=false use_sysroot=false"

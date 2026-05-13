@@ -1,0 +1,691 @@
+From 97724dcf73e8f99fca8a22c1a6b1c9713641bece Mon Sep 17 00:00:00 2001
+From: beenyang <beenyang@tencent.com>
+Date: Sat, 9 May 2026 16:43:28 +0800
+Subject: [PATCH 2/2] =?UTF-8?q?=E6=B6=88=E5=87=8FZone=20Resize=20=E8=BF=AD?=
+ =?UTF-8?q?=E4=BB=A3(1)?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ src/compiler/pipeline.cc                |  21 ++-
+ src/compiler/turboshaft/copying-phase.h |  14 +-
+ src/compiler/turboshaft/graph.h         | 174 +++++++++++++++++++++++-
+ src/compiler/turboshaft/phase.cc        |  35 +++++
+ src/compiler/turboshaft/phase.h         |  28 ++++
+ src/compiler/turboshaft/pipelines.cc    |  36 ++++-
+ src/compiler/turboshaft/pipelines.h     |  11 ++
+ src/compiler/turboshaft/sidetable.h     |   3 +
+ src/zone/accounting-allocator.cc        |  38 +++++-
+ src/zone/zone-containers.h              |   5 +
+ src/zone/zone-segment.h                 |  10 +-
+ 11 files changed, 361 insertions(+), 14 deletions(-)
+
+diff --git a/src/compiler/pipeline.cc b/src/compiler/pipeline.cc
+index 6e838d4..0b26549 100644
+--- a/src/compiler/pipeline.cc
++++ b/src/compiler/pipeline.cc
+@@ -517,6 +517,7 @@ TurbofanPipelineStatistics* CreatePipelineStatistics(
+ 
+   if (use_turboshaft_instruction_selection) {
+     turboshaft::PipelineData* turboshaft_data = turboshaft_pipeline.data();
++
+     turboshaft_data->InitializeCodegenComponent(osr_helper);
+     // Run Turboshaft instruction selection.
+     turboshaft_pipeline.PrepareForInstructionSelection();
+@@ -526,6 +527,7 @@ TurbofanPipelineStatistics* CreatePipelineStatistics(
+ 
+     turboshaft_pipeline.AllocateRegisters(linkage->GetIncomingDescriptor());
+     turboshaft_pipeline.AssembleCode(linkage);
++
+     return true;
+   } else {
+     // Otherwise, reconstruct a Turbofan graph. Note that this will
+@@ -829,10 +831,6 @@ PipelineCompilationJob::Status PipelineCompilationJob::ExecuteJobImpl(
+     }
+   }
+ 
+-  if (!turboshaft_pipeline.OptimizeTurboshaftGraph(linkage_)) {
+-    return FAILED;
+-  }
+-
+ #ifdef TARGET_SUPPORTS_TURBOSHAFT_INSTRUCTION_SELECTION
+   bool use_turboshaft_instruction_selection =
+       v8_flags.turboshaft_instruction_selection;
+@@ -840,6 +838,21 @@ PipelineCompilationJob::Status PipelineCompilationJob::ExecuteJobImpl(
+   bool use_turboshaft_instruction_selection = false;
+ #endif
+ 
++  // [Arashi] After converting TurboFan graph to Turboshaft, original TF zone
++  // data is no longer needed. Release eagerly to free memory before
++  // OptimizeTurboshaftGraph. Only safe on the TS instruction selection path —
++  // the TF backend path would need these zones for RecreateTurbofanGraph.
++  if (use_turboshaft_instruction_selection) {
++    data_.DeleteGraphZone();
++    data_.DeleteInstructionZone();
++    data_.DeleteRegisterAllocationZone();
++    data_.DeleteCodegenZone();
++  }
++
++  if (!turboshaft_pipeline.OptimizeTurboshaftGraph(linkage_)) {
++    return FAILED;
++  }
++
+   const bool success = GenerateCodeFromTurboshaftGraph(
+       use_turboshaft_instruction_selection, linkage_, turboshaft_pipeline,
+       &pipeline_, data_.osr_helper_ptr());
+diff --git a/src/compiler/turboshaft/copying-phase.h b/src/compiler/turboshaft/copying-phase.h
+index 930b48a..a20786e 100644
+--- a/src/compiler/turboshaft/copying-phase.h
++++ b/src/compiler/turboshaft/copying-phase.h
+@@ -1032,10 +1032,14 @@ class TSAssembler;
+ template <template <class> class... Reducers>
+ class CopyingPhaseImpl {
+  public:
++  // [Arashi] companion_zone: when non-null, the companion graph is allocated
++  // in this zone instead of input_graph's zone. Used by GraphZoneCompaction.
+   static void Run(PipelineData* data, Graph& input_graph, Zone* phase_zone,
+-                  bool trace_reductions = false) {
++                  bool trace_reductions = false,
++                  Zone* companion_zone = nullptr) {
+     TSAssembler<GraphVisitor, Reducers...> phase(
+-        data, input_graph, input_graph.GetOrCreateCompanion(), phase_zone);
++        data, input_graph,
++        input_graph.GetOrCreateCompanion(companion_zone), phase_zone);
+ #ifdef DEBUG
+     if (trace_reductions) {
+       phase.template VisitGraph<true>();
+@@ -1051,11 +1055,13 @@ class CopyingPhaseImpl {
+ template <template <typename> typename... Reducers>
+ class CopyingPhase {
+  public:
+-  static void Run(PipelineData* data, Zone* phase_zone) {
++  static void Run(PipelineData* data, Zone* phase_zone,
++                  Zone* companion_zone = nullptr) {
+     Graph& input_graph = data->graph();
+     CopyingPhaseImpl<Reducers...>::Run(
+         data, input_graph, phase_zone,
+-        data->info()->turboshaft_trace_reduction());
++        data->info()->turboshaft_trace_reduction(),
++        companion_zone);
+   }
+ };
+ 
+diff --git a/src/compiler/turboshaft/graph.h b/src/compiler/turboshaft/graph.h
+index 1c0d3eb..7bd943a 100644
+--- a/src/compiler/turboshaft/graph.h
++++ b/src/compiler/turboshaft/graph.h
+@@ -182,6 +182,18 @@ class OperationBuffer {
+ 
+   void Reset() { end_ = begin_; }
+ 
++  void set_zone(Zone* zone) { zone_ = zone; }
++  const void* begin_ptr() const { return begin_; }
++  const void* end_ptr() const { return end_; }
++
++  void StealFrom(OperationBuffer& other, Zone* new_zone) {
++    zone_ = new_zone;
++    begin_ = other.begin_;
++    end_ = other.end_;
++    end_cap_ = other.end_cap_;
++    operation_sizes_ = other.operation_sizes_;
++  }
++
+  private:
+   Zone* zone_;
+   OperationStorageSlot* begin_;
+@@ -1026,9 +1038,13 @@ class Graph {
+     }
+   }
+ 
+-  Graph& GetOrCreateCompanion() {
++  // [Arashi] GetOrCreateCompanion: when companion_zone is non-null, creates
++  // the companion in that zone instead of graph_zone_. Used by
++  // GraphZoneCompaction to direct live data into a fresh, compact zone.
++  Graph& GetOrCreateCompanion(Zone* companion_zone = nullptr) {
+     if (!companion_) {
+-      companion_ = graph_zone_->New<Graph>(graph_zone_, operations_.size());
++      Zone* zone = companion_zone ? companion_zone : graph_zone_;
++      companion_ = zone->New<Graph>(zone, operations_.size());
+ #ifdef DEBUG
+       companion_->generation_ = generation_ + 1;
+       if (IsCreatedFromTurbofan()) companion_->SetCreatedFromTurbofan();
+@@ -1037,10 +1053,123 @@ class Graph {
+     return *companion_;
+   }
+ 
++  void clear_companion() { companion_ = nullptr; }
++
++#if 0  // [Arashi] RelocateZone — disabled, kept for reference.
++  void RelocateZone(Zone* new_zone) {
++    graph_zone_ = new_zone;
++    operations_.set_zone(new_zone);
++    bound_blocks_.set_zone(new_zone);
++    block_permutation_.set_zone(new_zone);
++    op_to_block_.set_zone(new_zone);
++    source_positions_.set_zone(new_zone);
++    operation_origins_.set_zone(new_zone);
++    operation_types_.set_zone(new_zone);
++#ifdef DEBUG
++    block_type_refinement_.set_zone(new_zone);
++    op_to_block_.graph_ = this;
++    source_positions_.graph_ = this;
++    operation_origins_.graph_ = this;
++    operation_types_.graph_ = this;
++#endif
++    // stack_checks_to_remove_ is a ZoneAbslFlatHashSet whose internal
++    // ZoneAllocator holds a Zone* pointer. After memcpy-based relocation,
++    // this pointer still refers to the old zone. We must reconstruct it
++    // with the new zone. SwapWithCompanion clears it, so no data is lost.
++    stack_checks_to_remove_.~ZoneAbslFlatHashSet();
++    new (&stack_checks_to_remove_) ZoneAbslFlatHashSet<uint32_t>(new_zone);
++  }
++#endif
++
++  const void* operations_begin_for_debug() const { return operations_.begin_ptr(); }
++  const void* operations_end_for_debug() const { return operations_.end_ptr(); }
++
++#if 0  // [Arashi] StealDataFrom — disabled, kept for reference.
++  void StealDataFrom(Graph& other, Zone* new_zone) {
++    // Transfer OperationBuffer — all POD fields.
++    operations_.StealFrom(other.operations_, new_zone);
++
++    // Transfer ZoneVectors via swap. Before swapping, set other's zone_ to
++    // match ours (new_zone) so that the ZoneVector DCHECK_EQ(zone_,
++    // other.zone_) in move-assignment is satisfied in DEBUG builds.
++    // The old zone_ value in other is no longer needed since other will be
++    // destroyed with the old zone.
++    other.bound_blocks_.set_zone(new_zone);
++    std::swap(bound_blocks_, other.bound_blocks_);
++
++    other.block_permutation_.set_zone(new_zone);
++    std::swap(block_permutation_, other.block_permutation_);
++
++    // Transfer base::Vector<Block*> — POD struct, direct assignment is safe.
++    all_blocks_ = other.all_blocks_;
++
++    // Transfer POD scalars.
++    next_block_ = other.next_block_;
++    dominator_tree_depth_ = other.dominator_tree_depth_;
++    graph_zone_ = new_zone;
++
++    // Transfer GrowingOpIndexSidetables via SwapData (swaps internal
++    // ZoneVectors). Set other's zone first for the same DCHECK reason.
++    other.op_to_block_.set_zone(new_zone);
++    op_to_block_.SwapData(other.op_to_block_);
++
++    other.source_positions_.set_zone(new_zone);
++    source_positions_.SwapData(other.source_positions_);
++
++    other.operation_origins_.set_zone(new_zone);
++    operation_origins_.SwapData(other.operation_origins_);
++
++    other.operation_types_.set_zone(new_zone);
++    operation_types_.SwapData(other.operation_types_);
++
++#ifdef DEBUG
++    other.block_type_refinement_.set_zone(new_zone);
++    std::swap(block_type_refinement_, other.block_type_refinement_);
++
++    // Fix up DEBUG-only graph_ back-pointers in sidetables.
++    op_to_block_.graph_ = this;
++    source_positions_.graph_ = this;
++    operation_origins_.graph_ = this;
++    operation_types_.graph_ = this;
++
++    generation_ = other.generation_;
++    graph_created_from_turbofan_ = other.graph_created_from_turbofan_;
++#endif
++
++    // companion_ and companion_zone_override_ should already be cleared
++    // by the caller before StealDataFrom is called.
++    companion_ = nullptr;
++    companion_zone_override_ = nullptr;
++
++    // loop_unrolling_analyzer_ is cleared by SwapWithCompanion.
++    loop_unrolling_analyzer_ = nullptr;
++
++    // stack_checks_to_remove_ was already constructed with new_zone in our
++    // constructor, and other's was .clear()'d by SwapWithCompanion.
++    // Nothing to transfer.
++  }
++#endif  // #if 0 — StealDataFrom disabled
++
+   // Swap the graph with its companion graph to turn the output of one phase
+   // into the input of the next phase.
+   void SwapWithCompanion() {
+     Graph& companion = GetOrCreateCompanion();
++
++    // [Arashi] When companion is in a different zone (graph zone compaction),
++    // ZoneVector move-assignment has DCHECK_EQ(zone_, other.zone_). Unify
++    // zone_ pointers before swapping to avoid DEBUG assertion failures.
++    // In the normal (non-compaction) case both zones are the same, so no-op.
++    Zone* companion_z = companion.graph_zone_;
++    bound_blocks_.set_zone(companion_z);
++    block_permutation_.set_zone(companion_z);
++    op_to_block_.set_zone(companion_z);
++    source_positions_.set_zone(companion_z);
++    operation_origins_.set_zone(companion_z);
++    operation_types_.set_zone(companion_z);
++#ifdef DEBUG
++    block_type_refinement_.set_zone(companion_z);
++#endif
++
+     std::swap(operations_, companion.operations_);
+     std::swap(bound_blocks_, companion.bound_blocks_);
+     std::swap(all_blocks_, companion.all_blocks_);
+@@ -1062,6 +1191,46 @@ class Graph {
+     stack_checks_to_remove_.clear();
+   }
+ 
++  // [Arashi] SwapContentsWith: swap all graph data with another Graph object.
++  // Used during graph zone compaction to transfer data from old Graph (in old
++  // zone, but with internal pointers to new zone after SwapWithCompanion) into
++  // a new Graph (living in new zone that will outlive old zone destruction).
++  // Unifies zone_ pointers to satisfy DEBUG DCHECK_EQ in move-assignment.
++  void SwapContentsWith(Graph& other) {
++    Zone* target_zone = other.graph_zone_;
++    bound_blocks_.set_zone(target_zone);
++    block_permutation_.set_zone(target_zone);
++    op_to_block_.set_zone(target_zone);
++    source_positions_.set_zone(target_zone);
++    operation_origins_.set_zone(target_zone);
++    operation_types_.set_zone(target_zone);
++#ifdef DEBUG
++    block_type_refinement_.set_zone(target_zone);
++#endif
++
++    std::swap(operations_, other.operations_);
++    std::swap(bound_blocks_, other.bound_blocks_);
++    std::swap(all_blocks_, other.all_blocks_);
++    std::swap(next_block_, other.next_block_);
++    std::swap(block_permutation_, other.block_permutation_);
++    std::swap(graph_zone_, other.graph_zone_);
++    std::swap(dominator_tree_depth_, other.dominator_tree_depth_);
++    op_to_block_.SwapData(other.op_to_block_);
++    source_positions_.SwapData(other.source_positions_);
++    operation_origins_.SwapData(other.operation_origins_);
++    operation_types_.SwapData(other.operation_types_);
++#ifdef DEBUG
++    std::swap(block_type_refinement_, other.block_type_refinement_);
++    std::swap(generation_, other.generation_);
++    std::swap(graph_created_from_turbofan_, other.graph_created_from_turbofan_);
++#endif
++    // Phase-specific fields are transient, reset them.
++    loop_unrolling_analyzer_ = nullptr;
++    stack_checks_to_remove_.clear();
++    other.loop_unrolling_analyzer_ = nullptr;
++    other.stack_checks_to_remove_.clear();
++  }
++
+ #ifdef DEBUG
+   size_t generation() const { return generation_; }
+   int generation_mod2() const { return generation_ % 2; }
+@@ -1099,6 +1268,7 @@ class Graph {
+   }
+ 
+  private:
++
+   bool InputsValid(const Operation& op) const {
+     for (OpIndex i : op.inputs()) {
+       if (!IsValid(i)) return false;
+diff --git a/src/compiler/turboshaft/phase.cc b/src/compiler/turboshaft/phase.cc
+index 0a730b6..aff4714 100644
+--- a/src/compiler/turboshaft/phase.cc
++++ b/src/compiler/turboshaft/phase.cc
+@@ -16,6 +16,41 @@
+ 
+ namespace v8::internal::compiler::turboshaft {
+ 
++// [Arashi] ReplaceGraphZone: after CopyingPhase wrote all live data into a
++// companion graph (in new_zone) and SwapWithCompanion transferred internal
++// pointers, we create a proper new Graph in the new zone, swap data from the
++// old graph object, then destroy the old zone to reclaim dead memory.
++void PipelineData::ReplaceGraphZone(
++    ZoneWithName<kGraphZoneName> new_zone) {
++  DCHECK(graph_component_.has_value());
++
++  Graph* old_graph = graph_component_->graph;
++
++  // Clear companion — it holds stale data superseded by SwapWithCompanion.
++  old_graph->clear_companion();
++
++  Zone* nz = new_zone.get();
++
++  // Create a new Graph shell; SwapContentsWith will overwrite its buffers.
++  Graph* new_graph = nz->New<Graph>(nz, 16);
++
++  // Transfer all data from old_graph (whose pointers now reference new zone)
++  // into new_graph (which lives in new zone and will outlive old zone).
++  new_graph->SwapContentsWith(*old_graph);
++
++  bool had_special_rpo = graph_component_->graph_has_special_rpo;
++
++  // Destroy old graph_component_ (releases old zone = reclaims dead memory).
++  graph_component_.reset();
++  graph_component_.emplace(std::move(new_zone));
++
++  // Install the new graph.
++  graph_component_->graph = GraphComponent::Pointer<Graph>(new_graph);
++  graph_component_->source_positions = nullptr;
++  graph_component_->node_origins = nullptr;
++  graph_component_->graph_has_special_rpo = had_special_rpo;
++}
++
+ void PipelineData::InitializeRegisterComponent(
+     const RegisterConfiguration* config, CallDescriptor* call_descriptor) {
+   DCHECK(!register_component_.has_value());
+diff --git a/src/compiler/turboshaft/phase.h b/src/compiler/turboshaft/phase.h
+index aab23db..d00f902 100644
+--- a/src/compiler/turboshaft/phase.h
++++ b/src/compiler/turboshaft/phase.h
+@@ -256,6 +256,13 @@ class V8_EXPORT_PRIVATE PipelineData {
+     graph_component_.reset();
+   }
+ 
++  // [Arashi] ReplaceGraphZone: after CopyingPhase directed the companion into
++  // a fresh zone, this method creates a new Graph in that zone, swaps data
++  // from the current graph, then destroys the old graph_component_ (releasing
++  // old zone memory). No ABI change to Graph, no memcpy of non-trivially-
++  // copyable objects.
++  void ReplaceGraphZone(ZoneWithName<kGraphZoneName> new_zone);
++
+   void InitializeCodegenComponent(
+       std::shared_ptr<OsrHelper> osr_helper,
+       JumpOptimizationInfo* jump_optimization_info = nullptr) {
+@@ -270,6 +277,12 @@ class V8_EXPORT_PRIVATE PipelineData {
+     codegen_component_.reset();
+   }
+ 
++  void ClearCodegenComponentIfPresent() {
++    if (codegen_component_.has_value()) {
++      codegen_component_.reset();
++    }
++  }
++
+   void InitializeCodeGenerator(Linkage* linkage) {
+     DCHECK(codegen_component_.has_value());
+     CodegenComponent& cg = *codegen_component_;
+@@ -357,6 +370,12 @@ class V8_EXPORT_PRIVATE PipelineData {
+   ZoneWithName<kRegisterAllocationZoneName>& register_allocation_zone() {
+     return register_component_->zone;
+   }
++  bool has_codegen_component() const {
++    return codegen_component_.has_value();
++  }
++  ZoneWithName<kCodegenZoneName>& codegen_zone() {
++    return codegen_component_->zone;
++  }
+   CodeGenerator* code_generator() const {
+     return codegen_component_->code_generator.get();
+   }
+@@ -388,6 +407,15 @@ class V8_EXPORT_PRIVATE PipelineData {
+     return compilation_zone_;
+   }
+ 
++  // [Arashi] Release all memory in compilation_zone without destroying the
++  // zone object. Safe after AssembleCode — compilation_zone data (Comment
++  // strings, FrameStateData, etc.) is only referenced by the graph which has
++  // already been consumed by instruction selection.
++  void ResetCompilationZone() {
++    Zone* zone = compilation_zone_;
++    zone->Reset();
++  }
++
+   TurbofanPipelineStatistics* pipeline_statistics() const {
+     return pipeline_statistics_;
+   }
+diff --git a/src/compiler/turboshaft/pipelines.cc b/src/compiler/turboshaft/pipelines.cc
+index dea6019..3346e6c 100644
+--- a/src/compiler/turboshaft/pipelines.cc
++++ b/src/compiler/turboshaft/pipelines.cc
+@@ -4,13 +4,40 @@
+ 
+ #include "src/compiler/turboshaft/pipelines.h"
+ 
++#include "src/compiler/common-operator.h"
+ #include "src/compiler/pipeline-data-inl.h"
++#include "src/compiler/turboshaft/copying-phase.h"
+ #include "src/compiler/turboshaft/csa-optimize-phase.h"
+ #include "src/compiler/turboshaft/debug-feature-lowering-phase.h"
++#include "src/compiler/turboshaft/deopt-data.h"
++#include "src/compiler/turboshaft/graph-zone-compaction-reducer.h"
+ #include "src/compiler/turboshaft/recreate-schedule-phase.h"
+ 
+ namespace v8::internal::compiler::turboshaft {
+ 
++void GraphZoneCompactionPhase::Run(PipelineData* data, Zone* temp_zone) {
++  // Skip when tracing — node_origins lives in old zone; destroying it would
++  // leave the PhaseScope pointer dangling.
++  if (data->node_origins() != nullptr) {
++    return;
++  }
++
++  // Step 1: Fresh zone — companion graph will be created here.
++  ZoneWithName<kGraphZoneName> new_zone(data->zone_stats(), kGraphZoneName);
++  Zone* nz = new_zone.get();
++
++  // Clear existing companion (left over from prior CopyingPhases).
++  // Without this, GetOrCreateCompanion(nz) would return the OLD companion
++  // (in old zone), and after ReplaceGraphZone the Block pointers dangle.
++  data->graph().clear_companion();
++
++  // Step 2: Copy live graph data into new zone via companion_zone parameter.
++  CopyingPhase<GraphZoneCompactionReducer>::Run(data, temp_zone, nz);
++
++  // Step 3: Replace graph zone — destroys old zone, installs compact new one.
++  data->ReplaceGraphZone(std::move(new_zone));
++}
++
+ void Pipeline::RecreateTurbofanGraph(compiler::TFPipelineData* turbofan_data,
+                                      Linkage* linkage) {
+   Run<turboshaft::DecompressionOptimizationPhase>();
+@@ -42,16 +69,21 @@ MaybeHandle<Code> Pipeline::GenerateCode(
+     data()->ClearCodegenComponent();
+     jump_optimization_info->set_optimizing();
+ 
+-    // Perform instruction selection and register allocation.
+     data()->InitializeCodegenComponent(osr_helper, jump_optimization_info);
+     if (!SelectInstructions(linkage)) {
+       return MaybeHandle<Code>{};
+     }
+     AllocateRegisters(linkage->GetIncomingDescriptor());
+-    // Generate the final machine code.
+     AssembleCode(linkage);
+   }
+ 
++  // [Arashi] Release graph early — after AssembleCode the Turboshaft graph is
++  // fully consumed. Freeing it before FinalizeCode reclaims significant memory
++  // (graph_zone holds accumulated dead arena from CopyingPhase Grow ops).
++  if (data()->has_graph()) {
++    data()->ClearGraphComponent();
++  }
++
+   return FinalizeCode();
+ }
+ 
+diff --git a/src/compiler/turboshaft/pipelines.h b/src/compiler/turboshaft/pipelines.h
+index 399b8a6..50500b0 100644
+--- a/src/compiler/turboshaft/pipelines.h
++++ b/src/compiler/turboshaft/pipelines.h
+@@ -17,6 +17,7 @@
+ #include "src/compiler/turboshaft/code-elimination-and-simplification-phase.h"
+ #include "src/compiler/turboshaft/debug-feature-lowering-phase.h"
+ #include "src/compiler/turboshaft/decompression-optimization-phase.h"
++#include "src/compiler/turboshaft/graph-zone-compaction-phase.h"
+ #include "src/compiler/turboshaft/instruction-selection-phase.h"
+ #include "src/compiler/turboshaft/loop-peeling-phase.h"
+ #include "src/compiler/turboshaft/loop-unrolling-phase.h"
+@@ -219,6 +220,11 @@ class Pipeline {
+ 
+   void PrepareForInstructionSelection(
+       const ProfileDataFromFile* profile = nullptr) {
++    // [Arashi] Compact graph zone: migrates live data to a fresh zone,
++    // reclaiming dead memory from CopyingPhase Grow operations before
++    // instruction selection (which is the peak memory point).
++    Run<GraphZoneCompactionPhase>();
++
+     if (V8_UNLIKELY(data()->pipeline_kind() == TurboshaftPipelineKind::kCSA ||
+                     data()->pipeline_kind() ==
+                         TurboshaftPipelineKind::kTSABuiltin)) {
+@@ -500,6 +506,11 @@ class Pipeline {
+     }
+     AllocateRegisters(linkage.GetIncomingDescriptor());
+     AssembleCode(&linkage);
++    // [Arashi] Release graph zone before FinalizeCode — graph data is fully
++    // consumed after AssembleCode and no longer needed.
++    if (data()->has_graph()) {
++      data()->ClearGraphComponent();
++    }
+     return FinalizeCode();
+   }
+ 
+diff --git a/src/compiler/turboshaft/sidetable.h b/src/compiler/turboshaft/sidetable.h
+index 4290ec0..4184bae 100644
+--- a/src/compiler/turboshaft/sidetable.h
++++ b/src/compiler/turboshaft/sidetable.h
+@@ -67,6 +67,9 @@ class GrowingSidetable {
+   // `Reset()`.
+   bool empty() const { return table_.empty(); }
+ 
++  // [Arashi] Update Zone pointer for future allocations (post-compaction).
++  void set_zone(Zone* zone) { table_.set_zone(zone); }
++
+  protected:
+   // Constructors are protected: use GrowingBlockSidetable or
+   // GrowingOpIndexSidetable instead.
+diff --git a/src/zone/accounting-allocator.cc b/src/zone/accounting-allocator.cc
+index e0fe5a5..6e0a319 100644
+--- a/src/zone/accounting-allocator.cc
++++ b/src/zone/accounting-allocator.cc
+@@ -13,6 +13,10 @@
+ #include "src/zone/zone-compression.h"
+ #include "src/zone/zone-segment.h"
+ 
++#if V8_OS_LINUX || V8_OS_ANDROID
++#include <sys/mman.h>  // mmap, munmap
++#endif
++
+ namespace v8 {
+ namespace internal {
+ 
+@@ -80,15 +84,35 @@ AccountingAllocator::~AccountingAllocator() = default;
+ Segment* AccountingAllocator::AllocateSegment(size_t bytes,
+                                               bool supports_compression) {
+   void* memory;
++  bool is_mmap = false;
+   if (COMPRESS_ZONES_BOOL && supports_compression) {
+     bytes = RoundUp(bytes, kZonePageSize);
+     memory = AllocatePages(bounded_page_allocator_.get(), nullptr, bytes,
+                            kZonePageSize, PageAllocator::kReadWrite);
+ 
+   } else {
++#if V8_OS_LINUX || V8_OS_ANDROID
++    // [Arashi] Use mmap for segments >= 16KB so that munmap guarantees
++    // immediate physical page reclamation. V8 Zones use arena allocation
++    // (bulk alloc, bulk free) which maps perfectly to mmap/munmap semantics.
++    // This eliminates RSS bloat from allocator free-list caching.
++    static constexpr size_t kMmapThreshold = 16 * 1024;
++    if (bytes >= kMmapThreshold) {
++      bytes = RoundUp(bytes, 4096);
++      memory = mmap(nullptr, bytes, PROT_READ | PROT_WRITE,
++                    MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++      if (memory == MAP_FAILED) memory = nullptr;
++      is_mmap = true;
++    } else {
++      auto result = AllocAtLeastWithRetry(bytes);
++      memory = result.ptr;
++      bytes = result.count;
++    }
++#else
+     auto result = AllocAtLeastWithRetry(bytes);
+     memory = result.ptr;
+     bytes = result.count;
++#endif
+   }
+   if (memory == nullptr) return nullptr;
+ 
+@@ -100,7 +124,7 @@ Segment* AccountingAllocator::AllocateSegment(size_t bytes,
+     // {max} was updated by {compare_exchange_weak}; retry.
+   }
+   DCHECK_LE(sizeof(Segment), bytes);
+-  return new (memory) Segment(bytes);
++  return new (memory) Segment(bytes, is_mmap);
+ }
+ 
+ void AccountingAllocator::ReturnSegment(Segment* segment,
+@@ -108,11 +132,23 @@ void AccountingAllocator::ReturnSegment(Segment* segment,
+   segment->ZapContents();
+   size_t segment_size = segment->total_size();
+   current_memory_usage_.fetch_sub(segment_size, std::memory_order_relaxed);
++  bool is_mmap = segment->is_mmap_allocated();
+   segment->ZapHeader();
+   if (COMPRESS_ZONES_BOOL && supports_compression) {
+     FreePages(bounded_page_allocator_.get(), segment, segment_size);
+   } else {
++#if V8_OS_LINUX || V8_OS_ANDROID
++    // [Arashi] Use stored is_mmap flag (not size-based heuristic) to choose
++    // deallocation path — malloc_usable_size could exceed kMmapThreshold.
++    if (is_mmap) {
++      munmap(segment, segment_size);
++    } else {
++      free(segment);
++    }
++#else
++    (void)is_mmap;  // Suppress unused variable warning.
+     free(segment);
++#endif
+   }
+ }
+ 
+diff --git a/src/zone/zone-containers.h b/src/zone/zone-containers.h
+index 77ab0f4..05b49a5 100644
+--- a/src/zone/zone-containers.h
++++ b/src/zone/zone-containers.h
+@@ -196,6 +196,11 @@ class ZoneVector {
+     std::swap(capacity_, other.capacity_);
+   }
+ 
++  // [Arashi] Update Zone pointer for future allocations. Used after graph
++  // zone compaction where data was relocated via SwapWithCompanion but zone_
++  // still refers to the old zone.
++  void set_zone(Zone* zone) { zone_ = zone; }
++
+   void resize(size_t new_size) {
+     EnsureCapacity(new_size);
+     T* new_end = data_ + new_size;
+diff --git a/src/zone/zone-segment.h b/src/zone/zone-segment.h
+index 2f40bb6..aea221d 100644
+--- a/src/zone/zone-segment.h
++++ b/src/zone/zone-segment.h
+@@ -43,11 +43,18 @@ class Segment {
+   // Zaps the header and makes the segment unusable this way.
+   void ZapHeader();
+ 
++  // [Arashi] Whether this segment was allocated via mmap (true) or malloc.
++  // Used by ReturnSegment to choose the correct deallocation path — without
++  // this flag, segments whose malloc_usable_size >= kMmapThreshold would be
++  // incorrectly freed via munmap, corrupting allocator metadata.
++  bool is_mmap_allocated() const { return is_mmap_allocated_; }
++
+  private:
+   // Segments are only created by the AccountingAllocator.
+   friend class AccountingAllocator;
+ 
+-  explicit Segment(size_t size) : size_(size) {}
++  explicit Segment(size_t size, bool is_mmap = false)
++      : size_(size), is_mmap_allocated_(is_mmap) {}
+ 
+ #ifdef DEBUG
+   // Constant byte value used for zapping dead memory in debug mode.
+@@ -62,6 +69,7 @@ class Segment {
+   Zone* zone_ = nullptr;
+   Segment* next_ = nullptr;
+   const size_t size_;
++  bool is_mmap_allocated_ = false;
+ };
+ 
+ }  // namespace internal
+-- 
+2.48.1.windows.1
+

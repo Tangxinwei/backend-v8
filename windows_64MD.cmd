@@ -4,6 +4,7 @@ set FULL_SYMBOLE=%3
 set USE_POINTERCOMPRESS=%4
 set USE_MMAP=%5
 set ENABLE_MAGLEV=%6
+set USE_ZONE_MEMORY_TRIM=%7
 
 cd /d %USERPROFILE%
 echo =====[ Getting Depot Tools ]=====
@@ -45,6 +46,10 @@ node %GITHUB_WORKSPACE%\node-script\do-gitpatch-commit.js -p %GITHUB_WORKSPACE%\
 
 if "%USE_MMAP%"=="true" (
     node %GITHUB_WORKSPACE%\node-script\do-gitpatch-commit.js -p %GITHUB_WORKSPACE%\patches\use_mmap_12.patch
+)
+
+if "%USE_ZONE_MEMORY_TRIM%"=="true" (
+    node %GITHUB_WORKSPACE%\node-script\do-gitpatch-commit.js -p %GITHUB_WORKSPACE%\patches\v8-zone-resize-memory.patch
 )
 
 node %GITHUB_WORKSPACE%\node-script\do-gitpatch-commit.js -p %GITHUB_WORKSPACE%\patches\fix_debug_step_crash.patch
