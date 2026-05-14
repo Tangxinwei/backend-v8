@@ -1,25 +1,31 @@
-From 97724dcf73e8f99fca8a22c1a6b1c9713641bece Mon Sep 17 00:00:00 2001
+From 3f426fd9f7d4d1cf8901eeeb76c375cc7c9cad1c Mon Sep 17 00:00:00 2001
 From: beenyang <beenyang@tencent.com>
 Date: Sat, 9 May 2026 16:43:28 +0800
-Subject: [PATCH 2/2] =?UTF-8?q?=E6=B6=88=E5=87=8FZone=20Resize=20=E8=BF=AD?=
- =?UTF-8?q?=E4=BB=A3(1)?=
+Subject: [PATCH] =?UTF-8?q?=E6=BC=8F=E4=BC=A0=E6=96=87=E4=BB=B6?=
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+消减Zone Resize 迭代(1)
 ---
- src/compiler/pipeline.cc                |  21 ++-
- src/compiler/turboshaft/copying-phase.h |  14 +-
- src/compiler/turboshaft/graph.h         | 174 +++++++++++++++++++++++-
- src/compiler/turboshaft/phase.cc        |  35 +++++
- src/compiler/turboshaft/phase.h         |  28 ++++
- src/compiler/turboshaft/pipelines.cc    |  36 ++++-
- src/compiler/turboshaft/pipelines.h     |  11 ++
- src/compiler/turboshaft/sidetable.h     |   3 +
- src/zone/accounting-allocator.cc        |  38 +++++-
- src/zone/zone-containers.h              |   5 +
- src/zone/zone-segment.h                 |  10 +-
- 11 files changed, 361 insertions(+), 14 deletions(-)
+ src/compiler/pipeline.cc                      |  21 +-
+ src/compiler/turboshaft/copying-phase.h       |  14 +-
+ .../turboshaft/graph-zone-compaction-phase.cc |  10 +
+ .../turboshaft/graph-zone-compaction-phase.h  |  33 ++
+ .../graph-zone-compaction-reducer.h           | 288 ++++++++++++++++++
+ src/compiler/turboshaft/graph.h               | 174 ++++++++++-
+ src/compiler/turboshaft/phase.cc              |  35 +++
+ src/compiler/turboshaft/phase.h               |  28 ++
+ src/compiler/turboshaft/pipelines.cc          |  36 ++-
+ src/compiler/turboshaft/pipelines.h           |  11 +
+ src/compiler/turboshaft/sidetable.h           |   3 +
+ src/zone/accounting-allocator.cc              |  38 ++-
+ src/zone/zone-containers.h                    |   5 +
+ src/zone/zone-segment.h                       |  10 +-
+ 14 files changed, 692 insertions(+), 14 deletions(-)
+ create mode 100644 src/compiler/turboshaft/graph-zone-compaction-phase.cc
+ create mode 100644 src/compiler/turboshaft/graph-zone-compaction-phase.h
+ create mode 100644 src/compiler/turboshaft/graph-zone-compaction-reducer.h
 
 diff --git a/src/compiler/pipeline.cc b/src/compiler/pipeline.cc
 index 6e838d4..0b26549 100644
@@ -111,6 +117,355 @@ index 930b48a..a20786e 100644
    }
  };
  
+diff --git a/src/compiler/turboshaft/graph-zone-compaction-phase.cc b/src/compiler/turboshaft/graph-zone-compaction-phase.cc
+new file mode 100644
+index 0000000..f354a52
+--- /dev/null
++++ b/src/compiler/turboshaft/graph-zone-compaction-phase.cc
+@@ -0,0 +1,10 @@
++// Copyright 2024 the V8 project authors. All rights reserved.
++// Use of this source code is governed by a BSD-style license that can be
++// found in the LICENSE file.
++
++// [Arashi] GraphZoneCompactionPhase::Run() is implemented in pipelines.cc
++// (not here) to avoid requiring this file in the remote BUILD.gn.
++// This file is intentionally kept as a stub so that if BUILD.gn includes it,
++// it compiles to an empty translation unit without causing duplicate symbols.
++
++#include "src/compiler/turboshaft/graph-zone-compaction-phase.h"
+diff --git a/src/compiler/turboshaft/graph-zone-compaction-phase.h b/src/compiler/turboshaft/graph-zone-compaction-phase.h
+new file mode 100644
+index 0000000..6cd45b8
+--- /dev/null
++++ b/src/compiler/turboshaft/graph-zone-compaction-phase.h
+@@ -0,0 +1,33 @@
++// Copyright 2024 the V8 project authors. All rights reserved.
++// Use of this source code is governed by a BSD-style license that can be
++// found in the LICENSE file.
++
++#ifndef V8_COMPILER_TURBOSHAFT_GRAPH_ZONE_COMPACTION_PHASE_H_
++#define V8_COMPILER_TURBOSHAFT_GRAPH_ZONE_COMPACTION_PHASE_H_
++
++#include "src/compiler/turboshaft/phase.h"
++
++namespace v8::internal::compiler::turboshaft {
++
++// An identity CopyingPhase that migrates graph data from the current
++// graph_zone_ (which has accumulated dead memory from CopyingPhase Grow
++// operations) into a fresh, compact zone. This reclaims the dead memory
++// that cannot be freed within a Zone's lifetime due to arena allocation
++// semantics.
++//
++// This phase should run after all optimization CopyingPhases have completed,
++// right before instruction selection, to minimize the memory footprint of the
++// graph zone during subsequent compilation stages.
++struct GraphZoneCompactionPhase {
++  DECL_TURBOSHAFT_PHASE_CONSTANTS(GraphZoneCompaction)
++  // [Arashi] Must be false: after compaction, the graph is in a transitional
++  // state (source_positions and node_origins are nullptr), so attempting to
++  // print/trace it would crash.
++  static constexpr bool kOutputIsTraceableGraph = false;
++
++  void Run(PipelineData* data, Zone* temp_zone);
++};
++
++}  // namespace v8::internal::compiler::turboshaft
++
++#endif  // V8_COMPILER_TURBOSHAFT_GRAPH_ZONE_COMPACTION_PHASE_H_
+diff --git a/src/compiler/turboshaft/graph-zone-compaction-reducer.h b/src/compiler/turboshaft/graph-zone-compaction-reducer.h
+new file mode 100644
+index 0000000..beeea10
+--- /dev/null
++++ b/src/compiler/turboshaft/graph-zone-compaction-reducer.h
+@@ -0,0 +1,288 @@
++// Copyright 2024 the V8 project authors. All rights reserved.
++// Use of this source code is governed by a BSD-style license that can be
++// found in the LICENSE file.
++
++// [Arashi] Graph Zone Compaction Reducer
++//
++// This reducer is used exclusively by GraphZoneCompactionPhase during the
++// identity CopyingPhase. Its purpose is to deep-copy zone-allocated data
++// that is embedded as raw pointers in Operations.
++//
++// Problem: When CopyingPhase copies operations from the old graph to the
++// companion graph (in the new zone), it copies these pointers verbatim via
++// Explode(). After FinalizeGraphZoneCompaction destroys the old zone, these
++// pointers become dangling, causing use-after-free crashes (e.g., in
++// GetFrameStateDescriptorInternal when accessing FrameStateData*).
++//
++// Solution: Intercept the Reduce methods for all operations that contain
++// zone-allocated pointer members, and re-allocate the pointed-to data in
++// the new graph_zone before passing them down the reducer chain.
++
++#ifndef V8_COMPILER_TURBOSHAFT_GRAPH_ZONE_COMPACTION_REDUCER_H_
++#define V8_COMPILER_TURBOSHAFT_GRAPH_ZONE_COMPACTION_REDUCER_H_
++
++#include "src/codegen/signature.h"
++#include "src/compiler/feedback-source.h"
++#include "src/compiler/frame-states.h"
++#include "src/compiler/linkage.h"
++#include "src/compiler/turboshaft/assembler.h"
++#include "src/compiler/turboshaft/copying-phase.h"
++#include "src/compiler/turboshaft/deopt-data.h"
++#include "src/compiler/turboshaft/operations.h"
++#include "src/zone/zone-compact-set.h"
++
++#include "src/compiler/turboshaft/define-assembler-macros.inc"
++
++namespace v8::internal::compiler::turboshaft {
++
++template <typename Next>
++class GraphZoneCompactionReducer : public Next {
++ public:
++  TURBOSHAFT_REDUCER_BOILERPLATE(GraphZoneCompaction)
++
++  // --- FrameStateOp ---
++  // FrameStateOp::data is a const FrameStateData* allocated in the old
++  // graph zone. We deep-copy it (including its internal vectors) into the
++  // new graph_zone.
++  //
++  // CRITICAL: FrameStateData::frame_state_info is a *reference* to a
++  // zone-allocated FrameStateInfo object, which in turn contains a pointer
++  // to a zone-allocated FrameStateFunctionInfo. Both must be deep-copied
++  // to the new zone, otherwise accessing function_info() after the old
++  // zone is destroyed will crash (use-after-free).
++  V<FrameState> REDUCE(FrameState)(base::Vector<const OpIndex> inputs,
++                                   bool inlined,
++                                   const FrameStateData* data) {
++    Zone* zone = __ graph_zone();
++
++    // 1. Deep-copy FrameStateFunctionInfo (zone-allocated).
++    //    Handle the JSToWasmFrameStateFunctionInfo subclass which has an
++    //    additional wasm::FunctionSig* (module-lifetime, safe to share).
++    const FrameStateInfo& old_info = data->frame_state_info;
++    const FrameStateFunctionInfo* old_func_info = old_info.function_info();
++    const FrameStateFunctionInfo* new_func_info = nullptr;
++    if (old_func_info) {
++#if V8_ENABLE_WEBASSEMBLY
++      if (old_func_info->type() ==
++          FrameStateType::kJSToWasmBuiltinContinuation) {
++        auto* js_to_wasm = static_cast<const JSToWasmFrameStateFunctionInfo*>(
++            old_func_info);
++        new_func_info = zone->New<JSToWasmFrameStateFunctionInfo>(
++            js_to_wasm->type(), js_to_wasm->parameter_count(),
++            js_to_wasm->local_count(), js_to_wasm->shared_info(),
++            js_to_wasm->signature());
++      } else
++#endif  // V8_ENABLE_WEBASSEMBLY
++      {
++        new_func_info = zone->New<FrameStateFunctionInfo>(
++            old_func_info->type(), old_func_info->parameter_count(),
++            old_func_info->max_arguments(), old_func_info->local_count(),
++            old_func_info->shared_info(),
++            old_func_info->wasm_liftoff_frame_size(),
++            old_func_info->wasm_function_index());
++      }
++    }
++
++    // 2. Deep-copy FrameStateInfo (zone-allocated, referenced by
++    //    FrameStateData::frame_state_info).
++    const FrameStateInfo* new_state_info = zone->New<FrameStateInfo>(
++        old_info.bailout_id(), old_info.state_combine(), new_func_info);
++
++    // 3. Deep-copy FrameStateData with the new FrameStateInfo and vectors.
++    const FrameStateData* cloned = zone->New<FrameStateData>(FrameStateData{
++        *new_state_info,
++        zone->CloneVector(base::VectorOf(data->instructions)),
++        zone->CloneVector(base::VectorOf(data->machine_types)),
++        zone->CloneVector(base::VectorOf(data->int_operands))});
++    return Next::ReduceFrameState(inputs, inlined, cloned);
++  }
++
++  // --- CallOp ---
++  // CallOp::descriptor is a const TSCallDescriptor* with in_reps and out_reps
++  // vectors allocated in the old graph zone.
++  V<Any> REDUCE(Call)(V<CallTarget> callee,
++                      OptionalV<FrameState> frame_state,
++                      base::Vector<const OpIndex> arguments,
++                      const TSCallDescriptor* descriptor, OpEffects effects) {
++    return Next::ReduceCall(callee, frame_state, arguments,
++                            CloneTSCallDescriptor(descriptor), effects);
++  }
++
++  // --- TailCallOp ---
++  // Same TSCallDescriptor* issue as CallOp.
++  OpIndex REDUCE(TailCall)(OpIndex callee,
++                           base::Vector<const OpIndex> arguments,
++                           const TSCallDescriptor* descriptor) {
++    return Next::ReduceTailCall(callee, arguments,
++                                CloneTSCallDescriptor(descriptor));
++  }
++
++  // --- DeoptimizeOp ---
++  // DeoptimizeOp::parameters is a const DeoptimizeParameters* allocated in
++  // the old graph zone.
++  V<None> REDUCE(Deoptimize)(V<FrameState> frame_state,
++                             const DeoptimizeParameters* parameters) {
++    return Next::ReduceDeoptimize(frame_state,
++                                 CloneDeoptimizeParameters(parameters));
++  }
++
++  // --- DeoptimizeIfOp ---
++  // Same DeoptimizeParameters* issue.
++  V<None> REDUCE(DeoptimizeIf)(V<Word32> condition, V<FrameState> frame_state,
++                               bool negated,
++                               const DeoptimizeParameters* parameters) {
++    return Next::ReduceDeoptimizeIf(condition, frame_state, negated,
++                                   CloneDeoptimizeParameters(parameters));
++  }
++
++  // --- FastApiCallOp ---
++  // FastApiCallOp::parameters is a const FastApiCallParameters* containing
++  // a FastApiCallFunctionVector (ZoneVector) allocated in the old zone.
++  OpIndex REDUCE(FastApiCall)(V<FrameState> frame_state,
++                              V<Object> data_argument, V<Context> context,
++                              base::Vector<const OpIndex> arguments,
++                              const FastApiCallParameters* parameters) {
++    return Next::ReduceFastApiCall(frame_state, data_argument, context,
++                                  arguments,
++                                  CloneFastApiCallParameters(parameters));
++  }
++
++  // --- CompareMapsOp ---
++  // CompareMapsOp::maps is a ZoneRefSet<Map>. When the set has >1 element,
++  // it stores a zone-allocated List pointer. We must clone it to the new zone.
++  V<Word32> REDUCE(CompareMaps)(V<HeapObject> heap_object,
++                                ZoneRefSet<Map> maps) {
++    return Next::ReduceCompareMaps(heap_object,
++                                   CloneZoneRefSetMap(maps));
++  }
++
++  // --- CheckMapsOp ---
++  // Same ZoneRefSet<Map> issue as CompareMapsOp.
++  V<None> REDUCE(CheckMaps)(V<HeapObject> heap_object,
++                             V<FrameState> frame_state,
++                             ZoneRefSet<Map> maps,
++                             CheckMapsFlags flags,
++                             const FeedbackSource& feedback) {
++    return Next::ReduceCheckMaps(heap_object, frame_state,
++                                 CloneZoneRefSetMap(maps), flags, feedback);
++  }
++
++  // --- AssumeMapOp ---
++  // Same ZoneRefSet<Map> issue.
++  V<None> REDUCE(AssumeMap)(V<HeapObject> heap_object,
++                            ZoneRefSet<Map> maps) {
++    return Next::ReduceAssumeMap(heap_object, CloneZoneRefSetMap(maps));
++  }
++
++ private:
++  // Clone a ZoneRefSet<Map> into the new graph_zone.
++  // ZoneCompactSet stores data in one of three modes:
++  //   - Empty (no allocation needed)
++  //   - Singleton (stores a raw pointer to the data, no zone allocation)
++  //   - List (>1 element): stores a pointer to a zone-allocated List
++  // We use ZoneRefSet::Clone(zone) which handles all modes correctly.
++  ZoneRefSet<Map> CloneZoneRefSetMap(const ZoneRefSet<Map>& original) {
++    if (original.size() <= 1) {
++      // Empty or singleton: no zone-allocated list, safe to copy as-is.
++      return original;
++    }
++    // Multi-element: clone into the new zone.
++    return original.Clone(__ graph_zone());
++  }
++
++  // Deep-copy a LocationSignature into the new zone.
++  // LocationSignature (Signature<LinkageLocation>) is accessed indirectly
++  // through CallDescriptor's public API (GetReturnLocation/GetInputLocation).
++  // We reconstruct it using the Builder.
++  LocationSignature* CloneLocationSignature(const CallDescriptor* cd,
++                                            Zone* zone) {
++    const size_t ret_count = cd->ReturnCount();
++    const size_t param_count = cd->ParameterCount();
++    LocationSignature::Builder builder(zone, ret_count, param_count);
++    for (size_t i = 0; i < ret_count; ++i) {
++      builder.AddReturn(cd->GetReturnLocation(i));
++    }
++    for (size_t i = 0; i < param_count; ++i) {
++      // GetInputLocation(0) is the target, params start at index 1
++      builder.AddParam(cd->GetInputLocation(i + 1));
++    }
++    return builder.Get();
++  }
++
++  // Deep-copy a CallDescriptor into the new zone.
++  // CallDescriptor has a deleted copy constructor, but all its members are
++  // readable via public accessors. We reconstruct it via its public
++  // constructor, cloning the LocationSignature (which is zone-allocated).
++  const CallDescriptor* CloneCallDescriptor(const CallDescriptor* original,
++                                            Zone* zone) {
++    if (!original) return nullptr;
++    LocationSignature* new_loc_sig =
++        CloneLocationSignature(original, zone);
++    return zone->New<CallDescriptor>(
++        original->kind(), original->tag(),
++        original->GetInputType(0),       // target_type (MachineType)
++        original->GetInputLocation(0),   // target_loc (LinkageLocation)
++        new_loc_sig,
++        original->ParameterSlotCount(),
++        original->properties(),
++        original->CalleeSavedRegisters(),
++        original->CalleeSavedFPRegisters(),
++        original->flags(),
++        original->debug_name(),
++        original->GetStackArgumentOrder(),
++        original->AllocatableRegisters(),
++        original->ReturnSlotCount());
++  }
++
++  // Deep-copy a TSCallDescriptor into the new graph_zone.
++  // TSCallDescriptor contains:
++  //   - const CallDescriptor* descriptor (zone-allocated, deep-cloned)
++  //   - base::Vector<const RegisterRepresentation> in_reps (zone-allocated)
++  //   - base::Vector<const RegisterRepresentation> out_reps (zone-allocated)
++  //   - CanThrow can_throw (value type)
++  //   - LazyDeoptOnThrow lazy_deopt_on_throw (value type)
++  const TSCallDescriptor* CloneTSCallDescriptor(
++      const TSCallDescriptor* original) {
++    Zone* zone = __ graph_zone();
++    auto new_in_reps = zone->CloneVector(original->in_reps);
++    auto new_out_reps = zone->CloneVector(original->out_reps);
++    const CallDescriptor* new_cd =
++        CloneCallDescriptor(original->descriptor, zone);
++    return zone->New<TSCallDescriptor>(new_cd, new_in_reps, new_out_reps,
++                                       original->can_throw,
++                                       original->lazy_deopt_on_throw);
++  }
++
++  // Deep-copy DeoptimizeParameters into the new graph_zone.
++  // DeoptimizeParameters contains only value types (DeoptimizeReason,
++  // FeedbackSource), but the object itself is zone-allocated.
++  const DeoptimizeParameters* CloneDeoptimizeParameters(
++      const DeoptimizeParameters* original) {
++    Zone* zone = __ graph_zone();
++    return zone->New<DeoptimizeParameters>(original->reason(),
++                                           original->feedback());
++  }
++
++  // Deep-copy FastApiCallParameters into the new graph_zone.
++  // FastApiCallParameters contains:
++  //   - FastApiCallFunctionVector c_functions (ZoneVector<FastApiCallFunction>)
++  //   - OverloadsResolutionResult resolution_result (value type)
++  const FastApiCallParameters* CloneFastApiCallParameters(
++      const FastApiCallParameters* original) {
++    Zone* zone = __ graph_zone();
++    // Create a new ZoneVector in the new zone and copy elements.
++    FastApiCallFunctionVector new_c_functions(zone);
++    new_c_functions.reserve(original->c_functions.size());
++    for (const auto& func : original->c_functions) {
++      new_c_functions.push_back(func);
++    }
++    return zone->New<FastApiCallParameters>(new_c_functions,
++                                            original->resolution_result);
++  }
++};
++
++}  // namespace v8::internal::compiler::turboshaft
++
++#include "src/compiler/turboshaft/undef-assembler-macros.inc"
++
++#endif  // V8_COMPILER_TURBOSHAFT_GRAPH_ZONE_COMPACTION_REDUCER_H_
 diff --git a/src/compiler/turboshaft/graph.h b/src/compiler/turboshaft/graph.h
 index 1c0d3eb..7bd943a 100644
 --- a/src/compiler/turboshaft/graph.h
