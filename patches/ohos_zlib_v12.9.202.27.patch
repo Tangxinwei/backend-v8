@@ -1,0 +1,13 @@
+diff --git a/BUILD.gn b/BUILD.gn
+index 378bd0d..95c2106 100644
+--- a/BUILD.gn
++++ b/BUILD.gn
+@@ -72,7 +72,7 @@ if ((current_cpu == "arm" || current_cpu == "arm64") &&
+     !(is_win && !is_clang)) {
+   # TODO(richard.townsend@arm.com): Optimizations temporarily disabled for
+   # Windows on Arm MSVC builds, see http://crbug.com/v8/10012.
+-  if (arm_use_neon) {
++  if (arm_use_neon && !is_ohos) {
+     use_arm_neon_optimizations = true
+   }
+ }
